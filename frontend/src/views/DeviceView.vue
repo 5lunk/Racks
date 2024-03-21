@@ -175,8 +175,8 @@
           <template v-else>
             Software version:
           </template>
+          <br>
         </template>
-        <br>
         <template v-if="devicesWithPorts.includes(device.type)">
           <template v-if="device.portsAmount">
             Port capacity:
@@ -184,11 +184,11 @@
               {{device.portsAmount}}
             </text>
           </template>
-          <template>
+          <template v-else>
             Port capacity:
           </template>
+          <br>
         </template>
-        <br>
         Serial number:
         <text class="text-slate-500">
           {{device.serialNumber}}
