@@ -29,22 +29,68 @@ class RoomTest extends TestCase
     */
     public function testIsNameValid()
     {
-        $this->attributes->setValue($this->room, ['name' => 'test name']);
+        // Not valid (not unique)
         $namesList1 = ['other name', 'third name', 'test name'];
-        $namesList2 = ['Timmy!'];
 
-        $this->assertFalse($this->room->isNameValid($namesList1));
+        $roomMock = $this->getMockBuilder(Room::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
 
-        $this->assertTrue($this->room->isNameValid($namesList2));
+        $roomMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('test name');
+
+        $this->assertFalse(
+            $roomMock->isNameValid($namesList1)
+        );
+
+        // Valid
+        $namesList1 = ['Timmy!'];
+
+        $roomMock = $this->getMockBuilder(Room::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $roomMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('test name');
+
+        $this->assertTrue(
+            $roomMock->isNameValid($namesList1)
+        );
     }
 
     public function testIsNameChanging()
     {
-        $this->attributes->setValue($this->room, ['name' => 'test name']);
+        // Changing
+        $newName1 = 'test name';
 
-        $this->assertFalse($this->room->IsNameChanging('test name'));
+        $roomMock = $this->getMockBuilder(Room::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
 
-        $this->assertTrue($this->room->IsNameChanging('other name'));
+        $roomMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('not test name');
+
+        $this->assertTrue(
+            $roomMock->isNameChanging($newName1)
+        );
+
+        // Not changing
+        $newName2 = 'Timmy!';
+
+        $roomMock = $this->getMockBuilder(Room::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $roomMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('Timmy!');
+
+        $this->assertFalse(
+            $roomMock->isNameChanging($newName2)
+        );
     }
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +193,14 @@ class RoomTest extends TestCase
 
         $this->room->setBuildingId(null);
         $this->assertNull($this->attributes->getValue($this->room)['building_id']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$buildingId <= 0');
+        $this->room->setBuildingId(-1);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$buildingId <= 0');
+        $this->room->setBuildingId(0);
     }
 
     public function testGetDepartmentId()
@@ -171,6 +225,14 @@ class RoomTest extends TestCase
 
         $this->room->setDepartmentId(null);
         $this->assertNull($this->attributes->getValue($this->room)['department_id']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$departmentId <= 0');
+        $this->room->setDepartmentId(-1);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$departmentId <= 0');
+        $this->room->setDepartmentId(0);
     }
 
     public function testGetBuildingFloor()
@@ -243,6 +305,14 @@ class RoomTest extends TestCase
 
         $this->room->setNumberOfRackSpaces(null);
         $this->assertNull($this->attributes->getValue($this->room)['number_of_rack_spaces']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$numberOfRackSpaces <= 0');
+        $this->room->setNumberOfRackSpaces(-1);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$numberOfRackSpaces <= 0');
+        $this->room->setNumberOfRackSpaces(0);
     }
 
     public function testGetArea()
@@ -267,6 +337,14 @@ class RoomTest extends TestCase
 
         $this->room->setArea(null);
         $this->assertNull($this->attributes->getValue($this->room)['area']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$area <= 0');
+        $this->room->setArea(-1);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$area <= 0');
+        $this->room->setArea(0);
     }
 
     public function testGetResponsible()
@@ -295,9 +373,9 @@ class RoomTest extends TestCase
 
     public function testGetCoolingSystem()
     {
-        $this->attributes->setValue($this->room, ['cooling_system' => 'cooling system']);
+        $this->attributes->setValue($this->room, ['cooling_system' => 'Centralized']);
         $this->assertEquals(
-            'cooling system',
+            'Centralized',
             $this->room->getCoolingSystem()
         );
 
@@ -307,21 +385,25 @@ class RoomTest extends TestCase
 
     public function testSetCoolingSystem()
     {
-        $this->room->setCoolingSystem('cooling system');
+        $this->room->setCoolingSystem('Centralized');
         $this->assertEquals(
-            'cooling system',
+            'Centralized',
             $this->attributes->getValue($this->room)['cooling_system']
         );
 
         $this->room->setCoolingSystem(null);
         $this->assertNull($this->attributes->getValue($this->room)['cooling_system']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$coolingSystem is not in RoomCoolingSystemEnum');
+        $this->room->setCoolingSystem('Oops');
     }
 
     public function testGetFireSuppressionSystem()
     {
-        $this->attributes->setValue($this->room, ['fire_suppression_system' => 'fire suppression system']);
+        $this->attributes->setValue($this->room, ['fire_suppression_system' => 'Individual']);
         $this->assertEquals(
-            'fire suppression system',
+            'Individual',
             $this->room->getFireSuppressionSystem()
         );
 
@@ -331,14 +413,18 @@ class RoomTest extends TestCase
 
     public function testSetFireSuppressionSystem()
     {
-        $this->room->setFireSuppressionSystem('fire suppression system');
+        $this->room->setFireSuppressionSystem('Individual');
         $this->assertEquals(
-            'fire suppression system',
+            'Individual',
             $this->attributes->getValue($this->room)['fire_suppression_system']
         );
 
         $this->room->setFireSuppressionSystem(null);
         $this->assertNull($this->attributes->getValue($this->room)['fire_suppression_system']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$fireSuppressionSystem is not in RoomFireSuppressionSystemEnum');
+        $this->room->setFireSuppressionSystem('Oops');
     }
 
     public function testGetAccessIsOpen()

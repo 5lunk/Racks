@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\Device;
+use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 use App\Models\Rack;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
@@ -18,6 +18,7 @@ class RackTest extends TestCase
     {
         parent::setUp();
 
+        // Mock for Getters and Setters
         $this->rack = $this->getMockBuilder(Rack::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
@@ -32,14 +33,573 @@ class RackTest extends TestCase
     | Business rules
     |--------------------------------------------------------------------------
     */
-    public function testUpdateBusyUnits()
+
+    public function testAddNewBusyUnits()
     {
+        // Front side use-case
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([1, 2, 3]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->exactly(3))
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->exactly(2))
+            ->method('getLocation')
+            ->willReturn(false);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(false)
+            ->willReturn([7, 8, 9, 10]);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('updateBusyUnits')
+            ->with([7, 8, 9, 10, 1, 2, 3])
+            ->willReturn($busyUnitsMock);
+
+        $this->assertSame(
+            $busyUnitsMock,
+            $rackMock->addNewBusyUnits($deviceMock)
+        );
+
+        // Back side use-case
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([2, 3, 4]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->exactly(3))
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->exactly(2))
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([8, 9, 10, 11]);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('updateBusyUnits')
+            ->with([8, 9, 10, 11, 2, 3, 4])
+            ->willReturn($busyUnitsMock);
+
+        $this->assertSame(
+            $busyUnitsMock,
+            $rackMock->addNewBusyUnits($deviceMock)
+        );
+
+    }
+
+    public function testDeleteOldBusyUnits()
+    {
+        // Front side use-case
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([11, 12]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->exactly(3))
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->exactly(2))
+            ->method('getLocation')
+            ->willReturn(false);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(false)
+            ->willReturn([7, 8, 9, 10, 11, 12]);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('updateBusyUnits')
+            ->with([7, 8, 9, 10])
+            ->willReturn($busyUnitsMock);
+
+        $this->assertSame(
+            $busyUnitsMock,
+            $rackMock->deleteOldBusyUnits($deviceMock)
+        );
+
+        // Back side use-case
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([13, 14]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->exactly(3))
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->exactly(2))
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([10, 11, 12, 13, 14, 15]);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('updateBusyUnits')
+            ->with([10, 11, 12, 5 => 15])
+            ->willReturn($busyUnitsMock);
+
+        $this->assertSame(
+            $busyUnitsMock,
+            $rackMock->deleteOldBusyUnits($deviceMock)
+        );
+    }
+
+    public function testIsDeviceAddable()
+    {
+        // Front side device addable
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([1, 2, 3]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(false);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(false)
+            ->willReturn([7, 8, 9, 10]);
+
+        $this->assertTrue(
+            $rackMock->isDeviceAddable($deviceMock)
+        );
+
+        // Front side device not addable
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([1, 2, 3]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(false);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(false)
+            ->willReturn([1, 7, 8, 9, 10]);
+
+        $this->assertFalse(
+            $rackMock->isDeviceAddable($deviceMock)
+        );
+
+        // Back side device addable
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([22, 23]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([17, 18, 19, 21]);
+
+        $this->assertTrue(
+            $rackMock->isDeviceAddable($deviceMock)
+        );
+
+        // Back side device not addable
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([20, 21]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([17, 18, 19, 21]);
+
+        $this->assertFalse(
+            $rackMock->isDeviceAddable($deviceMock)
+        );
+    }
+
+    public function testHasDeviceUnits()
+    {
+        // Full units intersection
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([4, 5, 6]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getAmount'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getAmount')
+            ->willReturn(20);
+
+        $this->assertTrue(
+            $rackMock->hasDeviceUnits($deviceMock)
+        );
+
+        // Partial units intersection
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([20, 21, 22]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getAmount'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getAmount')
+            ->willReturn(20);
+
+        $this->assertFalse(
+            $rackMock->hasDeviceUnits($deviceMock)
+        );
+
+        // 0 units intersection
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([25, 26]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getAmount'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getAmount')
+            ->willReturn(20);
+
+        $this->assertFalse(
+            $rackMock->hasDeviceUnits($deviceMock)
+        );
+    }
+
+    public function testIsDeviceMovingValid()
+    {
+        // Valid without moving intersection
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([4, 5]));
+
+        $deviceUpdatingMock = $this->createMock(DeviceEntity::class);
+
+        $deviceUpdatingMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([6, 7]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([1, 2, 3, 17, 18, 19, 21]);
+
+        $this->assertTrue(
+            $rackMock->isDeviceMovingValid($deviceMock, $deviceUpdatingMock)
+        );
+
+        // Valid with moving intersection
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([4, 5, 6]));
+
+        $deviceUpdatingMock = $this->createMock(DeviceEntity::class);
+
+        $deviceUpdatingMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([5, 6, 7]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([1, 2, 3, 17, 18, 19, 21]);
+
+        $this->assertTrue(
+            $rackMock->isDeviceMovingValid($deviceMock, $deviceUpdatingMock)
+        );
+
+        // Not valid
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([4, 5, 6]));
+
+        $deviceUpdatingMock = $this->createMock(DeviceEntity::class);
+
+        $deviceUpdatingMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([5, 6, 7]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([1, 2, 3, 7, 8, 9, 17, 18, 19, 21]);
+
+        $this->assertFalse(
+            $rackMock->isDeviceMovingValid($deviceMock, $deviceUpdatingMock)
+        );
+
+        // Not valid, full intersection with busy units
+        $deviceMock = $this->createMock(DeviceEntity::class);
+
+        $deviceMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([4, 5, 6]));
+
+        $deviceUpdatingMock = $this->createMock(DeviceEntity::class);
+
+        $deviceUpdatingMock->expects($this->once())
+            ->method('getUnits')
+            ->willReturn(new DeviceUnitsValueObject([17, 18, 19]));
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getBusyUnits'])
+            ->getMock();
+
+        $busyUnitsMock = $this->createMock(RackBusyUnitsValueObject::class);
+
+        $rackMock->expects($this->once())
+            ->method('getBusyUnits')
+            ->willReturn($busyUnitsMock);
+
+        $deviceMock->expects($this->once())
+            ->method('getLocation')
+            ->willReturn(true);
+
+        $busyUnitsMock->expects($this->once())
+            ->method('getUnitsForSide')
+            ->with(true)
+            ->willReturn([1, 2, 3, 7, 8, 9, 17, 18, 19, 21]);
+
+        $this->assertFalse(
+            $rackMock->isDeviceMovingValid($deviceMock, $deviceUpdatingMock)
+        );
+    }
+
+    public function testIsNameValid()
+    {
+        // Not valid (not unique)
+        $namesList1 = ['other name', 'third name', 'test name'];
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('test name');
+
+        $this->assertFalse(
+            $rackMock->isNameValid($namesList1)
+        );
+
+        // Valid
+        $namesList2 = ['Timmy!'];
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('test name');
+
+        $this->assertTrue(
+            $rackMock->isNameValid($namesList2)
+        );
+    }
+
+    public function testIsNameChanging()
+    {
+        // Changing
+        $newName1 = 'test name';
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('not test name');
+
+        $this->assertTrue(
+            $rackMock->isNameChanging($newName1)
+        );
+
+        // Not changing
+        $newName2 = 'Timmy!';
+
+        $rackMock = $this->getMockBuilder(Rack::class)
+            ->onlyMethods(['getName'])
+            ->getMock();
+
+        $rackMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('Timmy!');
+
+        $this->assertFalse(
+            $rackMock->isNameChanging($newName2)
+        );
+    }
+    /*
+    |--------------------------------------------------------------------------
+    */
+
+    public function testGetBusyUnits()
+    {
+        // Main throw
+        $this->attributes->setValue(
+
+            $this->rack, ['busy_units' => 1234]
+        );
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$busyUnits dont match any allowed type');
+        $this->rack->getBusyUnits();
+
         // Testing injected RackBusyUnitsValueObject via app()->make()
         $this->attributes->setValue(
             // Set dummy value
             $this->rack, ['busy_units' => '{"front": [], "back": []}']
         );
-        $this->rack->updateBusyUnits([21, 22, 23], true);
 
         $busyUnitsMock = $this->getMockBuilder(RackBusyUnitsValueObject::class)
             ->onlyMethods(['toArray'])
@@ -50,489 +610,11 @@ class RackTest extends TestCase
         $this->app->bind(RackBusyUnitsValueObject::class, function () use ($busyUnitsMock) {
             return $busyUnitsMock;
         });
-
         $this->assertEquals(
             ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
             $this->rack->getBusyUnits()->toArray(),
         );
 
-        // Unbind mock
-        $this->app->offsetUnset(RackBusyUnitsValueObject::class);
-
-        // Backside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [11, 12, 13], "back": [23, 24, 25]}']
-        );
-        $this->rack->updateBusyUnits([1, 2, 3], true);
-        $this->assertEquals(
-            ['front' => [11, 12, 13], 'back' => [1, 2, 3]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-
-        // Frontside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [11, 12, 13], "back": [23, 24, 25]}']
-        );
-        $this->rack->updateBusyUnits([1, 2, 3], false);
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [23, 24, 25]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-    }
-
-    public function testAddNewBusyUnits()
-    {
-        // Frontside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [3, 4, 5]}']
-        );
-        $this->rack->addNewBusyUnits([10, 11], false);
-        $this->assertEquals(
-            ['front' => [1, 2, 3, 10, 11], 'back' => [3, 4, 5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-
-        // Backside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [3, 4, 5]}']
-        );
-        $this->rack->addNewBusyUnits([10, 11], true);
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [3, 4, 5, 10, 11]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-    }
-
-    public function testDeleteOldBusyUnits()
-    {
-        // Frontside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [3, 4, 5]}']
-        );
-        $this->rack->deleteOldBusyUnits([1, 2], false);
-        $this->assertEquals(
-            ['front' => [3], 'back' => [3, 4, 5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-
-        // Backside
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [3, 4, 5]}']
-        );
-        $this->rack->deleteOldBusyUnits([3, 4], true);
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-    }
-
-    public function testIsDeviceAddable()
-    {
-        // Frontside, device with units 9,10
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([9, 10]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(false);
-        $this->rack->isDeviceAddable($deviceMock);
-        $this->assertTrue(
-            $this->rack->isDeviceAddable($deviceMock)
-        );
-
-        // Backside, device with units 9,10
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([9, 10]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(true);
-        $this->rack->isDeviceAddable($deviceMock);
-        $this->assertFalse(
-            $this->rack->isDeviceAddable($deviceMock)
-        );
-
-        // Backside, device with units 3,4
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([3, 4]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(true);
-        $this->rack->isDeviceAddable($deviceMock);
-        $this->assertTrue(
-            $this->rack->isDeviceAddable($deviceMock)
-        );
-
-        // Frontside, device with units 3,4
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([3, 4]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(false);
-        $this->rack->isDeviceAddable($deviceMock);
-        $this->assertFalse(
-            $this->rack->isDeviceAddable($deviceMock)
-        );
-    }
-
-    public function testIsDeviceMovingValid()
-    {
-        // Frontside, device with 2,3 units moving to 4,5 on the same side
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([2, 3]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(false);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([4, 5]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertTrue(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-
-        // Frontside, device with 2,3 units moving to 3,4
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([2, 3]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(false);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([3, 4]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertTrue(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-
-        // Frontside, device with 2,3 units moving to 1,2
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([2, 3]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(false);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([1, 2]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertFalse(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-
-        // Backside, device with 7,8 units moving to 4,5,6 on the same side
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([7, 8]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(true);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([4, 5, 6]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertTrue(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-
-        // Backside, device with 7,8 units moving to 6,7
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([7, 8]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(true);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([6, 7]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertTrue(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-
-        // Frontside, device with 7,8 units moving to 8,9,10
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [7, 8, 9]}']
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([7, 8]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits', 'getLocation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $deviceMock->method('getLocation')
-            ->willReturn(true);
-
-        $updateDeviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceUnitsMock->method('toArray')
-            ->willReturn([8, 9, 10]);
-        $updateDeviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $updateDeviceMock->method('getUnits')
-            ->willReturn($updateDeviceUnitsMock);
-
-        $this->assertFalse(
-            $this->rack->isDeviceMovingValid($deviceMock, $updateDeviceMock)
-        );
-    }
-
-    public function testHasDeviceUnits()
-    {
-        // Device with 19,20 units, rack amount 22
-        $this->attributes->setValue(
-            $this->rack, ['amount' => 22]
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([19, 20]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $this->assertTrue(
-            $this->rack->hasDeviceUnits($deviceMock)
-        );
-
-        // Device with 21, 22, 23 units, rack amount 22
-        $this->attributes->setValue(
-            $this->rack, ['amount' => 22]
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([21, 22, 23]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $this->assertFalse(
-            $this->rack->hasDeviceUnits($deviceMock)
-        );
-
-        // Device with 24, 25, 26 units, rack amount 22
-        $this->attributes->setValue(
-            $this->rack, ['amount' => 22]
-        );
-        $deviceUnitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceUnitsMock->method('toArray')
-            ->willReturn([24, 25, 26]);
-        $deviceMock = $this->getMockBuilder(Device::class)
-            ->onlyMethods(['getUnits'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $deviceMock->method('getUnits')
-            ->willReturn($deviceUnitsMock);
-        $this->assertFalse(
-            $this->rack->hasDeviceUnits($deviceMock)
-        );
-    }
-
-    public function testIsNameValid()
-    {
-        $this->attributes->setValue($this->rack, ['name' => 'test name']);
-        $namesList1 = ['other name', 'third name', 'test name'];
-        $namesList2 = ['Timmy!'];
-
-        $this->assertFalse($this->rack->isNameValid($namesList1));
-
-        $this->assertTrue($this->rack->isNameValid($namesList2));
-    }
-
-    public function testIsNameChanging()
-    {
-        $this->attributes->setValue($this->rack, ['name' => 'test name']);
-
-        $this->assertFalse($this->rack->IsNameChanging('test name'));
-
-        $this->assertTrue($this->rack->IsNameChanging('other name'));
-    }
-    /*
-    |--------------------------------------------------------------------------
-    */
-
-    public function testGetBusyUnits()
-    {
-        // Testing injected RackBusyUnitsValueObject via app()->make()
-        $this->attributes->setValue(
-            // Set dummy value
-            $this->rack, ['busy_units' => '{"front": [], "back": []}']
-        );
         $busyUnitsMock = $this->getMockBuilder(RackBusyUnitsValueObject::class)
             ->onlyMethods(['toArray'])
             ->setConstructorArgs([['front' => [1, 2, 3], 'back' => [3, 4, 5]]])
@@ -556,6 +638,15 @@ class RackTest extends TestCase
             $this->rack->getBusyUnits()->toArray(),
         );
 
+        // $busyUnits is an array
+        $this->attributes->setValue(
+            $this->rack, ['busy_units' => ['front' => [1, 2, 3], 'back' => [3, 4, 5]]]
+        );
+        $this->assertEquals(
+            ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
+            $this->rack->getBusyUnits()->toArray(),
+        );
+
         // Unbind mock
         $this->app->offsetUnset(RackBusyUnitsValueObject::class);
 
@@ -568,14 +659,13 @@ class RackTest extends TestCase
             $this->rack->getBusyUnits()->toArray(),
         );
 
-        // default
+        // $busyUnits is not JSONable
         $this->attributes->setValue(
-            $this->rack, ['busy_units' => 21]
+            $this->rack, ['busy_units' => 'fytnfgsfghsfghfhgb']
         );
-        $this->assertEquals(
-            ['front' => [], 'back' => []],
-            $this->rack->getBusyUnits()->toArray(),
-        );
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$busyUnits json decode failed');
+        $this->rack->getBusyUnits();
     }
 
     public function testSetUpdatedBy()
@@ -612,6 +702,14 @@ class RackTest extends TestCase
 
         $this->rack->setPowerSockets(null);
         $this->assertNull($this->attributes->getValue($this->rack)['power_sockets']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerSockets <= 0');
+        $this->rack->setPowerSockets(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerSockets <= 0');
+        $this->rack->setPowerSockets(0);
     }
 
     public function testGetLinkToDocs()
@@ -628,14 +726,14 @@ class RackTest extends TestCase
 
     public function testGetHeight()
     {
-        $this->attributes->setValue($this->rack, ['link_to_docs' => 'link']);
+        $this->attributes->setValue($this->rack, ['height' => 12]);
         $this->assertEquals(
-            'link',
-            $this->rack->getLinkToDocs()
+            12,
+            $this->rack->getHeight()
         );
 
-        $this->attributes->setValue($this->rack, ['link_to_docs' => null]);
-        $this->assertNull($this->rack->getLinkToDocs());
+        $this->attributes->setValue($this->rack, ['height' => null]);
+        $this->assertNull($this->rack->getHeight());
     }
 
     public function testGetHasExternalUps()
@@ -696,6 +794,14 @@ class RackTest extends TestCase
 
         $this->rack->setUnitWidth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['unit_width']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$unitWidth <= 0');
+        $this->rack->setUnitWidth(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$unitWidth <= 0');
+        $this->rack->setUnitWidth(0);
     }
 
     public function testGetUnitWidth()
@@ -744,6 +850,14 @@ class RackTest extends TestCase
 
         $this->rack->setDepth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['depth']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$depth <= 0');
+        $this->rack->setDepth(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$depth <= 0');
+        $this->rack->setDepth(0);
     }
 
     public function testGetPlaceType()
@@ -861,6 +975,14 @@ class RackTest extends TestCase
 
         $this->rack->setRoomId(null);
         $this->assertNull($this->attributes->getValue($this->rack)['room_id']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$roomId <= 0');
+        $this->rack->setRoomId(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$roomId <= 0');
+        $this->rack->setRoomId(0);
     }
 
     public function testSetMaxLoad()
@@ -873,6 +995,14 @@ class RackTest extends TestCase
 
         $this->rack->setMaxLoad(null);
         $this->assertNull($this->attributes->getValue($this->rack)['max_load']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$maxLoad <= 0');
+        $this->rack->setMaxLoad(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$maxLoad <= 0');
+        $this->rack->setMaxLoad(0);
     }
 
     public function testSetHeight()
@@ -885,6 +1015,14 @@ class RackTest extends TestCase
 
         $this->rack->setHeight(null);
         $this->assertNull($this->attributes->getValue($this->rack)['height']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$height <= 0');
+        $this->rack->setHeight(-6);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$height <= 0');
+        $this->rack->setHeight(0);
     }
 
     public function testSetUnitDepth()
@@ -897,6 +1035,14 @@ class RackTest extends TestCase
 
         $this->rack->setUnitDepth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['unit_depth']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$unitDepth <= 0');
+        $this->rack->setUnitDepth(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$unitDepth <= 0');
+        $this->rack->setUnitDepth(0);
     }
 
     public function testGetPowerSockets()
@@ -921,6 +1067,10 @@ class RackTest extends TestCase
 
         $this->rack->setType(null);
         $this->assertNull($this->attributes->getValue($this->rack)['type']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$type is not in RackTypeEnum');
+        $this->rack->setType('Oops');
     }
 
     public function testSetBusyUnits()
@@ -985,6 +1135,14 @@ class RackTest extends TestCase
 
         $this->rack->setDepartmentId(null);
         $this->assertNull($this->attributes->getValue($this->rack)['department_id']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$departmentId <= 0');
+        $this->rack->setDepartmentId(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$departmentId <= 0');
+        $this->rack->setDepartmentId(0);
     }
 
     public function testSetWidth()
@@ -997,6 +1155,14 @@ class RackTest extends TestCase
 
         $this->rack->setWidth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['width']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$width <= 0');
+        $this->rack->setWidth(-3);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$width <= 0');
+        $this->rack->setWidth(0);
     }
 
     public function testGetRoomId()
@@ -1174,6 +1340,10 @@ class RackTest extends TestCase
 
         $this->rack->setPlaceType(null);
         $this->assertNull($this->attributes->getValue($this->rack)['place_type']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$placeType is not in RackPlaceTypeEnum');
+        $this->rack->setPlaceType('Oops');
     }
 
     public function testSetOldName()
@@ -1231,6 +1401,14 @@ class RackTest extends TestCase
 
         $this->rack->setPowerSocketsUps(null);
         $this->assertNull($this->attributes->getValue($this->rack)['power_sockets_ups']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerSocketsUps <= 0');
+        $this->rack->setPowerSocketsUps(-10);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerSocketsUps <= 0');
+        $this->rack->setPowerSocketsUps(0);
     }
 
     public function testSetHasCooler()
@@ -1315,6 +1493,14 @@ class RackTest extends TestCase
 
         $this->rack->setAmount(null);
         $this->assertNull($this->attributes->getValue($this->rack)['amount']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$amount <= 0');
+        $this->rack->setAmount(-2);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$amount <= 0');
+        $this->rack->getAmount(0);
     }
 
     public function testSetFrame()
@@ -1327,6 +1513,10 @@ class RackTest extends TestCase
 
         $this->rack->setFrame(null);
         $this->assertNull($this->attributes->getValue($this->rack)['frame']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$frame is not in RackFrameEnum');
+        $this->rack->setFrame('Oops');
     }
 
     public function testGetDescription()
