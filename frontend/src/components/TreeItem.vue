@@ -18,7 +18,6 @@
       :id="item.id"
       :name="item.site_name"
       :isOpen="isOpen"
-      :deleteItem="deleteItem"
       v-on:click="toggle()"
     />
     <BuildingTreeItem
@@ -26,7 +25,6 @@
       :id="item.id"
       :name="item.building_name"
       :isOpen="isOpen"
-      :deleteItem="deleteItem"
       v-on:click="toggle()"
     />
     <RoomTreeItem
@@ -34,7 +32,6 @@
       :id="item.id"
       :name="item.room_name"
       :isOpen="isOpen"
-      :deleteItem="deleteItem"
       v-on:click="toggle()"
     />
     <RackTreeItem
