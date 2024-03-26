@@ -2,6 +2,8 @@
 
 namespace App\Domain\Interfaces\RackInterfaces;
 
+use App\Models\ValueObjects\RackBusyUnitsValueObject;
+
 /**
  * Rack busy units
  */
@@ -12,6 +14,13 @@ interface RackBusyUnitsInterface
      * @return array<int> Busy units for side
      */
     public function getUnitsForSide(bool $side): array;
+
+    /**
+     * @param  array<int>  $updatedBusyUnitsForSide
+     * @param  bool  $side
+     * @return RackBusyUnitsValueObject
+     */
+    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject;
 
     /**
      * @return array{
@@ -30,4 +39,15 @@ interface RackBusyUnitsInterface
      * @return void
      */
     public function setBack(): void;
+
+    /**
+     * @param  array{
+     *    front: array<int>,
+     *    back: array<int>
+     * }  $busyUnits
+     * @return void
+     *
+     * @throws \Exception $busyUnits is not valid
+     */
+    public function validateBusyUnits(array $busyUnits): void;
 }

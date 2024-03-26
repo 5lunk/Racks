@@ -58,10 +58,7 @@ class DeleteDeviceInteractor implements DeleteDeviceInputPort
             $rack = $this->rackRepository->getById($rack->getId());
 
             // Delete old units from rack
-            $rack->deleteOldBusyUnits(
-                $device->getUnits()->toArray(),
-                $device->getLocation()
-            );
+            $newBusyUnits = $rack->deleteOldBusyUnits($device);
 
             $this->rackRepository->updateBusyUnits($rack);
 

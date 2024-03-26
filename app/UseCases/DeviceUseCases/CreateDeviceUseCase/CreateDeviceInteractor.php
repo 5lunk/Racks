@@ -79,10 +79,7 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
             }
 
             // Update rack units
-            $rack->addNewBusyUnits(
-                $request->getUnits(),
-                $device->getLocation()
-            );
+            $rack->addNewBusyUnits($device);
 
             $this->rackRepository->updateBusyUnits($rack);
 

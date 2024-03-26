@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
+use App\Models\Enums\RoomCoolingSystemEnum;
+use App\Models\Enums\RoomFireSuppressionSystemEnum;
 use App\Models\ValueObjects\RoomAttributesValueObject;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -195,9 +197,14 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  int|null  $numberOfRackSpaces
      * @return void
+     *
+     * @throws \DomainException $numberOfRackSpaces <= 0
      */
     public function setNumberOfRackSpaces(?int $numberOfRackSpaces): void
     {
+        if (! is_null($numberOfRackSpaces) && $numberOfRackSpaces <= 0) {
+            throw new \DomainException('$numberOfRackSpaces <= 0');
+        }
         $this->attributes['number_of_rack_spaces'] = $numberOfRackSpaces;
     }
 
@@ -212,9 +219,14 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  int|null  $area
      * @return void
+     *
+     * @throws \DomainException $area <= 0'
      */
     public function setArea(?int $area): void
     {
+        if (! is_null($area) && $area <= 0) {
+            throw new \DomainException('$area <= 0');
+        }
         $this->attributes['area'] = $area;
     }
 
@@ -238,9 +250,15 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  string|null  $coolingSystem
      * @return void
+     *
+     * @throws \DomainException $coolingSystem is not in RoomCoolingSystemEnum
      */
     public function setCoolingSystem(?string $coolingSystem): void
     {
+        if (! is_null($coolingSystem)
+            && ! in_array($coolingSystem, array_column(RoomCoolingSystemEnum::cases(), 'value'))) {
+            throw new \DomainException('$coolingSystem is not in RoomCoolingSystemEnum');
+        }
         $this->attributes['cooling_system'] = $coolingSystem;
     }
 
@@ -263,9 +281,15 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  string|null  $fireSuppressionSystem
      * @return void
+     *
+     * @throws \Exception $fireSuppressionSystem is not in RoomFireSuppressionSystemEnum
      */
     public function setFireSuppressionSystem(?string $fireSuppressionSystem): void
     {
+        if (! is_null($fireSuppressionSystem)
+            && ! in_array($fireSuppressionSystem, array_column(RoomFireSuppressionSystemEnum::cases(), 'value'))) {
+            throw new \DomainException('$fireSuppressionSystem is not in RoomFireSuppressionSystemEnum');
+        }
         $this->attributes['fire_suppression_system'] = $fireSuppressionSystem;
     }
 
@@ -314,9 +338,14 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  int|null  $buildingId
      * @return void
+     *
+     * @throws \DomainException $buildingId <= 0
      */
     public function setBuildingId(?int $buildingId): void
     {
+        if (! is_null($buildingId) && $buildingId <= 0) {
+            throw new \DomainException('$buildingId <= 0');
+        }
         $this->attributes['building_id'] = $buildingId;
     }
 
@@ -331,9 +360,14 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     /**
      * @param  int|null  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void
     {
+        if (! is_null($departmentId) && $departmentId <= 0) {
+            throw new \DomainException('$departmentId <= 0');
+        }
         $this->attributes['department_id'] = $departmentId;
     }
 

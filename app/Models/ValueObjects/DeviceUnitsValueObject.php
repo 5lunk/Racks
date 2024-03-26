@@ -3,6 +3,8 @@
 namespace App\Models\ValueObjects;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceUnitsInterface;
+use App\Http\Validators\Rules\DeviceUnitsRule;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Device units value object
@@ -17,10 +19,12 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
 
     /**
      * @param  array<int>  $units
+     *
+     * @throws \Exception $units is not valid
      */
-    public function __construct(array $units = [])
+    public function __construct(array $units)
     {
-        sort($units);
+        $this->validateUnits($units);
         $this->units = $units;
     }
 
@@ -30,5 +34,22 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
     public function toArray(): array
     {
         return $this->units;
+    }
+
+    /**
+     * @param  array<int>  $units
+     * @return void
+     *
+     * @throws \DomainException $units is not valid
+     */
+    public function validateUnits(array $units): void
+    {
+        sort($units);
+        $validator = Validator::make(['units' => $units], [
+            'units' => [new DeviceUnitsRule(), 'array'],
+        ]);
+        if ($validator->fails()) {
+            throw new \DomainException('$units is not valid');
+        }
     }
 }

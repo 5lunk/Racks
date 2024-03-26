@@ -3,6 +3,7 @@
 namespace App\Models\ValueObjects;
 
 use App\Domain\Interfaces\RackInterfaces\RackBusyUnitsInterface;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Value object for rack busy units data
@@ -32,9 +33,14 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
      *     front: array<int>,
      *     back: array<int>
      * }|array<null>  $busyUnits Busy units array
+     *
+     * @throws \DomainException $busyUnits is not valid
      */
     public function __construct(array $busyUnits)
     {
+        $this->validateBusyUnits($busyUnits);
+        sort($busyUnits['front']);
+        sort($busyUnits['back']);
         $this->busyUnits = $busyUnits;
         $this->setFront();
         $this->setBack();
@@ -65,6 +71,28 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
     }
 
     /**
+     * @param  array<int>  $updatedBusyUnitsForSide
+     * @param  bool  $side
+     * @return RackBusyUnitsValueObject
+     */
+    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject
+    {
+        sort($updatedBusyUnitsForSide);
+        if (! $side) {
+            $this->front = $updatedBusyUnitsForSide;
+        } else {
+            $this->back = $updatedBusyUnitsForSide;
+        }
+
+        $this->busyUnits = [
+            'front' => $this->front,
+            'back' => $this->back,
+        ];
+
+        return $this;
+    }
+
+    /**
      * @return void
      */
     public function setFront(): void
@@ -73,7 +101,6 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
             $this->busyUnits['front'] = [];
         }
         $front = $this->busyUnits['front'];
-        sort($front);
         $this->front = $front;
     }
 
@@ -86,7 +113,28 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
             $this->busyUnits['back'] = [];
         }
         $back = $this->busyUnits['back'];
-        sort($back);
         $this->back = $back;
+    }
+
+    /**
+     * @param  array{
+     *    front: array<int>,
+     *    back: array<int>
+     * }  $busyUnits
+     * @return void
+     *
+     * @throws \DomainException $busyUnits is not valid
+     */
+    public function validateBusyUnits(array $busyUnits): void
+    {
+        $validator = Validator::make($busyUnits, [
+            'front' => ['present', 'array'],
+            'front.*' => ['nullable', 'numeric', 'distinct', 'min:1'],
+            'back' => ['present', 'array'],
+            'back.*' => ['nullable', 'numeric', 'distinct', 'min:1'],
+        ]);
+        if ($validator->fails()) {
+            throw new \DomainException('$busyUnits is not valid');
+        }
     }
 }

@@ -77,10 +77,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             $rack = $this->rackRepository->getById($device->getRackId());
 
             // Delete old units from rack
-            $rack->deleteOldBusyUnits(
-                $device->getUnits()->toArray(),
-                $device->getLocation()
-            );
+            $rack->deleteOldBusyUnits($device);
 
             // Check device can be moved
             if (! $rack->isDeviceMovingValid($device, $deviceUpdating)) {
@@ -90,10 +87,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             }
 
             // Add new units to rack
-            $rack->addNewBusyUnits(
-                $request->getUnits(),
-                $request->getLocation()
-            );
+            $rack->addNewBusyUnits($deviceUpdating);
 
             $this->rackRepository->updateBusyUnits($rack);
 

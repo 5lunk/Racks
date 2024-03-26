@@ -3,6 +3,7 @@
 namespace App\Domain\Interfaces\RackInterfaces;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
+use App\Models\ValueObjects\RackBusyUnitsValueObject;
 
 /**
  * Business rules for Rack entity
@@ -75,34 +76,24 @@ interface RackBusinessRules
     public function isNameChanging(string $rackOldName): bool;
 
     /**
-     * Base update for rack busy units data.
-     * Basic method for updating occupied units based on rack side.
-     * Takes as an argument the complete updated list of units for one of the sides of the rack.
-     *
-     * Takes as arguments array of busy units and rack side, updates rack busy units for this side
-     *
-     * @param  array<int>  $updatedBusyUnitsForSide  Updated units array
-     * @param  bool  $side  Rack side (back - true)
-     */
-    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): void;
-
-    /**
      * Updating rack busy units data by adding new ones (add new device).
      *
-     * Takes as arguments array of new device units and rack side, add these units to rack busy units
+     * Takes as arguments new device instance, adds device units to rack busy units,
+     * returns rack busy units instance
      *
-     * @param  array<int>  $newUnits  New units array
-     * @param  bool  $side  Rack side (back - true)
+     * @param  DeviceEntity  $device  New device instance
+     * @return RackBusyUnitsValueObject
      */
-    public function addNewBusyUnits(array $newUnits, bool $side): void;
+    public function addNewBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject;
 
     /**
      * Updating rack busy units data by deleting units (delete device)
      *
-     * Takes as arguments array of old device units and rack side, delete these units from rack busy units
+     * Takes as arguments deleted device instance, deletes device units from rack busy units,
+     * returns rack busy units instance
      *
-     * @param  array<int>  $oldUnits  Old units array
-     * @param  bool  $side  Rack side (back - true)
+     * @param  DeviceEntity  $device  Deleted device instance
+     * @return RackBusyUnitsValueObject
      */
-    public function deleteOldBusyUnits(array $oldUnits, bool $side): void;
+    public function deleteOldBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject;
 }

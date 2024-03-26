@@ -189,9 +189,15 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  string|null  $type
      * @return void
+     *
+     * @throws \DomainException $type is not in DeviceTypeEnum
      */
     public function setType(?string $type): void
     {
+        if (! is_null($type)
+            && ! in_array($type, array_column(DeviceTypeEnum::cases(), 'value'))) {
+            throw new \DomainException('$type is not in DeviceTypeEnum');
+        }
         $this->attributes['type'] = $type;
     }
 
@@ -206,9 +212,15 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  string|null  $status
      * @return void
+     *
+     * @throws \DomainException $status is not in DeviceStatusEnum
      */
     public function setStatus(?string $status): void
     {
+        if (! is_null($status)
+            && ! in_array($status, array_column(DeviceStatusEnum::cases(), 'value'))) {
+            throw new \DomainException('$status is not in DeviceStatusEnum');
+        }
         $this->attributes['status'] = $status;
     }
 
@@ -257,9 +269,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $stack
      * @return void
+     *
+     * @throws \DomainException $stack <= 0
      */
     public function setStack(?int $stack): void
     {
+        if (! is_null($stack) && $stack <= 0) {
+            throw new \DomainException('$stack <= 0');
+        }
         $this->attributes['stack'] = $stack;
     }
 
@@ -274,9 +291,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $portsAmount
      * @return void
+     *
+     * @throws \DomainException $portsAmount <= 0
      */
     public function setPortsAmount(?int $portsAmount): void
     {
+        if (! is_null($portsAmount) && $portsAmount <= 0) {
+            throw new \DomainException('$portsAmount <= 0');
+        }
         $this->attributes['ports_amount'] = $portsAmount;
     }
 
@@ -308,9 +330,15 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  string|null  $powerType
      * @return void
+     *
+     * @throws \DomainException $powerType is not in DevicePowerTypeEnum
      */
     public function setPowerType(?string $powerType): void
     {
+        if (! is_null($powerType)
+            && ! in_array($powerType, array_column(DevicePowerTypeEnum::cases(), 'value'))) {
+            throw new \DomainException('$powerType is not in DevicePowerTypeEnum');
+        }
         $this->attributes['power_type'] = $powerType;
     }
 
@@ -325,9 +353,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $powerW
      * @return void
+     *
+     * @throws \DomainException $powerW <= 0
      */
     public function setPowerW(?int $powerW): void
     {
+        if (! is_null($powerW) && $powerW <= 0) {
+            throw new \DomainException('$powerW <= 0');
+        }
         $this->attributes['power_w'] = $powerW;
     }
 
@@ -342,9 +375,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $powerV
      * @return void
+     *
+     * @throws \DomainException $powerV <= 0
      */
     public function setPowerV(?int $powerV): void
     {
+        if (! is_null($powerV) && $powerV <= 0) {
+            throw new \DomainException('$powerV <= 0');
+        }
         $this->attributes['power_v'] = $powerV;
     }
 
@@ -359,9 +397,15 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  string|null  $powerACDC
      * @return void
+     *
+     * @throws \DomainException $powerACDC is not in DevicePowerACDCEnum
      */
     public function setPowerACDC(?string $powerACDC): void
     {
+        if (! is_null($powerACDC)
+            && ! in_array($powerACDC, array_column(DevicePowerACDCEnum::cases(), 'value'))) {
+            throw new \DomainException('$powerACDC is not in DevicePowerACDCEnum');
+        }
         $this->attributes['power_ac_dc'] = $powerACDC;
     }
 
@@ -522,22 +566,24 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
      * @return DeviceUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException $units json decode failed
+     * @throws \DomainException $units not match any possible type
      */
     public function getUnits(): DeviceUnitsValueObject
     {
         $units = $this->attributes['units'];
-        switch ($units) {
-            case is_string($units):
-                $unitsArray = json_decode($units);
-                break;
-            case is_array($units):
-                $unitsArray = $units;
-                break;
-            case $units instanceof DeviceUnitsValueObject:
-                $unitsArray = $units->toArray();
-                break;
-            default:
-                $unitsArray = [];
+        if (is_string($units)) {
+            try {
+                $unitsArray = json_decode($units, true, 512, JSON_THROW_ON_ERROR);
+            } catch (\Exception $e) {
+                throw new \DomainException('$units json decode failed');
+            }
+        } elseif ($units instanceof DeviceUnitsValueObject) {
+            $unitsArray = $units->toArray();
+        } elseif (is_array($units)) {
+            $unitsArray = $units;
+        } else {
+            throw new \DomainException('$units not match any possible type');
         }
 
         return App()->makeWith(DeviceUnitsValueObject::class, ['units' => $unitsArray]);
@@ -563,9 +609,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $rackId
      * @return void
+     *
+     * @throws \DomainException $rackId <= 0
      */
     public function setRackId(?int $rackId): void
     {
+        if (! is_null($rackId) && $rackId <= 0) {
+            throw new \DomainException('$rackId <= 0');
+        }
         $this->attributes['rack_id'] = $rackId;
     }
 
@@ -580,9 +631,14 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * @param  int|null  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void
     {
+        if (! is_null($departmentId) && $departmentId <= 0) {
+            throw new \DomainException('$departmentId <= 0');
+        }
         $this->attributes['department_id'] = $departmentId;
     }
 

@@ -149,69 +149,53 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     */
 
     /**
-     * @see RackBusinessRules::updateBusyUnits()
-     *
-     * @param  array<int>  $updatedBusyUnitsForSide
-     * @param  bool  $side
-     * @return void
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): void
-    {
-        if (! $side) {
-            $busyUnitsArray = [
-                'front' => $updatedBusyUnitsForSide,
-                'back' => $this->getBusyUnits()->getUnitsForSide(true),
-            ];
-        } else {
-            $busyUnitsArray = [
-                'front' => $this->getBusyUnits()->getUnitsForSide(false),
-                'back' => $updatedBusyUnitsForSide,
-            ];
-        }
-        $this->attributes['busy_units'] = App()->makeWith(
-            RackBusyUnitsValueObject::class,
-            ['busyUnits' => $busyUnitsArray]
-        );
-    }
-
-    /**
      * @see RackBusinessRules::addNewBusyUnits()
      *
-     * @param  array<int>  $newUnits
-     * @param  bool  $side
-     * @return void
+     * @param  DeviceEntity  $device
+     * @return RackBusyUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException units is not valid
      */
-    public function addNewBusyUnits(array $newUnits, bool $side): void
+    public function addNewBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject
     {
         $updatedBusyUnitsForSide = array_merge(
-            $this->getBusyUnits()->getUnitsForSide($side),
-            $newUnits
+            $this->getBusyUnits()->getUnitsForSide($device->getLocation()),
+            $device->getUnits()->toArray()
         );
-        sort($updatedBusyUnitsForSide);
-        $this->updateBusyUnits($updatedBusyUnitsForSide, $side);
+        $this->setBusyUnits(
+            $this->getBusyUnits()->updateBusyUnits(
+                $updatedBusyUnitsForSide,
+                $device->getLocation()
+            )
+        );
+
+        return $this->getBusyUnits();
     }
 
     /**
      * @see RackBusinessRules::deleteOldBusyUnits()
      *
-     * @param  array<int>  $oldUnits
-     * @param  bool  $side
-     * @return void
+     * @param  DeviceEntity  $device
+     * @return RackBusyUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException units is not valid
      */
-    public function deleteOldBusyUnits(array $oldUnits, bool $side): void
+    public function deleteOldBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject
     {
         $updatedBusyUnitsForSide = array_diff(
-            $this->getBusyUnits()->getUnitsForSide($side),
-            $oldUnits
+            $this->getBusyUnits()->getUnitsForSide($device->getLocation()),
+            $device->getUnits()->toArray()
         );
-        sort($updatedBusyUnitsForSide);
-        $this->updateBusyUnits($updatedBusyUnitsForSide, $side);
+        $this->setBusyUnits(
+            $this->getBusyUnits()->updateBusyUnits(
+                $updatedBusyUnitsForSide,
+                $device->getLocation()
+            )
+        );
+
+        return $this->getBusyUnits();
     }
 
     /**
@@ -221,6 +205,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      * @return bool
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException $units is not valid
      */
     public function isDeviceAddable(DeviceEntity $device): bool
     {
@@ -242,6 +227,8 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      *
      * @param  DeviceEntity  $device
      * @return bool
+     *
+     * @throws \DomainException $units is not valid
      */
     public function hasDeviceUnits(DeviceEntity $device): bool
     {
@@ -261,6 +248,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      * @return bool
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException units is not valid
      */
     public function isDeviceMovingValid(DeviceEntity $device, DeviceEntity $deviceUpdating): bool
     {
@@ -357,9 +345,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $amount
      * @return void
+     *
+     * @throws \DomainException $amount <= 0
      */
     public function setAmount(?int $amount): void
     {
+        if (! is_null($amount) && $amount <= 0) {
+            throw new \DomainException('$amount <= 0');
+        }
         $this->attributes['amount'] = $amount;
     }
 
@@ -561,9 +554,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $height
      * @return void
+     *
+     * @throws \DomainException $height <= 0
      */
     public function setHeight(?int $height): void
     {
+        if (! is_null($height) && $height <= 0) {
+            throw new \DomainException('$height <= 0');
+        }
         $this->attributes['height'] = $height;
     }
 
@@ -578,9 +576,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $width
      * @return void
+     *
+     * @throws \DomainException $width <= 0
      */
     public function setWidth(?int $width): void
     {
+        if (! is_null($width) && $width <= 0) {
+            throw new \DomainException('$width <= 0');
+        }
         $this->attributes['width'] = $width;
     }
 
@@ -595,9 +598,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $depth
      * @return void
+     *
+     * @throws \DomainException $depth <= 0
      */
     public function setDepth(?int $depth): void
     {
+        if (! is_null($depth) && $depth <= 0) {
+            throw new \DomainException('$depth <= 0');
+        }
         $this->attributes['depth'] = $depth;
     }
 
@@ -612,9 +620,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $unitWidth
      * @return void
+     *
+     * @throws \DomainException $unitWidth <= 0
      */
     public function setUnitWidth(?int $unitWidth): void
     {
+        if (! is_null($unitWidth) && $unitWidth <= 0) {
+            throw new \DomainException('$unitWidth <= 0');
+        }
         $this->attributes['unit_width'] = $unitWidth;
     }
 
@@ -629,9 +642,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $unitDepth
      * @return void
+     *
+     * @throws \DomainException $unitDepth <= 0
      */
     public function setUnitDepth(?int $unitDepth): void
     {
+        if (! is_null($unitDepth) && $unitDepth <= 0) {
+            throw new \DomainException('$unitDepth <= 0');
+        }
         $this->attributes['unit_depth'] = $unitDepth;
     }
 
@@ -646,9 +664,15 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  string|null  $type
      * @return void
+     *
+     * @throws \DomainException $type is not in RackTypeEnum
      */
     public function setType(?string $type): void
     {
+        if (! is_null($type)
+            && ! in_array($type, array_column(RackTypeEnum::cases(), 'value'))) {
+            throw new \DomainException('$type is not in RackTypeEnum');
+        }
         $this->attributes['type'] = $type;
     }
 
@@ -663,9 +687,15 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  string|null  $frame
      * @return void
+     *
+     * @throws \DomainException $frame is not in RackFrameEnum
      */
     public function setFrame(?string $frame): void
     {
+        if (! is_null($frame)
+            && ! in_array($frame, array_column(RackFrameEnum::cases(), 'value'))) {
+            throw new \DomainException('$frame is not in RackFrameEnum');
+        }
         $this->attributes['frame'] = $frame;
     }
 
@@ -680,9 +710,15 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  string|null  $placeType
      * @return void
+     *
+     * @throws \DomainException $placeType is not in RackPlaceTypeEnum
      */
     public function setPlaceType(?string $placeType): void
     {
+        if (! is_null($placeType)
+            && ! in_array($placeType, array_column(RackPlaceTypeEnum::cases(), 'value'))) {
+            throw new \DomainException('$placeType is not in RackPlaceTypeEnum');
+        }
         $this->attributes['place_type'] = $placeType;
     }
 
@@ -697,9 +733,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $maxLoad
      * @return void
+     *
+     * @throws \DomainException $maxLoad <= 0
      */
     public function setMaxLoad(?int $maxLoad): void
     {
+        if (! is_null($maxLoad) && $maxLoad <= 0) {
+            throw new \DomainException('$maxLoad <= 0');
+        }
         $this->attributes['max_load'] = $maxLoad;
     }
 
@@ -714,9 +755,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $powerSockets
      * @return void
+     *
+     * @throws \DomainException $powerSockets <= 0
      */
     public function setPowerSockets(?int $powerSockets): void
     {
+        if (! is_null($powerSockets) && $powerSockets <= 0) {
+            throw new \DomainException('$powerSockets <= 0');
+        }
         $this->attributes['power_sockets'] = $powerSockets;
     }
 
@@ -731,9 +777,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $powerSocketsUps
      * @return void
+     *
+     * @throws \DomainException $powerSocketsUps <= 0
      */
     public function setPowerSocketsUps(?int $powerSocketsUps): void
     {
+        if (! is_null($powerSocketsUps) && $powerSocketsUps <= 0) {
+            throw new \DomainException('$powerSocketsUps <= 0');
+        }
         $this->attributes['power_sockets_ups'] = $powerSocketsUps;
     }
 
@@ -782,9 +833,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $roomId
      * @return void
+     *
+     * @throws \DomainException $roomId <= 0
      */
     public function setRoomId(?int $roomId): void
     {
+        if (! is_null($roomId) && $roomId <= 0) {
+            throw new \DomainException('$roomId <= 0');
+        }
         $this->attributes['room_id'] = $roomId;
     }
 
@@ -799,9 +855,14 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     /**
      * @param  int|null  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void
     {
+        if (! is_null($departmentId) && $departmentId <= 0) {
+            throw new \DomainException('$departmentId <= 0');
+        }
         $this->attributes['department_id'] = $departmentId;
     }
 
@@ -842,19 +903,24 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      * @return RackBusyUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \DomainException $busyUnits json decode failed
+     * @throws \DomainException $busyUnits not match any possible type
      */
     public function getBusyUnits(): RackBusyUnitsValueObject
     {
         $busyUnits = $this->attributes['busy_units'];
-        switch ($busyUnits) {
-            case is_string($busyUnits):
-                $busyUnitsArray = json_decode($busyUnits, true);
-                break;
-            case $busyUnits instanceof RackBusyUnitsValueObject:
-                $busyUnitsArray = $busyUnits->toArray();
-                break;
-            default:
-                $busyUnitsArray = [];
+        if (is_string($busyUnits)) {
+            try {
+                $busyUnitsArray = json_decode($busyUnits, true, 512, JSON_THROW_ON_ERROR);
+            } catch (\Exception $e) {
+                throw new \DomainException('$busyUnits json decode failed');
+            }
+        } elseif ($busyUnits instanceof RackBusyUnitsValueObject) {
+            $busyUnitsArray = $busyUnits->toArray();
+        } elseif (is_array($busyUnits)) {
+            $busyUnitsArray = $busyUnits;
+        } else {
+            throw new \DomainException('$busyUnits dont match any allowed type');
         }
 
         return App()->makeWith(RackBusyUnitsValueObject::class, ['busyUnits' => $busyUnitsArray]);

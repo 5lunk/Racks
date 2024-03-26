@@ -95,15 +95,6 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
     }
 
     /**
-     * @param  int  $id
-     * @return void
-     */
-    public function setId(int $id): void
-    {
-        $this->attributes['id'] = $id;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -148,9 +139,14 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
     /**
      * @param  int  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(int $departmentId): void
     {
+        if ($departmentId <= 0) {
+            throw new \DomainException('$departmentId <= 0');
+        }
         $this->attributes['department_id'] = $departmentId;
     }
 
