@@ -130,13 +130,6 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     ];
 
     /**
-     * @var array<mixed>
-     */
-    protected $attributes = [
-        'units' => [],
-    ];
-
-    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -574,7 +567,7 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
         $units = $this->attributes['units'];
         if (is_string($units)) {
             try {
-                $unitsArray = json_decode($units, true, 512, JSON_THROW_ON_ERROR);
+                $unitsArray = json_decode($units, false, 512, JSON_THROW_ON_ERROR);
             } catch (\Exception $e) {
                 throw new \DomainException('$units json decode failed');
             }
