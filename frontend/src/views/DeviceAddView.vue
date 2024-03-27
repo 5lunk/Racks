@@ -99,7 +99,8 @@ export default {
       const response = await postObject('device', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
         this.messageProps.success = true;
-        this.messageProps.message = `Device ${response.data.data.vendor} ${response.data.data.model} added successfully`;
+        this.messageProps.message = `Device ${response.data.data.vendor || 'undefined vendor'}
+          ${response.data.data.model || 'undefined model'} added successfully`;
       } else {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
