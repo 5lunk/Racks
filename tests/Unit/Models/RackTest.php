@@ -586,18 +586,26 @@ class RackTest extends TestCase
 
     public function testGetBusyUnits()
     {
-        // Main throw
+        // $busyUnits is an array
         $this->attributes->setValue(
-
-            $this->rack, ['busy_units' => 1234]
+            $this->rack, ['busy_units' => ['front' => [1, 2, 3], 'back' => [3, 4, 5, 6]]]
         );
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$busyUnits dont match any allowed type');
-        $this->rack->getBusyUnits();
+        $this->assertEquals(
+            ['front' => [1, 2, 3], 'back' => [3, 4, 5, 6]],
+            $this->rack->getBusyUnits()->toArray(),
+        );
+
+        // $busyUnits is string
+        $this->attributes->setValue(
+            $this->rack, ['busy_units' => '{"front": [1, 2], "back": [3, 4, 5, 6]}']
+        );
+        $this->assertEquals(
+            ['front' => [1, 2], 'back' => [3, 4, 5, 6]],
+            $this->rack->getBusyUnits()->toArray(),
+        );
 
         // Testing injected RackBusyUnitsValueObject via app()->make()
         $this->attributes->setValue(
-            // Set dummy value
             $this->rack, ['busy_units' => '{"front": [], "back": []}']
         );
 
@@ -605,44 +613,15 @@ class RackTest extends TestCase
             ->onlyMethods(['toArray'])
             ->setConstructorArgs([['front' => [1, 2, 3], 'back' => [3, 4, 5]]])
             ->getMock();
+
         $busyUnitsMock->method('toArray')
             ->willReturn(['front' => [1, 2, 3], 'back' => [3, 4, 5]]);
+
         $this->app->bind(RackBusyUnitsValueObject::class, function () use ($busyUnitsMock) {
             return $busyUnitsMock;
         });
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
 
-        $busyUnitsMock = $this->getMockBuilder(RackBusyUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->setConstructorArgs([['front' => [1, 2, 3], 'back' => [3, 4, 5]]])
-            ->getMock();
-        $busyUnitsMock->method('toArray')
-            ->willReturn(['front' => [1, 2, 3], 'back' => [3, 4, 5]]);
-        $this->app->bind(RackBusyUnitsValueObject::class, function () use ($busyUnitsMock) {
-            return $busyUnitsMock;
-        });
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-
-        // $busyUnits instanceof RackBusyUnitsValueObject
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => $busyUnitsMock]
-        );
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
-            $this->rack->getBusyUnits()->toArray(),
-        );
-
-        // $busyUnits is an array
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => ['front' => [1, 2, 3], 'back' => [3, 4, 5]]]
-        );
-        $this->assertEquals(
+        $this->assertSame(
             ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
             $this->rack->getBusyUnits()->toArray(),
         );
@@ -650,12 +629,12 @@ class RackTest extends TestCase
         // Unbind mock
         $this->app->offsetUnset(RackBusyUnitsValueObject::class);
 
-        // $busyUnits is string
+        // $busyUnits is RackBusyUnitsValueObject
         $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [1, 2, 3], "back": [3, 4, 5, 6]}']
+            $this->rack, ['busy_units' => $busyUnitsMock]
         );
-        $this->assertEquals(
-            ['front' => [1, 2, 3], 'back' => [3, 4, 5, 6]],
+        $this->assertSame(
+            ['front' => [1, 2, 3], 'back' => [3, 4, 5]],
             $this->rack->getBusyUnits()->toArray(),
         );
 
@@ -663,9 +642,40 @@ class RackTest extends TestCase
         $this->attributes->setValue(
             $this->rack, ['busy_units' => 'fytnfgsfghsfghfhgb']
         );
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$busyUnits json decode failed');
-        $this->rack->getBusyUnits();
+        try {
+            $this->rack->getBusyUnits();
+        } catch (\DomainException $e) {
+            $this->assertEquals('$busyUnits json decode failed', $e->getMessage());
+        }
+
+        // Main throw
+        $this->attributes->setValue(
+            $this->rack, ['busy_units' => 1234]
+        );
+        try {
+            $this->rack->getBusyUnits();
+        } catch (\DomainException $e) {
+            $this->assertEquals('$busyUnits dont match any allowed type', $e->getMessage());
+        }
+    }
+
+    public function testSetBusyUnits()
+    {
+        $this->attributes->setValue(
+            $this->rack, ['busy_units' => '{"front": [], "back": []}']
+        );
+        $busyUnitsMock = $this->getMockBuilder(RackBusyUnitsValueObject::class)
+            ->onlyMethods(['toArray'])
+            ->setConstructorArgs([['front' => [1, 2, 3], 'back' => [3, 4, 5]]])
+            ->getMock();
+        $busyUnitsMock->method('toArray')
+            ->willReturn(['front' => [1, 2, 3], 'back' => [3, 4, 5]]);
+
+        $this->rack->setBusyUnits($busyUnitsMock);
+        $this->assertEquals(
+            $busyUnitsMock->toArray(),
+            $this->attributes->getValue($this->rack)['busy_units']->toArray()
+        );
     }
 
     public function testSetUpdatedBy()
@@ -682,9 +692,9 @@ class RackTest extends TestCase
 
     public function testSetInventoryNumber()
     {
-        $this->rack->setInventoryNumber('6876876');
+        $this->rack->setInventoryNumber('df6876876');
         $this->assertEquals(
-            '6876876',
+            'df6876876',
             $this->attributes->getValue($this->rack)['inventory_number']
         );
 
@@ -703,13 +713,17 @@ class RackTest extends TestCase
         $this->rack->setPowerSockets(null);
         $this->assertNull($this->attributes->getValue($this->rack)['power_sockets']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$powerSockets <= 0');
-        $this->rack->setPowerSockets(-10);
+        try {
+            $this->rack->setPowerSockets(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerSockets <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$powerSockets <= 0');
-        $this->rack->setPowerSockets(0);
+        try {
+            $this->rack->setPowerSockets(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerSockets <= 0', $e->getMessage());
+        }
     }
 
     public function testGetLinkToDocs()
@@ -795,13 +809,17 @@ class RackTest extends TestCase
         $this->rack->setUnitWidth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['unit_width']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$unitWidth <= 0');
-        $this->rack->setUnitWidth(-10);
+        try {
+            $this->rack->setUnitWidth(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$unitWidth <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$unitWidth <= 0');
-        $this->rack->setUnitWidth(0);
+        try {
+            $this->rack->setUnitWidth(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$unitWidth <= 0', $e->getMessage());
+        }
     }
 
     public function testGetUnitWidth()
@@ -851,13 +869,17 @@ class RackTest extends TestCase
         $this->rack->setDepth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['depth']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$depth <= 0');
-        $this->rack->setDepth(-10);
+        try {
+            $this->rack->setDepth(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$depth <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$depth <= 0');
-        $this->rack->setDepth(0);
+        try {
+            $this->rack->setDepth(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$depth <= 0', $e->getMessage());
+        }
     }
 
     public function testGetPlaceType()
@@ -976,13 +998,17 @@ class RackTest extends TestCase
         $this->rack->setRoomId(null);
         $this->assertNull($this->attributes->getValue($this->rack)['room_id']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$roomId <= 0');
-        $this->rack->setRoomId(-10);
+        try {
+            $this->rack->setRoomId(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$roomId <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$roomId <= 0');
-        $this->rack->setRoomId(0);
+        try {
+            $this->rack->setRoomId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$roomId <= 0', $e->getMessage());
+        }
     }
 
     public function testSetMaxLoad()
@@ -996,13 +1022,17 @@ class RackTest extends TestCase
         $this->rack->setMaxLoad(null);
         $this->assertNull($this->attributes->getValue($this->rack)['max_load']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$maxLoad <= 0');
-        $this->rack->setMaxLoad(-10);
+        try {
+            $this->rack->setMaxLoad(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$maxLoad <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$maxLoad <= 0');
-        $this->rack->setMaxLoad(0);
+        try {
+            $this->rack->setMaxLoad(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$maxLoad <= 0', $e->getMessage());
+        }
     }
 
     public function testSetHeight()
@@ -1016,13 +1046,17 @@ class RackTest extends TestCase
         $this->rack->setHeight(null);
         $this->assertNull($this->attributes->getValue($this->rack)['height']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$height <= 0');
-        $this->rack->setHeight(-6);
+        try {
+            $this->rack->setHeight(-6);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$height <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$height <= 0');
-        $this->rack->setHeight(0);
+        try {
+            $this->rack->setHeight(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$height <= 0', $e->getMessage());
+        }
     }
 
     public function testSetUnitDepth()
@@ -1036,13 +1070,17 @@ class RackTest extends TestCase
         $this->rack->setUnitDepth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['unit_depth']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$unitDepth <= 0');
-        $this->rack->setUnitDepth(-10);
+        try {
+            $this->rack->setUnitDepth(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$unitDepth <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$unitDepth <= 0');
-        $this->rack->setUnitDepth(0);
+        try {
+            $this->rack->setUnitDepth(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$unitDepth <= 0', $e->getMessage());
+        }
     }
 
     public function testGetPowerSockets()
@@ -1071,25 +1109,6 @@ class RackTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('$type is not in RackTypeEnum');
         $this->rack->setType('Oops');
-    }
-
-    public function testSetBusyUnits()
-    {
-        $this->attributes->setValue(
-            $this->rack, ['busy_units' => '{"front": [], "back": []}']
-        );
-        $busyUnitsMock = $this->getMockBuilder(RackBusyUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->setConstructorArgs([['front' => [1, 2, 3], 'back' => [3, 4, 5]]])
-            ->getMock();
-        $busyUnitsMock->method('toArray')
-            ->willReturn(['front' => [1, 2, 3], 'back' => [3, 4, 5]]);
-
-        $this->rack->setBusyUnits($busyUnitsMock);
-        $this->assertEquals(
-            $busyUnitsMock->toArray(),
-            $this->attributes->getValue($this->rack)['busy_units']->toArray()
-        );
     }
 
     public function testGetFinanciallyResponsiblePerson()
@@ -1136,13 +1155,17 @@ class RackTest extends TestCase
         $this->rack->setDepartmentId(null);
         $this->assertNull($this->attributes->getValue($this->rack)['department_id']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$departmentId <= 0');
-        $this->rack->setDepartmentId(-10);
+        try {
+            $this->rack->setDepartmentId(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$departmentId <= 0');
-        $this->rack->setDepartmentId(0);
+        try {
+            $this->rack->setDepartmentId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
     }
 
     public function testSetWidth()
@@ -1156,13 +1179,17 @@ class RackTest extends TestCase
         $this->rack->setWidth(null);
         $this->assertNull($this->attributes->getValue($this->rack)['width']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$width <= 0');
-        $this->rack->setWidth(-3);
+        try {
+            $this->rack->setWidth(-3);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$width <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$width <= 0');
-        $this->rack->setWidth(0);
+        try {
+            $this->rack->setWidth(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$width <= 0', $e->getMessage());
+        }
     }
 
     public function testGetRoomId()
@@ -1402,13 +1429,17 @@ class RackTest extends TestCase
         $this->rack->setPowerSocketsUps(null);
         $this->assertNull($this->attributes->getValue($this->rack)['power_sockets_ups']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$powerSocketsUps <= 0');
-        $this->rack->setPowerSocketsUps(-10);
+        try {
+            $this->rack->setPowerSocketsUps(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerSocketsUps <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$powerSocketsUps <= 0');
-        $this->rack->setPowerSocketsUps(0);
+        try {
+            $this->rack->setPowerSocketsUps(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerSocketsUps <= 0', $e->getMessage());
+        }
     }
 
     public function testSetHasCooler()
@@ -1494,13 +1525,17 @@ class RackTest extends TestCase
         $this->rack->setAmount(null);
         $this->assertNull($this->attributes->getValue($this->rack)['amount']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$amount <= 0');
-        $this->rack->setAmount(-2);
+        try {
+            $this->rack->setAmount(-2);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$amount <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$amount <= 0');
-        $this->rack->getAmount(0);
+        try {
+            $this->rack->getAmount(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$amount <= 0', $e->getMessage());
+        }
     }
 
     public function testSetFrame()

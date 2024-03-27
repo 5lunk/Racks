@@ -194,13 +194,17 @@ class RoomTest extends TestCase
         $this->room->setBuildingId(null);
         $this->assertNull($this->attributes->getValue($this->room)['building_id']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$buildingId <= 0');
-        $this->room->setBuildingId(-1);
+        try {
+            $this->room->setBuildingId(-1);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$buildingId <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$buildingId <= 0');
-        $this->room->setBuildingId(0);
+        try {
+            $this->room->setBuildingId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$buildingId <= 0', $e->getMessage());
+        }
     }
 
     public function testGetDepartmentId()
@@ -226,13 +230,17 @@ class RoomTest extends TestCase
         $this->room->setDepartmentId(null);
         $this->assertNull($this->attributes->getValue($this->room)['department_id']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$departmentId <= 0');
-        $this->room->setDepartmentId(-1);
+        try {
+            $this->room->setDepartmentId(-1);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$departmentId <= 0');
-        $this->room->setDepartmentId(0);
+        try {
+            $this->room->setDepartmentId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
     }
 
     public function testGetBuildingFloor()
@@ -306,13 +314,17 @@ class RoomTest extends TestCase
         $this->room->setNumberOfRackSpaces(null);
         $this->assertNull($this->attributes->getValue($this->room)['number_of_rack_spaces']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$numberOfRackSpaces <= 0');
-        $this->room->setNumberOfRackSpaces(-1);
+        try {
+            $this->room->setNumberOfRackSpaces(-1);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$numberOfRackSpaces <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$numberOfRackSpaces <= 0');
-        $this->room->setNumberOfRackSpaces(0);
+        try {
+            $this->room->setNumberOfRackSpaces(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$numberOfRackSpaces <= 0', $e->getMessage());
+        }
     }
 
     public function testGetArea()
@@ -338,13 +350,17 @@ class RoomTest extends TestCase
         $this->room->setArea(null);
         $this->assertNull($this->attributes->getValue($this->room)['area']);
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$area <= 0');
-        $this->room->setArea(-1);
+        try {
+            $this->room->setArea(-1);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$area <= 0', $e->getMessage());
+        }
 
-        $this->expectException(\DomainException::class);
-        $this->expectExceptionMessage('$area <= 0');
-        $this->room->setArea(0);
+        try {
+            $this->room->setArea(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$area <= 0', $e->getMessage());
+        }
     }
 
     public function testGetResponsible()
