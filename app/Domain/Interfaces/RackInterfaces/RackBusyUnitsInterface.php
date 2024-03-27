@@ -31,16 +31,6 @@ interface RackBusyUnitsInterface
     public function toArray(): array;
 
     /**
-     * @return void
-     */
-    public function setFront(): void;
-
-    /**
-     * @return void
-     */
-    public function setBack(): void;
-
-    /**
      * @param  array{
      *    front: array<int>,
      *    back: array<int>

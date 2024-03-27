@@ -155,7 +155,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      * @return RackBusyUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \DomainException units is not valid
+     * @throws \DomainException $units is not valid
      */
     public function addNewBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject
     {
@@ -180,7 +180,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      * @return RackBusyUnitsValueObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \DomainException units is not valid
+     * @throws \DomainException $units is not valid
      */
     public function deleteOldBusyUnits(DeviceEntity $device): RackBusyUnitsValueObject
     {
