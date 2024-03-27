@@ -130,9 +130,9 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     ];
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->attributes['id'];
     }
@@ -243,11 +243,17 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     }
 
     /**
+     * IPv4 validation
+     *
      * @param  string|null  $ip
      * @return void
      */
     public function setIp(?string $ip): void
     {
+        if (! is_null($ip) &&
+            ! filter_var($ip, FILTER_VALIDATE_IP)) {
+            throw new \DomainException('$ip is not valid');
+        }
         $this->attributes['ip'] = $ip;
     }
 
@@ -576,7 +582,7 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
         } elseif (is_array($units)) {
             $unitsArray = $units;
         } else {
-            throw new \DomainException('$units not match any possible type');
+            throw new \DomainException('$units dont match any allowed type');
         }
 
         return App()->makeWith(DeviceUnitsValueObject::class, ['units' => $unitsArray]);

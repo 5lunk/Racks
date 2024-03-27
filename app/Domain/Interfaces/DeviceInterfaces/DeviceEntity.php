@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 interface DeviceEntity
 {
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int;
+    public function getId(): int;
 
     /**
      * @return string|null
