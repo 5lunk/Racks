@@ -282,7 +282,7 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
      * @param  string|null  $fireSuppressionSystem
      * @return void
      *
-     * @throws \Exception $fireSuppressionSystem is not in RoomFireSuppressionSystemEnum
+     * @throws \DomainException $fireSuppressionSystem is not in RoomFireSuppressionSystemEnum
      */
     public function setFireSuppressionSystem(?string $fireSuppressionSystem): void
     {
