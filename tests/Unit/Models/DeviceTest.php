@@ -8,24 +8,24 @@ use Tests\TestCase;
 
 class DeviceTest extends TestCase
 {
-    public $device; // Mock
+    public $device; // @phpstan-ignore-line
 
-    public $attributes; // Reflection property
+    public $attributes; // @phpstan-ignore-line
 
     public function setUp(): void
     {
         parent::setUp();
 
+        // Mock for Getters and Setters
         $this->device = $this->getMockBuilder(Device::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(Device::class);
         $this->attributes = $reflection->getProperty('attributes');
-        $this->attributes->setAccessible(true);
     }
 
-    public function testGetUnits()
+    public function testGetUnits(): void
     {
         // Testing injected DeviceUnitsValueObject via app()->make()
         $this->attributes->setValue(
@@ -74,10 +74,10 @@ class DeviceTest extends TestCase
 
         // $units is an array
         $this->attributes->setValue(
-            $this->device, ['units' => [3, 4, 5, 6]]
+            $this->device, ['units' => [3, 4, 5, 6, 7]]
         );
         $this->assertEquals(
-            [3, 4, 5, 6],
+            [3, 4, 5, 6, 7],
             $this->device->getUnits()->toArray(),
         );
 
@@ -102,17 +102,17 @@ class DeviceTest extends TestCase
         }
     }
 
-    public function testSetUnits()
+    public function testSetUnits(): void
     {
         $this->attributes->setValue(
             $this->device, ['units' => '[]']
         );
         $unitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
             ->onlyMethods(['toArray'])
-            ->setConstructorArgs([[3, 4, 5]])
+            ->setConstructorArgs([[4, 5]])
             ->getMock();
         $unitsMock->method('toArray')
-            ->willReturn([3, 4, 5]);
+            ->willReturn([4, 5]);
 
         $this->device->setUnits($unitsMock);
         $this->assertEquals(
@@ -121,7 +121,7 @@ class DeviceTest extends TestCase
         );
     }
 
-    public function testGetId()
+    public function testGetId(): void
     {
         $this->attributes->setValue($this->device, ['id' => 12]);
         $this->assertEquals(
@@ -130,7 +130,7 @@ class DeviceTest extends TestCase
         );
     }
 
-    public function testGetVendor()
+    public function testGetVendor(): void
     {
         $this->attributes->setValue($this->device, ['vendor' => 'some vendor']);
         $this->assertEquals(
@@ -142,11 +142,11 @@ class DeviceTest extends TestCase
         $this->assertNull($this->device->getVendor());
     }
 
-    public function testSetVendor()
+    public function testSetVendor(): void
     {
-        $this->device->setVendor('some vendor');
+        $this->device->setVendor('some other vendor');
         $this->assertEquals(
-            'some vendor',
+            'some other vendor',
             $this->attributes->getValue($this->device)['vendor']
         );
 
@@ -154,7 +154,7 @@ class DeviceTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->device)['vendor']);
     }
 
-    public function testGetModel()
+    public function testGetModel(): void
     {
         $this->attributes->setValue($this->device, ['model' => 'some model']);
         $this->assertEquals(
@@ -166,11 +166,11 @@ class DeviceTest extends TestCase
         $this->assertNull($this->device->getModel());
     }
 
-    public function testSetModel()
+    public function testSetModel(): void
     {
-        $this->device->setModel('some model');
+        $this->device->setModel('some other model');
         $this->assertEquals(
-            'some model',
+            'some other model',
             $this->attributes->getValue($this->device)['model']
         );
 
@@ -178,7 +178,7 @@ class DeviceTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->device)['model']);
     }
 
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->attributes->setValue($this->device, ['type' => 'Switch']);
         $this->assertEquals(
@@ -190,7 +190,7 @@ class DeviceTest extends TestCase
         $this->assertNull($this->device->getType());
     }
 
-    public function testSetType()
+    public function testSetType(): void
     {
         $this->device->setType('Router');
         $this->assertEquals(
@@ -206,7 +206,7 @@ class DeviceTest extends TestCase
         $this->device->setType('Oops');
     }
 
-    public function testGetStatus()
+    public function testGetStatus(): void
     {
         $this->attributes->setValue($this->device, ['status' => 'Device active']);
         $this->assertEquals(
@@ -218,11 +218,11 @@ class DeviceTest extends TestCase
         $this->assertNull($this->device->getStatus());
     }
 
-    public function testSetStatus()
+    public function testSetStatus(): void
     {
-        $this->device->setStatus('Device active');
+        $this->device->setStatus('Device failed');
         $this->assertEquals(
-            'Device active',
+            'Device failed',
             $this->attributes->getValue($this->device)['status']
         );
 
@@ -234,7 +234,7 @@ class DeviceTest extends TestCase
         $this->device->setStatus('Oops');
     }
 
-    public function testGetHostname()
+    public function testGetHostname(): void
     {
         $this->attributes->setValue($this->device, ['hostname' => 'some hostname']);
         $this->assertEquals(
@@ -246,11 +246,11 @@ class DeviceTest extends TestCase
         $this->assertNull($this->device->getHostname());
     }
 
-    public function testSetHostname()
+    public function testSetHostname(): void
     {
-        $this->device->setHostname('some hostname');
+        $this->device->setHostname('some other hostname');
         $this->assertEquals(
-            'some hostname',
+            'some other hostname',
             $this->attributes->getValue($this->device)['hostname']
         );
 
@@ -258,7 +258,7 @@ class DeviceTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->device)['hostname']);
     }
 
-    public function testSetIp()
+    public function testSetIp(): void
     {
         $this->device->setIp('192.168.10.10');
         $this->assertEquals(
@@ -274,15 +274,263 @@ class DeviceTest extends TestCase
         $this->device->setIp('192.16a.10.10');
     }
 
-    public function testGetIp()
+    public function testGetIp(): void
     {
-        $this->attributes->setValue($this->device, ['ip' => '192.168.10.10']);
+        $this->attributes->setValue($this->device, ['ip' => '192.168.10.11']);
         $this->assertEquals(
-            '192.168.10.10',
+            '192.168.10.11',
             $this->device->getIp()
         );
 
         $this->attributes->setValue($this->device, ['ip' => null]);
         $this->assertNull($this->device->getIp());
+    }
+
+    public function testGetStack(): void
+    {
+        $this->attributes->setValue($this->device, ['stack' => 12]);
+        $this->assertEquals(
+            12,
+            $this->device->getStack()
+        );
+
+        $this->attributes->setValue($this->device, ['stack' => null]);
+        $this->assertNull($this->device->getStack());
+    }
+
+    public function testSetStack(): void
+    {
+        $this->device->setStack(11);
+        $this->assertEquals(
+            11,
+            $this->attributes->getValue($this->device)['stack']
+        );
+
+        $this->device->setStack(null);
+        $this->assertNull($this->attributes->getValue($this->device)['stack']);
+
+        try {
+            $this->device->setStack(-10);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$stack <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setStack(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$stack <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetPortsAmount(): void
+    {
+        $this->attributes->setValue($this->device, ['ports_amount' => 15]);
+        $this->assertEquals(
+            15,
+            $this->device->getPortsAmount()
+        );
+
+        $this->attributes->setValue($this->device, ['ports_amount' => null]);
+        $this->assertNull($this->device->getPortsAmount());
+    }
+
+    public function testSetPortsAmount(): void
+    {
+        $this->device->setPortsAmount(14);
+        $this->assertEquals(
+            14,
+            $this->attributes->getValue($this->device)['ports_amount']
+        );
+
+        $this->device->setPortsAmount(null);
+        $this->assertNull($this->attributes->getValue($this->device)['ports_amount']);
+
+        try {
+            $this->device->setPortsAmount(-11);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$portsAmount <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setPortsAmount(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$portsAmount <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetSoftwareVersion(): void
+    {
+        $this->attributes->setValue($this->device, ['software_version' => 'v12.4']);
+        $this->assertEquals(
+            'v12.4',
+            $this->device->getSoftwareVersion()
+        );
+
+        $this->attributes->setValue($this->device, ['software_version' => null]);
+        $this->assertNull($this->device->getSoftwareVersion());
+    }
+
+    public function testSetSoftwareVersion(): void
+    {
+        $this->device->setSoftwareVersion('v12.49');
+        $this->assertEquals(
+            'v12.49',
+            $this->attributes->getValue($this->device)['software_version']
+        );
+
+        $this->device->setSoftwareVersion(null);
+        $this->assertNull($this->attributes->getValue($this->device)['software_version']);
+    }
+
+    public function testGetPowerType(): void
+    {
+        $this->attributes->setValue($this->device, ['power_type' => 'IEC C14 socket']);
+        $this->assertEquals(
+            'IEC C14 socket',
+            $this->device->getPowerType()
+        );
+
+        $this->attributes->setValue($this->device, ['power_type' => null]);
+        $this->assertNull($this->device->getPowerType());
+    }
+
+    public function testSetPowerType(): void
+    {
+        $this->device->setPowerType('Other');
+        $this->assertEquals(
+            'Other',
+            $this->attributes->getValue($this->device)['power_type']
+        );
+
+        $this->device->setPowerType(null);
+        $this->assertNull($this->attributes->getValue($this->device)['power_type']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerType is not in DevicePowerTypeEnum');
+        $this->device->setPowerType('Oops');
+    }
+
+    public function testGetPowerW(): void
+    {
+        $this->attributes->setValue($this->device, ['power_w' => 15]);
+        $this->assertEquals(
+            15,
+            $this->device->getPowerW()
+        );
+
+        $this->attributes->setValue($this->device, ['power_w' => null]);
+        $this->assertNull($this->device->getPowerW());
+    }
+
+    public function testSetPowerW(): void
+    {
+        $this->device->setPowerW(14);
+        $this->assertEquals(
+            14,
+            $this->attributes->getValue($this->device)['power_w']
+        );
+
+        $this->device->setPowerW(null);
+        $this->assertNull($this->attributes->getValue($this->device)['power_w']);
+
+        try {
+            $this->device->setPowerW(-11);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerW <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setPowerW(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerW <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetPowerV(): void
+    {
+        $this->attributes->setValue($this->device, ['power_v' => 15]);
+        $this->assertEquals(
+            15,
+            $this->device->getPowerV()
+        );
+
+        $this->attributes->setValue($this->device, ['power_v' => null]);
+        $this->assertNull($this->device->getPowerV());
+    }
+
+    public function testSetPowerV(): void
+    {
+        $this->device->setPowerV(14);
+        $this->assertEquals(
+            14,
+            $this->attributes->getValue($this->device)['power_v']
+        );
+
+        $this->device->setPowerV(null);
+        $this->assertNull($this->attributes->getValue($this->device)['power_v']);
+
+        try {
+            $this->device->setPowerV(-11);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerV <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setPowerV(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$powerV <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetPowerACDC(): void
+    {
+        $this->attributes->setValue($this->device, ['power_ac_dc' => 'DC']);
+        $this->assertEquals(
+            'DC',
+            $this->device->getPowerACDC()
+        );
+
+        $this->attributes->setValue($this->device, ['power_ac_dc' => null]);
+        $this->assertNull($this->device->getPowerACDC());
+    }
+
+    public function testSetPowerACDC(): void
+    {
+        $this->device->setPowerACDC('AC');
+        $this->assertEquals(
+            'AC',
+            $this->attributes->getValue($this->device)['power_ac_dc']
+        );
+
+        $this->device->setPowerACDC(null);
+        $this->assertNull($this->attributes->getValue($this->device)['power_ac_dc']);
+
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$powerACDC is not in DevicePowerACDCEnum');
+        $this->device->setPowerACDC('Oops');
+    }
+
+    public function testGetSerialNumber(): void
+    {
+        $this->attributes->setValue($this->device, ['serial_number' => 'FRG1728393']);
+        $this->assertEquals(
+            'FRG1728393',
+            $this->device->getSerialNumber()
+        );
+
+        $this->attributes->setValue($this->device, ['serial_number' => null]);
+        $this->assertNull($this->device->getSerialNumber());
+    }
+
+    public function testSetSerialNumber(): void
+    {
+        $this->device->setSerialNumber('FRG17283909');
+        $this->assertEquals(
+            'FRG17283909',
+            $this->attributes->getValue($this->device)['serial_number']
+        );
+
+        $this->device->setSerialNumber(null);
+        $this->assertNull($this->attributes->getValue($this->device)['serial_number']);
     }
 }
