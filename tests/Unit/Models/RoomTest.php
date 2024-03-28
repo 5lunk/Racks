@@ -7,9 +7,9 @@ use Tests\TestCase;
 
 class RoomTest extends TestCase
 {
-    public $room; // Mock
+    public $room; // @phpstan-ignore-line
 
-    public $attributes; // Reflection property
+    public $attributes; // @phpstan-ignore-line
 
     public function setUp(): void
     {
@@ -19,7 +19,6 @@ class RoomTest extends TestCase
             ->getMock();
         $reflection = new \ReflectionClass(Room::class);
         $this->attributes = $reflection->getProperty('attributes');
-        $this->attributes->setAccessible(true);
     }
 
     /*
@@ -27,7 +26,7 @@ class RoomTest extends TestCase
     | Business rules
     |--------------------------------------------------------------------------
     */
-    public function testIsNameValid()
+    public function testIsNameValid(): void
     {
         // Not valid (not unique)
         $namesList1 = ['other name', 'third name', 'test name'];
@@ -60,7 +59,7 @@ class RoomTest extends TestCase
         );
     }
 
-    public function testIsNameChanging()
+    public function testIsNameChanging(): void
     {
         // Changing
         $newName1 = 'test name';
@@ -96,19 +95,7 @@ class RoomTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    public function testSetUpdatedBy()
-    {
-        $this->room->setUpdatedBy('tester');
-        $this->assertEquals(
-            'tester',
-            $this->attributes->getValue($this->room)['updated_by']
-        );
-
-        $this->room->setUpdatedBy(null);
-        $this->assertNull($this->attributes->getValue($this->room)['updated_by']);
-    }
-
-    public function testGetCreatedAt()
+    public function testGetCreatedAt(): void
     {
         $this->attributes->setValue($this->room, ['created_at' => '2024-01-28 16:37:29']);
         $this->assertEquals(
@@ -117,7 +104,7 @@ class RoomTest extends TestCase
         );
     }
 
-    public function testGetUpdatedAt()
+    public function testGetUpdatedAt(): void
     {
         $this->attributes->setValue($this->room, ['updated_at' => '2024-01-28 16:39:20']);
         $this->assertEquals(
@@ -126,7 +113,7 @@ class RoomTest extends TestCase
         );
     }
 
-    public function testGetUpdatedBy()
+    public function testGetUpdatedBy(): void
     {
         $this->attributes->setValue($this->room, ['updated_by' => 'tester']);
         $this->assertEquals(
@@ -138,7 +125,19 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['updated_by']);
     }
 
-    public function testGetId()
+    public function testSetUpdatedBy(): void
+    {
+        $this->room->setUpdatedBy('user');
+        $this->assertEquals(
+            'user',
+            $this->attributes->getValue($this->room)['updated_by']
+        );
+
+        $this->room->setUpdatedBy(null);
+        $this->assertNull($this->attributes->getValue($this->room)['updated_by']);
+    }
+
+    public function testGetId(): void
     {
         $this->attributes->setValue($this->room, ['id' => 5]);
         $this->assertEquals(
@@ -147,11 +146,11 @@ class RoomTest extends TestCase
         );
     }
 
-    public function testSetName()
+    public function testSetName(): void
     {
-        $this->room->setName('Test name');
+        $this->room->setName('name');
         $this->assertEquals(
-            'Test name',
+            'name',
             $this->attributes->getValue($this->room)['name']
         );
 
@@ -159,7 +158,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['name']);
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->attributes->setValue($this->room, ['name' => 'test name']);
         $this->assertEquals(
@@ -171,7 +170,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['name']);
     }
 
-    public function testGetBuildingId()
+    public function testGetBuildingId(): void
     {
         $this->attributes->setValue($this->room, ['building_id' => 1]);
         $this->assertEquals(
@@ -183,7 +182,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['building_id']);
     }
 
-    public function testSetBuildingId()
+    public function testSetBuildingId(): void
     {
         $this->room->setBuildingId(4);
         $this->assertEquals(
@@ -207,7 +206,7 @@ class RoomTest extends TestCase
         }
     }
 
-    public function testGetDepartmentId()
+    public function testGetDepartmentId(): void
     {
         $this->attributes->setValue($this->room, ['department_id' => 1]);
         $this->assertEquals(
@@ -219,7 +218,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['department_id']);
     }
 
-    public function testSetDepartmentId()
+    public function testSetDepartmentId(): void
     {
         $this->room->setDepartmentId(4);
         $this->assertEquals(
@@ -243,7 +242,7 @@ class RoomTest extends TestCase
         }
     }
 
-    public function testGetBuildingFloor()
+    public function testGetBuildingFloor(): void
     {
         $this->attributes->setValue($this->room, ['building_floor' => '1st']);
         $this->assertEquals(
@@ -255,11 +254,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['building_floor']);
     }
 
-    public function testSetBuildingFloor()
+    public function testSetBuildingFloor(): void
     {
-        $this->room->setBuildingFloor('1st');
+        $this->room->setBuildingFloor('2nd');
         $this->assertEquals(
-            '1st',
+            '2nd',
             $this->attributes->getValue($this->room)['building_floor']
         );
 
@@ -267,7 +266,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['building_floor']);
     }
 
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         $this->attributes->setValue($this->room, ['description' => 'some description']);
         $this->assertEquals(
@@ -279,11 +278,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['description']);
     }
 
-    public function testSetDescription()
+    public function testSetDescription(): void
     {
-        $this->room->setBuildingFloor('1st');
+        $this->room->setBuildingFloor('description');
         $this->assertEquals(
-            '1st',
+            'description',
             $this->attributes->getValue($this->room)['building_floor']
         );
 
@@ -291,7 +290,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['building_floor']);
     }
 
-    public function testGetNumberOfRackSpaces()
+    public function testGetNumberOfRackSpaces(): void
     {
         $this->attributes->setValue($this->room, ['number_of_rack_spaces' => 6]);
         $this->assertEquals(
@@ -303,11 +302,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['number_of_rack_spaces']);
     }
 
-    public function testSetNumberOfRackSpaces()
+    public function testSetNumberOfRackSpaces(): void
     {
-        $this->room->setNumberOfRackSpaces(6);
+        $this->room->setNumberOfRackSpaces(7);
         $this->assertEquals(
-            6,
+            7,
             $this->attributes->getValue($this->room)['number_of_rack_spaces']
         );
 
@@ -327,7 +326,7 @@ class RoomTest extends TestCase
         }
     }
 
-    public function testGetArea()
+    public function testGetArea(): void
     {
         $this->attributes->setValue($this->room, ['area' => 12]);
         $this->assertEquals(
@@ -339,7 +338,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['area']);
     }
 
-    public function testSetArea()
+    public function testSetArea(): void
     {
         $this->room->setArea(6);
         $this->assertEquals(
@@ -363,7 +362,7 @@ class RoomTest extends TestCase
         }
     }
 
-    public function testGetResponsible()
+    public function testGetResponsible(): void
     {
         $this->attributes->setValue($this->room, ['responsible' => 'some responsible']);
         $this->assertEquals(
@@ -375,11 +374,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['responsible']);
     }
 
-    public function testSetResponsible()
+    public function testSetResponsible(): void
     {
-        $this->room->setResponsible('some responsible');
+        $this->room->setResponsible('some other responsible');
         $this->assertEquals(
-            'some responsible',
+            'some other responsible',
             $this->attributes->getValue($this->room)['responsible']
         );
 
@@ -387,7 +386,7 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['responsible']);
     }
 
-    public function testGetCoolingSystem()
+    public function testGetCoolingSystem(): void
     {
         $this->attributes->setValue($this->room, ['cooling_system' => 'Centralized']);
         $this->assertEquals(
@@ -399,11 +398,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['cooling_system']);
     }
 
-    public function testSetCoolingSystem()
+    public function testSetCoolingSystem(): void
     {
-        $this->room->setCoolingSystem('Centralized');
+        $this->room->setCoolingSystem('Individual');
         $this->assertEquals(
-            'Centralized',
+            'Individual',
             $this->attributes->getValue($this->room)['cooling_system']
         );
 
@@ -415,7 +414,7 @@ class RoomTest extends TestCase
         $this->room->setCoolingSystem('Oops');
     }
 
-    public function testGetFireSuppressionSystem()
+    public function testGetFireSuppressionSystem(): void
     {
         $this->attributes->setValue($this->room, ['fire_suppression_system' => 'Individual']);
         $this->assertEquals(
@@ -427,11 +426,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['fire_suppression_system']);
     }
 
-    public function testSetFireSuppressionSystem()
+    public function testSetFireSuppressionSystem(): void
     {
-        $this->room->setFireSuppressionSystem('Individual');
+        $this->room->setFireSuppressionSystem('Alarm only');
         $this->assertEquals(
-            'Individual',
+            'Alarm only',
             $this->attributes->getValue($this->room)['fire_suppression_system']
         );
 
@@ -443,79 +442,55 @@ class RoomTest extends TestCase
         $this->room->setFireSuppressionSystem('Oops');
     }
 
-    public function testGetAccessIsOpen()
+    public function testGetAccessIsOpen(): void
     {
         $this->attributes->setValue($this->room, ['access_is_open' => true]);
-        $this->assertEquals(
-            true,
-            $this->room->getAccessIsOpen()
-        );
+        $this->assertTrue($this->room->getAccessIsOpen());
 
         $this->attributes->setValue($this->room, ['access_is_open' => false]);
-        $this->assertEquals(
-            false,
-            $this->room->getAccessIsOpen()
-        );
+        $this->assertFalse($this->room->getAccessIsOpen());
 
         $this->room->setAccessIsOpen(null);
         $this->assertNull($this->attributes->getValue($this->room)['access_is_open']);
     }
 
-    public function testSetAccessIsOpen()
+    public function testSetAccessIsOpen(): void
     {
         $this->room->setAccessIsOpen(true);
-        $this->assertEquals(
-            true,
-            $this->attributes->getValue($this->room)['access_is_open']
-        );
+        $this->assertTrue($this->attributes->getValue($this->room)['access_is_open']);
 
         $this->room->setAccessIsOpen(false);
-        $this->assertEquals(
-            false,
-            $this->attributes->getValue($this->room)['access_is_open']
-        );
+        $this->assertFalse($this->attributes->getValue($this->room)['access_is_open']);
 
         $this->room->setAccessIsOpen(null);
         $this->assertNull($this->attributes->getValue($this->room)['access_is_open']);
     }
 
-    public function testGetHasRaisedFloor()
+    public function testGetHasRaisedFloor(): void
     {
         $this->attributes->setValue($this->room, ['has_raised_floor' => true]);
-        $this->assertEquals(
-            true,
-            $this->room->getHasRaisedFloor()
-        );
+        $this->assertTrue($this->room->getHasRaisedFloor());
 
         $this->attributes->setValue($this->room, ['has_raised_floor' => false]);
-        $this->assertEquals(
-            false,
-            $this->room->getHasRaisedFloor()
-        );
+        $this->assertFalse($this->room->getHasRaisedFloor());
 
         $this->room->setHasRaisedFloor(null);
         $this->assertNull($this->attributes->getValue($this->room)['has_raised_floor']);
     }
 
-    public function testSetHasRaisedFloor()
+    public function testSetHasRaisedFloor(): void
     {
         $this->room->setHasRaisedFloor(true);
-        $this->assertEquals(
-            true,
-            $this->attributes->getValue($this->room)['has_raised_floor']
-        );
+        $this->assertTrue($this->attributes->getValue($this->room)['has_raised_floor']);
 
         $this->room->setHasRaisedFloor(false);
-        $this->assertEquals(
-            false,
-            $this->attributes->getValue($this->room)['has_raised_floor']
-        );
+        $this->assertFalse($this->attributes->getValue($this->room)['has_raised_floor']);
 
         $this->room->setHasRaisedFloor(null);
         $this->assertNull($this->attributes->getValue($this->room)['has_raised_floor']);
     }
 
-    public function testGetOldName()
+    public function testGetOldName(): void
     {
         $this->room->setOldName('test old name');
         $this->assertEquals(
@@ -527,11 +502,11 @@ class RoomTest extends TestCase
         $this->assertNull($this->attributes->getValue($this->room)['old_name']);
     }
 
-    public function testSetOldName()
+    public function testSetOldName(): void
     {
-        $this->attributes->setValue($this->room, ['old_name' => 'test old name']);
+        $this->attributes->setValue($this->room, ['old_name' => 'other old name']);
         $this->assertEquals(
-            'test old name',
+            'other old name',
             $this->room->getOldName()
         );
 
