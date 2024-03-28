@@ -309,15 +309,6 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     }
 
     /**
-     * @param  int  $id
-     * @return void
-     */
-    public function setId(int $id): void
-    {
-        $this->attributes['id'] = $id;
-    }
-
-    /**
      * @return string|null
      */
     public function getName(): ?string

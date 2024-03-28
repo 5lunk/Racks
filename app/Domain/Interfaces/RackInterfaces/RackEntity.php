@@ -24,12 +24,6 @@ interface RackEntity
     public function getId(): int;
 
     /**
-     * @param  int  $id
-     * @return void
-     */
-    public function setId(int $id): void;
-
-    /**
      * @return string|null
      */
     public function getName(): ?string;
