@@ -533,4 +533,330 @@ class DeviceTest extends TestCase
         $this->device->setSerialNumber(null);
         $this->assertNull($this->attributes->getValue($this->device)['serial_number']);
     }
+
+    public function testGetDescription(): void
+    {
+        $this->attributes->setValue($this->device, ['description' => 'Some description']);
+        $this->assertEquals(
+            'Some description',
+            $this->device->getDescription()
+        );
+
+        $this->attributes->setValue($this->device, ['description' => null]);
+        $this->assertNull($this->device->getDescription());
+    }
+
+    public function testSetDescription(): void
+    {
+        $this->device->setDescription('Some other description');
+        $this->assertEquals(
+            'Some other description',
+            $this->attributes->getValue($this->device)['description']
+        );
+
+        $this->device->setDescription(null);
+        $this->assertNull($this->attributes->getValue($this->device)['description']);
+    }
+
+    public function testGetProject(): void
+    {
+        $this->attributes->setValue($this->device, ['project' => 'Some project']);
+        $this->assertEquals(
+            'Some project',
+            $this->device->getProject()
+        );
+
+        $this->attributes->setValue($this->device, ['project' => null]);
+        $this->assertNull($this->device->getProject());
+    }
+
+    public function testSetProject(): void
+    {
+        $this->device->setProject('Some other project');
+        $this->assertEquals(
+            'Some other project',
+            $this->attributes->getValue($this->device)['project']
+        );
+
+        $this->device->setProject(null);
+        $this->assertNull($this->attributes->getValue($this->device)['project']);
+    }
+
+    public function testGetOwnership(): void
+    {
+        $this->attributes->setValue($this->device, ['ownership' => 'Some ownership']);
+        $this->assertEquals(
+            'Some ownership',
+            $this->device->getOwnership()
+        );
+
+        $this->attributes->setValue($this->device, ['ownership' => null]);
+        $this->assertNull($this->device->getOwnership());
+    }
+
+    public function testSetOwnership(): void
+    {
+        $this->device->setOwnership('Some other ownership');
+        $this->assertEquals(
+            'Some other ownership',
+            $this->attributes->getValue($this->device)['ownership']
+        );
+
+        $this->device->setOwnership(null);
+        $this->assertNull($this->attributes->getValue($this->device)['ownership']);
+    }
+
+    public function testGetResponsible(): void
+    {
+        $this->attributes->setValue($this->device, ['responsible' => 'Some responsible']);
+        $this->assertEquals(
+            'Some responsible',
+            $this->device->getResponsible()
+        );
+
+        $this->attributes->setValue($this->device, ['responsible' => null]);
+        $this->assertNull($this->device->getResponsible());
+    }
+
+    public function testSetResponsible(): void
+    {
+        $this->device->setResponsible('Some other responsible');
+        $this->assertEquals(
+            'Some other responsible',
+            $this->attributes->getValue($this->device)['responsible']
+        );
+
+        $this->device->setResponsible(null);
+        $this->assertNull($this->attributes->getValue($this->device)['responsible']);
+    }
+
+    public function testGetFinanciallyResponsiblePerson(): void
+    {
+        $this->attributes
+            ->setValue($this->device, ['financially_responsible_person' => 'Some financially responsible person']);
+        $this->assertEquals(
+            'Some financially responsible person',
+            $this->device->getFinanciallyResponsiblePerson()
+        );
+
+        $this->attributes->setValue($this->device, ['financially_responsible_person' => null]);
+        $this->assertNull($this->device->getFinanciallyResponsiblePerson());
+    }
+
+    public function testSetFinanciallyResponsiblePerson(): void
+    {
+        $this->device
+            ->setFinanciallyResponsiblePerson('Some other financially responsible person');
+        $this->assertEquals(
+            'Some other financially responsible person',
+            $this->attributes->getValue($this->device)['financially_responsible_person']
+        );
+
+        $this->device->setFinanciallyResponsiblePerson(null);
+        $this->assertNull($this->attributes->getValue($this->device)['financially_responsible_person']);
+    }
+
+    public function testGetInventoryNumber(): void
+    {
+        $this->attributes->setValue($this->device, ['inventory_number' => 'Some inventory number']);
+        $this->assertEquals(
+            'Some inventory number',
+            $this->device->getInventoryNumber()
+        );
+
+        $this->attributes->setValue($this->device, ['inventory_number' => null]);
+        $this->assertNull($this->device->getInventoryNumber());
+    }
+
+    public function testSetInventoryNumber(): void
+    {
+        $this->device->setInventoryNumber('Some other inventory number');
+        $this->assertEquals(
+            'Some other inventory number',
+            $this->attributes->getValue($this->device)['inventory_number']
+        );
+
+        $this->device->setInventoryNumber(null);
+        $this->assertNull($this->attributes->getValue($this->device)['inventory_number']);
+    }
+
+    public function testGetFixedAsset(): void
+    {
+        $this->attributes->setValue($this->device, ['fixed_asset' => 'Some fixed asset']);
+        $this->assertEquals(
+            'Some fixed asset',
+            $this->device->getFixedAsset()
+        );
+
+        $this->attributes->setValue($this->device, ['fixed_asset' => null]);
+        $this->assertNull($this->device->getFixedAsset());
+    }
+
+    public function testSetFixedAsset(): void
+    {
+        $this->device->setFixedAsset('Some other fixed asset');
+        $this->assertEquals(
+            'Some other fixed asset',
+            $this->attributes->getValue($this->device)['fixed_asset']
+        );
+
+        $this->device->setFixedAsset(null);
+        $this->assertNull($this->attributes->getValue($this->device)['fixed_asset']);
+    }
+
+    public function testGetLinkToDocs(): void
+    {
+        $this->attributes->setValue($this->device, ['link_to_docs' => 'Some link to docs']);
+        $this->assertEquals(
+            'Some link to docs',
+            $this->device->getLinkToDocs()
+        );
+
+        $this->attributes->setValue($this->device, ['link_to_docs' => null]);
+        $this->assertNull($this->device->getLinkToDocs());
+    }
+
+    public function testSetLinkToDocs(): void
+    {
+        $this->device->setLinkToDocs('Some other link to docs');
+        $this->assertEquals(
+            'Some other link to docs',
+            $this->attributes->getValue($this->device)['link_to_docs']
+        );
+
+        $this->device->setLinkToDocs(null);
+        $this->assertNull($this->attributes->getValue($this->device)['link_to_docs']);
+    }
+
+    public function testGetRackId(): void
+    {
+        $this->attributes->setValue($this->device, ['rack_id' => 12]);
+        $this->assertEquals(
+            12,
+            $this->device->getRackId()
+        );
+
+        $this->attributes->setValue($this->device, ['rack_id' => null]);
+        $this->assertNull($this->device->getRackId());
+    }
+
+    public function testSetRackId(): void
+    {
+        $this->device->setRackId(14);
+        $this->assertEquals(
+            14,
+            $this->attributes->getValue($this->device)['rack_id']
+        );
+
+        $this->device->setRackId(null);
+        $this->assertNull($this->attributes->getValue($this->device)['rack_id']);
+
+        try {
+            $this->device->setRackId(-11);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$rackId <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setRackId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$rackId <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetDepartmentId(): void
+    {
+        $this->attributes->setValue($this->device, ['department_id' => 18]);
+        $this->assertEquals(
+            18,
+            $this->device->getDepartmentId()
+        );
+
+        $this->attributes->setValue($this->device, ['department_id' => null]);
+        $this->assertNull($this->device->getDepartmentId());
+    }
+
+    public function testSetDepartmentId(): void
+    {
+        $this->device->setDepartmentId(11);
+        $this->assertEquals(
+            11,
+            $this->attributes->getValue($this->device)['department_id']
+        );
+
+        $this->device->setDepartmentId(null);
+        $this->assertNull($this->attributes->getValue($this->device)['department_id']);
+
+        try {
+            $this->device->setDepartmentId(-1);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
+
+        try {
+            $this->device->setDepartmentId(0);
+        } catch (\DomainException $e) {
+            $this->assertEquals('$departmentId <= 0', $e->getMessage());
+        }
+    }
+
+    public function testGetLocation(): void
+    {
+        $this->attributes->setValue($this->device, ['has_backside_location' => true]);
+        $this->assertTrue($this->device->getLocation());
+
+        $this->attributes->setValue($this->device, ['has_backside_location' => false]);
+        $this->assertFalse($this->device->getLocation());
+
+        $this->device->setLocation(null);
+        $this->assertNull($this->attributes->getValue($this->device)['has_backside_location']);
+    }
+
+    public function testSetLocation(): void
+    {
+        $this->device->setLocation(true);
+        $this->assertTrue($this->attributes->getValue($this->device)['has_backside_location']);
+
+        $this->device->setLocation(false);
+        $this->assertFalse($this->attributes->getValue($this->device)['has_backside_location']);
+
+        $this->device->setLocation(null);
+        $this->assertNull($this->attributes->getValue($this->device)['has_backside_location']);
+    }
+
+    public function testGetUpdatedBy(): void
+    {
+        $this->attributes->setValue($this->device, ['updated_by' => 'Some user']);
+        $this->assertEquals(
+            'Some user',
+            $this->device->getUpdatedBy()
+        );
+    }
+
+    public function testSetUpdatedBy(): void
+    {
+        $this->device->setUpdatedBy('Some other user');
+        $this->assertEquals(
+            'Some other user',
+            $this->attributes->getValue($this->device)['updated_by']
+        );
+    }
+
+    public function testGetCreatedAt(): void
+    {
+        $this->attributes->setValue($this->device, ['created_at' => '2024-01-28 16:37:29']);
+        $this->assertEquals(
+            '2024-01-28 16:37:29',
+            $this->device->getCreatedAt()
+        );
+    }
+
+    public function testGetUpdatedAt(): void
+    {
+        $this->attributes->setValue($this->device, ['updated_at' => '2024-01-28 16:39:20']);
+        $this->assertEquals(
+            '2024-01-28 16:39:20',
+            $this->device->getUpdatedAt()
+        );
+    }
 }
