@@ -12,7 +12,7 @@ class RacksPage():
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 1)
+        self.wait = WebDriverWait(self.driver, 10)
         self.region_name_id = Locators.region_name_id
         self.department_name_id = Locators.department_name_id
         self.site_name_id = Locators.site_name_id
@@ -29,6 +29,7 @@ class RacksPage():
         Open rack layout pager
         """
         # reset_actions() dont work for some reason...
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.region_name_id)))
         self.driver.find_element_by_id(self.region_name_id).click()
         department = self.wait.until(EC.element_to_be_clickable(
                        (By.ID, self.department_name_id)))
@@ -53,6 +54,7 @@ class RacksPage():
         """
         Expand region
         """
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.region_name_id)))
         self.driver.find_element_by_id(self.region_name_id).click()
 
     def add_site(self):
@@ -66,6 +68,7 @@ class RacksPage():
         """
         Add new building
         """
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.region_name_id)))
         self.driver.find_element_by_id(self.region_name_id).click()
         department = self.wait.until(EC.element_to_be_clickable(
                        (By.ID, self.department_name_id)))
@@ -78,6 +81,7 @@ class RacksPage():
         """
         Add new room
         """
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.region_name_id)))
         self.driver.find_element_by_id(self.region_name_id).click()
         department = self.wait.until(EC.element_to_be_clickable(
                        (By.ID, self.department_name_id)))
@@ -94,6 +98,7 @@ class RacksPage():
         """
         Add new rack
         """
+        self.wait.until(EC.element_to_be_clickable((By.ID, self.region_name_id)))
         self.driver.find_element_by_id(self.region_name_id).click()
         department = self.wait.until(EC.element_to_be_clickable(
                        (By.ID, self.department_name_id)))

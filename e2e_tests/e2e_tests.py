@@ -12,7 +12,6 @@ from selenium.webdriver.common.keys import Keys
 from params import Params
 from poms.device_page import DevicePage
 from poms.form_page import FormPage
-from poms.home_page import HomePage
 from poms.login_page import LoginPage
 from poms.racks_page import RacksPage
 from poms.units_page import UnitsPage
@@ -66,8 +65,6 @@ class MoveDeviceCase(E2ETestCase):
         """
         Trying to move the device off the rack
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.open_rack()
         time.sleep(1)
@@ -96,8 +93,6 @@ class MoveDeviceCase(E2ETestCase):
         """
         Trying to move the device to a busy place
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.open_rack()
         time.sleep(1)
@@ -133,8 +128,6 @@ class PermissionsCase(E2ETestCase):
         Trying to add a new object
         in the area of responsibility of another department
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.expand_region()
         racks.add_site()
@@ -155,8 +148,6 @@ class AddDeviceCase(E2ETestCase):
         """
         Trying to add a new device outside the rack
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.open_rack()
         time.sleep(1)
@@ -181,8 +172,6 @@ class AddDeviceCase(E2ETestCase):
         """
         Trying to add a new device to the busy space
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.open_rack()
         time.sleep(1)
@@ -214,8 +203,6 @@ class NameDuplicationCase(E2ETestCase):
         """
         Trying to add a building with a duplicate name
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.add_new_building()
         time.sleep(1)
@@ -223,15 +210,13 @@ class NameDuplicationCase(E2ETestCase):
         building_form = FormPage(self.driver)
         building_form.enter_building_name(Params.building_name)
         building_form.click_submit()
-        time.sleep(1)
+        time.sleep(2)
         self.assertTrue(building_form.get_building_name_busy_loc())
 
     def test_7_add_same_name_room(self):
         """
         Trying to add a room with a duplicate name
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.add_new_room()
         time.sleep(1)
@@ -240,15 +225,13 @@ class NameDuplicationCase(E2ETestCase):
         room_form.enter_room_name(Params.room_name)
         room_form.enter_room_floor(Params.room_floor)
         room_form.click_submit()
-        time.sleep(1)
+        time.sleep(2)
         self.assertTrue(room_form.get_room_name_busy_loc())
 
     def test_8_add_same_name_rack(self):
         """
         Trying to add a rack with a duplicate name
         """
-        home_page = HomePage(self.driver)
-        home_page.go_to_racks_map()
         racks = RacksPage(self.driver)
         racks.add_new_rack()
         time.sleep(1)
@@ -257,5 +240,5 @@ class NameDuplicationCase(E2ETestCase):
         rack_form.enter_rack_name(Params.rack_name)
         rack_form.enter_rack_amount(Params.rack_amount)
         rack_form.click_submit()
-        time.sleep(1)
+        time.sleep(2)
         self.assertTrue(rack_form.get_rack_name_busy_loc())
