@@ -49,6 +49,7 @@ class DeviceTest extends TestCase
             $this->device->getUnits()->toArray(),
         );
 
+        // Unbind mock
         $this->app->offsetUnset(DeviceUnitsValueObject::class);
 
         // $units is an instanceof DeviceUnitsValueObject
@@ -59,9 +60,6 @@ class DeviceTest extends TestCase
             [1, 2, 3],
             $this->device->getUnits()->toArray(),
         );
-
-        // Unbind mock
-        $this->app->offsetUnset(DeviceUnitsValueObject::class);
 
         // $units is a string
         $this->attributes->setValue(
@@ -104,20 +102,16 @@ class DeviceTest extends TestCase
 
     public function testSetUnits(): void
     {
+        $unitsMock = $this->createMock(DeviceUnitsValueObject::class);
+
         $this->attributes->setValue(
-            $this->device, ['units' => '[]']
+            $this->device, ['units' => $unitsMock]
         );
-        $unitsMock = $this->getMockBuilder(DeviceUnitsValueObject::class)
-            ->onlyMethods(['toArray'])
-            ->setConstructorArgs([[4, 5]])
-            ->getMock();
-        $unitsMock->method('toArray')
-            ->willReturn([4, 5]);
 
         $this->device->setUnits($unitsMock);
-        $this->assertEquals(
-            $unitsMock->toArray(),
-            $this->attributes->getValue($this->device)['units']->toArray()
+        $this->assertSame(
+            $unitsMock,
+            $this->attributes->getValue($this->device)['units']
         );
     }
 
