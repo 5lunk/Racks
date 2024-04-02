@@ -55,8 +55,6 @@ class UpdateRackInteractor implements UpdateRackInputPort
         // Set nullable props
         $rackUpdating->setUpdatedBy($request->getUserName());
 
-        $rackUpdating->setId($rack->getId());
-
         $rackUpdating->setRoomId($rack->getRoomId());
 
         $rackUpdating->setOldName($rack->getName());
