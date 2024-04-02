@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import DeviceView from '@/views/DeviceView.vue';
 import RackView from '@/views/RackView.vue';
@@ -24,8 +23,8 @@ import PageNotFoundView from "@/views/PageNotFoundView.vue";
 const routes = [
   {
     path: '/',
-    name: 'HomeView',
-    component: HomeView
+    name: 'TreeView',
+    component: TreeView
   },
   {
     path: '/login',
@@ -56,11 +55,6 @@ const routes = [
     path: '/site/:id',
     name: 'SiteView',
     component: SiteView
-  },
-  {
-    path: '/tree',
-    name: 'TreeView',
-    component: TreeView
   },
   {
     path: '/units/:id',
@@ -120,6 +114,10 @@ const routes = [
   {
     path: '/404',
     name: 'PageNotFoundView',
+    component: PageNotFoundView
+  },
+  {
+    path: '/:pathMatch(.*)*',
     component: PageNotFoundView
   }
 ];

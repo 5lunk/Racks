@@ -67,3 +67,6 @@ export const MATCH_LABEL = Object.freeze({
   'rack_model': () => 'Rack model',
   'default': () => console.log('Something wrong with props (itemsData.item_type) / setting label')
 });
+
+// Units view refresh time
+export const UNITS_REFRESH_TIME = 5000;

@@ -33,7 +33,7 @@
                       <template v-if="device.status === deviceStatus.ACTIVE">
                         <template v-if="device.ownership === deviceOwnership.OUR">
                           <Unit
-                            :className="`text-center text-white ${classNameOur}`"
+                            :className="`text-center font-normal text-white rounded-lg ${classNameOur}`"
                             :vendor="device.vendor"
                             :model="device.model"
                             :id="device.id"
@@ -43,7 +43,7 @@
                         </template>
                         <template v-else>
                           <Unit
-                            :className="`text-center text-white ${classNameAlien}`"
+                            :className="`text-center font-normal text-white rounded-lg ${classNameAlien}`"
                             :vendor="device.vendor"
                             :model="device.model"
                             :id="device.id"
@@ -55,7 +55,7 @@
                       <template v-else>
                         <template v-if="device.ownership === deviceOwnership.OUR">
                           <Unit
-                            :className="`text-center text-white ${classNameEmpty} ${classNameOur}`"
+                            :className="`text-center font-normal text-white rounded-lg ${classNameEmpty} ${classNameOur}`"
                             :vendor="device.vendor"
                             :model="device.model"
                             :id="device.id"
@@ -65,7 +65,7 @@
                         </template>
                         <template v-else>
                           <Unit
-                            :className="`text-center text-white ${classNameAlien} ${classNameEmpty}`"
+                            :className="`text-center font-normal text-white rounded-lg ${classNameAlien} ${classNameEmpty}`"
                             :vendor="device.vendor"
                             :model="device.model"
                             :id="device.id"

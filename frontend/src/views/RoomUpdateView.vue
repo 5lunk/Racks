@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-full">
     <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
       <TheMessage :messageProps="messageProps"/>
     </div>

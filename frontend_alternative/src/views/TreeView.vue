@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen">
     <div class="container px-4 mx-auto  justify-between text-xl pl-8 pt-4 font-sans font-light"></div>
-    <div class="container min-h-screen px-4 mx-auto flex flex-wrap justify-between text-xl pl-8 font-sans tracking-tight font-thin">
-      <ul>
+    <div class="container px-4 mx-auto flex flex-wrap justify-between text-xl pl-8 font-sans tracking-tight font-thin">
+      <ul class="w-full">
         <li v-for="treeData in regions">
           <TreeItem
             :item="treeData"

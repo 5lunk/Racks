@@ -1,37 +1,46 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto  justify-between text-xl pl-8 pt-4 font-sans font-light">
-      Rack №{{rack.id}}
-      <router-link
-        :to="{path: `/device/create/${this.$route.params.id}`}"
-        target="_blank"
-      >
-        <button
-          id="e2e_add_device"
-          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        Rack №{{rack.id}}
+        <router-link
+          :to="{path: `/device/create/${this.$route.params.id}`}"
+          target="_blank"
         >
-          Add device
-        </button>
-      </router-link>
-      <router-link
-        :to="{path: `/rack/${this.$route.params.id}`}"
-        target="_blank"
-      >
-        <button class=" text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Info
-        </button>
-      </router-link>
-      <br>
-      <div class="text-base">
-        Name: {{rack.name}}
-        <br>
-        Row: {{rack.row}}
-        <br>
-        Place: {{rack.place}}
+          <button
+            id="e2e_add_device"
+            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          >
+            Add device
+          </button>
+        </router-link>
+        <router-link
+          :to="{path: `/rack/${this.$route.params.id}`}"
+          target="_blank"
+        >
+          <button class=" text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]">
+            Info
+          </button>
+        </router-link>
+        <div class="text-sm">
+          Name:
+            <text class="text-slate-500">
+              {{rack.name}}
+            </text>
+          <br>
+          Row:
+            <text class="text-slate-500">
+              {{rack.row}}
+            </text>
+          <br>
+          Place:
+            <text class="text-slate-500">
+              {{rack.place}}
+            </text>
+        </div>
       </div>
-      <br>
       <div class="rack">
         <RackSideItem
           :side="`front side`"
@@ -57,7 +66,7 @@
 import RackSideItem from '@/components/RackSideItem.vue';
 import {getObject, getObjectsForParent, logIfNotStatus} from '@/api';
 import {getDevicesForSide, getFirstUnits, getRowSpans, getStartList} from '@/functions';
-import {RESPONSE_STATUS} from "@/constants";
+import {RESPONSE_STATUS, UNITS_REFRESH_TIME} from "@/constants";
 
 
 export default {
@@ -73,8 +82,11 @@ export default {
     }
   },
   created() {
-    this.setDevices();
     this.setRack();
+    this.setDevices();
+    setInterval(() => {
+      this.setDevices();
+    }, UNITS_REFRESH_TIME);
   },
   computed: {
     /**
@@ -154,7 +166,6 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 @media screen and (max-width: 600px) {
   .rack {
     flex-direction: column;

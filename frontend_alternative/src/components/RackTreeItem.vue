@@ -18,7 +18,7 @@
           class="group transition duration-300"
         >
           {{truncate(name, truncationLength.RACK)}}
-          <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-1 bg-blue-500"></span>
+          <span class="block max-w-0 group-hover:max-w-prose transition-all duration-500 h-1 bg-blue-500"></span>
         </a>
       </router-link>
     </span>

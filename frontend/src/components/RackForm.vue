@@ -1,396 +1,412 @@
 <template>
-  <form v-on:submit.prevent="emitData">
-    <br>
-    <label for="name">
-      Rack name:
-    </label>
-    <input
-      id="e2e_rack_name"
-      class="block w-96"
-      placeholder="Enter rack name here"
-      name="name"
-      type="text"
-      v-model="form.name"
-    />
-    <p
-      v-for="error of v$.form.name.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{error.$message}}
-      </text>
-    </p>
-    <br>
-    <template v-if="!form.update">
-      <label for="amount">
-        Rack amount (units):
-      </label>
-      <input
-        id="e2e_rack_amount"
-        class="block w-96"
-        placeholder="Filled in once (cannot be changed later)"
-        name="amount"
-        type="text"
-        v-model="form.amount"
-      />
-      <p
-        v-for="error of v$.form.amount.$errors"
-        :key="error.$uid"
+  <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
+    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <form
+        v-on:submit.prevent="emitData"
+        class="text-sm"
       >
-        <text class="text-red-500">
-          {{error.$message}}
-        </text>
-      </p>
-    </template>
+        <label for="name">
+          Rack name:
+        </label>
+        <input
+          id="e2e_rack_name"
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Enter rack name here"
+          name="name"
+          type="text"
+          v-model="form.name"
+        />
+        <p
+          v-for="error of v$.form.name.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{error.$message}}
+          </text>
+        </p>
+        <br>
+        <template v-if="!form.update">
+          <label for="amount">
+            Rack amount (units):
+          </label>
+          <input
+            id="e2e_rack_amount"
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            placeholder="Filled in once (cannot be changed later)"
+            name="amount"
+            type="text"
+            v-model="form.amount"
+          />
+          <p
+            v-for="error of v$.form.amount.$errors"
+            :key="error.$uid"
+          >
+            <text class="text-red-500">
+              {{error.$message}}
+            </text>
+          </p>
+        </template>
+        <template v-if="models.item_type">
+          <ChooseExistingItem
+            :itemsData="models"
+            :isHidden="modelsIsHidden"
+            v-model:modelValue="form.model"
+          />
+        </template>
+        <template v-else>
+          <br>
+          Please wait...
+          <br>
+        </template>
+        <template v-if="vendors.item_type">
+          <ChooseExistingItem
+            :itemsData="vendors"
+            :isHidden="vendorsIsHidden"
+            v-model:modelValue="form.vendor"
+          />
+        </template>
+        <template v-else>
+          <br>
+          Please wait...
+          <br>
+        </template>
+        <label for="description">
+          Description:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Can be used for notes"
+          name="description"
+          type="text"
+          v-model="form.description"
+        />
+        <br>
+        <input
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          name="hasNumberingFromTopToBottom"
+          type="checkbox"
+          v-model="form.hasNumberingFromTopToBottom"
+        />
+        <label
+          for="hasNumberingFromTopToBottom"
+          class="px-2"
+        >
+          Numbering from top to bottom
+        </label>
+        <br>
+        <br>
+        <label for="responsible">
+          Responsible:
+        </label>
+        <input
+          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="responsible"
+          type="text"
+          v-model="form.responsible"
+        />
+        <br>
+        <label for="financiallyResponsiblePerson">
+          Financially responsible:
+        </label>
+        <input
+          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="financiallyResponsiblePerson"
+          type="text"
+          v-model="form.financiallyResponsiblePerson"
+        />
+        <br>
+        <label for="inventoryNumber">
+          Inventory number:
+        </label>
+        <input
+          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="inventoryNumber"
+          type="text"
+          v-model="form.inventoryNumber"
+        />
+        <br>
+        <label for="fixedAsset">
+          Fixed asset:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="fixedAsset"
+          type="text"
+          v-model="form.fixedAsset"
+        />
+        <br>
+        <label for="link">
+          Link to docs:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Link to some documentation"
+          name="link"
+          type="text"
+          v-model="form.linkToDocs"
+        />
+        <br>
+        <label for="row">
+          Row:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="row"
+          type="text"
+          v-model="form.row"
+        />
+        <br>
+        <label for="place">
+          Place:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="place"
+          type="text"
+          v-model="form.place"
+        />
+        <br>
+        <label for="height">
+          Rack height (mm):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="height"
+          type="text"
+          v-model="form.height"
+        />
+        <p
+          v-for="error of v$.form.height.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="width">
+          Rack width (mm):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="width"
+          type="text"
+          v-model="form.width"
+        />
+        <p
+          v-for="error of v$.form.width.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="depth">
+          Rack depth (mm):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="depth"
+          type="text"
+          v-model="form.depth"
+        />
+        <p
+          v-for="error of v$.form.depth.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="unitWidth">
+          Useful rack width (inches):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Frame width"
+          name="unitWidth"
+          type="text"
+          v-model="form.unitWidth"
+        />
+        <p
+          v-for="error of v$.form.unitWidth.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="unitDepth">
+          Useful rack depth (mm):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Depth from frame to frame"
+          name="unitDepth"
+          type="text"
+          v-model="form.unitDepth"
+        />
+        <p
+          v-for="error of v$.form.unitDepth.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="type">
+          Execution variant:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.type"
+        >
+          <option
+            value="Rack"
+            selected="selected"
+          >
+            Rack
+          </option>
+          <option value="Protective cabinet">
+            Protective cabinet
+          </option>
+        </select>
+        <br>
+        <label for="frame">
+          Construction:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.frame"
+        >
+          <option
+            value="Double frame"
+            selected="selected"
+          >
+            Double frame
+          </option>
+          <option value="Single frame">
+            Single frame
+          </option>
+        </select>
+        <br>
+        <label for="placeType">
+          Location type:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.placeType"
+        >
+          <option
+            value="Floor standing"
+            selected="selected"
+          >
+            Floor standing
+          </option>
+          <option value="Wall mounted">
+            Wall mounted
+          </option>
+        </select>
+        <br>
+        <label for="maxLoad">
+          Max load (kilo):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="maxLoad"
+          type="text"
+          v-model="form.maxLoad"
+        />
+        <p
+          v-for="error of v$.form.maxLoad.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="powerSockets">
+          Free power sockets:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="powerSockets"
+          type="text"
+          v-model="form.powerSockets"
+        />
+        <p
+          v-for="error of v$.form.powerSockets.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="powerSocketsUps">
+          Free UPS power sockets:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="powerSocketsUps"
+          type="text"
+          v-model="form.powerSocketsUps"
+        />
+        <p
+          v-for="error of v$.form.powerSocketsUps.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <input
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          name="hasExternalUps"
+          type="checkbox"
+          v-model="form.hasExternalUps"
+        />
+        <label
+          for="hasExternalUps"
+          class="px-2"
+        >
+          External power backup supply system
+        </label>
+        <br>
+        <br>
+        <input
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          name="hasCooler"
+          type="checkbox"
+          v-model="form.hasCooler"
+        />
+        <label
+          for="hasCooler"
+          class="px-2"
+        >
+          Active ventilation
+        </label>
+        <br>
+        <br>
+        <button
+          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
+          px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          type="submit"
+          id="e2e_submit_button"
+          v-on:click="submit"
+        >
+          Submit data
+        </button>
+      </form>
+    </div>
     <br>
-    <template v-if="models.item_type">
-      <ChooseExistingItem
-        :itemsData="models"
-        :isHidden="modelsIsHidden"
-        v-model:modelValue="form.model"
-      />
-    </template>
-    <template v-else>
-      <br>
-      Please wait...
-      <br>
-    </template>
-    <br>
-    <template v-if="vendors.item_type">
-      <ChooseExistingItem
-        :itemsData="vendors"
-        :isHidden="vendorsIsHidden"
-        v-model:modelValue="form.vendor"
-      />
-    </template>
-    <template v-else>
-      <br>
-      Please wait...
-      <br>
-    </template>
-    <br>
-    <label for="description">
-      Description:
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Can be used for notes"
-      name="description"
-      type="text"
-      v-model="form.description"
-    />
-    <br>
-    <label for="hasNumberingFromBottomToTop">
-      Numbering from bottom to top:
-    </label>
-    <input
-      class="block"
-      name="hasNumberingFromBottomToTop"
-      type="checkbox"
-      v-model="form.hasNumberingFromTopToBottom"
-    />
-    <br>
-    <label for="responsible">
-      Responsible:
-    </label>
-    <input
-      class="block w-96"
-      name="responsible"
-      type="text"
-      v-model="form.responsible"
-    />
-    <br>
-    <label for="financiallyResponsiblePerson">
-      Financially responsible:
-    </label>
-    <input
-      class="block w-96"
-      name="financiallyResponsiblePerson"
-      type="text"
-      v-model="form.financiallyResponsiblePerson"
-    />
-    <br>
-    <label for="inventoryNumber">
-      Inventory number:
-    </label>
-    <input
-      class="block w-96"
-      name="inventoryNumber"
-      type="text"
-      v-model="form.inventoryNumber"
-    />
-    <br>
-    <label for="fixedAsset">
-      Fixed asset:
-    </label>
-    <input
-      class="block w-96"
-      name="fixedAsset"
-      type="text"
-      v-model="form.fixedAsset"
-    />
-    <br>
-    <label for="link">
-      Link to docs:
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Link to some documentation"
-      name="link"
-      type="text"
-      v-model="form.linkToDocs"
-    />
-    <br>
-    <label for="row">
-      Row:
-    </label>
-    <input
-      class="block w-96"
-      name="row"
-      type="text"
-      v-model="form.row"
-    />
-    <br>
-    <label for="place">
-      Place:
-    </label>
-    <input
-      class="block w-96"
-      name="place"
-      type="text"
-      v-model="form.place"
-    />
-    <br>
-    <label for="height">
-      Rack height (mm):
-    </label>
-    <input
-      class="block w-96"
-      name="height"
-      type="text"
-      v-model="form.height"
-    />
-    <p
-      v-for="error of v$.form.height.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="width">
-      Rack width (mm):
-    </label>
-    <input
-      class="block w-96"
-      name="width"
-      type="text"
-      v-model="form.width"
-    />
-    <p
-      v-for="error of v$.form.width.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="depth">
-      Rack depth (mm):
-    </label>
-    <input
-      class="block w-96"
-      name="depth"
-      type="text"
-      v-model="form.depth"
-    />
-    <p
-      v-for="error of v$.form.depth.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="unitWidth">
-      Useful rack width (inches):
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Frame width"
-      name="unitWidth"
-      type="text"
-      v-model="form.unitWidth"
-    />
-    <p
-      v-for="error of v$.form.unitWidth.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="unitDepth">
-      Useful rack depth (mm):
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Depth from frame to frame"
-      name="unitDepth"
-      type="text"
-      v-model="form.unitDepth"
-    />
-    <p
-      v-for="error of v$.form.unitDepth.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="type">
-      Execution variant:
-    </label>
-    <select
-      class="block"
-      v-model="form.type"
-    >
-      <option
-        value="Rack"
-        selected="selected"
-      >
-        Rack
-      </option>
-      <option value="Protective cabinet">
-        Protective cabinet
-      </option>
-    </select>
-    <br>
-    <label for="frame">
-      Construction:
-    </label>
-    <select
-      class="block"
-      v-model="form.frame"
-    >
-      <option
-        value="Double frame"
-        selected="selected"
-      >
-        Double frame
-      </option>
-      <option value="Single frame">
-        Single frame
-      </option>
-    </select>
-    <br>
-    <label for="placeType">
-      Location type:
-    </label>
-    <select
-      class="block"
-      v-model="form.placeType"
-    >
-      <option
-        value="Floor standing"
-        selected="selected"
-      >
-        Floor standing
-      </option>
-      <option value="Wall mounted">
-        Wall mounted
-      </option>
-    </select>
-    <br>
-    <label for="maxLoad">
-      Max load (kilo):
-    </label>
-    <input
-      class="block w-96"
-      name="maxLoad"
-      type="text"
-      v-model="form.maxLoad"
-    />
-    <p
-      v-for="error of v$.form.maxLoad.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="powerSockets">
-      Free power sockets:
-    </label>
-    <input
-      class="block w-96"
-      name="powerSockets"
-      type="text"
-      v-model="form.powerSockets"
-    />
-    <p
-      v-for="error of v$.form.powerSockets.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="powerSocketsUps">
-      Free UPS power sockets:
-    </label>
-    <input
-      class="block w-96"
-      name="powerSocketsUps"
-      type="text"
-      v-model="form.powerSocketsUps"
-    />
-    <p
-      v-for="error of v$.form.powerSocketsUps.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="hasExternalUps">
-      External power backup supply system:
-    </label>
-    <input
-      class="block"
-      name="hasExternalUps"
-      type="checkbox"
-      v-model="form.hasExternalUps"
-    />
-    <br>
-    <label for="hasCooler">
-      Active ventilation:
-    </label>
-    <input
-      class="block"
-      name="hasCooler"
-      type="checkbox"
-      v-model="form.hasCooler"
-    />
-    <br>
-    <button
-      class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-      px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      type="submit"
-      id="e2e_submit_button"
-      v-on:click="submit"
-    >
-      Submit data
-    </button>
-  </form>
+  </div>
 </template>
 
 <script>

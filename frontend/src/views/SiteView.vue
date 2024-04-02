@@ -4,39 +4,28 @@
       <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
         <TheMessage :messageProps="messageProps"/>
       </div>
-      Site №{{ site.id }}
-      <router-link
-        :to="{path: `/site/${site.id}/update`}"
-        target="_blank"
-      >
-        <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Edit
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        Site №{{ site.id }}
+        <router-link
+          :to="{path: `/site/${site.id}/update`}"
+          target="_blank"
+        >
+          <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]">
+            Edit
+          </button>
+        </router-link>
+        <button
+          class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          v-on:click="deleteSite(site.id, site.name)"
+        >
+          Delete
         </button>
-      </router-link>
-      <button
-        class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-        px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        v-on:click="deleteSite(site.id, site.name)"
-      >
-        Delete
-      </button>
-      <br>
-      <div class="text-xs pb-4 text-slate-500">
-        {{location.regionName}} &#9002; {{location.departmentName}}
-      </div>
-      <div class="text-base">
-        Site name:
-        <text class="text-slate-500">
-          {{ site.name }}
-        </text>
         <br>
-        Description:
-        <text class="text-slate-500">
-          {{ site.description }}
-        </text>
-        <br>
-        <br>
+        <div class="text-xs pb-2 text-slate-500">
+          {{location.regionName}} &#9002; {{location.departmentName}}
+        </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
@@ -48,7 +37,19 @@
             {{ site.updatedAt }}
           </text>
         </div>
-        <br>
+      </div>
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        <div class="text-sm">
+          Site name:
+          <text class="text-slate-500">
+            {{ site.name }}
+          </text>
+          <br>
+          Description:
+          <text class="text-slate-500">
+            {{ site.description }}
+          </text>
+        </div>
       </div>
     </div>
   </div>

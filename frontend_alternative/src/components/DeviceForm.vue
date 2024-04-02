@@ -1,421 +1,432 @@
 <template>
-  <form v-on:submit.prevent="emitData">
-    <br>
-    <label for="firstUnit">
-      First unit:
-    </label>
-    <input
-      id="e2e_first_unit"
-      class="block w-96"
-      placeholder="Order doesn't matter"
-      name="firstUnit"
-      type="text"
-      v-model="form.firstUnit"
-    />
-    <p
-      v-for="error of v$.form.firstUnit.$errors"
-      :key="error.$uid"
-    ><text class="text-red-500">
-      {{error.$message}}
-    </text>
-    </p>
-    <br>
-    <label for="lastUnit">Last unit: </label>
-    <input
-      id="e2e_last_unit"
-      class="block w-96"
-      placeholder="Order doesn't matter"
-      name="lastUnit"
-      type="text"
-      v-model="form.lastUnit"
-    />
-    <p
-      v-for="error of v$.form.lastUnit.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{error.$message}}
-      </text>
-    </p>
-    <br>
-    <label for="hasBacksideLocation">
-      Installed on the back:
-    </label>
-    <input
-      class="block"
-      name="hasBacksideLocation"
-      type="checkbox"
-      v-model="form.hasBacksideLocation"
-    />
-    <br>
-    <label for="status">
-      Status:
-    </label>
-    <select
-      class="block"
-      v-model="form.status"
-    >
-      <option
-        value="Device active"
-        selected="selected"
+  <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
+    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <form
+        v-on:submit.prevent="emitData"
+        class="text-sm"
       >
-        Device active
-      </option>
-      <option value="Device failed">
-        Device failed
-      </option>
-      <option value="Device turned off">
-        Device turned off
-      </option>
-      <option value="Device not in use">
-        Device not in use
-      </option>
-      <option value="Units reserved">
-        Units reserved
-      </option>
-      <option value="Units not available">
-        Units not available
-      </option>
-    </select>
-    <br>
-    <label for="status">
-      Device type:
-    </label>
-    <select
-      class="block"
-      v-model="form.type"
-    >
-      <option
-        value="Other"
-        selected="selected"
-      >
-        Other
-      </option>
-      <option value="Switch">
-        Switch
-      </option>
-      <option value="Router">
-        Router
-      </option>
-      <option value="Firewall">
-        Firewall
-      </option>
-      <option value="Security Gateway">
-        Security Gateway
-      </option>
-      <option value="Fiber optic patch panel">
-        Fiber optic patch panel
-      </option>
-      <option value="RJ45 patch panel">
-        RJ45 patch panel
-      </option>
-      <option value="Organizer">
-        Organizer
-      </option>
-      <option value="Rack shelf">
-        Rack shelf
-      </option>
-      <option value="UPS">
-        UPS
-      </option>
-      <option value="Server">
-        Server
-      </option>
-      <option value="KVM console">
-        KVM console
-      </option>
-    </select>
-    <br>
-    <template v-if="models.item_type">
-      <ChooseExistingItem
-        :itemsData="models"
-        :isHidden="modelsIsHidden"
-        v-model:modelValue="form.model"
-      />
-    </template>
-    <template v-else>
-      <br>
-      Please wait...
-      <br>
-    </template>
-    <br>
-    <template v-if="vendors.item_type">
-      <ChooseExistingItem
-        :itemsData="vendors"
-        :isHidden="vendorsIsHidden"
-        v-model:modelValue="form.vendor"
-      />
-    </template>
-    <template v-else>
-      <br>
-      Please wait...
-      <br>
-    </template>
-    <template
-      v-if="devicesWithOS.includes(form.type)"
-    ><br>
-      <label for="hostname">
-        Hostname:
-      </label>
-      <input
-        class="block w-96"
-        name="hostname"
-        type="text" v-model="form.hostname"
-      /><br>
-      <label for="ip">
-        IP-address:
-      </label>
-      <input
-        class="block w-96"
-        name="ip"
-        type="text"
-        v-model="form.ip"
-      />
-      <p
-        v-for="error of v$.form.ip.$errors"
-        :key="error.$uid"
-      >
-        <text class="text-red-500">
+        <label for="firstUnit">
+          First unit:
+        </label>
+        <input
+          id="e2e_first_unit"
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Order doesn't matter"
+          name="firstUnit"
+          type="text"
+          v-model="form.firstUnit"
+        />
+        <p
+          v-for="error of v$.form.firstUnit.$errors"
+          :key="error.$uid"
+        ><text class="text-red-500">
           {{error.$message}}
         </text>
-      </p><br>
-      <label for="stack">
-        Stack/Reserve (reserve ID):
-      </label>
-      <input
-        class="block w-96"
-        name="stack"
-        type="text"
-        v-model="form.stack"
-      />
-      <p
-        v-for="error of v$.form.stack.$errors"
-        :key="error.$uid"
-      >
-        <text class="text-red-500">
-          {{numericOrNullValidationError}}
-        </text>
-      </p><br>
-      <label for="version">
-        Software version:
-      </label>
-      <input
-        class="block w-96"
-        name="version"
-        type="text"
-        v-model="form.softwareVersion"
-      />
-    </template>
-    <template v-else>
-    </template>
-    <template
-      v-if="devicesWithPorts.includes(form.type)"
-    ><br>
-      <label for="portsAmount">
-        Port capacity:
-      </label>
-      <input
-        class="block w-96"
-        placeholder="For switches, patch panels, etc."
-        name="portsAmount"
-        type="text"
-        v-model="form.portsAmount"
-      />
-      <p
-        v-for="error of v$.form.portsAmount.$errors"
-        :key="error.$uid"
-      >
-        <text class="text-red-500">
-          {{numericOrNullValidationError}}
-        </text>
-      </p>
-    </template>
-    <template v-else>
-    </template>
-    <br>
-    <label for="powerType">
-      Socket type:
-    </label>
-    <select
-      class="block"
-      v-model="form.powerType"
-    >
-      <option
-        value="IEC C14 socket"
-        selected="selected"
-      >
-        IEC C14 socket
-      </option>
-      <option value="External power supply">
-        External power supply
-      </option>
-      <option value="Clamps">
-        Clamps
-      </option>
-      <option value="Passive equipment">
-        Passive equipment
-      </option>
-      <option value="Other">
-        Other
-      </option>
-    </select>
-    <br>
-    <label for="powerW">
-      Power requirement (W):
-    </label>
-    <input
-      class="block w-96"
-      name="powerW"
-      type="text"
-      v-model="form.powerW"
-    />
-    <p
-      v-for="error of v$.form.powerW.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="powerV">
-      Voltage (V):
-    </label>
-    <input
-      class="block w-96"
-      name="powerV"
-      type="text"
-      v-model="form.powerV"
-    />
-    <p
-      v-for="error of v$.form.powerV.$errors"
-      :key="error.$uid"
-    >
-      <text class="text-red-500">
-        {{numericOrNullValidationError}}
-      </text>
-    </p>
-    <br>
-    <label for="powerACDC">
-      AC/DC:
-    </label>
-    <select
-      class="block"
-      v-model="form.powerACDC"
-    >
-      <option
-        value="AC"
-        selected="selected"
-      >
-        AC
-      </option>
-      <option value="DC">
-        DC
-      </option>
-    </select>
-    <br>
-    <label for="serialNumber">
-      Serial number:
-    </label>
-    <input
-      class="block w-96"
-      name="serialNumber"
-      type="text"
-      v-model="form.serialNumber"
-    />
-    <br>
-    <label for="description">
-      Description:
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Device purpose"
-      name="description"
-      type="text"
-      v-model="form.description"
-    />
-    <br>
-    <label for="project">
-      Project:
-    </label>
-    <input
-      class="block w-96"
-      name="project"
-      type="text"
-      v-model="form.project"
-    />
-    <br>
-    <label for="ownership">
-      Ownership:
-    </label>
-    <input
-      class="block w-96"
-      name="ownership"
-      type="text"
-      v-model="form.ownership"
-    />
-    <br>
-    <label for="responsible">
-      Responsible:
-    </label>
-    <input
-      class="block w-96"
-      name="responsible"
-      type="text"
-      v-model="form.responsible"
-    />
-    <br>
-    <label for="financiallyResponsiblePerson">
-      Financially responsible:
-    </label>
-    <input
-      class="block w-96"
-      name="financiallyResponsiblePerson"
-      type="text"
-      v-model="form.financiallyResponsiblePerson"
-    />
-    <br>
-    <label for="inventoryNumber">
-      Inventory number:
-    </label>
-    <input
-      class="block w-96"
-      name="inventoryNumber"
-      type="text"
-      v-model="form.inventoryNumber"
-    />
-    <br>
-    <label for="fixedAsset">
-      Fixed asset:
-    </label>
-    <input
-      class="block w-96"
-      name="fixedAsset"
-      type="text"
-      v-model="form.fixedAsset"
-    />
-    <br>
-    <label for="link">
-      Link to docs:
-    </label>
-    <input
-      class="block w-96"
-      placeholder="Link to some documentation"
-      name="link"
-      type="text"
-      v-model="form.linkToDocs"
-    />
-    <br>
-    <button
-      class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-       px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      type="submit"
-      id="e2e_submit_button"
-      v-on:click="submit"
-    >
-      Submit data
-    </button>
-  </form>
+        </p>
+        <br>
+        <label for="lastUnit">Last unit: </label>
+        <input
+          id="e2e_last_unit"
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Order doesn't matter"
+          name="lastUnit"
+          type="text"
+          v-model="form.lastUnit"
+        />
+        <p
+          v-for="error of v$.form.lastUnit.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{error.$message}}
+          </text>
+        </p>
+        <br>
+        <input
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          name="hasBacksideLocation"
+          type="checkbox"
+          v-model="form.hasBacksideLocation"
+        />
+        <label
+          for="hasBacksideLocation"
+          class="px-2"
+        >
+          Installed on the back
+        </label>
+        <br>
+        <br>
+        <label for="status">
+          Status:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.status"
+        >
+          <option
+            value="Device active"
+            selected="selected"
+          >
+            Device active
+          </option>
+          <option value="Device failed">
+            Device failed
+          </option>
+          <option value="Device turned off">
+            Device turned off
+          </option>
+          <option value="Device not in use">
+            Device not in use
+          </option>
+          <option value="Units reserved">
+            Units reserved
+          </option>
+          <option value="Units not available">
+            Units not available
+          </option>
+        </select>
+        <br>
+        <label for="status">
+          Device type:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.type"
+        >
+          <option
+            value="Other"
+            selected="selected"
+          >
+            Other
+          </option>
+          <option value="Switch">
+            Switch
+          </option>
+          <option value="Router">
+            Router
+          </option>
+          <option value="Firewall">
+            Firewall
+          </option>
+          <option value="Security Gateway">
+            Security Gateway
+          </option>
+          <option value="Fiber optic patch panel">
+            Fiber optic patch panel
+          </option>
+          <option value="RJ45 patch panel">
+            RJ45 patch panel
+          </option>
+          <option value="Organizer">
+            Organizer
+          </option>
+          <option value="Rack shelf">
+            Rack shelf
+          </option>
+          <option value="UPS">
+            UPS
+          </option>
+          <option value="Server">
+            Server
+          </option>
+          <option value="KVM console">
+            KVM console
+          </option>
+        </select>
+        <br>
+        <template v-if="models.item_type">
+          <ChooseExistingItem
+            :itemsData="models"
+            :isHidden="modelsIsHidden"
+            v-model:modelValue="form.model"
+          />
+        </template>
+        <template v-else>
+          <br>
+          Please wait...
+          <br>
+        </template>
+        <br>
+        <template v-if="vendors.item_type">
+          <ChooseExistingItem
+            :itemsData="vendors"
+            :isHidden="vendorsIsHidden"
+            v-model:modelValue="form.vendor"
+          />
+        </template>
+        <template v-else>
+          <br>
+          Please wait...
+          <br>
+        </template>
+        <template
+          v-if="devicesWithOS.includes(form.type)"
+        ><br>
+          <label for="hostname">
+            Hostname:
+          </label>
+          <input
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            name="hostname"
+            type="text" v-model="form.hostname"
+          /><br>
+          <label for="ip">
+            IP-address:
+          </label>
+          <input
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            name="ip"
+            type="text"
+            v-model="form.ip"
+          />
+          <p
+            v-for="error of v$.form.ip.$errors"
+            :key="error.$uid"
+          >
+            <text class="text-red-500">
+              {{error.$message}}
+            </text>
+          </p><br>
+          <label for="stack">
+            Stack/Reserve (reserve ID):
+          </label>
+          <input
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            name="stack"
+            type="text"
+            v-model="form.stack"
+          />
+          <p
+            v-for="error of v$.form.stack.$errors"
+            :key="error.$uid"
+          >
+            <text class="text-red-500">
+              {{numericOrNullValidationError}}
+            </text>
+          </p><br>
+          <label for="version">
+            Software version:
+          </label>
+          <input
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            name="version"
+            type="text"
+            v-model="form.softwareVersion"
+          />
+        </template>
+        <template v-else>
+        </template>
+        <template
+          v-if="devicesWithPorts.includes(form.type)"
+        ><br>
+          <label for="portsAmount">
+            Port capacity:
+          </label>
+          <input
+            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            placeholder="For switches, patch panels, etc."
+            name="portsAmount"
+            type="text"
+            v-model="form.portsAmount"
+          />
+          <p
+            v-for="error of v$.form.portsAmount.$errors"
+            :key="error.$uid"
+          >
+            <text class="text-red-500">
+              {{numericOrNullValidationError}}
+            </text>
+          </p>
+        </template>
+        <template v-else>
+        </template>
+        <br>
+        <label for="powerType">
+          Socket type:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.powerType"
+        >
+          <option
+            value="IEC C14 socket"
+            selected="selected"
+          >
+            IEC C14 socket
+          </option>
+          <option value="External power supply">
+            External power supply
+          </option>
+          <option value="Clamps">
+            Clamps
+          </option>
+          <option value="Passive equipment">
+            Passive equipment
+          </option>
+          <option value="Other">
+            Other
+          </option>
+        </select>
+        <br>
+        <label for="powerW">
+          Power requirement (W):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="powerW"
+          type="text"
+          v-model="form.powerW"
+        />
+        <p
+          v-for="error of v$.form.powerW.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="powerV">
+          Voltage (V):
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="powerV"
+          type="text"
+          v-model="form.powerV"
+        />
+        <p
+          v-for="error of v$.form.powerV.$errors"
+          :key="error.$uid"
+        >
+          <text class="text-red-500">
+            {{numericOrNullValidationError}}
+          </text>
+        </p>
+        <br>
+        <label for="powerACDC">
+          AC/DC:
+        </label>
+        <select
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          v-model="form.powerACDC"
+        >
+          <option
+            value="AC"
+            selected="selected"
+          >
+            AC
+          </option>
+          <option value="DC">
+            DC
+          </option>
+        </select>
+        <br>
+        <label for="serialNumber">
+          Serial number:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="serialNumber"
+          type="text"
+          v-model="form.serialNumber"
+        />
+        <br>
+        <label for="description">
+          Description:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Device purpose"
+          name="description"
+          type="text"
+          v-model="form.description"
+        />
+        <br>
+        <label for="project">
+          Project:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="project"
+          type="text"
+          v-model="form.project"
+        />
+        <br>
+        <label for="ownership">
+          Ownership:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="ownership"
+          type="text"
+          v-model="form.ownership"
+        />
+        <br>
+        <label for="responsible">
+          Responsible:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="responsible"
+          type="text"
+          v-model="form.responsible"
+        />
+        <br>
+        <label for="financiallyResponsiblePerson">
+          Financially responsible:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="financiallyResponsiblePerson"
+          type="text"
+          v-model="form.financiallyResponsiblePerson"
+        />
+        <br>
+        <label for="inventoryNumber">
+          Inventory number:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="inventoryNumber"
+          type="text"
+          v-model="form.inventoryNumber"
+        />
+        <br>
+        <label for="fixedAsset">
+          Fixed asset:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          name="fixedAsset"
+          type="text"
+          v-model="form.fixedAsset"
+        />
+        <br>
+        <label for="link">
+          Link to docs:
+        </label>
+        <input
+          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          placeholder="Link to some documentation"
+          name="link"
+          type="text"
+          v-model="form.linkToDocs"
+        />
+        <br>
+        <button
+          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
+           px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          type="submit"
+          id="e2e_submit_button"
+          v-on:click="submit"
+        >
+          Submit data
+        </button>
+      </form>
+    </div>
+  </div>
+  <br>
 </template>
 
 <script>

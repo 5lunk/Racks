@@ -4,96 +4,29 @@
       <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
         <TheMessage :messageProps="messageProps"/>
       </div>
-      Room №{{room.id}}
-      <router-link
-        :to="{path: `/room/${room.id}/update`}"
-        target="_blank"
-      >
-        <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Edit
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        Room №{{room.id}}
+        <router-link
+          :to="{path: `/room/${room.id}/update`}"
+          target="_blank"
+        >
+          <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]">
+            Edit
+          </button>
+        </router-link>
+        <button
+          class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          v-on:click="deleteRoom(room.id, room.name)"
+        >
+          Delete
         </button>
-      </router-link>
-      <button
-        class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-        px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        v-on:click="deleteRoom(room.id, room.name)"
-      >
-        Delete
-      </button>
-      <br>
-      <div class="text-xs pb-4 text-slate-500">
-        {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
-        {{location.siteName}} &#9002; {{location.buildingName}}
-      </div>
-      <div class="text-base">
-        Room name:
-        <text class="text-slate-500">
-          {{room.name}}
-        </text>
         <br>
-        Building floor:
-        <text class="text-slate-500">
-          {{room.buildingFloor}}
-        </text>
-        <br>
-        Description:
-        <text class="text-slate-500">
-          {{room.description}}
-        </text>
-        <br>
-        Number of rack spaces:
-        <text class="text-slate-500">
-          {{room.numberOfRackSpaces}}
-        </text>
-        <br>
-        Area (sq. m):
-        <text class="text-slate-500">
-          {{room.area}}
-        </text>
-        <br>
-        Responsible:
-        <text class="text-slate-500">
-          {{room.responsible}}
-        </text>
-        <br>
-        Cooling system:
-        <text class="text-slate-500">
-          {{room.coolingSystem}}
-        </text>
-        <br>
-        Fire suppression system:
-        <text class="text-slate-500">
-          {{room.fireSuppressionSystem}}
-        </text>
-        <br>
-        <template v-if="room.accessIsOpen">
-          Active ventilation:
-          <text class="text-slate-500">
-            Yes
-          </text>
-        </template>
-        <template v-else>
-          Active ventilation:
-          <text class="text-slate-500">
-            No
-          </text>
-        </template>
-        <br>
-        <template v-if="room.hasRaisedFloor">
-          Active ventilation:
-          <text class="text-slate-500">
-            Yes
-          </text>
-        </template>
-        <template v-else>
-          Active ventilation:
-          <text class="text-slate-500">
-            No
-          </text>
-        </template>
-        <br>
-        <br>
+        <div class="text-xs pb-2 text-slate-500">
+          {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
+          {{location.siteName}} &#9002; {{location.buildingName}}
+        </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
@@ -105,7 +38,75 @@
             {{room.updatedAt}}
           </text>
         </div>
-        <br>
+      </div>
+      <div class="text-sm">
+        <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow h-fit">
+          Room name:
+          <text class="text-slate-500">
+            {{room.name}}
+          </text>
+          <br>
+          Building floor:
+          <text class="text-slate-500">
+            {{room.buildingFloor}}
+          </text>
+          <br>
+          Description:
+          <text class="text-slate-500">
+            {{room.description}}
+          </text>
+          <br>
+          Number of rack spaces:
+          <text class="text-slate-500">
+            {{room.numberOfRackSpaces}}
+          </text>
+          <br>
+          Area (sq. m):
+          <text class="text-slate-500">
+            {{room.area}}
+          </text>
+          <br>
+          Responsible:
+          <text class="text-slate-500">
+            {{room.responsible}}
+          </text>
+          <br>
+          Cooling system:
+          <text class="text-slate-500">
+            {{room.coolingSystem}}
+          </text>
+          <br>
+          Fire suppression system:
+          <text class="text-slate-500">
+            {{room.fireSuppressionSystem}}
+          </text>
+          <br>
+          <template v-if="room.accessIsOpen">
+            Active ventilation:
+            <text class="text-slate-500">
+              Yes
+            </text>
+          </template>
+          <template v-else>
+            Active ventilation:
+            <text class="text-slate-500">
+              No
+            </text>
+          </template>
+          <br>
+          <template v-if="room.hasRaisedFloor">
+            Active ventilation:
+            <text class="text-slate-500">
+              Yes
+            </text>
+          </template>
+          <template v-else>
+            Active ventilation:
+            <text class="text-slate-500">
+              No
+            </text>
+          </template>
+        </div>
       </div>
     </div>
   </div>

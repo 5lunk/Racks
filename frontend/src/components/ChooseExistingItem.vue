@@ -8,7 +8,7 @@
       {{label}}:
     </label>
     <input
-      class="block w-96"
+      class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
       :id="inputId"
       type="text"
       :value="modelValue"

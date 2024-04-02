@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
     <RegionTreeItem
       v-if="item.region_name"
       :name="item.region_name"

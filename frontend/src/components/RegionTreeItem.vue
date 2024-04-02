@@ -3,12 +3,15 @@
       name: name,
       isOpen: isOpen
     }"
+    class="mb-3"
   >
     <span 
-      :class="getCaretClass(isOpen)" 
-      :id="getId(name)"
+      :class="getCaretClass(isOpen)"
+      :id="getId(name, null, null)"
     >
+    <text class="px-2">
       {{truncate(name, truncationLength.DEFAULT)}}
+    </text>
     </span>
   </div>
 </template>

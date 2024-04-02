@@ -4,40 +4,29 @@
       <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
         <TheMessage :messageProps="messageProps"/>
       </div>
-      Building №{{building.id}}
-      <router-link
-        :to="{path: `/building/${building.id}/update`}"
-        target="_blank"
-      >
-        <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Edit
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        Building №{{building.id}}
+        <router-link
+          :to="{path: `/building/${building.id}/update`}"
+          target="_blank"
+        >
+          <button class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]">
+            Edit
+          </button>
+        </router-link>
+        <button
+          class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
+          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          v-on:click="deleteBuilding(building.id, building.name)"
+        >
+          Delete
         </button>
-      </router-link>
-      <button
-        class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-        px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        v-on:click="deleteBuilding(building.id, building.name)"
-      >
-        Delete
-      </button>
-      <br>
-      <div class="text-xs pb-4 text-slate-500">
-        {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
-        {{location.siteName}}
-      </div>
-      <div class="text-base">
-        Building name:
-        <text class="text-slate-500">
-          {{building.name}}
-        </text>
         <br>
-        Description:
-        <text class="text-slate-500">
-          {{building.description}}
-        </text>
-        <br>
-        <br>
+        <div class="text-xs pb-2 text-slate-500">
+          {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
+          {{location.siteName}}
+        </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
@@ -49,7 +38,19 @@
             {{building.updatedAt}}
           </text>
         </div>
-        <br>
+      </div>
+      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+        <div class="text-sm">
+          Building name:
+          <text class="text-slate-500">
+            {{building.name}}
+          </text>
+          <br>
+          Description:
+          <text class="text-slate-500">
+            {{building.description}}
+          </text>
+        </div>
       </div>
     </div>
   </div>
