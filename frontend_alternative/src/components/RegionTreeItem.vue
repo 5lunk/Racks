@@ -3,7 +3,7 @@
       name: name,
       isOpen: isOpen
     }"
-    class="mb-3"
+    class="mb-4"
   >
     <span 
       :class="getCaretClass(isOpen)"

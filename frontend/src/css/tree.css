@@ -9,7 +9,8 @@
   color: #70a7f8;
   display: inline-block;
   vertical-align: 3px;
-  margin-right: 2px;
+  margin-right: 3px;
+  margin-left: 3px;
 }
 .caret.down::before {
   transform: rotate(30deg);

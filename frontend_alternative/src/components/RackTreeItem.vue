@@ -14,7 +14,7 @@
           &#9873;
         </text>
         <a 
-          :id="getId(name)"
+          :id="getId(name, null, null)"
           class="group transition duration-300"
         >
           {{truncate(name, truncationLength.RACK)}}
