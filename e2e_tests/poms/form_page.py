@@ -1,6 +1,8 @@
 from locators import Locators
 from params import Params
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class FormPage:
@@ -36,25 +38,25 @@ class FormPage:
         """
         Get unit outside locator
         """
-        return self.driver.find_element_by_xpath(self.unit_outside_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.unit_outside_loc)))
 
     def get_unit_busy_loc(self):
         """
         Get unit busy locator
         """
-        return self.driver.find_element_by_xpath(self.unit_busy_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.unit_busy_loc)))
 
     def get_violation_loc(self):
         """
         Get violation locator
         """
-        return self.driver.find_element_by_xpath(self.violation_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.violation_loc)))
 
     def get_building_name_busy_loc(self):
         """
         Get building name busy locator
         """
-        return self.driver.find_element_by_xpath(self.building_name_busy_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.building_name_busy_loc)))
 
     def enter_building_name(self, building_name):
         """
@@ -67,13 +69,13 @@ class FormPage:
         """
         Get room name busy locator
         """
-        return self.driver.find_element_by_xpath(self.room_name_busy_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.room_name_busy_loc)))
 
     def get_rack_name_busy_loc(self):
         """
         Get rack name busy locator
         """
-        return self.driver.find_element_by_xpath(self.rack_name_busy_loc)
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, self.rack_name_busy_loc)))
 
     def enter_site_name(self, site_name):
         """
