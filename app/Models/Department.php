@@ -86,19 +86,24 @@ class Department extends Model implements DepartmentEntity, DeviceBusinessRules
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getRegionId(): int
+    public function getRegionId(): ?int
     {
         return $this->attributes['region_id'];
     }
 
     /**
-     * @param  int  $regionId
+     * @param  int|null  $regionId
      * @return void
+     *
+     * @throws \DomainException $regionId <= 0
      */
-    public function setRegionId(int $regionId): void
+    public function setRegionId(?int $regionId): void
     {
+        if (! is_null($regionId) && $regionId <= 0) {
+            throw new \DomainException('$regionId <= 0');
+        }
         $this->attributes['region_id'] = $regionId;
     }
 

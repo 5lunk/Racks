@@ -110,12 +110,12 @@ class Site extends Model implements SiteBusinessRules, SiteEntity
      * @param  int|null  $departmentId
      * @return void
      *
-     * @throws \Exception $departmentId <= 0
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void
     {
         if (! is_null($departmentId) && $departmentId <= 0) {
-            throw new \Exception('$departmentId <= 0');
+            throw new \DomainException('$departmentId <= 0');
         }
         $this->attributes['department_id'] = $departmentId;
     }

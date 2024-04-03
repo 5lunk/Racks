@@ -33,15 +33,17 @@ interface DepartmentEntity
     public function setName(string $name): void;
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getRegionId(): int;
+    public function getRegionId(): ?int;
 
     /**
-     * @param  int  $regionId
+     * @param  int|null  $regionId
      * @return void
+     *
+     * @throws \DomainException $regionId <= 0
      */
-    public function setRegionId(int $regionId): void;
+    public function setRegionId(?int $regionId): void;
 
     /**
      * @return string

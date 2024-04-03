@@ -24,7 +24,9 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
      */
     public function __construct(array $units)
     {
-        $this->validateUnits($units);
+        if (! $this->validateUnits($units)) {
+            throw new \DomainException('$units is not valid');
+        }
         $this->units = $units;
     }
 
@@ -38,18 +40,20 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
 
     /**
      * @param  array<int>  $units
-     * @return void
+     * @return bool
      *
      * @throws \DomainException $units is not valid
      */
-    public function validateUnits(array $units): void
+    public function validateUnits(array $units): bool
     {
         sort($units);
         $validator = Validator::make(['units' => $units], [
             'units' => [new DeviceUnitsRule(), 'array'],
         ]);
         if ($validator->fails()) {
-            throw new \DomainException('$units is not valid');
+            return false;
         }
+
+        return true;
     }
 }

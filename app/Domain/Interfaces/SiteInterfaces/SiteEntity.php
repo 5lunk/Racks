@@ -52,6 +52,8 @@ interface SiteEntity
     /**
      * @param  int|null  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void;
 

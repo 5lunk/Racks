@@ -63,6 +63,8 @@ interface BuildingEntity
     /**
      * @param  int|null  $siteId
      * @return void
+     *
+     * @throws \DomainException $siteId <= 0
      */
     public function setSiteId(?int $siteId): void;
 
@@ -74,6 +76,8 @@ interface BuildingEntity
     /**
      * @param  int|null  $departmentId
      * @return void
+     *
+     * @throws \DomainException $departmentId <= 0
      */
     public function setDepartmentId(?int $departmentId): void;
 

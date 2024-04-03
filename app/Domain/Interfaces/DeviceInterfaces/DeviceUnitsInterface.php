@@ -11,9 +11,9 @@ interface DeviceUnitsInterface
 
     /**
      * @param  array<int>  $units
-     * @return void
+     * @return bool
      *
-     * @throws \Exception $units is not valid
+     * @throws \DomainException $units is not valid
      */
-    public function validateUnits(array $units): void;
+    public function validateUnits(array $units): bool;
 }
