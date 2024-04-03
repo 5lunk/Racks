@@ -35,9 +35,7 @@ interface RackBusyUnitsInterface
      *    front: array<int>,
      *    back: array<int>
      * }  $busyUnits
-     * @return void
-     *
-     * @throws \Exception $busyUnits is not valid
+     * @return bool
      */
-    public function validateBusyUnits(array $busyUnits): void;
+    public function validateBusyUnits(array $busyUnits): bool;
 }

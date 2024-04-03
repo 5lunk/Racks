@@ -23,27 +23,46 @@ class PasswordValueObject implements PasswordInterface
 
     /**
      * @param  string  $password
+     *
+     * @throws \DomainException Invalid password
      */
     public function __construct(string $password)
     {
-        $info = Hash::info($password);
-        if (isset($info['algo'])) {
+        if ($this->isHashed($password)) {
             $this->password = $password;
         } else {
-            $this->validate($password);
+            if (! $this->validate($password)) {
+                throw new \DomainException('Invalid password');
+            }
             $this->password = Hash::make($password);
         }
     }
 
     /**
      * @param  string  $password
-     * @return void
+     * @return bool
      */
-    public function validate(string $password): void
+    public function validate(string $password): bool
     {
         if (! filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::VALIDATION_REGEX]])) {
-            throw new \DomainException('Invalid password.');
+            return false;
         }
+
+        return true;
+    }
+
+    /**
+     * @param  string  $password
+     * @return bool
+     */
+    public function isHashed(string $password): bool
+    {
+        $info = Hash::info($password);
+        if (isset($info['algo'])) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

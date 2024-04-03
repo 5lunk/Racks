@@ -6,7 +6,13 @@ interface PasswordInterface
 {
     /**
      * @param  string  $password
-     * @return void
+     * @return bool
      */
-    public function validate(string $password): void;
+    public function validate(string $password): bool;
+
+    /**
+     * @param  string  $password
+     * @return bool
+     */
+    public function isHashed(string $password): bool;
 }

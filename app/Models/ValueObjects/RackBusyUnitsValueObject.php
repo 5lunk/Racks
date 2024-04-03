@@ -28,7 +28,9 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
      */
     public function __construct(array $busyUnits)
     {
-        $this->validateBusyUnits($busyUnits);
+        if (! $this->validateBusyUnits($busyUnits)) {
+            throw new \DomainException('$busyUnits is not valid');
+        }
         sort($busyUnits['front']);
         sort($busyUnits['back']);
         $this->busyUnits = $busyUnits;
@@ -80,11 +82,9 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
      *    front: array<int>,
      *    back: array<int>
      * }  $busyUnits
-     * @return void
-     *
-     * @throws \DomainException $busyUnits is not valid
+     * @return bool
      */
-    public function validateBusyUnits(array $busyUnits): void
+    public function validateBusyUnits(array $busyUnits): bool
     {
         $validator = Validator::make($busyUnits, [
             'front' => ['present', 'array'],
@@ -93,7 +93,9 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
             'back.*' => ['nullable', 'numeric', 'distinct', 'min:1'],
         ]);
         if ($validator->fails()) {
-            throw new \DomainException('$busyUnits is not valid');
+            return false;
         }
+
+        return true;
     }
 }

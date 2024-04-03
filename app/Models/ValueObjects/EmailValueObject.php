@@ -21,7 +21,7 @@ class EmailValueObject implements EmailInterface
     public function __construct(string $email)
     {
         if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \DomainException("Invalid email '{$email}'.");
+            throw new \DomainException("Invalid email '{$email}'");
         }
         $this->email = $email;
     }
