@@ -119,7 +119,7 @@ export default {
           this.messageProps.success = true;
           this.messageProps.message = `Site ${id} deleted successfully`;
           alert(this.messageProps.message);
-          this.$router.push('/tree');
+          this.$router.push('/');
         } else {
           this.messageProps.success = false;
           this.messageProps.message = getResponseMessage(response);
