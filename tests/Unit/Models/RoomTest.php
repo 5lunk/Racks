@@ -280,14 +280,14 @@ class RoomTest extends TestCase
 
     public function testSetDescription(): void
     {
-        $this->room->setBuildingFloor('description');
+        $this->room->setDescription('description');
         $this->assertEquals(
             'description',
-            $this->attributes->getValue($this->room)['building_floor']
+            $this->attributes->getValue($this->room)['description']
         );
 
-        $this->room->setBuildingFloor(null);
-        $this->assertNull($this->attributes->getValue($this->room)['building_floor']);
+        $this->room->setDescription(null);
+        $this->assertNull($this->attributes->getValue($this->room)['description']);
     }
 
     public function testGetNumberOfRackSpaces(): void
