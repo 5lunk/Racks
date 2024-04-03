@@ -55,6 +55,7 @@ class RackModelFactory implements RackFactory
     public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity|RackBusinessRules
     {
         return new Rack([
+            'id' => $request->getId(),
             'name' => $request->getName(),
             'amount' => $request->getAmount(),
             'vendor' => $request->getVendor(),
