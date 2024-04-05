@@ -53,6 +53,7 @@ class RackAttributesValueObject
         $this->setResponsible();
         $this->setDepartmentId();
         $this->setRoomId();
+        $this->setType();
     }
 
     /**

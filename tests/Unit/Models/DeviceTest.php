@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Device;
+use App\Models\ValueObjects\DeviceAttributesValueObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Tests\TestCase;
 
@@ -852,5 +853,23 @@ class DeviceTest extends TestCase
             '2024-01-28 16:39:20',
             $this->device->getUpdatedAt()
         );
+    }
+
+    public function testGetAttributeSet(): void
+    {
+        $attrsValObjMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->app->bind(DeviceAttributesValueObject::class, function () use ($attrsValObjMock) {
+            return $attrsValObjMock;
+        });
+
+        $this->assertSame(
+            $attrsValObjMock,
+            $this->device->getAttributeSet(),
+        );
+
+        $this->app->offsetUnset(DeviceAttributesValueObject::class);
     }
 }

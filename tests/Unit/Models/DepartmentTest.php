@@ -13,6 +13,8 @@ class DepartmentTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->department = $this->getMockBuilder(Department::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()

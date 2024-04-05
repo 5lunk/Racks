@@ -1,0 +1,291 @@
+<?php
+
+namespace Tests\Unit\Models\ValueObjects;
+
+use App\Models\Building;
+use App\Models\ValueObjects\BuildingAttributesValueObject;
+use Tests\TestCase;
+
+class BuildingAttributesValueObjectTest extends TestCase
+{
+    public function testSetName(): void
+    {
+        // Attr not null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getName')
+            ->willReturn('some name');
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setName();
+        $this->assertEquals(
+            ['name' => 'some name'],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+
+        // Attr is null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getName')
+            ->willReturn(null);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setName();
+        $this->assertEquals(
+            [],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testSetId(): void
+    {
+        // Attr not null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getSiteId')
+            ->willReturn(12);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setSiteId();
+        $this->assertEquals(
+            ['site_id' => 12],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+
+        // Attr is null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getSiteId')
+            ->willReturn(null);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setSiteId();
+        $this->assertEquals(
+            [],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testSetUpdatedBy(): void
+    {
+        // Attr not null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getUpdatedBy')
+            ->willReturn('user');
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setUpdatedBy();
+        $this->assertEquals(
+            ['updated_by' => 'user'],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+
+        // Attr is null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getUpdatedBy')
+            ->willReturn(null);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setUpdatedBy();
+        $this->assertEquals(
+            [],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testSetDescription(): void
+    {
+        // Attr not null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getDescription')
+            ->willReturn('description');
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setDescription();
+        $this->assertEquals(
+            ['description' => 'description'],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+
+        // Attr is null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getDescription')
+            ->willReturn(null);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setDescription();
+        $this->assertEquals(
+            [],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testSetDepartmentId(): void
+    {
+        // Attr not null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getDepartmentId')
+            ->willReturn(5);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setDepartmentId();
+        $this->assertEquals(
+            ['department_id' => 5],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+
+        // Attr is null
+        $buildingMock = $this->createMock(Building::class);
+        $buildingMock->expects($this->once())
+            ->method('getDepartmentId')
+            ->willReturn(null);
+
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+        $buildingProp = $reflection->getProperty('building');
+        $buildingProp->setValue($attrsMock, $buildingMock);
+
+        $attrsMock->setDepartmentId();
+        $this->assertEquals(
+            [],
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testToArray(): void
+    {
+        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->onlyMethods(['__construct'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
+
+        $attributesForBuildingProp->setValue($attrsMock, ['oops' => 'oops']);
+        $this->assertEquals(
+            $attrsMock->toArray(),
+            $attributesForBuildingProp->getValue($attrsMock)
+        );
+    }
+
+    public function testConstructor()
+    {
+        $building = new Building([
+            'name' => 'name',
+            'description' => 'description',
+            'updated_by' => 'user',
+            'site_id' => 2,
+            'department_id' => 1,
+        ]);
+        $buildingAttrsValueObj = new BuildingAttributesValueObject($building);
+        $this->assertEquals(
+            [
+                'name' => 'name',
+                'description' => 'description',
+                'updated_by' => 'user',
+                'site_id' => 2,
+                'department_id' => 1,
+            ],
+            $buildingAttrsValueObj->toArray()
+        );
+
+        $building = new Building([
+            'name' => 'name',
+            'description' => null,
+            'updated_by' => 'user',
+            'site_id' => 2,
+            'department_id' => 1,
+        ]);
+        $buildingAttrsValueObj = new BuildingAttributesValueObject($building);
+        $this->assertEquals(
+            [
+                'name' => 'name',
+                'updated_by' => 'user',
+                'site_id' => 2,
+                'department_id' => 1,
+            ],
+            $buildingAttrsValueObj->toArray()
+        );
+    }
+}

@@ -60,7 +60,7 @@ class DeviceAttributesValueObject
     {
         $rackId = $this->device->getRackId();
         if ($rackId !== null) {
-            $this->attributesForDevice += ['rack_id' => $this->device->getRackId()];
+            $this->attributesForDevice += ['rack_id' => $rackId];
         }
     }
 
@@ -170,7 +170,7 @@ class DeviceAttributesValueObject
     {
         $portsAmount = $this->device->getPortsAmount();
         if ($portsAmount) {
-            $this->attributesForDevice += ['portsAmount' => $portsAmount];
+            $this->attributesForDevice += ['ports_amount' => $portsAmount];
         }
     }
 
@@ -181,7 +181,7 @@ class DeviceAttributesValueObject
     {
         $softwareVersion = $this->device->getSoftwareVersion();
         if ($softwareVersion) {
-            $this->attributesForDevice += ['softwareVersion' => $softwareVersion];
+            $this->attributesForDevice += ['software_version' => $softwareVersion];
         }
     }
 
@@ -192,7 +192,7 @@ class DeviceAttributesValueObject
     {
         $powerType = $this->device->getPowerType();
         if ($powerType) {
-            $this->attributesForDevice += ['powerType' => $powerType];
+            $this->attributesForDevice += ['power_type' => $powerType];
         }
     }
 
@@ -236,7 +236,7 @@ class DeviceAttributesValueObject
     {
         $serialNumber = $this->device->getSerialNumber();
         if ($serialNumber) {
-            $this->attributesForDevice += ['serialNumber' => $serialNumber];
+            $this->attributesForDevice += ['serial_number' => $serialNumber];
         }
     }
 
@@ -322,7 +322,7 @@ class DeviceAttributesValueObject
      */
     public function setLinkToDocs(): void
     {
-        $linkToDocs = $this->device->getResponsible();
+        $linkToDocs = $this->device->getLinkToDocs();
         if ($linkToDocs) {
             $this->attributesForDevice += ['link_to_docs' => $linkToDocs];
         }

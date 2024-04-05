@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Building;
+use App\Models\ValueObjects\BuildingAttributesValueObject;
 use Tests\TestCase;
 
 class BuildingTest extends TestCase
@@ -13,6 +14,8 @@ class BuildingTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->building = $this->getMockBuilder(Building::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
@@ -288,5 +291,23 @@ class BuildingTest extends TestCase
             '2024-01-28 16:39:20',
             $this->building->getUpdatedAt()
         );
+    }
+
+    public function testGetAttributeSet(): void
+    {
+        $attrsValObjMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->app->bind(BuildingAttributesValueObject::class, function () use ($attrsValObjMock) {
+            return $attrsValObjMock;
+        });
+
+        $this->assertSame(
+            $attrsValObjMock,
+            $this->building->getAttributeSet(),
+        );
+
+        $this->app->offsetUnset(BuildingAttributesValueObject::class);
     }
 }

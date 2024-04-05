@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Site;
+use App\Models\ValueObjects\SiteAttributesValueObject;
 use Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -13,6 +14,8 @@ class SiteTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->site = $this->getMockBuilder(Site::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
@@ -154,5 +157,23 @@ class SiteTest extends TestCase
             '2024-01-28 16:39:20',
             $this->site->getUpdatedAt()
         );
+    }
+
+    public function testGetAttributeSet(): void
+    {
+        $attrsValObjMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->app->bind(SiteAttributesValueObject::class, function () use ($attrsValObjMock) {
+            return $attrsValObjMock;
+        });
+
+        $this->assertSame(
+            $attrsValObjMock,
+            $this->site->getAttributeSet(),
+        );
+
+        $this->app->offsetUnset(SiteAttributesValueObject::class);
     }
 }

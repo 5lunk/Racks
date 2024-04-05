@@ -669,18 +669,18 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUpdatedBy(): string
+    public function getUpdatedBy(): ?string
     {
         return $this->attributes['updated_by'];
     }
 
     /**
-     * @param  string  $updatedBy
+     * @param  string|null  $updatedBy
      * @return void
      */
-    public function setUpdatedBy(string $updatedBy): void
+    public function setUpdatedBy(?string $updatedBy): void
     {
         $this->attributes['updated_by'] = $updatedBy;
     }

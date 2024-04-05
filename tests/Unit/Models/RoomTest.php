@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Room;
+use App\Models\ValueObjects\RoomAttributesValueObject;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -13,6 +14,8 @@ class RoomTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->room = $this->getMockBuilder(Room::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
@@ -512,5 +515,23 @@ class RoomTest extends TestCase
 
         $this->room->setOldName(null);
         $this->assertNull($this->attributes->getValue($this->room)['old_name']);
+    }
+
+    public function testGetAttributeSet(): void
+    {
+        $attrsValObjMock = $this->getMockBuilder(RoomAttributesValueObject::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->app->bind(RoomAttributesValueObject::class, function () use ($attrsValObjMock) {
+            return $attrsValObjMock;
+        });
+
+        $this->assertSame(
+            $attrsValObjMock,
+            $this->room->getAttributeSet(),
+        );
+
+        $this->app->offsetUnset(RoomAttributesValueObject::class);
     }
 }
