@@ -135,6 +135,7 @@ class RoomCreatedResource extends JsonResource
             'fire_suppression_system' => $this->room->getFireSuppressionSystem(),
             'access_is_open' => $this->room->getAccessIsOpen(),
             'has_raised_floor' => $this->room->getHasRaisedFloor(),
+            'department_id' => $this->room->getDepartmentId(),
             'created_at' => $this->room->getCreatedAt(),
             'updated_at' => $this->room->getUpdatedAt(),
         ];
