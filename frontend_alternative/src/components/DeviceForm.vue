@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+    <div :class="frameShadowStyle">
       <form
         v-on:submit.prevent="emitData"
         class="text-sm"
@@ -10,7 +10,7 @@
         </label>
         <input
           id="e2e_first_unit"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Order doesn't matter"
           name="firstUnit"
           type="text"
@@ -27,7 +27,7 @@
         <label for="lastUnit">Last unit: </label>
         <input
           id="e2e_last_unit"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Order doesn't matter"
           name="lastUnit"
           type="text"
@@ -43,7 +43,7 @@
         </p>
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="hasBacksideLocation"
           type="checkbox"
           v-model="form.hasBacksideLocation"
@@ -60,7 +60,7 @@
           Status:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.status"
         >
           <option
@@ -90,7 +90,7 @@
           Device type:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.type"
         >
           <option
@@ -146,7 +146,6 @@
           Please wait...
           <br>
         </template>
-        <br>
         <template v-if="vendors.item_type">
           <ChooseExistingItem
             :itemsData="vendors"
@@ -161,12 +160,12 @@
         </template>
         <template
           v-if="devicesWithOS.includes(form.type)"
-        ><br>
+        >
           <label for="hostname">
             Hostname:
           </label>
           <input
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             name="hostname"
             type="text" v-model="form.hostname"
           /><br>
@@ -174,7 +173,7 @@
             IP-address:
           </label>
           <input
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             name="ip"
             type="text"
             v-model="form.ip"
@@ -191,7 +190,7 @@
             Stack/Reserve (reserve ID):
           </label>
           <input
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             name="stack"
             type="text"
             v-model="form.stack"
@@ -208,7 +207,7 @@
             Software version:
           </label>
           <input
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             name="version"
             type="text"
             v-model="form.softwareVersion"
@@ -223,7 +222,7 @@
             Port capacity:
           </label>
           <input
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             placeholder="For switches, patch panels, etc."
             name="portsAmount"
             type="text"
@@ -240,12 +239,11 @@
         </template>
         <template v-else>
         </template>
-        <br>
         <label for="powerType">
           Socket type:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.powerType"
         >
           <option
@@ -272,7 +270,7 @@
           Power requirement (W):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="powerW"
           type="text"
           v-model="form.powerW"
@@ -290,7 +288,7 @@
           Voltage (V):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="powerV"
           type="text"
           v-model="form.powerV"
@@ -308,7 +306,7 @@
           AC/DC:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.powerACDC"
         >
           <option
@@ -326,7 +324,7 @@
           Serial number:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="serialNumber"
           type="text"
           v-model="form.serialNumber"
@@ -336,7 +334,7 @@
           Description:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Device purpose"
           name="description"
           type="text"
@@ -347,7 +345,7 @@
           Project:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="project"
           type="text"
           v-model="form.project"
@@ -357,7 +355,7 @@
           Ownership:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="ownership"
           type="text"
           v-model="form.ownership"
@@ -367,7 +365,7 @@
           Responsible:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="responsible"
           type="text"
           v-model="form.responsible"
@@ -377,7 +375,7 @@
           Financially responsible:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="financiallyResponsiblePerson"
           type="text"
           v-model="form.financiallyResponsiblePerson"
@@ -387,7 +385,7 @@
           Inventory number:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="inventoryNumber"
           type="text"
           v-model="form.inventoryNumber"
@@ -397,7 +395,7 @@
           Fixed asset:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="fixedAsset"
           type="text"
           v-model="form.fixedAsset"
@@ -407,7 +405,7 @@
           Link to docs:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Link to some documentation"
           name="link"
           type="text"
@@ -415,8 +413,7 @@
         />
         <br>
         <button
-          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-           px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          :class="formSubmitButtonStyle"
           type="submit"
           id="e2e_submit_button"
           v-on:click="submit"
@@ -437,6 +434,7 @@ import {getUnique, logIfNotStatus} from '@/api';
 import {numericGTZOrNull} from '@/validators';
 import {setEmptyStringToNull} from '@/functions';
 import {DEVICES_WITH_OS, DEVICES_WITH_PORTS, RESPONSE_STATUS} from "@/constants";
+import {formCheckboxStyle, formInputStyle, formSubmitButtonStyle, frameShadowStyle} from '@/styleBindings';
 
 
 export default {
@@ -485,7 +483,11 @@ export default {
       },
       numericOrNullValidationError: 'Value must be an integer and greater than zero',
       devicesWithOS: DEVICES_WITH_OS,
-      devicesWithPorts: DEVICES_WITH_PORTS
+      devicesWithPorts: DEVICES_WITH_PORTS,
+      formInputStyle: formInputStyle,
+      formSubmitButtonStyle: formSubmitButtonStyle,
+      frameShadowStyle: frameShadowStyle,
+      formCheckboxStyle: formCheckboxStyle
     };
   },
   created() {

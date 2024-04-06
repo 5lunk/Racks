@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <div :class="frameShadowStyle">
         Rack №{{rack.id}}
         <router-link
           :to="{path: `/device/create/${this.$route.params.id}`}"
@@ -9,8 +9,7 @@
         >
           <button
             id="e2e_add_device"
-            class="float-right text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+            :class="optionButtonDarkStyle"
           >
             Add device
           </button>
@@ -19,9 +18,7 @@
           :to="{path: `/rack/${this.$route.params.id}`}"
           target="_blank"
         >
-          <button class="float-right text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
-          >
+          <button :class="optionButtonLightStyle">
             Info
           </button>
         </router-link>
@@ -68,6 +65,7 @@ import RackSideItem from '@/components/RackSideItem.vue';
 import {getObject, getObjectsForParent, logIfNotStatus} from '@/api';
 import {getDevicesForSide, getFirstUnits, getRowSpans, getStartList} from '@/functions';
 import {RESPONSE_STATUS, UNITS_REFRESH_TIME} from "@/constants";
+import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from "@/styleBindings";
 
 
 export default {
@@ -79,7 +77,10 @@ export default {
     return {
       objectExist: true,
       devices: [],
-      rack: {}
+      rack: {},
+      optionButtonLightStyle: optionButtonLightStyle,
+      optionButtonDarkStyle: optionButtonDarkStyle,
+      frameShadowStyle: frameShadowStyle
     }
   },
   created() {

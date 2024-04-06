@@ -1,7 +1,7 @@
 <template>
   <nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-blue-800 mb-3">
     <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <router-link :to="{path: '/tree'}">
+        <router-link :to="{path: '/'}">
           <img
             alt="Logo"
             class="object-fill h-16 w-32"

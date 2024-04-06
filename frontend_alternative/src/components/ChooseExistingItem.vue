@@ -8,7 +8,7 @@
       {{label}}:
     </label>
     <input
-      class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+      :class="formInputStyle"
       :id="inputId"
       type="text"
       :value="modelValue"
@@ -29,8 +29,7 @@
         <template v-if="item.length">
           <button
             type="button"
-            class="text-white font-light bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-             px-5 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            :class="optionButtonDarkStyle"
             :id="item"
             v-on:click="copyOnClick(item, inputId)"
           >
@@ -45,6 +44,7 @@
 <script>
 import {MATCH_ID, MATCH_LABEL} from '@/constants';
 import {getDataFromMatch} from '@/functions'
+import {formInputStyle, optionButtonDarkStyle} from "@/styleBindings";
 
 export default {
   name: 'ChooseExistingItem',
@@ -56,7 +56,9 @@ export default {
   data() {
     return {
       inputId: '',
-      label: ''
+      label: '',
+      formInputStyle: formInputStyle,
+      optionButtonDarkStyle: optionButtonDarkStyle
     }
   },
   created() {

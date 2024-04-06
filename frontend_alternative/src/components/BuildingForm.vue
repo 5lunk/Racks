@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+    <div :class="frameShadowStyle">
       <form
         v-on:submit.prevent="emitData"
         class="text-sm"
@@ -10,7 +10,7 @@
         </label>
         <input
           id="e2e_building_name"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Enter building name here"
           name="buildingName"
           type="text"
@@ -29,7 +29,7 @@
           Description:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Can be used for notes"
           name="description"
           type="text"
@@ -37,8 +37,7 @@
         />
         <br>
         <button
-          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-          px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          :class="formSubmitButtonStyle"
           type="submit"
           id="e2e_submit_button"
           v-on:click="submit"
@@ -53,6 +52,7 @@
 <script>
 import useVuelidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
+import {formInputStyle, formSubmitButtonStyle, frameShadowStyle} from '@/styleBindings';
 
 
 export default {
@@ -68,7 +68,10 @@ export default {
       form: {
         name: '',
         description: ''
-      }
+      },
+      formInputStyle: formInputStyle,
+      formSubmitButtonStyle: formSubmitButtonStyle,
+      frameShadowStyle: frameShadowStyle
     }
   },
   created() {

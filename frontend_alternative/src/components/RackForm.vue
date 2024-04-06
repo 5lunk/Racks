@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+    <div :class="frameShadowStyle">
       <form
         v-on:submit.prevent="emitData"
         class="text-sm"
@@ -10,7 +10,7 @@
         </label>
         <input
           id="e2e_rack_name"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Enter rack name here"
           name="name"
           type="text"
@@ -31,7 +31,7 @@
           </label>
           <input
             id="e2e_rack_amount"
-            class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+            :class="formInputStyle"
             placeholder="Filled in once (cannot be changed later)"
             name="amount"
             type="text"
@@ -46,6 +46,7 @@
             </text>
           </p>
         </template>
+        <br>
         <template v-if="models.item_type">
           <ChooseExistingItem
             :itemsData="models"
@@ -74,7 +75,7 @@
           Description:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Can be used for notes"
           name="description"
           type="text"
@@ -82,7 +83,7 @@
         />
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="hasNumberingFromTopToBottom"
           type="checkbox"
           v-model="form.hasNumberingFromTopToBottom"
@@ -99,7 +100,7 @@
           Responsible:
         </label>
         <input
-          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="responsible"
           type="text"
           v-model="form.responsible"
@@ -109,7 +110,7 @@
           Financially responsible:
         </label>
         <input
-          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="financiallyResponsiblePerson"
           type="text"
           v-model="form.financiallyResponsiblePerson"
@@ -119,7 +120,7 @@
           Inventory number:
         </label>
         <input
-          class="block w-96 block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="inventoryNumber"
           type="text"
           v-model="form.inventoryNumber"
@@ -129,7 +130,7 @@
           Fixed asset:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="fixedAsset"
           type="text"
           v-model="form.fixedAsset"
@@ -139,7 +140,7 @@
           Link to docs:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Link to some documentation"
           name="link"
           type="text"
@@ -150,7 +151,7 @@
           Row:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="row"
           type="text"
           v-model="form.row"
@@ -160,7 +161,7 @@
           Place:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="place"
           type="text"
           v-model="form.place"
@@ -170,7 +171,7 @@
           Rack height (mm):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="height"
           type="text"
           v-model="form.height"
@@ -188,7 +189,7 @@
           Rack width (mm):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="width"
           type="text"
           v-model="form.width"
@@ -206,7 +207,7 @@
           Rack depth (mm):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="depth"
           type="text"
           v-model="form.depth"
@@ -224,7 +225,7 @@
           Useful rack width (inches):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Frame width"
           name="unitWidth"
           type="text"
@@ -243,7 +244,7 @@
           Useful rack depth (mm):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Depth from frame to frame"
           name="unitDepth"
           type="text"
@@ -262,7 +263,7 @@
           Execution variant:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.type"
         >
           <option
@@ -280,7 +281,7 @@
           Construction:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.frame"
         >
           <option
@@ -298,7 +299,7 @@
           Location type:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.placeType"
         >
           <option
@@ -316,7 +317,7 @@
           Max load (kilo):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="maxLoad"
           type="text"
           v-model="form.maxLoad"
@@ -334,7 +335,7 @@
           Free power sockets:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="powerSockets"
           type="text"
           v-model="form.powerSockets"
@@ -352,7 +353,7 @@
           Free UPS power sockets:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="powerSocketsUps"
           type="text"
           v-model="form.powerSocketsUps"
@@ -367,7 +368,7 @@
         </p>
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="hasExternalUps"
           type="checkbox"
           v-model="form.hasExternalUps"
@@ -381,7 +382,7 @@
         <br>
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="hasCooler"
           type="checkbox"
           v-model="form.hasCooler"
@@ -395,8 +396,7 @@
         <br>
         <br>
         <button
-          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-          px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          :class="formSubmitButtonStyle"
           type="submit"
           id="e2e_submit_button"
           v-on:click="submit"
@@ -417,6 +417,7 @@ import {getUnique, logIfNotStatus} from '@/api';
 import {numericGTZOrNull, numericOrNull} from '@/validators';
 import {setEmptyStringToNull} from '@/functions';
 import {RESPONSE_STATUS} from "@/constants";
+import {formCheckboxStyle, formInputStyle, formSubmitButtonStyle, frameShadowStyle} from '@/styleBindings';
 
 export default {
   name: 'RackForm',
@@ -465,6 +466,10 @@ export default {
         update: false
       },
       numericOrNullValidationError: 'Value must be an integer and greater than zero',
+      formInputStyle: formInputStyle,
+      formSubmitButtonStyle: formSubmitButtonStyle,
+      frameShadowStyle: frameShadowStyle,
+      formCheckboxStyle: formCheckboxStyle
     };
   },
   created() {

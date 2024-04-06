@@ -19,9 +19,8 @@
       >
         <button 
           :id="getId(name, 'add', 'button')"
-          type="button" 
-          class="float-right text-white font-light bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          type="button"
+          :class="optionButtonDarkStyle"
         >
           Add site
         </button>
@@ -34,12 +33,14 @@
 import {getCaretClass, getId} from '@/functions'
 import {truncate} from '@/filters'
 import {TRUNCATION_LENGTH} from "@/constants";
+import {optionButtonDarkStyle} from "@/styleBindings";
 
 export default {
   name: 'DepartmentTreeItem',
   data () {
     return {
-      truncationLength: TRUNCATION_LENGTH
+      truncationLength: TRUNCATION_LENGTH,
+      optionButtonDarkStyle: optionButtonDarkStyle
     }
   },
   props: {

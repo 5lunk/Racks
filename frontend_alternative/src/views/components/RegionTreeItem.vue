@@ -1,6 +1,5 @@
 <template>
   <div v-bind="{
-      id: id,
       name: name,
       isOpen: isOpen
     }"
@@ -10,21 +9,9 @@
       :class="getCaretClass(isOpen)"
       :id="getId(name, null, null)"
     >
-      <text class="px-2">
-        {{truncate(name, truncationLength.DEFAULT)}}
-      </text>
-      <router-link 
-        :to="{path: `/site/create/${id}`}" 
-        target="_blank"
-      >
-        <button 
-          :id="getId(name, 'add', 'button')"
-          type="button"
-          :class="optionButtonDarkStyle"
-        >
-          Add site
-        </button>
-      </router-link>
+    <text class="px-2">
+      {{truncate(name, truncationLength.DEFAULT)}}
+    </text>
     </span>
   </div>
 </template>
@@ -33,18 +20,15 @@
 import {getCaretClass, getId} from '@/functions'
 import {truncate} from '@/filters'
 import {TRUNCATION_LENGTH} from "@/constants";
-import {optionButtonDarkStyle} from "@/styleBindings";
 
 export default {
-  name: 'DepartmentTreeItem',
+  name: 'RegionTreeItem',
   data () {
     return {
-      truncationLength: TRUNCATION_LENGTH,
-      optionButtonDarkStyle: optionButtonDarkStyle
+      truncationLength: TRUNCATION_LENGTH
     }
   },
   props: {
-    id: Number,
     name: String,
     isOpen: Boolean
   },

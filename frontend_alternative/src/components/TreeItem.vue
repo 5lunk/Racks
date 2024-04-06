@@ -1,5 +1,5 @@
 <template>
-  <li class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+  <li :class="frameShadowStyle">
     <RegionTreeItem
       v-if="item.region_name"
       :name="item.region_name"
@@ -62,6 +62,7 @@ import RoomTreeItem from './RoomTreeItem.vue';
 import RackTreeItem from './RackTreeItem.vue';
 import {truncate} from '@/filters';
 import {getCaretClass, getId} from '@/functions';
+import {frameShadowStyle} from '@/styleBindings';
 
 
 export default {
@@ -79,7 +80,8 @@ export default {
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      frameShadowStyle: frameShadowStyle
     };
   },
   computed: {

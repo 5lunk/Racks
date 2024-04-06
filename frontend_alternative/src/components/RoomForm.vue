@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-    <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+    <div :class="frameShadowStyle">
       <form
         v-on:submit.prevent="emitData"
         class="text-sm"
@@ -10,7 +10,7 @@
         </label>
         <input
           id="e2e_room_name"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Enter room name here"
           name="name"
           type="text"
@@ -30,7 +30,7 @@
         </label>
         <input
           id="e2e_room_floor"
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Building floor"
           name="buildingFloor"
           type="text"
@@ -41,7 +41,7 @@
           Description:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           placeholder="Can be used for notes"
           name="description"
           type="text"
@@ -52,7 +52,7 @@
           Number of rack spaces:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="number of rack spaces"
           type="text"
           v-model="form.numberOfRackSpaces"
@@ -70,7 +70,7 @@
           Area (sq. m):
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="area"
           type="text"
           v-model="form.area"
@@ -88,7 +88,7 @@
           Responsible:
         </label>
         <input
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           name="responsible"
           type="text"
           v-model="form.responsible"
@@ -98,7 +98,7 @@
           Cooling system:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.coolingSystem"
         >
           <option
@@ -119,7 +119,7 @@
           Fire suppression system:
         </label>
         <select
-          class="block w-96 rounded-lg border-2 border-blue-400 text-sm"
+          :class="formInputStyle"
           v-model="form.fireSuppressionSystem"
         >
           <option
@@ -140,7 +140,7 @@
         </select>
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="accessIsOpen"
           type="checkbox"
           v-model="form.accessIsOpen"
@@ -154,7 +154,7 @@
         <br>
         <br>
         <input
-          class="w-5 h-5 text-blue-600 bg-gray-100 border-2 border-blue-400 rounded focus:ring-blue-500"
+          :class="formCheckboxStyle"
           name="hasRaisedFloor"
           type="checkbox"
           v-model="form.hasRaisedFloor"
@@ -168,8 +168,7 @@
         <br>
         <br>
         <button
-          class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-sm
-             px-7 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          :class="formSubmitButtonStyle"
           type="submit"
           id="e2e_submit_button"
           v-on:click="submit"
@@ -187,6 +186,7 @@ import useVuelidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
 import {numericGTZOrNull} from "@/validators";
 import {setEmptyStringToNull} from "@/functions";
+import {formCheckboxStyle, formInputStyle, formSubmitButtonStyle, frameShadowStyle} from '@/styleBindings';
 
 
 export default {
@@ -210,7 +210,11 @@ export default {
         fireSuppressionSystem: 'Centralized',
         accessIsOpen: false,
         hasRaisedFloor: false
-      }
+      },
+      formInputStyle: formInputStyle,
+      formSubmitButtonStyle: formSubmitButtonStyle,
+      frameShadowStyle: frameShadowStyle,
+      formCheckboxStyle: formCheckboxStyle
     }
   },
   created() {

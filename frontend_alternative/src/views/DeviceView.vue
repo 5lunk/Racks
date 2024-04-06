@@ -4,7 +4,7 @@
       <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
         <TheMessage :messageProps="messageProps"/>
       </div>
-      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <div :class="frameShadowStyle">
         Device №{{device.id}}
         <router-link
           :to="{path: `/device/${device.id}/update`}"
@@ -12,15 +12,13 @@
         >
           <button
             id="e2e_device_edit"
-            class="float-right text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+            :class="optionButtonDarkStyle"
           >
             Edit
           </button>
         </router-link>
         <button
-          class="float-right text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          :class="optionButtonLightStyle"
           v-on:click="deleteDevice(device.id, `${device.vendor} ${device.model}`)"
         >
           Delete
@@ -44,7 +42,7 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4 text-sm">
-        <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow h-fit">
+        <div :class="frameShadowStyleFit">
           Status:
           <text class="text-slate-500">
             {{device.status}}
@@ -132,7 +130,7 @@
           </template>
           <br>
         </div>
-        <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow h-fit">
+        <div :class="frameShadowStyleFit">
           Vendor:
           <text class="text-slate-500">
             {{device.vendor}}
@@ -243,6 +241,7 @@
 import TheMessage from '@/components/TheMessage.vue';
 import {deleteObject, getObject, getObjectLocation, getResponseMessage, logIfNotStatus} from '@/api';
 import {DEVICES_WITH_OS, DEVICES_WITH_PORTS, RESPONSE_STATUS} from "@/constants";
+import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from "@/styleBindings";
 
 
 export default {
@@ -295,7 +294,11 @@ export default {
         regionName: ''
       },
       devicesWithPorts: DEVICES_WITH_PORTS,
-      devicesWithOS: DEVICES_WITH_OS
+      devicesWithOS: DEVICES_WITH_OS,
+      optionButtonLightStyle: optionButtonLightStyle,
+      optionButtonDarkStyle: optionButtonDarkStyle,
+      frameShadowStyle: frameShadowStyle,
+      frameShadowStyleFit: frameShadowStyle + ' h-fit'
     }
   },
   mounted() {
