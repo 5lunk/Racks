@@ -4,21 +4,18 @@
       <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
         <TheMessage :messageProps="messageProps"/>
       </div>
-      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <div :class="frameShadowStyle">
         Building №{{building.id}}
         <router-link
           :to="{path: `/building/${building.id}/update`}"
           target="_blank"
         >
-          <button class="float-right text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-            px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
-          >
+          <button :class="optionButtonDarkStyle">
             Edit
           </button>
         </router-link>
         <button
-          class="float-right text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-small rounded-lg text-xs
-          px-4 py-0.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 align-[2px]"
+          :class="optionButtonLightStyle"
           v-on:click="deleteBuilding(building.id, building.name)"
         >
           Delete
@@ -40,7 +37,7 @@
           </text>
         </div>
       </div>
-      <div class="bg-transparent rounded-lg px-3 py-2 mr-3 mb-3 item-shadow">
+      <div :class="frameShadowStyle">
         <div class="text-sm">
           Building name:
           <text class="text-slate-500">
@@ -61,6 +58,7 @@
 import TheMessage from '@/components/TheMessage.vue';
 import {deleteObject, getObject, getObjectLocation, getResponseMessage, logIfNotStatus} from '@/api';
 import {RESPONSE_STATUS} from "@/constants";
+import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from "@/styleBindings";
 
 
 export default {
@@ -85,7 +83,10 @@ export default {
         siteName: '',
         departmentName: '',
         regionName: ''
-      }
+      },
+      optionButtonLightStyle: optionButtonLightStyle,
+      optionButtonDarkStyle: optionButtonDarkStyle,
+      frameShadowStyle: frameShadowStyle
     }
   },
   mounted() {
