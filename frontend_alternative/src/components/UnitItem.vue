@@ -49,7 +49,7 @@ import {TRUNCATION_LENGTH} from "@/constants";
 
 
 export default {
-  name: 'Unit',
+  name: 'UnitItem',
   data () {
     return {
       truncationLength: TRUNCATION_LENGTH

@@ -32,7 +32,7 @@
                     <template v-if="keyToInt(deviceId) === device.id">
                       <template v-if="device.status === deviceStatus.ACTIVE">
                         <template v-if="device.ownership === deviceOwnership.OUR">
-                          <Unit
+                          <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameOur}`"
                             :vendor="device.vendor"
                             :model="device.model"
@@ -42,7 +42,7 @@
                           />
                         </template>
                         <template v-else>
-                          <Unit
+                          <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameAlien}`"
                             :vendor="device.vendor"
                             :model="device.model"
@@ -54,7 +54,7 @@
                       </template>
                       <template v-else>
                         <template v-if="device.ownership === deviceOwnership.OUR">
-                          <Unit
+                          <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameEmpty} ${classNameOur}`"
                             :vendor="device.vendor"
                             :model="device.model"
@@ -64,7 +64,7 @@
                           />
                         </template>
                         <template v-else>
-                          <Unit
+                          <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameAlien} ${classNameEmpty}`"
                             :vendor="device.vendor"
                             :model="device.model"
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import Unit from '@/components/Unit.vue';
+import UnitItem from '@/components/UnitItem.vue';
 import {DEVICE_OWNERSHIP, DEVICE_STATUS} from "@/constants";
 
 export default {
@@ -99,7 +99,7 @@ export default {
     }
   },
   components: {
-    Unit
+    UnitItem
   },
   inheritAttrs: false,
   props: {
