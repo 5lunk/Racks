@@ -59,6 +59,11 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             $deviceUpdating->setUnits($device->getUnits());
         }
 
+        // If no side in request data
+        if (is_null($deviceUpdating->getLocation())) {
+            $deviceUpdating->setLocation($device->getLocation());
+        }
+
         $rack = $this->rackRepository->getById($device->getRackId());
 
         // Check device units exist

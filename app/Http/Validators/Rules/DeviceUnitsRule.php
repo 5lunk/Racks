@@ -23,7 +23,7 @@ class DeviceUnitsRule implements Rule
             return false;
         }
         if (! count($value)) {
-            return false;
+            return $value === [];
         }
         sort($value);
         $arrayCheck = range(
