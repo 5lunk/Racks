@@ -112,7 +112,7 @@ export default {
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
         this.messageProps.success = true;
         this.messageProps.message = `Device ${response.data.data.vendor || 'undefined vendor'}
-          ${response.data.data.model || 'undefined model'} added successfully`;
+          ${response.data.data.model || 'undefined model'} updated successfully`;
       } else {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
