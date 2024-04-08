@@ -58,12 +58,36 @@ class DatabaseSeeder extends Seeder
             'department_id' => $firstTestDepartment['id'],
         ]);
 
+        $testBuilding2 = Building::create([
+            'name' => 'Second test building',
+            'description' => 'Central office',
+            'updated_by' => 'tester',
+            'site_id' => $testSite['id'],
+            'department_id' => $firstTestDepartment['id'],
+        ]);
+
         $testRoom = Room::create([
             'name' => 'Test room',
             'building_floor' => '2nd',
             'description' => 'Server room',
             'number_of_rack_spaces' => 6,
             'area' => 12,
+            'responsible' => 'Smith W.',
+            'cooling_system' => RoomCoolingSystemEnum::CENTRALIZED,
+            'fire_suppression_system' => RoomFireSuppressionSystemEnum::CENTRALIZED,
+            'access_is_open' => false,
+            'has_raised_floor' => false,
+            'updated_by' => 'tester',
+            'building_id' => $testBuilding['id'],
+            'department_id' => $firstTestDepartment['id'],
+        ]);
+
+        $testRoom2 = Room::create([
+            'name' => 'Second test room',
+            'building_floor' => '3nd',
+            'description' => 'Server room',
+            'number_of_rack_spaces' => 8,
+            'area' => 22,
             'responsible' => 'Smith W.',
             'cooling_system' => RoomCoolingSystemEnum::CENTRALIZED,
             'fire_suppression_system' => RoomFireSuppressionSystemEnum::CENTRALIZED,

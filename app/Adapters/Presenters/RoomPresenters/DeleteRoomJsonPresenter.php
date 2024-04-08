@@ -8,7 +8,6 @@ use App\Http\Resources\RoomResources\NoSuchRoomResource;
 use App\Http\Resources\RoomResources\PermissionExceptionResource;
 use App\Http\Resources\RoomResources\RoomDeletedResource;
 use App\Http\Resources\RoomResources\UnableToDeleteRoomResource;
-use App\UseCases\RoomUseCases\CreateRoomUseCase\CreateRoomResponseModel;
 use App\UseCases\RoomUseCases\DeleteRoomUseCase\DeleteRoomOutputPort;
 use App\UseCases\RoomUseCases\DeleteRoomUseCase\DeleteRoomResponseModel;
 
@@ -72,17 +71,17 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
     }
 
     /**
-     * @param  CreateRoomResponseModel  $response
+     * @param  DeleteRoomResponseModel  $response
      * @return ViewModel
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function permissionException(CreateRoomResponseModel $response): ViewModel
+    public function permissionException(DeleteRoomResponseModel $response): ViewModel
     {
         return App()->makeWith(JsonResourceViewModel::class,
             [
                 'resource' => App()->makeWith(
-                    PermissionExceptionResource::class, ['building' => $response->getRoom()]),
+                    PermissionExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => 403,
             ]
         );

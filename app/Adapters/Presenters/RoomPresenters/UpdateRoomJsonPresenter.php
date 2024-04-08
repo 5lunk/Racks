@@ -99,7 +99,7 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return App()->makeWith(JsonResourceViewModel::class,
             [
                 'resource' => App()->makeWith(
-                    PermissionExceptionResource::class, ['building' => $response->getRoom()]),
+                    PermissionExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => 403,
             ]
         );
