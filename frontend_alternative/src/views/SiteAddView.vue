@@ -1,13 +1,14 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
-      <SiteForm
-        :formProps="formProps"
-        v-on:on-submit="submitForm"
-      />
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
+      <SiteForm :formProps="formProps" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -15,26 +16,25 @@
 <script>
 import SiteForm from '@/components/SiteForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getResponseMessage, postObject} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-
+import { getResponseMessage, postObject } from '@/api';
+import { RESPONSE_STATUS } from '@/constants';
 
 export default {
   name: 'SiteAddView',
   components: {
     SiteForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
       formProps: {
         oldName: '',
-        oldDescription: ''
+        oldDescription: '',
       },
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
       const formData = {
         name: form.name,
         description: form.description,
-        department_id: this.$route.params.department_id
+        department_id: this.$route.params.department_id,
       };
       const response = await postObject('site', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
@@ -56,8 +56,8 @@ export default {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-  }
+  },
 };
 </script>

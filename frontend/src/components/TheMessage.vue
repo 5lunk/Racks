@@ -1,12 +1,12 @@
 <template>
   <template v-if="messageProps.message.length && messageProps.success">
     <text>
-      {{messageProps.message}}
+      {{ messageProps.message }}
     </text>
   </template>
   <template v-else-if="messageProps.message.length && !messageProps.success">
     <text class="text-red-500">
-      {{messageProps.message}}
+      {{ messageProps.message }}
     </text>
   </template>
   <template v-else>
@@ -21,7 +21,7 @@ export default {
     messageProps: {
       message: String,
       success: false,
-    }
-  }
-}
+    },
+  },
+};
 </script>

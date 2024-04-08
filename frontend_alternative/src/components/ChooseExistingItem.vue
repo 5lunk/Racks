@@ -1,12 +1,11 @@
 <template>
-  <div v-bind="{
+  <div
+    v-bind="{
       itemsData: itemsData,
-      isHidden: isHidden
+      isHidden: isHidden,
     }"
   >
-    <label :for="inputId">
-      {{label}}:
-    </label>
+    <label :for="inputId"> {{ label }}: </label>
     <input
       :class="formInputStyle"
       :id="inputId"
@@ -16,12 +15,10 @@
     />
     <button
       type="button"
-      class="pb-2 text-slate-500 pl-56"
+      class="pb-2 pl-56 text-slate-500"
       v-on:click="isHidden = !isHidden"
     >
-      <text class="text-blue-300">
-        &#9873;
-      </text>
+      <text class="text-blue-300"> &#9873; </text>
       Choose from existing
     </button>
     <div v-if="!isHidden">
@@ -33,7 +30,7 @@
             :id="item"
             v-on:click="copyOnClick(item, inputId)"
           >
-            {{item}}
+            {{ item }}
           </button>
         </template>
       </template>
@@ -42,24 +39,24 @@
 </template>
 
 <script>
-import {MATCH_ID, MATCH_LABEL} from '@/constants';
-import {getDataFromMatch} from '@/functions'
-import {formInputStyle, optionButtonDarkStyle} from "@/styleBindings";
+import { MATCH_ID, MATCH_LABEL } from '@/constants';
+import { getDataFromMatch } from '@/functions';
+import { formInputStyle, optionButtonDarkStyle } from '@/styleBindings';
 
 export default {
   name: 'ChooseExistingItem',
   props: {
     itemsData: Object,
     isHidden: Boolean,
-    modelValue: String
+    modelValue: String,
   },
   data() {
     return {
       inputId: '',
       label: '',
       formInputStyle: formInputStyle,
-      optionButtonDarkStyle: optionButtonDarkStyle
-    }
+      optionButtonDarkStyle: optionButtonDarkStyle,
+    };
   },
   created() {
     this.inputId = this.getDataFromMatch(this.itemsData.item_type, MATCH_ID);
@@ -72,12 +69,12 @@ export default {
      * @param {String} id Input id
      */
     copyOnClick(choice, id) {
-      let event = new Event("input");
+      let event = new Event('input');
       let input = document.getElementById(id);
       input.value = document.getElementById(choice).innerText;
       input.dispatchEvent(event);
     },
-    getDataFromMatch: getDataFromMatch
-  }
-}
+    getDataFromMatch: getDataFromMatch,
+  },
+};
 </script>

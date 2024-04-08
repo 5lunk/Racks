@@ -1,10 +1,10 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '@/views/LoginView.vue';
 import DeviceView from '@/views/DeviceView.vue';
 import RackView from '@/views/RackView.vue';
 import RoomView from '@/views/RoomView.vue';
-import BuildingView from "@/views/BuildingView.vue";
-import SiteView from "@/views/SiteView.vue";
+import BuildingView from '@/views/BuildingView.vue';
+import SiteView from '@/views/SiteView.vue';
 import TreeView from '@/views/TreeView.vue';
 import UnitsView from '@/views/UnitsView.vue';
 import SiteAddView from '@/views/SiteAddView.vue';
@@ -17,125 +17,122 @@ import BuildingAddView from '@/views/BuildingAddView.vue';
 import BuildingUpdateView from '@/views/BuildingUpdateView.vue';
 import RoomAddView from '@/views/RoomAddView.vue';
 import RoomUpdateView from '@/views/RoomUpdateView.vue';
-import PageNotFoundView from "@/views/PageNotFoundView.vue";
-
+import PageNotFoundView from '@/views/PageNotFoundView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'TreeView',
-    component: TreeView
+    component: TreeView,
   },
   {
     path: '/login',
     name: 'LoginView',
-    component: LoginView
+    component: LoginView,
   },
   {
     path: '/device/:id',
     name: 'DeviceView',
-    component: DeviceView
+    component: DeviceView,
   },
   {
     path: '/rack/:id',
     name: 'RackView',
-    component: RackView
+    component: RackView,
   },
   {
     path: '/room/:id',
     name: 'RoomView',
-    component: RoomView
+    component: RoomView,
   },
   {
     path: '/building/:id',
     name: 'BuildingView',
-    component: BuildingView
+    component: BuildingView,
   },
   {
     path: '/site/:id',
     name: 'SiteView',
-    component: SiteView
+    component: SiteView,
   },
   {
     path: '/units/:id',
     name: 'UnitsView',
-    component: UnitsView
+    component: UnitsView,
   },
   {
     path: '/site/create/:department_id',
     name: 'SiteAddView',
-    component: SiteAddView
+    component: SiteAddView,
   },
   {
     path: '/site/:id/update',
     name: 'SiteUpdateView',
-    component: SiteUpdateView
+    component: SiteUpdateView,
   },
   {
     path: '/building/create/:site_id',
     name: 'BuildingAddView',
-    component: BuildingAddView
+    component: BuildingAddView,
   },
   {
     path: '/building/:id/update',
     name: 'BuildingUpdateView',
-    component: BuildingUpdateView
+    component: BuildingUpdateView,
   },
   {
     path: '/room/create/:building_id',
     name: 'RoomAddView',
-    component: RoomAddView
+    component: RoomAddView,
   },
   {
     path: '/room/:id/update',
     name: 'RoomUpdateView',
-    component: RoomUpdateView
+    component: RoomUpdateView,
   },
   {
     path: '/rack/create/:room_id',
     name: 'RackAddView',
-    component: RackAddView
+    component: RackAddView,
   },
   {
     path: '/rack/:id/update',
     name: 'RackUpdateView',
-    component: RackUpdateView
+    component: RackUpdateView,
   },
   {
     path: '/device/create/:rack_id',
     name: 'DeviceAddView',
-    component: DeviceAddView
+    component: DeviceAddView,
   },
   {
     path: '/device/:id/update',
     name: 'DeviceUpdateView',
-    component: DeviceUpdateView
+    component: DeviceUpdateView,
   },
   {
     path: '/404',
     name: 'PageNotFoundView',
-    component: PageNotFoundView
+    component: PageNotFoundView,
   },
   {
     path: '/:pathMatch(.*)*',
-    component: PageNotFoundView
-  }
+    component: PageNotFoundView,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
-    if (token || to.name === 'LoginView') {
-      next()
-    } else {
-      next({name: 'LoginView'})
-    }
+  if (token || to.name === 'LoginView') {
+    next();
+  } else {
+    next({ name: 'LoginView' });
   }
-);
+});
 
-
-export default router
+export default router;

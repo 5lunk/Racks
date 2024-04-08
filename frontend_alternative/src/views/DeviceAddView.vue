@@ -1,13 +1,14 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
-      <DeviceForm
-        :formProps="formProps"
-        v-on:on-submit="submitForm"
-      />
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
+      <DeviceForm :formProps="formProps" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -15,16 +16,15 @@
 <script>
 import DeviceForm from '@/components/DeviceForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getResponseMessage, postObject} from '@/api';
-import {getUnitsArray} from "@/functions";
-import {RESPONSE_STATUS} from "@/constants";
-
+import { getResponseMessage, postObject } from '@/api';
+import { getUnitsArray } from '@/functions';
+import { RESPONSE_STATUS } from '@/constants';
 
 export default {
   name: 'DeviceAddView',
   components: {
     DeviceForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -53,12 +53,12 @@ export default {
         responsible: '',
         financiallyResponsiblePerson: '',
         inventoryNumber: '',
-        fixedAsset: ''
+        fixedAsset: '',
       },
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   methods: {
@@ -94,7 +94,7 @@ export default {
         financially_responsible_person: form.financiallyResponsiblePerson,
         inventory_number: form.inventoryNumber,
         fixed_asset: form.fixedAsset,
-        rack_id: parseInt(this.$route.params.rack_id)
+        rack_id: parseInt(this.$route.params.rack_id),
       };
       const response = await postObject('device', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
@@ -105,8 +105,8 @@ export default {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-  }
+  },
 };
 </script>

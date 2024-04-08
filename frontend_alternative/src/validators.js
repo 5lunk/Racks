@@ -6,15 +6,15 @@
 export const numericGTZOrNull = (value) => {
   if (typeof value === 'string') {
     let val = +value;
-    if (value === "") {
-      return true
+    if (value === '') {
+      return true;
     } else if (!String(val).includes('.') && !value.includes('.0') && val > 0) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   } else {
-    return true
+    return true;
   }
 };
 
@@ -26,14 +26,18 @@ export const numericGTZOrNull = (value) => {
 export const numericOrNull = (value) => {
   if (typeof value === 'string') {
     let val = +value;
-    if (value === "") {
-      return true
-    } else if (!String(val).includes('.') && !value.includes('.0') && val >= 0) {
-      return true
+    if (value === '') {
+      return true;
+    } else if (
+      !String(val).includes('.') &&
+      !value.includes('.0') &&
+      val >= 0
+    ) {
+      return true;
     } else {
-      return false
+      return false;
     }
   } else {
-    return true
+    return true;
   }
 };

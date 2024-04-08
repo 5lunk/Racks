@@ -41,14 +41,8 @@
       :isOpen="isOpen"
       v-on:click="toggle()"
     />
-    <ul
-      v-show="isOpen"
-      v-if="hasChildren"
-    >
-      <TreeItem
-        v-for="child in item.children"
-        :item="child"
-      />
+    <ul v-show="isOpen" v-if="hasChildren">
+      <TreeItem v-for="child in item.children" :item="child" />
     </ul>
   </li>
 </template>
@@ -60,15 +54,14 @@ import SiteTreeItem from './SiteTreeItem.vue';
 import BuildingTreeItem from './BuildingTreeItem.vue';
 import RoomTreeItem from './RoomTreeItem.vue';
 import RackTreeItem from './RackTreeItem.vue';
-import {truncate} from '@/filters';
-import {getCaretClass, getId} from '@/functions';
-import {frameShadowStyle} from '@/styleBindings';
-
+import { truncate } from '@/filters';
+import { getCaretClass, getId } from '@/functions';
+import { frameShadowStyle } from '@/styleBindings';
 
 export default {
   name: 'TreeItem',
   props: {
-    item: Object
+    item: Object,
   },
   components: {
     RegionTreeItem,
@@ -76,12 +69,12 @@ export default {
     SiteTreeItem,
     BuildingTreeItem,
     RoomTreeItem,
-    RackTreeItem
+    RackTreeItem,
   },
   data() {
     return {
       isOpen: false,
-      frameShadowStyle: frameShadowStyle
+      frameShadowStyle: frameShadowStyle,
     };
   },
   computed: {
@@ -90,7 +83,7 @@ export default {
      */
     hasChildren() {
       return this.item.children && this.item.children.length;
-    }
+    },
   },
   methods: {
     /**
@@ -103,14 +96,14 @@ export default {
     },
     getCaretClass: getCaretClass,
     getId: getId,
-    truncate: truncate
-  }
-}
+    truncate: truncate,
+  },
+};
 </script>
 
 <style scoped>
-  ul {
-    padding-left: 1em;
-    line-height: 1.5em;
-  }
+ul {
+  padding-left: 1em;
+  line-height: 1.5em;
+}
 </style>

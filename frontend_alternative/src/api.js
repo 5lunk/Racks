@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {BASE_PATH, RESPONSE_STATUS} from "@/constants";
+import { BASE_PATH, RESPONSE_STATUS } from '@/constants';
 
 /**
  * Log error
@@ -124,7 +124,9 @@ export async function getObjectLocation(objName, id) {
  */
 export async function getObjectsForParent(objNamePlural, parentName, parenId) {
   try {
-    return await axios.get(`${BASE_PATH}/${parentName}/${parenId}/${objNamePlural}`);
+    return await axios.get(
+      `${BASE_PATH}/${parentName}/${parenId}/${objNamePlural}`,
+    );
   } catch (error) {
     logError(error, `${objNamePlural} for ${parentName}`, 'get');
     return error.response;

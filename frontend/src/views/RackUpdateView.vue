@@ -1,14 +1,15 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
       <template v-if="formProps.oldName">
-        <RackForm
-          :formProps="formProps"
-          v-on:on-submit="submitForm"
-        />
+        <RackForm :formProps="formProps" v-on:on-submit="submitForm" />
       </template>
     </div>
   </div>
@@ -17,15 +18,19 @@
 <script>
 import RackForm from '@/components/RackForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getObject, getResponseMessage, logIfNotStatus, putObject} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-
+import { RESPONSE_STATUS } from '@/constants';
+import {
+  getObject,
+  getResponseMessage,
+  logIfNotStatus,
+  putObject,
+} from '@/api';
 
 export default {
   name: 'RackUpdateView',
   components: {
     RackForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -56,13 +61,13 @@ export default {
         oldPowerSocketsUps: null,
         oldHasExternalUps: false,
         oldHasCooler: false,
-        update: true
+        update: true,
       },
       roomId: null,
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   async created() {
@@ -100,17 +105,17 @@ export default {
         power_sockets: form.powerSockets,
         power_sockets_ups: form.powerSocketsUps,
         has_external_ups: form.hasExternalUps,
-        has_cooler: form.hasCooler
+        has_cooler: form.hasCooler,
       };
       const response = await putObject('rack', this.$route.params.id, formData);
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
-        this.messageProps.success =true;
+        this.messageProps.success = true;
         this.messageProps.message = `Rack ${response.data.data.name} updated successfully`;
       } else {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     /**
      * Fetch and set rack old data
@@ -127,9 +132,11 @@ export default {
       this.formProps.oldVendor = rack.vendor;
       this.formProps.oldModel = rack.model;
       this.formProps.oldDescription = rack.description;
-      this.formProps.oldHasNumberingFromTopToBottom = rack.has_numbering_from_top_to_bottom;
+      this.formProps.oldHasNumberingFromTopToBottom =
+        rack.has_numbering_from_top_to_bottom;
       this.formProps.oldResponsible = rack.responsible;
-      this.formProps.oldFinanciallyResponsiblePerson = rack.financially_responsible_person;
+      this.formProps.oldFinanciallyResponsiblePerson =
+        rack.financially_responsible_person;
       this.formProps.oldInventoryNumber = rack.inventory_number;
       this.formProps.oldFixedAsset = rack.fixed_asset;
       this.formProps.oldLinkToDocs = rack.link_to_docs;
@@ -149,7 +156,7 @@ export default {
       this.formProps.oldHasExternalUps = rack.has_external_ups;
       this.formProps.oldHasCooler = rack.has_cooler;
       this.roomId = rack.room_id;
-    }
-  }
+    },
+  },
 };
 </script>

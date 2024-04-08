@@ -1,18 +1,17 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto  justify-between text-xl pl-8 pt-4 font-sans font-light">
-      <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
-        <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
+    >
+      <div
+        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
+      >
+        <TheMessage :messageProps="messageProps" />
       </div>
       <div :class="frameShadowStyle">
         Site №{{ site.id }}
-        <router-link
-          :to="{path: `/site/${site.id}/update`}"
-          target="_blank"
-        >
-          <button :class="optionButtonDarkStyle">
-            Edit
-          </button>
+        <router-link :to="{ path: `/site/${site.id}/update` }" target="_blank">
+          <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
@@ -20,16 +19,16 @@
         >
           Delete
         </button>
-        <br>
-        <div class="text-xs pb-2 text-slate-500">
-          {{location.regionName}} &#9002; {{location.departmentName}}
+        <br />
+        <div class="pb-2 text-xs text-slate-500">
+          {{ location.regionName }} &#9002; {{ location.departmentName }}
         </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
             {{ site.updatedBy }}
           </text>
-          <br>
+          <br />
           Updated at:
           <text class="text-slate-500">
             {{ site.updatedAt }}
@@ -42,7 +41,7 @@
           <text class="text-slate-500">
             {{ site.name }}
           </text>
-          <br>
+          <br />
           Description:
           <text class="text-slate-500">
             {{ site.description }}
@@ -55,15 +54,24 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import {deleteObject, getObject, getObjectLocation, getResponseMessage, logIfNotStatus} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from "@/styleBindings";
-
+import { RESPONSE_STATUS } from '@/constants';
+import {
+  deleteObject,
+  getObject,
+  getObjectLocation,
+  getResponseMessage,
+  logIfNotStatus,
+} from '@/api';
+import {
+  frameShadowStyle,
+  optionButtonDarkStyle,
+  optionButtonLightStyle,
+} from '@/styleBindings';
 
 export default {
   name: 'SiteView',
   components: {
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -72,7 +80,7 @@ export default {
         name: '',
         description: '',
         updatedBy: '',
-        updatedAt: ''
+        updatedAt: '',
       },
       messageProps: {
         message: '',
@@ -80,12 +88,12 @@ export default {
       },
       location: {
         departmentName: '',
-        regionName: ''
+        regionName: '',
       },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
-      frameShadowStyle: frameShadowStyle
-    }
+      frameShadowStyle: frameShadowStyle,
+    };
   },
   mounted() {
     this.setSite();
@@ -114,7 +122,11 @@ export default {
      * @param {String} name Site name
      */
     async deleteSite(id, name) {
-      if (confirm(`Do you really want to delete site ${name} and all related items?`)) {
+      if (
+        confirm(
+          `Do you really want to delete site ${name} and all related items?`,
+        )
+      ) {
         const response = await deleteObject('site', this.$route.params.id);
         if (response.status === RESPONSE_STATUS.NO_CONTENT) {
           this.messageProps.success = true;
@@ -137,6 +149,6 @@ export default {
       this.location.departmentName = location.department_name;
       this.location.regionName = location.region_name;
     },
-  }
-}
+  },
+};
 </script>

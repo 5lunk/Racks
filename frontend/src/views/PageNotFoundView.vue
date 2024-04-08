@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto  justify-between text-xl pl-8 pt-4 font-sans font-light">
-      <div class="container flex justify-center items-center mt-2 justify-between font-sans font-light text-4xl">
+    <div
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
+    >
+      <div
+        class="container mt-2 flex items-center justify-between font-sans text-4xl font-light"
+      >
         404 PAGE NOT FOUND
       </div>
     </div>
@@ -10,6 +14,6 @@
 
 <script>
 export default {
-  name: 'PageNotFoundView'
-}
+  name: 'PageNotFoundView',
+};
 </script>

@@ -1,14 +1,15 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
       <template v-if="formProps.oldFirstUnit">
-        <DeviceForm
-          :formProps="formProps"
-          v-on:on-submit="submitForm"
-        />
+        <DeviceForm :formProps="formProps" v-on:on-submit="submitForm" />
       </template>
     </div>
   </div>
@@ -17,16 +18,20 @@
 <script>
 import DeviceForm from '@/components/DeviceForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getObject, getResponseMessage, logIfNotStatus, putObject} from '@/api';
-import {getUnitsArray} from "@/functions";
-import {RESPONSE_STATUS} from "@/constants";
-
+import { getUnitsArray } from '@/functions';
+import { RESPONSE_STATUS } from '@/constants';
+import {
+  getObject,
+  getResponseMessage,
+  logIfNotStatus,
+  putObject,
+} from '@/api';
 
 export default {
   name: 'DeviceUpdateView',
   components: {
     DeviceForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -54,13 +59,13 @@ export default {
         oldResponsible: '',
         oldFinanciallyResponsiblePerson: '',
         oldInventoryNumber: '',
-        oldFixedAsset: ''
+        oldFixedAsset: '',
       },
       rackId: null,
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   async created() {
@@ -97,9 +102,13 @@ export default {
         responsible: form.responsible,
         financially_responsible_person: form.financiallyResponsiblePerson,
         inventory_number: form.inventoryNumber,
-        fixed_asset: form.fixedAsset
+        fixed_asset: form.fixedAsset,
       };
-      const response = await putObject('device', this.$route.params.id, formData);
+      const response = await putObject(
+        'device',
+        this.$route.params.id,
+        formData,
+      );
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
         this.messageProps.success = true;
         this.messageProps.message = `Device ${response.data.data.vendor || 'undefined vendor'}
@@ -108,7 +117,7 @@ export default {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     /**
      * Fetch and set device old data
@@ -141,11 +150,12 @@ export default {
       this.formProps.oldProject = device.project;
       this.formProps.oldOwnership = device.ownership;
       this.formProps.oldResponsible = device.responsible;
-      this.formProps.oldFinanciallyResponsiblePerson = device.financially_responsible_person;
+      this.formProps.oldFinanciallyResponsiblePerson =
+        device.financially_responsible_person;
       this.formProps.oldInventoryNumber = device.inventory_number;
       this.formProps.oldFixedAsset = device.fixed_asset;
       this.rackId = device.rack_id;
-    }
-  }
+    },
+  },
 };
 </script>

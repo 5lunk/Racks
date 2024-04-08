@@ -1,18 +1,17 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
-      <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
-        <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
+    >
+      <div
+        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
+      >
+        <TheMessage :messageProps="messageProps" />
       </div>
       <div :class="frameShadowStyle">
-        Rack №{{rack.id}}
-        <router-link
-          :to="{path: `/rack/${rack.id}/update`}"
-          target="_blank"
-        >
-          <button :class="optionButtonDarkStyle">
-            Edit
-          </button>
+        Rack №{{ rack.id }}
+        <router-link :to="{ path: `/rack/${rack.id}/update` }" target="_blank">
+          <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
@@ -20,20 +19,21 @@
         >
           Delete
         </button>
-        <br>
-        <div class="text-xs pb-2 text-slate-500">
-          {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
-          {{location.siteName}} &#9002; {{location.buildingName}} &#9002; {{location.roomName}}
+        <br />
+        <div class="pb-2 text-xs text-slate-500">
+          {{ location.regionName }} &#9002;
+          {{ location.departmentName }} &#9002; {{ location.siteName }} &#9002;
+          {{ location.buildingName }} &#9002; {{ location.roomName }}
         </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
-            {{rack.updatedBy}}
+            {{ rack.updatedBy }}
           </text>
-          <br>
+          <br />
           Updated at:
           <text class="text-slate-500">
-            {{rack.updatedAt}}
+            {{ rack.updatedAt }}
           </text>
         </div>
       </div>
@@ -41,208 +41,173 @@
         <div :class="frameShadowStyleFit">
           Rack name:
           <text class="text-slate-500">
-            {{rack.name}}
+            {{ rack.name }}
           </text>
-          <br>
+          <br />
           Description:
           <text class="text-slate-500">
-            {{rack.description}}
+            {{ rack.description }}
           </text>
-          <br>
+          <br />
           Responsible:
           <text class="text-slate-500">
-            {{rack.responsible}}
+            {{ rack.responsible }}
           </text>
-          <br>
+          <br />
           Row:
           <text class="text-slate-500">
-            {{rack.row}}
+            {{ rack.row }}
           </text>
-          <br>
+          <br />
           Place:
           <text class="text-slate-500">
-            {{rack.place}}
+            {{ rack.place }}
           </text>
-          <br>
+          <br />
           Inventory number:
           <text class="text-slate-500">
-            {{rack.inventoryNumber}}
+            {{ rack.inventoryNumber }}
           </text>
-          <br>
+          <br />
           Financially responsible:
           <text class="text-slate-500">
-            {{rack.financiallyResponsiblePerson}}
+            {{ rack.financiallyResponsiblePerson }}
           </text>
-          <br>
+          <br />
           Fixed asset:
           <text class="text-slate-500">
-            {{rack.fixedAsset}}
+            {{ rack.fixedAsset }}
           </text>
-          <br>
+          <br />
           <template v-if="rack.link_to_docs">
             Link to docs:
-            <a
-              class="text-slate-500"
-              v-bind:href="rack.link_to_docs"
-            >
-              <text class="text-blue-300">
-                &#9873;
-              </text>
-              {{rack.link_to_docs}}
+            <a class="text-slate-500" v-bind:href="rack.link_to_docs">
+              <text class="text-blue-300"> &#9873; </text>
+              {{ rack.link_to_docs }}
             </a>
           </template>
-          <template v-else>
-            Link to docs:
-          </template>
+          <template v-else> Link to docs: </template>
         </div>
         <div :class="frameShadowStyleFit">
           Vendor:
           <text class="text-slate-500">
-            {{rack.vendor}}
+            {{ rack.vendor }}
           </text>
-          <br>
+          <br />
           Model:
           <text class="text-slate-500">
-            {{rack.model}}
+            {{ rack.model }}
           </text>
-          <br>
+          <br />
           Rack amount (units):
           <text class="text-slate-500">
-            {{rack.amount}}
+            {{ rack.amount }}
           </text>
-          <br>
+          <br />
           <template v-if="rack.hasNumberingFromTopToBottom">
             Numbering:
-            <text class="text-slate-500">
-              from top to bottom
-            </text>
+            <text class="text-slate-500"> from top to bottom </text>
           </template>
           <template v-else>
             Numbering:
-            <text class="text-slate-500">
-              from bottom to top
-            </text>
+            <text class="text-slate-500"> from bottom to top </text>
           </template>
-          <br>
+          <br />
           <template v-if="rack.height">
             Rack height (mm):
             <text class="text-slate-500">
-              {{rack.height}}
+              {{ rack.height }}
             </text>
           </template>
-          <template v-else>
-            Rack height (mm):
-          </template>
-          <br>
+          <template v-else> Rack height (mm): </template>
+          <br />
           <template v-if="rack.width">
             Rack width (mm):
             <text class="text-slate-500">
-              {{rack.width}}
+              {{ rack.width }}
             </text>
           </template>
-          <template v-else>
-            Rack width (mm):
-          </template>
-          <br>
+          <template v-else> Rack width (mm): </template>
+          <br />
           <template v-if="rack.depth">
             Rack depth (mm):
             <text class="text-slate-500">
-              {{rack.depth}}
+              {{ rack.depth }}
             </text>
           </template>
-          <template v-else>
-            Rack depth (mm):
-          </template>
-          <br>
+          <template v-else> Rack depth (mm): </template>
+          <br />
           <template v-if="rack.unitWidth">
             Useful rack width (inches):
             <text class="text-slate-500">
-              {{rack.unitWidth}}
+              {{ rack.unitWidth }}
             </text>
           </template>
-          <template v-else>
-            Useful rack width (inches):
-          </template>
-          <br>
+          <template v-else> Useful rack width (inches): </template>
+          <br />
           <template v-if="rack.unitDepth">
             Useful rack depth (mm):
             <text class="text-slate-500">
-              {{rack.unitDepth}}
+              {{ rack.unitDepth }}
             </text>
           </template>
-          <template v-else>
-            Useful rack depth (mm):
-          </template>
-          <br>
+          <template v-else> Useful rack depth (mm): </template>
+          <br />
           Execution variant:
           <text class="text-slate-500">
-            {{rack.type}}
+            {{ rack.type }}
           </text>
-          <br>
+          <br />
           Construction:
           <text class="text-slate-500">
-            {{rack.frame}}
+            {{ rack.frame }}
           </text>
-          <br>
+          <br />
           Location type:
           <text class="text-slate-500">
-            {{rack.placeType}}
+            {{ rack.placeType }}
           </text>
-          <br>
+          <br />
           <template v-if="rack.maxLoad">
             Max load (kilo):
             <text class="text-slate-500">
-              {{rack.maxLoad}}
+              {{ rack.maxLoad }}
             </text>
           </template>
-          <template v-else>
-            Max load (kilo):
-          </template>
-          <br>
+          <template v-else> Max load (kilo): </template>
+          <br />
           <template v-if="rack.powerSockets">
             Free power sockets:
             <text class="text-slate-500">
-              {{rack.powerSockets}}
+              {{ rack.powerSockets }}
             </text>
           </template>
-          <template v-else>
-            Free power sockets:
-          </template>
-          <br>
+          <template v-else> Free power sockets: </template>
+          <br />
           <template v-if="rack.powerSocketsUps">
             Free UPS power sockets:
             <text class="text-slate-500">
-              {{rack.powerSocketsUps}}
+              {{ rack.powerSocketsUps }}
             </text>
           </template>
-          <template v-else>
-            Free UPS power sockets:
-          </template>
-          <br>
+          <template v-else> Free UPS power sockets: </template>
+          <br />
           <template v-if="rack.hasCooler">
             Active ventilation:
-            <text class="text-slate-500">
-              Yes
-            </text>
+            <text class="text-slate-500"> Yes </text>
           </template>
           <template v-else>
             Active ventilation:
-            <text class="text-slate-500">
-              No
-            </text>
+            <text class="text-slate-500"> No </text>
           </template>
-          <br>
+          <br />
           <template v-if="rack.hasExternalUps">
             External power backup supply system:
-            <text class="text-slate-500">
-              Yes
-            </text>
+            <text class="text-slate-500"> Yes </text>
           </template>
           <template v-else>
             External power backup supply system:
-            <text class="text-slate-500">
-              No
-            </text>
+            <text class="text-slate-500"> No </text>
           </template>
         </div>
       </div>
@@ -252,15 +217,24 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import {deleteObject, getObject, getObjectLocation, getResponseMessage, logIfNotStatus} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from '@/styleBindings';
-
+import { RESPONSE_STATUS } from '@/constants';
+import {
+  deleteObject,
+  getObject,
+  getObjectLocation,
+  getResponseMessage,
+  logIfNotStatus,
+} from '@/api';
+import {
+  frameShadowStyle,
+  optionButtonDarkStyle,
+  optionButtonLightStyle,
+} from '@/styleBindings';
 
 export default {
   name: 'RackView',
   components: {
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -294,7 +268,7 @@ export default {
         hasCooler: false,
         totalPowerW: null,
         updatedBy: '',
-        updatedAt: ''
+        updatedAt: '',
       },
       messageProps: {
         message: '',
@@ -305,13 +279,13 @@ export default {
         buildingName: '',
         siteName: '',
         departmentName: '',
-        regionName: ''
+        regionName: '',
       },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
-      frameShadowStyleFit: frameShadowStyle + ' h-fit'
-    }
+      frameShadowStyleFit: frameShadowStyle + ' h-fit',
+    };
   },
   mounted() {
     this.setRack();
@@ -333,9 +307,11 @@ export default {
       this.rack.vendor = rack.vendor;
       this.rack.model = rack.model;
       this.rack.description = rack.description;
-      this.rack.hasNumberingFromTopToBottom = rack.has_numbering_from_top_to_bottom;
+      this.rack.hasNumberingFromTopToBottom =
+        rack.has_numbering_from_top_to_bottom;
       this.rack.responsible = rack.responsible;
-      this.rack.financiallyResponsiblePerson = rack.financially_responsible_person;
+      this.rack.financiallyResponsiblePerson =
+        rack.financially_responsible_person;
       this.rack.inventoryNumber = rack.inventory_number;
       this.rack.fixedAsset = rack.fixed_asset;
       this.rack.linkToDocs = rack.link_to_docs;
@@ -363,7 +339,11 @@ export default {
      * @param {String} name Rack name
      */
     async deleteRack(id, name) {
-      if (confirm(`Do you really want to delete rack ${name} and all related items?`)) {
+      if (
+        confirm(
+          `Do you really want to delete rack ${name} and all related items?`,
+        )
+      ) {
         const response = await deleteObject('rack', this.$route.params.id);
         if (response.status === RESPONSE_STATUS.NO_CONTENT) {
           this.messageProps.success = true;
@@ -389,6 +369,6 @@ export default {
       this.location.departmentName = location.department_name;
       this.location.regionName = location.region_name;
     },
-  }
-}
+  },
+};
 </script>

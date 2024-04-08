@@ -1,43 +1,47 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto  justify-between text-xl pl-8 pt-4 font-sans font-light">
-      <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-xl">
-        <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
+    >
+      <div
+        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
+      >
+        <TheMessage :messageProps="messageProps" />
       </div>
       <div :class="frameShadowStyle">
-        Device №{{device.id}}
+        Device №{{ device.id }}
         <router-link
-          :to="{path: `/device/${device.id}/update`}"
+          :to="{ path: `/device/${device.id}/update` }"
           target="_blank"
         >
-          <button
-            id="e2e_device_edit"
-            :class="optionButtonDarkStyle"
-          >
+          <button id="e2e_device_edit" :class="optionButtonDarkStyle">
             Edit
           </button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click="deleteDevice(device.id, `${device.vendor} ${device.model}`)"
+          v-on:click="
+            deleteDevice(device.id, `${device.vendor} ${device.model}`)
+          "
         >
           Delete
         </button>
-        <br>
-        <div class="text-xs pb-2 text-slate-500">
-          {{location.regionName}} &#9002; {{location.departmentName}} &#9002;
-          {{location.siteName}} &#9002; {{location.buildingName}} &#9002;
-          {{location.roomName}} &#9002; {{location.rackName}}
+        <br />
+        <div class="pb-2 text-xs text-slate-500">
+          {{ location.regionName }} &#9002;
+          {{ location.departmentName }} &#9002; {{ location.siteName }} &#9002;
+          {{ location.buildingName }} &#9002; {{ location.roomName }} &#9002;
+          {{ location.rackName }}
         </div>
         <div class="text-xs">
           Updated by:
           <text class="text-slate-500">
-            {{device.updatedBy}}
+            {{ device.updatedBy }}
           </text>
-          <br>
+          <br />
           Updated at:
           <text class="text-slate-500">
-            {{device.updatedAt}}
+            {{ device.updatedAt }}
           </text>
         </div>
       </div>
@@ -45,123 +49,108 @@
         <div :class="frameShadowStyleFit">
           Status:
           <text class="text-slate-500">
-            {{device.status}}
+            {{ device.status }}
           </text>
-          <br>
+          <br />
           Description:
           <text class="text-slate-500">
-            {{device.description}}
+            {{ device.description }}
           </text>
-          <br>
+          <br />
           <template v-if="device.hasBacksideLocation">
             Located on the back of the rack:
-            <text class="text-slate-500">
-              Yes
-            </text>
+            <text class="text-slate-500"> Yes </text>
           </template>
           <template v-else>
             Located on the back of the rack:
-            <text class="text-slate-500">
-              No
-            </text>
+            <text class="text-slate-500"> No </text>
           </template>
-          <br>
+          <br />
           Installed in:
           <a
             class="text-slate-500"
             v-bind:href="`/rack/${device.rackId}`"
             target="_blank"
           >
-            <text class="text-blue-300">
-              &#9873;
-            </text>
-            Rack №{{device.rackId}}
+            <text class="text-blue-300"> &#9873; </text>
+            Rack №{{ device.rackId }}
           </a>
-          <br>
+          <br />
           Units:
           <text class="text-slate-500">
-            {{device.units}}
+            {{ device.units }}
           </text>
-          <br>
+          <br />
           Ownership:
           <text class="text-slate-500">
-            {{device.ownership}}
+            {{ device.ownership }}
           </text>
-          <br>
+          <br />
           Responsible:
           <text class="text-slate-500">
-            {{device.responsible}}
+            {{ device.responsible }}
           </text>
-          <br>
+          <br />
           Project:
           <text class="text-slate-500">
-            {{device.project}}
+            {{ device.project }}
           </text>
-          <br>
+          <br />
           Inventory number:
           <text class="text-slate-500">
-            {{device.inventoryNumber}}
+            {{ device.inventoryNumber }}
           </text>
-          <br>
+          <br />
           Financially responsible:
           <text class="text-slate-500">
-            {{device.financiallyResponsiblePerson}}
+            {{ device.financiallyResponsiblePerson }}
           </text>
-          <br>
+          <br />
           Fixed asset:
           <text class="text-slate-500">
-            {{device.fixedAsset}}
+            {{ device.fixedAsset }}
           </text>
-          <br>
+          <br />
           <template v-if="device.link">
             Link to docs:
-            <a
-              class="text-slate-500"
-              v-bind:href="device.linkToDocs"
-            >
-              <text class="text-blue-300">
-                &#9873;
-              </text>
-              {{device.linkToDocs}}
+            <a class="text-slate-500" v-bind:href="device.linkToDocs">
+              <text class="text-blue-300"> &#9873; </text>
+              {{ device.linkToDocs }}
             </a>
           </template>
-          <template v-else>
-            Link to docs:
-          </template>
-          <br>
+          <template v-else> Link to docs: </template>
+          <br />
         </div>
         <div :class="frameShadowStyleFit">
           Vendor:
           <text class="text-slate-500">
-            {{device.vendor}}
+            {{ device.vendor }}
           </text>
-          <br>
+          <br />
           Model:
           <text class="text-slate-500">
-            {{device.model}}
+            {{ device.model }}
           </text>
-          <br>
+          <br />
           Device type:
           <text class="text-slate-500">
-            {{device.type}}
+            {{ device.type }}
           </text>
-          <br>
+          <br />
           <template v-if="devicesWithOS.includes(device.type)">
             Hostname:
             <text class="text-slate-500">
-              {{device.hostname}}
+              {{ device.hostname }}
             </text>
-            <br>
+            <br />
             <template v-if="device.ip">
               IP-address:
               <text class="text-slate-500">
-                {{device.ip}}
+                {{ device.ip }}
               </text>
             </template>
-            <template v-else>
-              IP-address:
-            </template>
-            <br>
+            <template v-else> IP-address: </template>
+            <br />
             <template v-if="device.stack">
               Stack/Reserve (reserve ID):
               <a
@@ -169,68 +158,56 @@
                 v-bind:href="`/device/${device.stack}`"
                 target="_blank"
               >
-                <text class="text-blue-300">
-                  &#9873;
-                </text>
-                Device №{{device.stack}}
+                <text class="text-blue-300"> &#9873; </text>
+                Device №{{ device.stack }}
               </a>
             </template>
-            <template v-else>
-              Stack/Reserve (reserve ID):
-            </template>
-            <br>
+            <template v-else> Stack/Reserve (reserve ID): </template>
+            <br />
             <template v-if="device.softwareVersion">
               Software version:
               <text class="text-slate-500">
-                {{device.softwareVersion}}
+                {{ device.softwareVersion }}
               </text>
             </template>
-            <template v-else>
-              Software version:
-            </template>
-            <br>
+            <template v-else> Software version: </template>
+            <br />
           </template>
           <template v-if="devicesWithPorts.includes(device.type)">
             <template v-if="device.portsAmount">
               Port capacity:
               <text class="text-slate-500">
-                {{device.portsAmount}}
+                {{ device.portsAmount }}
               </text>
             </template>
-            <template v-else>
-              Port capacity:
-            </template>
-            <br>
+            <template v-else> Port capacity: </template>
+            <br />
           </template>
           Serial number:
           <text class="text-slate-500">
-            {{device.serialNumber}}
+            {{ device.serialNumber }}
           </text>
-          <br>
+          <br />
           Socket type:
           <text class="text-slate-500">
-            {{device.powerType}}
+            {{ device.powerType }}
           </text>
-          <br>
+          <br />
           <template v-if="device.powerW">
             Power requirement (W):
             <text class="text-slate-500">
-              {{device.powerW}}
+              {{ device.powerW }}
             </text>
           </template>
-          <template v-else>
-            Power requirement (W):
-          </template>
-          <br>
+          <template v-else> Power requirement (W): </template>
+          <br />
           <template v-if="device.powerV">
             Voltage (V):
             <text class="text-slate-500">
-              {{device.powerV}}
+              {{ device.powerV }}
             </text>
           </template>
-          <template v-else>
-            Voltage (V):
-          </template>
+          <template v-else> Voltage (V): </template>
         </div>
       </div>
     </div>
@@ -239,15 +216,28 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import {deleteObject, getObject, getObjectLocation, getResponseMessage, logIfNotStatus} from '@/api';
-import {DEVICES_WITH_OS, DEVICES_WITH_PORTS, RESPONSE_STATUS} from "@/constants";
-import {frameShadowStyle, optionButtonDarkStyle, optionButtonLightStyle} from "@/styleBindings";
-
+import {
+  deleteObject,
+  getObject,
+  getObjectLocation,
+  getResponseMessage,
+  logIfNotStatus,
+} from '@/api';
+import {
+  DEVICES_WITH_OS,
+  DEVICES_WITH_PORTS,
+  RESPONSE_STATUS,
+} from '@/constants';
+import {
+  frameShadowStyle,
+  optionButtonDarkStyle,
+  optionButtonLightStyle,
+} from '@/styleBindings';
 
 export default {
   name: 'DeviceView',
   components: {
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -276,10 +266,10 @@ export default {
         financiallyResponsiblePerson: '',
         inventoryNumber: '',
         fixedAsset: '',
-        link:'',
+        link: '',
         updatedBy: '',
         updatedAt: '',
-        rackId: ''
+        rackId: '',
       },
       messageProps: {
         message: '',
@@ -291,15 +281,15 @@ export default {
         buildingName: '',
         siteName: '',
         departmentName: '',
-        regionName: ''
+        regionName: '',
       },
       devicesWithPorts: DEVICES_WITH_PORTS,
       devicesWithOS: DEVICES_WITH_OS,
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
-      frameShadowStyleFit: frameShadowStyle + ' h-fit'
-    }
+      frameShadowStyleFit: frameShadowStyle + ' h-fit',
+    };
   },
   mounted() {
     this.setDevice();
@@ -336,7 +326,8 @@ export default {
       this.device.project = device.project;
       this.device.ownership = device.ownership;
       this.device.responsible = device.responsible;
-      this.device.financiallyResponsiblePerson = device.financially_responsible_person;
+      this.device.financiallyResponsiblePerson =
+        device.financially_responsible_person;
       this.device.inventoryNumber = device.inventory_number;
       this.device.fixedAsset = device.fixed_asset;
       this.device.linkToDocs = device.link_to_docs;
@@ -377,6 +368,6 @@ export default {
       this.location.departmentName = location.department_name;
       this.location.regionName = location.region_name;
     },
-  }
-}
+  },
+};
 </script>

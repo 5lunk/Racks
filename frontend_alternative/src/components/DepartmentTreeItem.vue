@@ -1,23 +1,18 @@
 <template>
-  <div v-bind="{
+  <div
+    v-bind="{
       id: id,
       name: name,
-      isOpen: isOpen
+      isOpen: isOpen,
     }"
     class="mb-4"
   >
-    <span 
-      :class="getCaretClass(isOpen)"
-      :id="getId(name, null, null)"
-    >
+    <span :class="getCaretClass(isOpen)" :id="getId(name, null, null)">
       <text class="px-2">
-        {{truncate(name, truncationLength.DEFAULT)}}
+        {{ truncate(name, truncationLength.DEFAULT) }}
       </text>
-      <router-link 
-        :to="{path: `/site/create/${id}`}" 
-        target="_blank"
-      >
-        <button 
+      <router-link :to="{ path: `/site/create/${id}` }" target="_blank">
+        <button
           :id="getId(name, 'add', 'button')"
           type="button"
           :class="optionButtonDarkStyle"
@@ -30,32 +25,32 @@
 </template>
 
 <script>
-import {getCaretClass, getId} from '@/functions'
-import {truncate} from '@/filters'
-import {TRUNCATION_LENGTH} from "@/constants";
-import {optionButtonDarkStyle} from "@/styleBindings";
+import { getCaretClass, getId } from '@/functions';
+import { truncate } from '@/filters';
+import { TRUNCATION_LENGTH } from '@/constants';
+import { optionButtonDarkStyle } from '@/styleBindings';
 
 export default {
   name: 'DepartmentTreeItem',
-  data () {
+  data() {
     return {
       truncationLength: TRUNCATION_LENGTH,
-      optionButtonDarkStyle: optionButtonDarkStyle
-    }
+      optionButtonDarkStyle: optionButtonDarkStyle,
+    };
   },
   props: {
     id: Number,
     name: String,
-    isOpen: Boolean
+    isOpen: Boolean,
   },
   methods: {
     getCaretClass: getCaretClass,
     getId: getId,
-    truncate: truncate
-  }
-}
+    truncate: truncate,
+  },
+};
 </script>
 
 <style scoped>
-  @import '@/css/tree.css';
+@import '@/css/tree.css';
 </style>

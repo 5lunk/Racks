@@ -1,13 +1,10 @@
 <template>
-  <div class="container px-4 mx-auto justify-between text-xl pl-8 pt-4 font-sans font-light">
+  <div
+    class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
+  >
     <div :class="frameShadowStyle">
-      <form
-        v-on:submit.prevent="emitData"
-        class="text-sm"
-      >
-        <label for="siteName">
-          Building name:
-        </label>
+      <form v-on:submit.prevent="emitData" class="text-sm">
+        <label for="siteName"> Building name: </label>
         <input
           id="e2e_building_name"
           :class="formInputStyle"
@@ -16,18 +13,13 @@
           type="text"
           v-model="form.name"
         />
-        <p
-          v-for="error of v$.form.name.$errors"
-          :key="error.$uid"
-        >
+        <p v-for="error of v$.form.name.$errors" :key="error.$uid">
           <text class="text-red-500">
-            {{error.$message}}
+            {{ error.$message }}
           </text>
         </p>
-        <br>
-        <label for="description">
-          Description:
-        </label>
+        <br />
+        <label for="description"> Description: </label>
         <input
           :class="formInputStyle"
           placeholder="Can be used for notes"
@@ -35,7 +27,7 @@
           type="text"
           v-model="form.description"
         />
-        <br>
+        <br />
         <button
           :class="formSubmitButtonStyle"
           type="submit"
@@ -51,28 +43,31 @@
 
 <script>
 import useVuelidate from '@vuelidate/core';
-import {required} from '@vuelidate/validators';
-import {formInputStyle, formSubmitButtonStyle, frameShadowStyle} from '@/styleBindings';
-
+import { required } from '@vuelidate/validators';
+import {
+  formInputStyle,
+  formSubmitButtonStyle,
+  frameShadowStyle,
+} from '@/styleBindings';
 
 export default {
   name: 'SiteForm',
   props: {
     formProps: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       v$: useVuelidate(),
       form: {
         name: '',
-        description: ''
+        description: '',
       },
       formInputStyle: formInputStyle,
       formSubmitButtonStyle: formSubmitButtonStyle,
-      frameShadowStyle: frameShadowStyle
-    }
+      frameShadowStyle: frameShadowStyle,
+    };
   },
   created() {
     this.setBuildingFormProps();
@@ -80,9 +75,9 @@ export default {
   validations() {
     return {
       form: {
-        name: {required},
-      }
-    }
+        name: { required },
+      },
+    };
   },
   methods: {
     /**
@@ -91,7 +86,7 @@ export default {
     setBuildingFormProps() {
       if (this.formProps.oldName) {
         this.form.name = this.formProps.oldName;
-        this.form.description = this.formProps.oldDescription
+        this.form.description = this.formProps.oldDescription;
       }
     },
     /**
@@ -106,11 +101,11 @@ export default {
     emitData() {
       if (this.v$.$errors.length) {
         confirm('Form not valid, please check the fields');
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         this.$emit('on-submit', this.form);
       }
     },
-  }
-}
+  },
+};
 </script>

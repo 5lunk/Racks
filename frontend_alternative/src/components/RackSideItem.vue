@@ -5,24 +5,24 @@
       devices: devices,
       firstUnits: firstUnits,
       rowSpans: rowSpans,
-      startList: startList
+      startList: startList,
     }"
-    class='side table-fixed rounded-t-lg drop-shadow-2xl font-sans mx-auto max-w-2xl w-full whitespace-nowrap
-    bg-white divide-y divide-gray-300 overflow-hidden text-sm tracking-tight'>
+    class="side mx-auto w-full max-w-2xl table-fixed divide-y divide-gray-300 overflow-hidden whitespace-nowrap rounded-t-lg bg-white font-sans text-sm tracking-tight drop-shadow-2xl"
+  >
     <thead class="bg-gray-500">
-      <tr class="text-white text-center">
-        <th class="font-semibold text-sm uppercase px-6 py-4 w-4">
-          {{side}}
+      <tr class="text-center text-white">
+        <th class="w-4 px-6 py-4 text-sm font-semibold uppercase">
+          {{ side }}
         </th>
-        <th class="font-semibold text-sm uppercase px-6 py-4 w-35"></th>
-        <th class="font-semibold text-sm uppercase px-6 py-4 w-8"></th>
+        <th class="w-35 px-6 py-4 text-sm font-semibold uppercase"></th>
+        <th class="w-8 px-6 py-4 text-sm font-semibold uppercase"></th>
       </tr>
     </thead>
     <tbody class="divide-y-2 divide-gray-300">
       <template v-for="list in startList">
         <tr>
           <td class="px-4 py-2 text-black">
-            {{list}}
+            {{ list }}
           </td>
           <template v-for="device in devices">
             <template v-for="(firstUnit, deviceNumber) in firstUnits">
@@ -31,7 +31,9 @@
                   <template v-for="(rowspan, deviceId) in rowSpans">
                     <template v-if="keyToInt(deviceId) === device.id">
                       <template v-if="device.status === deviceStatus.ACTIVE">
-                        <template v-if="device.ownership === deviceOwnership.OUR">
+                        <template
+                          v-if="device.ownership === deviceOwnership.OUR"
+                        >
                           <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameOur}`"
                             :vendor="device.vendor"
@@ -53,7 +55,9 @@
                         </template>
                       </template>
                       <template v-else>
-                        <template v-if="device.ownership === deviceOwnership.OUR">
+                        <template
+                          v-if="device.ownership === deviceOwnership.OUR"
+                        >
                           <UnitItem
                             :className="`text-center font-normal text-white rounded-lg ${classNameEmpty} ${classNameOur}`"
                             :vendor="device.vendor"
@@ -88,60 +92,60 @@
 
 <script>
 import UnitItem from '@/components/UnitItem.vue';
-import {DEVICE_OWNERSHIP, DEVICE_STATUS} from "@/constants";
+import { DEVICE_OWNERSHIP, DEVICE_STATUS } from '@/constants';
 
 export default {
   name: 'RackSideItem',
-  data () {
+  data() {
     return {
       deviceOwnership: DEVICE_OWNERSHIP,
-      deviceStatus: DEVICE_STATUS
-    }
+      deviceStatus: DEVICE_STATUS,
+    };
   },
   components: {
-    UnitItem
+    UnitItem,
   },
   inheritAttrs: false,
   props: {
     side: {
       type: String,
-      default: ''
+      default: '',
     },
     devices: {
       type: Array,
-      default: []
+      default: [],
     },
     firstUnits: {
       type: Object,
-      default: {}
+      default: {},
     },
     rowSpans: {
       type: Object,
-      default: {}
+      default: {},
     },
     startList: {
       type: Array,
-      default: []
+      default: [],
     },
     classNameOur: {
       type: String,
-      default: 'bg-blue-600'
+      default: 'bg-blue-600',
     },
     classNameAlien: {
       type: String,
-      default: 'bg-blue-400'
+      default: 'bg-blue-400',
     },
     classNameEmpty: {
       type: String,
-      default: 'line-through'
+      default: 'line-through',
     },
   },
   methods: {
     keyToInt(value) {
-      return parseInt(value)
-    }
-  }
-}
+      return parseInt(value);
+    },
+  },
+};
 </script>
 
 <style>

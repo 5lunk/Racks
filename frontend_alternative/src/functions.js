@@ -6,7 +6,7 @@
 export const getDevicesForSide = (devices) => {
   let devicesForSide = {
     front: [],
-    back: []
+    back: [],
   };
   devices.forEach((device) => {
     if (device.has_backside_location) {
@@ -15,7 +15,7 @@ export const getDevicesForSide = (devices) => {
       devicesForSide.front.push(device);
     }
   });
-  return devicesForSide
+  return devicesForSide;
 };
 
 /**
@@ -24,7 +24,7 @@ export const getDevicesForSide = (devices) => {
  * @returns {Array.<number>} List of rack units
  */
 export const getStartList = (rack) => {
-  const arr = Array.from({length: rack.amount}, (_, i) => i + 1);
+  const arr = Array.from({ length: rack.amount }, (_, i) => i + 1);
   if (rack.has_numbering_from_top_to_bottom) {
     return arr;
   } else {
@@ -92,10 +92,10 @@ export const getUnitsArray = (formFirstUnit, formLastUnit) => {
  */
 export const setEmptyStringToNull = (arr, form) => {
   arr.forEach((element) => {
-    if (form[element] === "") {
+    if (form[element] === '') {
       form[element] = null;
     }
-  })
+  });
 };
 
 /**
@@ -110,11 +110,11 @@ export const getDataFromMatch = (itemType, matchObject) => {
 
 /**
  * Get caret class for tree expand
- * @param {String} status Caret status string
+ * @param {Boolean} status Caret status string
  * @returns {String} Caret class
  */
 export const getCaretClass = (status) => {
-  return `caret ${status? 'down' : ''}`
+  return `caret ${status ? 'down' : ''}`;
 };
 
 /**
@@ -127,7 +127,7 @@ export const getCaretClass = (status) => {
 export const getId = (itemName, action, element) => {
   const baseId = `e2e_${itemName.replaceAll(' ', '_')}`;
   if (action && element) {
-    return`${baseId}_${action}_${element}`
+    return `${baseId}_${action}_${element}`;
   }
-  return baseId
+  return baseId;
 };

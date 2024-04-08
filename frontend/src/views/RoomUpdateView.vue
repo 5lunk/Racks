@@ -1,14 +1,15 @@
 <template>
   <div class="min-h-full">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
       <template v-if="formProps.oldName">
-        <RoomForm
-          :formProps="formProps"
-          v-on:on-submit="submitForm"
-        />
+        <RoomForm :formProps="formProps" v-on:on-submit="submitForm" />
       </template>
     </div>
   </div>
@@ -17,15 +18,19 @@
 <script>
 import RoomForm from '@/components/RoomForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getObject, getResponseMessage, logIfNotStatus, putObject} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-
+import { RESPONSE_STATUS } from '@/constants';
+import {
+  getObject,
+  getResponseMessage,
+  logIfNotStatus,
+  putObject,
+} from '@/api';
 
 export default {
   name: 'RoomUpdateView',
   components: {
     RoomForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -39,13 +44,13 @@ export default {
         oldCoolingSystem: 'Centralized',
         oldFireSuppressionSystem: 'Centralized',
         oldAccessIsOpen: false,
-        oldHasRaisedFloor: false
+        oldHasRaisedFloor: false,
       },
       buildingId: null,
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   async created() {
@@ -67,7 +72,7 @@ export default {
         cooling_system: form.coolingSystem,
         fire_suppression_system: form.fireSuppressionSystem,
         access_is_open: form.accessIsOpen,
-        has_raised_floor: form.hasRaisedFloor
+        has_raised_floor: form.hasRaisedFloor,
       };
       const response = await putObject('room', this.$route.params.id, formData);
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
@@ -77,7 +82,7 @@ export default {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     /**
      * Fetch and set room old data
@@ -100,7 +105,7 @@ export default {
       this.formProps.oldAccessIsOpen = room.access_is_open;
       this.formProps.oldHasRaisedFloor = room.has_raised_floor;
       this.buildingId = room.building_id;
-    }
-  }
+    },
+  },
 };
 </script>

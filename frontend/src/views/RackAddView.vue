@@ -1,13 +1,14 @@
 <template>
   <div class="min-h-screen">
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-thin text-xl">
-      <TheMessage :messageProps="messageProps"/>
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :messageProps="messageProps" />
     </div>
-    <div class="container px-4 mx-auto justify-between pl-8 font-sans font-light text-sm">
-      <RackForm
-        :formProps="formProps"
-        v-on:on-submit="submitForm"
-      />
+    <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+    >
+      <RackForm :formProps="formProps" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -15,15 +16,14 @@
 <script>
 import RackForm from '@/components/RackForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import {getResponseMessage, postObject} from '@/api';
-import {RESPONSE_STATUS} from "@/constants";
-
+import { getResponseMessage, postObject } from '@/api';
+import { RESPONSE_STATUS } from '@/constants';
 
 export default {
   name: 'RackAddView',
   components: {
     RackForm,
-    TheMessage
+    TheMessage,
   },
   data() {
     return {
@@ -54,12 +54,12 @@ export default {
         powerSocketsUps: null,
         hasExternalUps: false,
         hasCooler: false,
-        update: false
+        update: false,
       },
       messageProps: {
         message: '',
         success: false,
-      }
+      },
     };
   },
   methods: {
@@ -95,7 +95,7 @@ export default {
         power_sockets_ups: form.powerSocketsUps,
         has_external_ups: form.hasExternalUps,
         has_cooler: form.hasCooler,
-        room_id: parseInt(this.$route.params.room_id)
+        room_id: parseInt(this.$route.params.room_id),
       };
       const response = await postObject('rack', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
@@ -105,8 +105,8 @@ export default {
         this.messageProps.success = false;
         this.messageProps.message = getResponseMessage(response);
       }
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-  }
+  },
 };
 </script>
