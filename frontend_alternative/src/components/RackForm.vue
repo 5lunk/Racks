@@ -324,6 +324,7 @@ export default {
       type: Object,
     },
   },
+  emits: ['onSubmit'],
   data() {
     return {
       v$: useVuelidate(),
@@ -468,7 +469,7 @@ export default {
           'powerSocketsUps',
         ];
         this.setEmptyStringToNull(fieldNamesArr, this.form);
-        this.$emit('on-submit', this.form);
+        this.$emit('onSubmit', this.form);
       }
     },
     setEmptyStringToNull: setEmptyStringToNull,

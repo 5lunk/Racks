@@ -57,6 +57,7 @@ export default {
       type: Object,
     },
   },
+  emits: ['onSubmit'],
   data() {
     return {
       v$: useVuelidate(),
@@ -103,7 +104,7 @@ export default {
         confirm('Form not valid, please check the fields');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        this.$emit('on-submit', this.form);
+        this.$emit('onSubmit', this.form);
       }
     },
   },

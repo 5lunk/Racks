@@ -321,6 +321,7 @@ export default {
   components: {
     ChooseExistingItem,
   },
+  emits: ['onSubmit'],
   data() {
     return {
       v$: useVuelidate(),
@@ -451,7 +452,7 @@ export default {
         //Yes, this is a crutch, but quite simple and understandable
         const fieldNamesArr = ['stack', 'portsAmount', 'powerW', 'powerV'];
         this.setEmptyStringToNull(fieldNamesArr, this.form);
-        this.$emit('on-submit', this.form);
+        this.$emit('onSubmit', this.form);
       }
     },
     setEmptyStringToNull: setEmptyStringToNull,
