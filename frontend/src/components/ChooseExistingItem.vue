@@ -26,7 +26,7 @@
         <template v-if="item.length">
           <button
             type="button"
-            :class="optionButtonDarkStyle"
+            :class="chooseButtonDarkStyle"
             :id="item"
             v-on:click="copyOnClick(item, inputId)"
           >
@@ -35,13 +35,18 @@
         </template>
       </template>
     </div>
+    <br />
   </div>
 </template>
 
 <script>
 import { MATCH_ID, MATCH_LABEL } from '@/constants';
 import { getDataFromMatch } from '@/functions';
-import { formInputStyle, optionButtonDarkStyle } from '@/styleBindings';
+import {
+  chooseButtonDarkStyle,
+  formInputStyle,
+  optionButtonDarkStyle,
+} from '@/styleBindings';
 
 export default {
   name: 'ChooseExistingItem',
@@ -56,6 +61,7 @@ export default {
       label: '',
       formInputStyle: formInputStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
+      chooseButtonDarkStyle: chooseButtonDarkStyle,
     };
   },
   created() {

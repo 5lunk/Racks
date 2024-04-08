@@ -39,6 +39,14 @@ export const optionButtonLightStyle = (
   ></button>
 ).props.class;
 
+export const chooseButtonDarkStyle = (
+  <button
+    class={
+      'font-small mr-2 mb-2 rounded-lg bg-blue-600 px-4 py-0.5 align-[2px] text-xs font-light text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+    }
+  ></button>
+).props.class;
+
 export const frameShadowStyle =
   (<div class={'mr-3 mb-3 rounded-lg bg-transparent py-2 px-3'}></div>).props
     .class + ' item-shadow'; // from @/css/tree.css
