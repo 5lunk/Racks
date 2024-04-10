@@ -104,7 +104,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Rack extends Model implements RackBusinessRules, RackEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

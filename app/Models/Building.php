@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Building extends Model implements BuildingBusinessRules, BuildingEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

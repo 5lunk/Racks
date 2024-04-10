@@ -50,7 +50,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Department extends Model implements DepartmentEntity, DeviceBusinessRules
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

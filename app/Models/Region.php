@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Region extends Model implements RegionBusinessRules, RegionEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

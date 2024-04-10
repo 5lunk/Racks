@@ -94,7 +94,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Device extends Model implements DeviceBusinessRules, DeviceEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

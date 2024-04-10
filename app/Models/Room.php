@@ -67,7 +67,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Room extends Model implements RoomBusinessRules, RoomEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

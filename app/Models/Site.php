@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Site extends Model implements SiteBusinessRules, SiteEntity
 {
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',

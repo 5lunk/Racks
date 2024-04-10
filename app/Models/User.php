@@ -60,9 +60,7 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',
@@ -74,17 +72,12 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
      * @var array<string>
      */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    // -----------------------------------------------------------------------
-    // UserEntity methods
 
     /**
      * @return int
