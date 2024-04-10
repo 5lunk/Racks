@@ -81,6 +81,7 @@ class BuildingUpdatedResource extends JsonResource
             'name' => $this->building->getName(),
             'description' => $this->building->getDescription(),
             'site_id' => $this->building->getSiteId(),
+            'updated_by' => $this->building->getUpdatedBy(),
             'department_id' => $this->building->getDepartmentId(),
             'created_at' => $this->building->getCreatedAt(),
             'updated_at' => $this->building->getUpdatedAt(),

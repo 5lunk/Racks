@@ -15,9 +15,9 @@ class DeleteBuildingResponseModel
     }
 
     /**
-     * @return BuildingEntity
+     * @return BuildingEntity|null
      */
-    public function getBuilding(): BuildingEntity
+    public function getBuilding(): ?BuildingEntity
     {
         return $this->building;
     }

@@ -4,7 +4,7 @@ namespace App\Adapters\Presenters\SitePresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
-use App\Http\Resources\SiteResources\NoSuchDepartmentResource;
+use App\Http\Resources\SiteResources\NoSuchSiteResource;
 use App\Http\Resources\SiteResources\PermissionExceptionResource;
 use App\Http\Resources\SiteResources\SiteUpdatedResource;
 use App\Http\Resources\SiteResources\UnableToUpdateSiteResource;
@@ -41,7 +41,7 @@ class UpdateSiteJsonPresenter implements UpdateSiteOutputPort
         return App()->makeWith(JsonResourceViewModel::class,
             [
                 'resource' => App()->makeWith(
-                    NoSuchDepartmentResource::class, ['site' => $response->getSite()]),
+                    NoSuchSiteResource::class, ['site' => $response->getSite()]),
                 'statusCode' => 404,
             ]
         );
