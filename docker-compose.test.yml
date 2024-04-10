@@ -109,6 +109,8 @@ services:
     depends_on:
       backend-testing:
         condition: service_healthy
+      phpunit:
+        condition: service_completed_successfully
     profiles: ['test',]
     networks:
       - test
