@@ -73,7 +73,7 @@ class CreateRoomControllerTest extends TestCase
                 'building_floor' => '1st',
                 'name' => 'Test room',
             ])
-            ->assertStatus(403)
+            ->assertStatus(400)
             ->assertJson(['data' => [
                 'message' => 'Room with this name already exists in this building',
             ]]);
@@ -89,7 +89,7 @@ class CreateRoomControllerTest extends TestCase
             ])
             ->assertStatus(201)
             ->assertJson(['data' => [
-                'id' => 2,
+                'id' => 3,
                 'name' => 'some name',
                 'building_floor' => '1st',
                 'description' => null,

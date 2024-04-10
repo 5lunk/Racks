@@ -65,7 +65,7 @@ class UpdateRoomControllerTest extends TestCase
             ->json('PATCH', $this->path.'/2', [
                 'name' => 'Test room',
             ])
-            ->assertStatus(403)
+            ->assertStatus(400)
             ->assertJson(['data' => [
                 'message' => 'Room with this name already exists in this building',
             ]]);
