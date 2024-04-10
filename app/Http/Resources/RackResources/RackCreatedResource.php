@@ -255,6 +255,7 @@ class RackCreatedResource extends JsonResource
             'power_sockets_ups' => $this->rack->getPowerSocketsUps(),
             'has_external_ups' => $this->rack->getHasExternalUps(),
             'has_cooler' => $this->rack->getHasCooler(),
+            'room_id' => $this->rack->getRoomId(),
             'department_id' => $this->rack->getDepartmentId(),
             'created_at' => $this->rack->getCreatedAt(),
             'updated_at' => $this->rack->getUpdatedAt(),

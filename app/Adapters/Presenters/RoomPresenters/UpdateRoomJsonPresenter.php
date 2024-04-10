@@ -60,7 +60,7 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     RoomNameExceptionResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 403,
+                'statusCode' => 400,
             ]
         );
     }

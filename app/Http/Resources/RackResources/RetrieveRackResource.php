@@ -262,6 +262,7 @@ class RetrieveRackResource extends JsonResource
             'has_external_ups' => $this->rack->getHasExternalUps(),
             'has_cooler' => $this->rack->getHasCooler(),
             'updated_by' => $this->rack->getUpdatedBy(),
+            'room_id' => $this->rack->getRoomId(),
             'department_id' => $this->rack->getDepartmentId(),
             'created_at' => $this->rack->getCreatedAt(),
             'updated_at' => $this->rack->getUpdatedAt(),

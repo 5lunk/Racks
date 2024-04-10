@@ -99,7 +99,7 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return App()->makeWith(JsonResourceViewModel::class,
             [
                 'resource' => App()->makeWith(
-                    PermissionExceptionResource::class, ['building' => $response->getRack()]),
+                    PermissionExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => 403,
             ]
         );
