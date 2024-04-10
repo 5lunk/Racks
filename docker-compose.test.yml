@@ -76,7 +76,7 @@ services:
     <<: *backend-testing
     container_name: phpunit
     domainname: phpunit
-    command: ./vendor/bin/phpunit -d memory_limit=${PHPUNIT_MEM_LIMIT}
+    command: php artisan test --parallel
     environment:
       - ROLE=phpunit
       - DB_HOST=db-testing

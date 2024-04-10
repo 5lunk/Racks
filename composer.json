@@ -26,7 +26,8 @@
         "larastan/larastan": "^2.8.0",
         "laravel/telescope": "^v4.17.4",
         "barryvdh/laravel-ide-helper": "^v2.15.0",
-        "beyondcode/laravel-er-diagram-generator": "dev-master"
+        "beyondcode/laravel-er-diagram-generator": "dev-master",
+        "brianium/paratest": "v7.3.0"
     },
     "autoload": {
         "psr-4": {

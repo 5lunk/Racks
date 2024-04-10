@@ -1,10 +1,13 @@
 #!/bin/bash
 
+############################
+# PINT-PHPSTAN-PHPUNIT-E2E #
+############################
+
 # ENVs for docker-compose.test
 PHP_UID="$(id -u)"
 PHP_GID="$(id -g)"
 NET=0.0.0.0
-PHPUNIT_MEM_LIMIT="128M"
 PHPSTAN_MEM_LIMIT="512M"
 BACKEND_TESTING_PORT=81
 FRONTEND_TESTING_PORT=8081
