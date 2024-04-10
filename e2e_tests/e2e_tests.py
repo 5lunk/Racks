@@ -210,7 +210,6 @@ class NameDuplicationCase(E2ETestCase):
         building_form = FormPage(self.driver)
         building_form.enter_building_name(Params.building_name)
         building_form.click_submit()
-        time.sleep(3)
         self.assertTrue(building_form.get_building_name_busy_loc())
 
     def test_7_add_same_name_room(self):
@@ -225,7 +224,6 @@ class NameDuplicationCase(E2ETestCase):
         room_form.enter_room_name(Params.room_name)
         room_form.enter_room_floor(Params.room_floor)
         room_form.click_submit()
-        time.sleep(3)
         self.assertTrue(room_form.get_room_name_busy_loc())
 
     def test_8_add_same_name_rack(self):
@@ -240,5 +238,4 @@ class NameDuplicationCase(E2ETestCase):
         rack_form.enter_rack_name(Params.rack_name)
         rack_form.enter_rack_amount(Params.rack_amount)
         rack_form.click_submit()
-        time.sleep(3)
         self.assertTrue(rack_form.get_rack_name_busy_loc())
