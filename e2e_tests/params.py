@@ -8,7 +8,7 @@ class Params:
     building_name = 'Test building'
     room_name = 'Test room'
     rack_name = 'Test rack №1'
-    site_name = 'Test_site_name'
+    site_name = 'Test site'
     room_floor = '2nd'
 
     # Values

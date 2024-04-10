@@ -12,7 +12,8 @@ class FormPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 30)
+        self.wait = WebDriverWait(self.driver, 40)
+        self.driver.set_page_load_timeout(5)
         self.unit_outside_loc = Locators.unit_outside_loc
         self.unit_busy_loc = Locators.unit_busy_loc
         self.violation_loc = Locators.violation_loc
@@ -21,7 +22,7 @@ class FormPage:
         self.rack_name_busy_loc = Locators.rack_name_busy_loc
         self.site_name = Params.site_name
         self.site_name_textbox_id = Locators.site_name_textbox_id
-        self.buildind_name = Params.room_name
+        self.room_name = Params.room_name
         self.room_name_textbox_id = Locators.room_name_textbox_id
         self.rack_name = Params.rack_name
         self.rack_name_textbox_id = Locators.rack_name_textbox_id
@@ -31,9 +32,9 @@ class FormPage:
         self.last_unit_textbox_id = Locators.last_unit_textbox_id
         self.submit_button_id = Locators.submit_button_id
         self.building_name_textbox_id = Locators.building_name_textbox_id
-        self.buildind_name = Params.building_name
+        self.building_name = Params.building_name
         self.room_floor_textbox_id = Locators.room_floor_textbox_id
-        self.driver.set_page_load_timeout(4)
+
 
     def get_unit_outside_loc(self):
         """
