@@ -183,10 +183,10 @@ class Suite:
 def main():
     suite = Suite(os.environ.get('SUITE_NAME'),
                   os.environ.get('NUMBER_OF_THREADS'))
+    suite.add_case(NameDuplication)
     suite.add_case(MoveDevice)
     suite.add_case(Permissions)
     suite.add_case(AddDevice)
-    suite.add_case(NameDuplication)
     status_code = suite.run_suite()
     sys.exit(status_code)
 
