@@ -1,26 +1,34 @@
-#5 [phpunit internal] load .dockerignore
-#6 [phpunit internal] load build definition from test.Dockerfile
-#7 [phpunit internal] load metadata for docker.io/library/php:8.1-fpm
+#2 [phpunit internal] load build definition from test.Dockerfile
+#3 [phpunit internal] load .dockerignore
+#5 [phpunit internal] load metadata for docker.io/library/php:8.1-fpm
+#14 [phpunit internal] load build context
+#14 [phpunit internal] load build context
+#14 [phpunit internal] load build context
+#14 [phpunit internal] load build context
+#14 [phpunit internal] load build context
+#14 [phpunit internal] load build context
 #11 [phpunit] FROM docker.io/library/composer:2.6.5@sha256:67f1bec07666f688791bff2c13b34b9c35042cc4c1e42fbb5bd4dbe4ae70f0fb
-#13 [phpunit internal] load build context
-#13 [phpunit internal] load build context
-#13 [phpunit internal] load build context
-#13 [phpunit internal] load build context
-#25 [phpunit] exporting to image
+#14 [phpunit internal] load build context
 #25 naming to docker.io/library/racks-phpunit
-#25 naming to docker.io/library/racks-phpunit done
+#25 naming to docker.io/library/racks-phpunit 0.0s done
  Container phpunit  Creating
  Container phpunit  Created
 Attaching to backend-testing, db-testing, e2e-tests, frontend-testing, hub, phpstan, phpunit, pint, racks-selenium-1, racks-selenium-2
-phpunit           | PHPUnit 10.5.10 by Sebastian Bergmann and contributors.
+phpunit           | ParaTest v7.3.0 upon PHPUnit 10.5.17 by Sebastian Bergmann and contributors.
 phpunit           | 
+phpunit           | Processes:     4
 phpunit           | Runtime:       PHP 8.1.27
 phpunit           | Configuration: /var/www/phpunit.xml
 phpunit           | 
-phpunit           | ................................................................. 65 / 95 ( 68%)
-phpunit           | ..............................                                    95 / 95 (100%)
+phpunit           | ...............................................................  63 / 384 ( 16%)
+phpunit           | ............................................................... 126 / 384 ( 32%)
+phpunit           | ............................................................... 189 / 384 ( 49%)
+phpunit           | ............................................................... 252 / 384 ( 65%)
+phpunit           | ............................................................... 315 / 384 ( 82%)
+phpunit           | ............................................................... 378 / 384 ( 98%)
+phpunit           | ......                                                          384 / 384 (100%)
 phpunit           | 
-phpunit           | Time: 00:14.190, Memory: 48.50 MB
+phpunit           | Time: 01:05.816, Memory: 30.00 MB
 phpunit           | 
-phpunit           | OK (95 tests, 188 assertions)
+phpunit           | OK (384 tests, 1033 assertions)
 phpunit exited with code 0

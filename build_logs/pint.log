@@ -1,9 +1,25 @@
-#1 [pint internal] load build definition from test.Dockerfile
-#2 [pint internal] load .dockerignore
-#12 [pint stage-0 1/9] FROM docker.io/library/php:8.1-fpm@sha256:a00e69234cca6a1dcdc017a58718038764c1851d49ed43f19896adeefceca2a6
-#14 [pint internal] load build context
-#14 [pint internal] load build context
-#14 [pint internal] load build context
+#1 [pint internal] load .dockerignore
+#1 [pint internal] load .dockerignore
+#4 [pint internal] load build definition from test.Dockerfile
+#5 [pint internal] load metadata for docker.io/library/php:8.1-fpm
+#11 [pint] FROM docker.io/library/composer:2.6.5@sha256:67f1bec07666f688791bff2c13b34b9c35042cc4c1e42fbb5bd4dbe4ae70f0fb
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#13 [pint internal] load build context
+#17 [pint stage-0 2/9] RUN apt-get update -y
+#18 [pint stage-0 3/9] RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev &&   docker-php-ext-install pdo pdo_mysql bcmath
+#19 [pint stage-0 4/9] COPY . .
+#20 [pint stage-0 5/9] RUN addgroup --gid 1000 www || :
+#21 [pint stage-0 6/9] RUN adduser --no-create-home --disabled-password --uid 1000 --ingroup www www || :
+#22 [pint stage-0 7/9] RUN chown -R www:www /var/www
+#23 [pint stage-0 8/9] COPY --from=composer:2.6.5 /usr/bin/composer /usr/bin/composer
+#24 [pint stage-0 9/9] WORKDIR /var/www
+#25 [pint] exporting to image
 #25 naming to docker.io/library/racks-pint done
  Container pint  Creating
  Container pint  Created
@@ -15,9 +31,10 @@ pint              |   ..........................................................
 pint              |   ............................................................................
 pint              |   ............................................................................
 pint              |   ............................................................................
-pint              |   ......................................................................
+pint              |   ............................................................................
+pint              |   .......................................
 pint              | 
 pint              |   ──────────────────────────────────────────────────────────────────── Laravel  
-pint              |     PASS   ......................................................... 526 files  
+pint              |     PASS   ......................................................... 571 files  
 pint              | 
 pint exited with code 0
