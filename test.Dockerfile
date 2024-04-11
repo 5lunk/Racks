@@ -9,13 +9,11 @@ RUN apt-get update -y
 RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev && \
   docker-php-ext-install pdo pdo_mysql bcmath
 
-COPY . .
-
 RUN addgroup --gid ${PHP_GID} www || :
 
 RUN adduser --no-create-home --disabled-password --uid ${PHP_UID} --ingroup www www || :
 
-RUN chown -R www:www /var/www
+COPY --chown=www:www . .
 
 USER www
 
