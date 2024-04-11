@@ -16,7 +16,7 @@ SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 SELENIUM_HUB_PORT=4444
 API_VERSION="v1"
 NUMBER_OF_THREADS=2
-SHM_SIZE="2gb"
+SHM_SIZE="1gb"
 SELENIUM_USER="selenium"
 SELENIUM_PASS="sel_testing"
 SUITE_NAME="Smoke_tests"
@@ -95,8 +95,14 @@ do
     sleep 1
 done
 
-# Wait for last service to stop
+# Wait for e2e to stop
 while [[ $(docker inspect "$TEST_CONTAINER" --format='{{.State.Running}}') == 'true' ]]
+do
+    sleep 1
+done
+
+# Wait for phpunit to stop
+while [[ $(docker inspect phpunit --format='{{.State.Running}}') == 'true' ]]
 do
     sleep 1
 done

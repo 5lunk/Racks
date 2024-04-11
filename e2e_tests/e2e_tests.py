@@ -27,13 +27,13 @@ class E2ETestCase(unittest.TestCase):
         """
         Setup and login
         """
-        options = webdriver.ChromeOptions()
+        options = webdriver.FirefoxOptions()
         options.add_argument('--ignore-ssl-errors=yes')
         options.add_argument('--ignore-certificate-errors')
         self.driver = webdriver.Remote(
             command_executor=os.environ.get('COMMAND_EXECUTOR'),
             options=options,
-            desired_capabilities=DesiredCapabilities.CHROME,
+            desired_capabilities=DesiredCapabilities.FIREFOX,
         )
         self.driver.implicitly_wait(10)
         self.driver.delete_all_cookies()
