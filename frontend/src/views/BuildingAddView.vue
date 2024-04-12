@@ -3,12 +3,12 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :messageProps="messageProps" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
     >
-      <BuildingForm :formProps="formProps" v-on:on-submit="submitForm" />
+      <BuildingForm :form="form" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -27,12 +27,12 @@ export default {
   },
   data() {
     return {
-      formProps: {
-        oldName: '',
-        oldDescription: '',
+      form: {
+        name: '',
+        description: '',
       },
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
     };
@@ -43,6 +43,13 @@ export default {
      * @param {Object} form Building form
      */
     async submitForm(form) {
+      // If form not valid
+      if (form.$errors) {
+        this.message.text = '';
+        this.message.success = false;
+        return;
+      }
+      // If form valid
       const formData = {
         name: form.name,
         description: form.description,
@@ -50,11 +57,14 @@ export default {
       };
       const response = await postObject('building', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
-        this.messageProps.success = true;
-        this.messageProps.message = `Building ${response.data.data.name} added successfully`;
+        this.message.success = true;
+        this.message.text = `Building ${response.data.data.name} added successfully`;
+        // Reset form
+        this.form.name = '';
+        this.form.description = '';
       } else {
-        this.messageProps.success = false;
-        this.messageProps.message = getResponseMessage(response);
+        this.message.success = false;
+        this.message.text = getResponseMessage(response);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
