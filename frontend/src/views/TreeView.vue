@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import TheMessage from '@/components/TheMessage.vue';
 import TreeItem from '@/components/TreeItem.vue';
 import { getUnique, logIfNotStatus } from '@/api';
 import { RESPONSE_STATUS } from '@/constants';
@@ -25,15 +24,10 @@ export default {
   name: 'TreeView',
   components: {
     TreeItem,
-    TheMessage,
   },
   data() {
     return {
       regions: {},
-      messageProps: {
-        message: '',
-        success: false,
-      },
     };
   },
   created() {
