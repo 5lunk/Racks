@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import RackSideItem from '@/components/RackSideItem.vue';
+import RackSideItem from '@/components/Rack/RackSideItem.vue';
 import { getObject, getObjectsForParent, logIfNotStatus } from '@/api';
 import { RESPONSE_STATUS, UNITS_REFRESH_TIME } from '@/constants';
 import {

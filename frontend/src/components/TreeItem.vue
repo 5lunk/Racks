@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import RegionTreeItem from './RegionTreeItem.vue';
-import DepartmentTreeItem from './DepartmentTreeItem.vue';
-import SiteTreeItem from './SiteTreeItem.vue';
-import BuildingTreeItem from './BuildingTreeItem.vue';
-import RoomTreeItem from './RoomTreeItem.vue';
-import RackTreeItem from './RackTreeItem.vue';
+import RegionTreeItem from './Region/RegionTreeItem.vue';
+import DepartmentTreeItem from './Department/DepartmentTreeItem.vue';
+import SiteTreeItem from './Site/SiteTreeItem.vue';
+import BuildingTreeItem from './Building/BuildingTreeItem.vue';
+import RoomTreeItem from './Room/RoomTreeItem.vue';
+import RackTreeItem from './Rack/RackTreeItem.vue';
 import { truncate } from '@/filters';
 import { getCaretClass, getId } from '@/functions';
 import { frameShadowStyle } from '@/styleBindings';
