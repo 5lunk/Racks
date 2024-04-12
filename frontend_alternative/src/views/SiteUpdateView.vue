@@ -42,8 +42,8 @@ export default {
       },
     };
   },
-  async created() {
-    await this.setOldData();
+  created() {
+    this.setOldData();
   },
   methods: {
     /**
