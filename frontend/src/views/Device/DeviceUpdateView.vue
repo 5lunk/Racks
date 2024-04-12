@@ -130,7 +130,7 @@ export default {
       const response = await getObject('device', this.$route.params.id);
       logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
       if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-        this.$router.push('/404');
+        this.$router.push({ name: 'PageNotFoundView' });
       }
       const device = response.data.data;
       this.form.firstUnit = device.units[0];

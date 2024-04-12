@@ -95,7 +95,7 @@ export default {
           this.$store.commit('setToken', token);
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           localStorage.setItem('token', token);
-          this.$router.push('/');
+          this.$router.push({ name: 'TreeView' });
         })
         .catch((error) => {
           if (error.response.status === RESPONSE_STATUS.UNAUTHORIZED) {

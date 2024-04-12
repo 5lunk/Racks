@@ -113,7 +113,7 @@ export default {
       const response = await getObject('building', this.$route.params.id);
       logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
       if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-        this.$router.push('/404');
+        this.$router.push({ name: 'PageNotFoundView' });
       }
       const building = response.data.data;
       this.building.name = building.name;
@@ -138,7 +138,7 @@ export default {
           this.message.success = true;
           this.message.text = `Building ${id} deleted successfully`;
           alert(this.message.text);
-          this.$router.push('/');
+          this.$router.push({ name: 'TreeView' });
         } else {
           this.message.success = false;
           this.message.text = getResponseMessage(response);

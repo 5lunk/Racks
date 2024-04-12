@@ -128,7 +128,7 @@ export default {
       const response = await getObject('rack', this.$route.params.id);
       logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
       if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-        this.$router.push('/404');
+        this.$router.push({ name: 'PageNotFoundView' });
       }
       const rack = response.data.data;
       this.form.name = rack.name;

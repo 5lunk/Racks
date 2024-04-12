@@ -66,7 +66,7 @@ export default {
     logout() {
       localStorage.removeItem('token');
       sessionStorage.removeItem('user');
-      this.$router.push('/login');
+      this.$router.push({ name: 'LoginView' });
     },
     /**
      * Download report
