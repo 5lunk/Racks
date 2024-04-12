@@ -3,14 +3,12 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :messageProps="messageProps" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
     >
-      <template v-if="formProps.oldFirstUnit">
-        <DeviceForm :formProps="formProps" v-on:on-submit="submitForm" />
-      </template>
+      <DeviceForm :form="form" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -18,7 +16,12 @@
 <script>
 import DeviceForm from '@/components/DeviceForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import { getObject, getResponseMessage, logIfNotStatus, putObject } from '@/api';
+import {
+  getObject,
+  getResponseMessage,
+  logIfNotStatus,
+  putObject,
+} from '@/api';
 import { getUnitsArray } from '@/functions';
 import { RESPONSE_STATUS } from '@/constants';
 
@@ -30,41 +33,40 @@ export default {
   },
   data() {
     return {
-      formProps: {
-        oldFirstUnit: null,
-        oldLastUnit: null,
-        oldHasBacksideLocation: false,
-        oldStatus: 'Device active',
-        oldType: 'Other',
-        oldVendor: '',
-        oldModel: '',
-        oldHostname: '',
-        oldIp: null,
-        oldStack: null,
-        oldPortsAmount: null,
-        oldSoftwareVersion: '',
-        oldPowerType: 'IEC C14 socket',
-        oldPowerW: null,
-        oldPowerV: null,
-        oldPowerACDC: 'AC',
-        oldSerialNumber: '',
-        oldDescription: '',
-        oldProject: '',
-        oldOwnership: '',
-        oldResponsible: '',
-        oldFinanciallyResponsiblePerson: '',
-        oldInventoryNumber: '',
-        oldFixedAsset: '',
+      form: {
+        firstUnit: null,
+        lastUnit: null,
+        hasBacksideLocation: false,
+        status: 'Device active',
+        deviceType: 'Other',
+        vendor: '',
+        model: '',
+        hostname: '',
+        ip: null,
+        stack: null,
+        portsAmount: null,
+        softwareVersion: '',
+        powerType: 'IEC C14 socket',
+        powerW: null,
+        powerV: null,
+        powerACDC: 'AC',
+        serialNumber: '',
+        description: '',
+        project: '',
+        ownership: '',
+        responsible: '',
+        financiallyResponsiblePerson: '',
+        inventoryNumber: '',
+        fixedAsset: '',
       },
-      rackId: null,
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
     };
   },
-  async created() {
-    await this.setOldData();
+  created() {
+    this.setOldData();
   },
   methods: {
     /**
@@ -72,13 +74,20 @@ export default {
      * @param {Object} form Device form
      */
     async submitForm(form) {
+      // If form not valid
+      if (form.$errors) {
+        this.message.text = '';
+        this.message.success = false;
+        return;
+      }
+      // If form valid
       const firstUnit = parseInt(form.firstUnit);
       const lastUnit = parseInt(form.lastUnit);
       const formData = {
         units: getUnitsArray(firstUnit, lastUnit),
         has_backside_location: form.hasBacksideLocation,
         status: form.status,
-        type: form.type,
+        type: form.deviceType,
         vendor: form.vendor,
         model: form.model,
         hostname: form.hostname,
@@ -105,12 +114,12 @@ export default {
         formData,
       );
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
-        this.messageProps.success = true;
-        this.messageProps.message = `Device ${response.data.data.vendor || 'undefined vendor'}
+        this.message.success = true;
+        this.message.text = `Device ${response.data.data.vendor || 'undefined vendor'}
           ${response.data.data.model || 'undefined model'} updated successfully`;
       } else {
-        this.messageProps.success = false;
-        this.messageProps.message = getResponseMessage(response);
+        this.message.success = false;
+        this.message.text = getResponseMessage(response);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
@@ -124,32 +133,31 @@ export default {
         this.$router.push('/404');
       }
       const device = response.data.data;
-      this.formProps.oldFirstUnit = device.units[0];
-      this.formProps.oldLastUnit = device.units[device.units.length - 1];
-      this.formProps.oldHasBacksideLocation = device.has_backside_location;
-      this.formProps.oldStatus = device.status;
-      this.formProps.oldType = device.type;
-      this.formProps.oldVendor = device.vendor;
-      this.formProps.oldModel = device.model;
-      this.formProps.oldHostname = device.hostname;
-      this.formProps.oldIp = device.ip;
-      this.formProps.oldStack = device.stack;
-      this.formProps.oldPortsAmount = device.ports_amount;
-      this.formProps.oldSoftwareVersion = device.software_version;
-      this.formProps.oldPowerType = device.power_type;
-      this.formProps.oldPowerW = device.power_w;
-      this.formProps.oldPowerV = device.power_v;
-      this.formProps.oldPowerACDC = device.power_ac_dc;
-      this.formProps.oldSerialNumber = device.serial_number;
-      this.formProps.oldDescription = device.description;
-      this.formProps.oldProject = device.project;
-      this.formProps.oldOwnership = device.ownership;
-      this.formProps.oldResponsible = device.responsible;
-      this.formProps.oldFinanciallyResponsiblePerson =
+      this.form.firstUnit = device.units[0];
+      this.form.lastUnit = device.units[device.units.length - 1];
+      this.form.hasBacksideLocation = device.has_backside_location;
+      this.form.status = device.status;
+      this.form.deviceType = device.type;
+      this.form.vendor = device.vendor;
+      this.form.model = device.model;
+      this.form.hostname = device.hostname;
+      this.form.ip = device.ip;
+      this.form.stack = device.stack;
+      this.form.portsAmount = device.ports_amount;
+      this.form.softwareVersion = device.software_version;
+      this.form.powerType = device.power_type;
+      this.form.powerW = device.power_w;
+      this.form.powerV = device.power_v;
+      this.form.powerACDC = device.power_ac_dc;
+      this.form.serialNumber = device.serial_number;
+      this.form.description = device.description;
+      this.form.project = device.project;
+      this.form.ownership = device.ownership;
+      this.form.responsible = device.responsible;
+      this.form.financiallyResponsiblePerson =
         device.financially_responsible_person;
-      this.formProps.oldInventoryNumber = device.inventory_number;
-      this.formProps.oldFixedAsset = device.fixed_asset;
-      this.rackId = device.rack_id;
+      this.form.inventoryNumber = device.inventory_number;
+      this.form.fixedAsset = device.fixed_asset;
     },
   },
 };
