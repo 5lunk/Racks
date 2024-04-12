@@ -291,7 +291,7 @@ export default {
       frameShadowStyleFit: frameShadowStyle + ' h-fit',
     };
   },
-  mounted() {
+  created() {
     this.setDevice();
     this.setDeviceLocation();
   },
