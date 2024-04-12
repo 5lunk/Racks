@@ -19,7 +19,7 @@
           </text>
         </p>
         <br />
-        <template v-if="!form.update">
+        <template v-if="!update">
           <label for="amount"> Rack amount (units): </label>
           <input
             id="e2e_rack_amount"
@@ -34,8 +34,8 @@
               {{ error.$message }}
             </text>
           </p>
+          <br />
         </template>
-        <br />
         <template v-if="models.item_type">
           <ChooseExistingItem
             :itemsData="models"
@@ -207,7 +207,7 @@
         </p>
         <br />
         <label for="type"> Execution variant: </label>
-        <select :class="formInputStyle" v-model="form.type">
+        <select :class="formInputStyle" v-model="form.executionType">
           <option value="Rack" selected="selected">Rack</option>
           <option value="Protective cabinet">Protective cabinet</option>
         </select>
@@ -320,9 +320,35 @@ export default {
     ChooseExistingItem,
   },
   props: {
-    formProps: {
-      type: Object,
+    form: {
+      name: String,
+      amount: Number | null,
+      vendor: String,
+      model: String,
+      description: String,
+      hasNumberingFromTopToBottom: Boolean,
+      responsible: String,
+      financiallyResponsiblePerson: String,
+      inventoryNumber: String,
+      fixedAsset: String,
+      linkToDocs: String,
+      row: String,
+      place: String,
+      height: Number | null,
+      width: Number | null,
+      depth: Number | null,
+      unitWidth: Number | null,
+      unitDepth: Number | null,
+      executionType: String,
+      frame: String,
+      placeType: String,
+      maxLoad: Number | null,
+      powerSockets: Number | null,
+      powerSocketsUps: Number | null,
+      hasExternalUps: Boolean,
+      hasCooler: Boolean,
     },
+    update: Boolean,
   },
   emits: ['onSubmit'],
   data() {
@@ -332,35 +358,6 @@ export default {
       modelsIsHidden: true,
       vendors: {},
       models: {},
-      form: {
-        name: '',
-        amount: null,
-        vendor: '',
-        model: '',
-        description: '',
-        hasNumberingFromTopToBottom: false,
-        responsible: '',
-        financiallyResponsiblePerson: '',
-        inventoryNumber: '',
-        fixedAsset: '',
-        linkToDocs: '',
-        row: '',
-        place: '',
-        height: null,
-        width: null,
-        depth: null,
-        unitWidth: null,
-        unitDepth: null,
-        type: 'Rack',
-        frame: 'Double frame',
-        placeType: 'Floor standing',
-        maxLoad: null,
-        powerSockets: null,
-        powerSocketsUps: null,
-        hasExternalUps: false,
-        hasCooler: false,
-        update: false,
-      },
       numericOrNullValidationError:
         'Value must be an integer and greater than zero',
       formInputStyle: formInputStyle,
@@ -372,13 +369,13 @@ export default {
   created() {
     this.setRackVendors();
     this.setRackModels();
-    this.setRackFormProps();
   },
   validations() {
     return {
       form: {
         name: { required },
         amount: { required, numeric, minValue: minValue(1) },
+        hasNumberingFromTopToBottom: { required },
         height: { numericGTZOrNull },
         width: { numericGTZOrNull },
         depth: { numericGTZOrNull },
@@ -414,48 +411,13 @@ export default {
       this.models = response.data.data;
     },
     /**
-     * Set rack form props
-     */
-    setRackFormProps() {
-      if (this.formProps.oldName) {
-        this.form.name = this.formProps.oldName;
-        this.form.amount = this.formProps.oldAmount;
-        this.form.vendor = this.formProps.oldVendor;
-        this.form.model = this.formProps.oldModel;
-        this.form.description = this.formProps.oldDescription;
-        this.form.hasNumberingFromTopToBottom =
-          this.formProps.oldHasNumberingFromTopToBottom;
-        this.form.responsible = this.formProps.oldResponsible;
-        this.form.financiallyResponsiblePerson =
-          this.formProps.oldFinanciallyResponsiblePerson;
-        this.form.inventoryNumber = this.formProps.oldInventoryNumber;
-        this.form.fixedAsset = this.formProps.oldFixedAsset;
-        this.form.linkToDocs = this.formProps.oldLinkToDocs;
-        this.form.row = this.formProps.oldRow;
-        this.form.place = this.formProps.oldPlace;
-        this.form.height = this.formProps.oldHeight;
-        this.form.width = this.formProps.oldWidth;
-        this.form.depth = this.formProps.oldDepth;
-        this.form.unitWidth = this.formProps.oldUnitWidth;
-        this.form.unitDepth = this.formProps.oldUnitDepth;
-        this.form.type = this.formProps.oldType;
-        this.form.frame = this.formProps.oldFrame;
-        this.form.placeType = this.formProps.oldPlaceType;
-        this.form.maxLoad = this.formProps.oldMaxLoad;
-        this.form.powerSockets = this.formProps.oldPowerSockets;
-        this.form.powerSocketsUps = this.formProps.oldPowerSocketsUps;
-        this.form.hasExternalUps = this.formProps.oldHasExternalUps;
-        this.form.hasCooler = this.formProps.oldHasCooler;
-        this.form.update = this.formProps.update;
-      }
-    },
-    /**
      * Emit data
      */
     emitData() {
       if (this.v$.$errors.length) {
         confirm('Form not valid, please check the fields');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.$emit('onSubmit', this.v$);
       } else {
         // Yes, this is a crutch, but quite simple and understandable
         const fieldNamesArr = [
@@ -469,6 +431,7 @@ export default {
           'powerSocketsUps',
         ];
         this.setEmptyStringToNull(fieldNamesArr, this.form);
+        this.v$.$reset();
         this.$emit('onSubmit', this.form);
       }
     },

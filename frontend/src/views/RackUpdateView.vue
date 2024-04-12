@@ -3,14 +3,12 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :messageProps="messageProps" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
     >
-      <template v-if="formProps.oldName">
-        <RackForm :formProps="formProps" v-on:on-submit="submitForm" />
-      </template>
+      <RackForm :form="form" :update="update" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -34,44 +32,43 @@ export default {
   },
   data() {
     return {
-      formProps: {
-        oldName: '',
-        oldAmount: null,
-        oldVendor: '',
-        oldModel: '',
-        oldDescription: '',
-        oldHasNumberingFromTopToBottom: false,
-        oldResponsible: '',
-        oldFinanciallyResponsiblePerson: '',
-        oldInventoryNumber: '',
-        oldFixedAsset: '',
-        oldLinkToDocs: '',
-        oldRow: '',
-        oldPlace: '',
-        oldHeight: null,
-        oldWidth: null,
-        oldDepth: null,
-        oldUnitWidth: null,
-        oldUnitDepth: null,
-        oldType: 'Rack',
-        oldFrame: 'Double frame',
-        oldPlaceType: 'Floor standing',
-        oldMaxLoad: null,
-        oldPowerSockets: null,
-        oldPowerSocketsUps: null,
-        oldHasExternalUps: false,
-        oldHasCooler: false,
-        update: true,
+      form: {
+        name: '',
+        amount: null,
+        vendor: '',
+        model: '',
+        description: '',
+        hasNumberingFromTopToBottom: false,
+        responsible: '',
+        financiallyResponsiblePerson: '',
+        inventoryNumber: '',
+        fixedAsset: '',
+        linkToDocs: '',
+        row: '',
+        place: '',
+        height: null,
+        width: null,
+        depth: null,
+        unitWidth: null,
+        unitDepth: null,
+        executionType: 'Rack',
+        frame: 'Double frame',
+        placeType: 'Floor standing',
+        maxLoad: null,
+        powerSockets: null,
+        powerSocketsUps: null,
+        hasExternalUps: false,
+        hasCooler: false,
       },
-      roomId: null,
-      messageProps: {
-        message: '',
+      update: true,
+      message: {
+        text: '',
         success: false,
       },
     };
   },
-  async created() {
-    await this.setOldData();
+  created() {
+    this.setOldData();
   },
   methods: {
     /**
@@ -79,6 +76,13 @@ export default {
      * @param {Object} form Rack form
      */
     async submitForm(form) {
+      // If form not valid
+      if (form.$errors) {
+        this.message.text = '';
+        this.message.success = false;
+        return;
+      }
+      // If form valid
       // Amount update not allowed
       const formData = {
         name: form.name,
@@ -98,7 +102,7 @@ export default {
         depth: form.depth,
         unit_width: form.unitWidth,
         unit_depth: form.unitDepth,
-        type: form.type,
+        type: form.executionType,
         frame: form.frame,
         place_type: form.placeType,
         max_load: form.maxLoad,
@@ -109,11 +113,11 @@ export default {
       };
       const response = await putObject('rack', this.$route.params.id, formData);
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
-        this.messageProps.success = true;
-        this.messageProps.message = `Rack ${response.data.data.name} updated successfully`;
+        this.message.success = true;
+        this.message.text = `Rack ${response.data.data.name} updated successfully`;
       } else {
-        this.messageProps.success = false;
-        this.messageProps.message = getResponseMessage(response);
+        this.message.success = false;
+        this.message.text = getResponseMessage(response);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
@@ -127,35 +131,34 @@ export default {
         this.$router.push('/404');
       }
       const rack = response.data.data;
-      this.formProps.oldName = rack.name;
-      this.formProps.oldAmount = rack.amount;
-      this.formProps.oldVendor = rack.vendor;
-      this.formProps.oldModel = rack.model;
-      this.formProps.oldDescription = rack.description;
-      this.formProps.oldHasNumberingFromTopToBottom =
+      this.form.name = rack.name;
+      this.form.amount = rack.amount;
+      this.form.vendor = rack.vendor;
+      this.form.model = rack.model;
+      this.form.description = rack.description;
+      this.form.hasNumberingFromTopToBottom =
         rack.has_numbering_from_top_to_bottom;
-      this.formProps.oldResponsible = rack.responsible;
-      this.formProps.oldFinanciallyResponsiblePerson =
+      this.form.responsible = rack.responsible;
+      this.form.financiallyResponsiblePerson =
         rack.financially_responsible_person;
-      this.formProps.oldInventoryNumber = rack.inventory_number;
-      this.formProps.oldFixedAsset = rack.fixed_asset;
-      this.formProps.oldLinkToDocs = rack.link_to_docs;
-      this.formProps.oldRow = rack.row;
-      this.formProps.oldPlace = rack.place;
-      this.formProps.oldHeight = rack.height;
-      this.formProps.oldWidth = rack.width;
-      this.formProps.oldDepth = rack.depth;
-      this.formProps.oldUnitWidth = rack.unit_width;
-      this.formProps.oldUnitDepth = rack.unit_depth;
-      this.formProps.oldType = rack.type;
-      this.formProps.oldFrame = rack.frame;
-      this.formProps.oldPlaceType = rack.place_type;
-      this.formProps.oldMaxLoad = rack.max_load;
-      this.formProps.oldPowerSockets = rack.power_sockets;
-      this.formProps.oldPowerSocketsUps = rack.power_sockets_ups;
-      this.formProps.oldHasExternalUps = rack.has_external_ups;
-      this.formProps.oldHasCooler = rack.has_cooler;
-      this.roomId = rack.room_id;
+      this.form.inventoryNumber = rack.inventory_number;
+      this.form.fixedAsset = rack.fixed_asset;
+      this.form.linkToDocs = rack.link_to_docs;
+      this.form.row = rack.row;
+      this.form.place = rack.place;
+      this.form.height = rack.height;
+      this.form.width = rack.width;
+      this.form.depth = rack.depth;
+      this.form.unitWidth = rack.unit_width;
+      this.form.unitDepth = rack.unit_depth;
+      this.form.executionType = rack.type;
+      this.form.frame = rack.frame;
+      this.form.placeType = rack.place_type;
+      this.form.maxLoad = rack.max_load;
+      this.form.powerSockets = rack.power_sockets;
+      this.form.powerSocketsUps = rack.power_sockets_ups;
+      this.form.hasExternalUps = rack.has_external_ups;
+      this.form.hasCooler = rack.has_cooler;
     },
   },
 };
