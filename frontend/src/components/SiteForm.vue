@@ -54,25 +54,19 @@ import {
 export default {
   name: 'SiteForm',
   props: {
-    formProps: {
-      type: Object,
+    form: {
+      name: String,
+      description: String,
     },
   },
   emits: ['onSubmit'],
   data() {
     return {
       v$: useVuelidate(),
-      form: {
-        name: '',
-        description: '',
-      },
       formInputStyle: formInputStyle,
       formSubmitButtonStyle: formSubmitButtonStyle,
       frameShadowStyle: frameShadowStyle,
     };
-  },
-  created() {
-    this.setSiteFormProps();
   },
   validations() {
     return {
@@ -82,15 +76,6 @@ export default {
     };
   },
   methods: {
-    /**
-     * Set site form props
-     */
-    setSiteFormProps() {
-      if (this.formProps.oldName) {
-        this.form.name = this.formProps.oldName;
-        this.form.description = this.formProps.oldDescription;
-      }
-    },
     /**
      * Submit
      */
@@ -104,7 +89,9 @@ export default {
       if (this.v$.$errors.length) {
         confirm('Form not valid, please check the fields');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.$emit('onSubmit', this.v$);
       } else {
+        this.v$.$reset();
         this.$emit('onSubmit', this.form);
       }
     },
