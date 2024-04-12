@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('model', 255)->nullable();
             $table->unsignedInteger('amount');
             $table->text('description')->nullable();
-            $table->json('busy_units')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('busy_units')
+                ->default(new Expression('(JSON_OBJECT("front", JSON_ARRAY(), "back", JSON_ARRAY()))'));
             $table->boolean('has_numbering_from_top_to_bottom');
             $table->string('responsible', 255)->nullable();
             $table->string('financially_responsible_person', 255)->nullable();
