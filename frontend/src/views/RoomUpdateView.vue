@@ -3,14 +3,12 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :messageProps="messageProps" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
     >
-      <template v-if="formProps.oldName">
-        <RoomForm :formProps="formProps" v-on:on-submit="submitForm" />
-      </template>
+      <RoomForm :form="form" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -34,27 +32,26 @@ export default {
   },
   data() {
     return {
-      formProps: {
-        oldName: '',
-        oldBuildingFloor: '',
-        oldDescription: '',
-        oldNumberOfRackSpaces: null,
-        oldArea: null,
-        oldResponsible: '',
-        oldCoolingSystem: 'Centralized',
-        oldFireSuppressionSystem: 'Centralized',
-        oldAccessIsOpen: false,
-        oldHasRaisedFloor: false,
+      form: {
+        name: '',
+        buildingFloor: '',
+        description: '',
+        numberOfRackSpaces: null,
+        area: null,
+        responsible: '',
+        coolingSystem: 'Centralized',
+        fireSuppressionSystem: 'Centralized',
+        accessIsOpen: false,
+        hasRaisedFloor: false,
       },
-      buildingId: null,
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
     };
   },
-  async created() {
-    await this.setOldData();
+  created() {
+    this.setOldData();
   },
   methods: {
     /**
@@ -62,6 +59,13 @@ export default {
      * @param {Object} form Room form
      */
     async submitForm(form) {
+      // If form not valid
+      if (form.$errors) {
+        this.message.text = '';
+        this.message.success = false;
+        return;
+      }
+      // If form valid
       const formData = {
         name: form.name,
         building_floor: form.buildingFloor,
@@ -76,11 +80,11 @@ export default {
       };
       const response = await putObject('room', this.$route.params.id, formData);
       if (response.status === RESPONSE_STATUS.ACCEPTED) {
-        this.messageProps.success = true;
-        this.messageProps.message = `Room ${response.data.data.name} updated successfully`;
+        this.message.success = true;
+        this.message.text = `Room ${response.data.data.name} updated successfully`;
       } else {
-        this.messageProps.success = false;
-        this.messageProps.message = getResponseMessage(response);
+        this.message.success = false;
+        this.message.text = getResponseMessage(response);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
@@ -94,17 +98,16 @@ export default {
         this.$router.push('/404');
       }
       const room = response.data.data;
-      this.formProps.oldName = room.name;
-      this.formProps.oldBuildingFloor = room.building_floor;
-      this.formProps.oldDescription = room.description;
-      this.formProps.oldNumberOfRackSpaces = room.number_of_rack_spaces;
-      this.formProps.oldArea = room.area;
-      this.formProps.oldResponsible = room.responsible;
-      this.formProps.oldCoolingSystem = room.cooling_system;
-      this.formProps.oldFireSuppressionSystem = room.fire_suppression_system;
-      this.formProps.oldAccessIsOpen = room.access_is_open;
-      this.formProps.oldHasRaisedFloor = room.has_raised_floor;
-      this.buildingId = room.building_id;
+      this.form.name = room.name;
+      this.form.buildingFloor = room.building_floor;
+      this.form.description = room.description;
+      this.form.numberOfRackSpaces = room.number_of_rack_spaces;
+      this.form.area = room.area;
+      this.form.responsible = room.responsible;
+      this.form.coolingSystem = room.cooling_system;
+      this.form.fireSuppressionSystem = room.fire_suppression_system;
+      this.form.accessIsOpen = room.access_is_open;
+      this.form.hasRaisedFloor = room.has_raised_floor;
     },
   },
 };
