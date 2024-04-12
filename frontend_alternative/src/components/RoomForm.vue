@@ -28,6 +28,11 @@
           type="text"
           v-model="form.buildingFloor"
         />
+        <p v-for="error of v$.form.buildingFloor.$errors" :key="error.$uid">
+          <text class="text-red-500">
+            {{ error.$message }}
+          </text>
+        </p>
         <br />
         <label for="description"> Description: </label>
         <input
@@ -137,34 +142,28 @@ import {
 export default {
   name: 'RoomForm',
   props: {
-    formProps: {
-      type: Object,
+    form: {
+      name: String,
+      buildingFloor: String,
+      description: String,
+      numberOfRackSpaces: Number | null,
+      area: Number | null,
+      responsible: String,
+      coolingSystem: String,
+      fireSuppressionSystem: String,
+      accessIsOpen: Boolean,
+      hasRaisedFloor: Boolean,
     },
   },
   emits: ['onSubmit'],
   data() {
     return {
       v$: useVuelidate(),
-      form: {
-        name: '',
-        buildingFloor: '',
-        description: '',
-        numberOfRackSpaces: null,
-        area: null,
-        responsible: '',
-        coolingSystem: 'Centralized',
-        fireSuppressionSystem: 'Centralized',
-        accessIsOpen: false,
-        hasRaisedFloor: false,
-      },
       formInputStyle: formInputStyle,
       formSubmitButtonStyle: formSubmitButtonStyle,
       frameShadowStyle: frameShadowStyle,
       formCheckboxStyle: formCheckboxStyle,
     };
-  },
-  created() {
-    this.setRoomFormProps();
   },
   validations() {
     return {
@@ -178,24 +177,6 @@ export default {
   },
   methods: {
     /**
-     * Set room form props
-     */
-    setRoomFormProps() {
-      if (this.formProps.oldName) {
-        this.form.name = this.formProps.oldName;
-        this.form.buildingFloor = this.formProps.oldBuildingFloor;
-        this.form.description = this.formProps.oldDescription;
-        this.form.numberOfRackSpaces = this.formProps.oldNumberOfRackSpaces;
-        this.form.area = this.formProps.oldArea;
-        this.form.responsible = this.formProps.oldResponsible;
-        this.form.coolingSystem = this.formProps.oldCoolingSystem;
-        this.form.fireSuppressionSystem =
-          this.formProps.oldFireSuppressionSystem;
-        this.form.accessIsOpen = this.formProps.oldAccessIsOpen;
-        this.form.hasRaisedFloor = this.formProps.oldHasRaisedFloor;
-      }
-    },
-    /**
      * Submit
      */
     submit() {
@@ -208,10 +189,12 @@ export default {
       if (this.v$.$errors.length) {
         confirm('Form not valid, please check the fields');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.$emit('onSubmit', this.v$);
       } else {
         // Yes, this is a crutch, but quite simple and understandable
         const fieldNamesArr = ['numberOfRackSpaces', 'area'];
         this.setEmptyStringToNull(fieldNamesArr, this.form);
+        this.v$.$reset();
         this.$emit('onSubmit', this.form);
       }
     },

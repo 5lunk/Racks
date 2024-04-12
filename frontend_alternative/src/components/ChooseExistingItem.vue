@@ -55,6 +55,7 @@ export default {
     isHidden: Boolean,
     modelValue: String,
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       inputId: '',

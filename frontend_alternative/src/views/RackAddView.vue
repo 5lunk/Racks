@@ -3,12 +3,12 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :messageProps="messageProps" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
     >
-      <RackForm :formProps="formProps" v-on:on-submit="submitForm" />
+      <RackForm :form="form" :update="update" v-on:on-submit="submitForm" />
     </div>
   </div>
 </template>
@@ -27,13 +27,13 @@ export default {
   },
   data() {
     return {
-      formProps: {
+      form: {
         name: '',
         amount: null,
         vendor: '',
         model: '',
         description: '',
-        hasNumberingFromBottomToTop: true,
+        hasNumberingFromTopToBottom: false,
         responsible: '',
         financiallyResponsiblePerson: '',
         inventoryNumber: '',
@@ -46,7 +46,7 @@ export default {
         depth: null,
         unitWidth: null,
         unitDepth: null,
-        type: 'Rack',
+        executionType: 'Rack',
         frame: 'Double frame',
         placeType: 'Floor standing',
         maxLoad: null,
@@ -54,10 +54,10 @@ export default {
         powerSocketsUps: null,
         hasExternalUps: false,
         hasCooler: false,
-        update: false,
       },
-      messageProps: {
-        message: '',
+      update: false,
+      message: {
+        text: '',
         success: false,
       },
     };
@@ -68,6 +68,13 @@ export default {
      * @param {Object} form Rack form
      */
     async submitForm(form) {
+      // If form not valid
+      if (form.$errors) {
+        this.message.text = '';
+        this.message.success = false;
+        return;
+      }
+      // If form valid
       const formData = {
         name: form.name,
         amount: parseInt(form.amount),
@@ -87,7 +94,7 @@ export default {
         depth: form.depth,
         unit_width: form.unitWidth,
         unit_depth: form.unitDepth,
-        type: form.type,
+        type: form.executionType,
         frame: form.frame,
         place_type: form.placeType,
         max_load: form.maxLoad,
@@ -99,11 +106,38 @@ export default {
       };
       const response = await postObject('rack', formData);
       if (response.status === RESPONSE_STATUS.CREATED) {
-        this.messageProps.success = true;
-        this.messageProps.message = `Rack ${response.data.data.name} added successfully`;
+        this.message.success = true;
+        this.message.text = `Rack ${response.data.data.name} added successfully`;
+        // Reset form
+        this.form.name = '';
+        this.form.amount = null;
+        this.form.vendor = '';
+        this.form.model = '';
+        this.form.description = '';
+        this.form.hasNumberingFromTopToBottom = false;
+        this.form.responsible = '';
+        this.form.financiallyResponsiblePerson = '';
+        this.form.inventoryNumber = '';
+        this.form.fixedAsset = '';
+        this.form.link = '';
+        this.form.row = '';
+        this.form.place = '';
+        this.form.height = null;
+        this.form.width = null;
+        this.form.depth = null;
+        this.form.unitWidth = null;
+        this.form.unitDepth = null;
+        this.form.executionType = 'Rack';
+        this.form.frame = 'Double frame';
+        this.form.placeType = 'Floor standing';
+        this.form.maxLoad = null;
+        this.form.powerSockets = null;
+        this.form.powerSocketsUps = null;
+        this.form.hasExternalUps = false;
+        this.form.hasCooler = false;
       } else {
-        this.messageProps.success = false;
-        this.messageProps.message = getResponseMessage(response);
+        this.message.success = false;
+        this.message.text = getResponseMessage(response);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

@@ -58,7 +58,7 @@
         </select>
         <br />
         <label for="status"> Device type: </label>
-        <select :class="formInputStyle" v-model="form.type">
+        <select :class="formInputStyle" v-model="form.deviceType">
           <option value="Other" selected="selected">Other</option>
           <option value="Switch">Switch</option>
           <option value="Router">Router</option>
@@ -99,7 +99,7 @@
           Please wait...
           <br />
         </template>
-        <template v-if="devicesWithOS.includes(form.type)">
+        <template v-if="devicesWithOS.includes(form.deviceType)">
           <label for="hostname"> Hostname: </label>
           <input
             :class="formInputStyle"
@@ -142,7 +142,7 @@
           />
         </template>
         <template v-else> </template>
-        <template v-if="devicesWithPorts.includes(form.type)"
+        <template v-if="devicesWithPorts.includes(form.deviceType)"
           ><br />
           <label for="portsAmount"> Port capacity: </label>
           <input
@@ -314,8 +314,32 @@ import {
 export default {
   name: 'DeviceForm',
   props: {
-    formProps: {
-      type: Object,
+    form: {
+      firstUnit: Number | null,
+      lastUnit: Number | null,
+      hasBacksideLocation: false,
+      status: String,
+      deviceType: String,
+      vendor: String,
+      model: String,
+      hostname: String,
+      ip: String | null,
+      deviceStack: String,
+      portsAmount: Number | null,
+      softwareVersion: String,
+      powerType: String,
+      powerW: Number | null,
+      powerV: Number | null,
+      powerACDC: String,
+      serialNumber: String,
+      description: String,
+      linkToDocs: String,
+      project: String,
+      ownership: String,
+      responsible: String,
+      financiallyResponsiblePerson: String,
+      inventoryNumber: String,
+      fixedAsset: String,
     },
   },
   components: {
@@ -329,33 +353,6 @@ export default {
       modelsIsHidden: true,
       vendors: {},
       models: {},
-      form: {
-        firstUnit: null,
-        lastUnit: null,
-        hasBacksideLocation: false,
-        status: 'Device active',
-        type: 'Other',
-        vendor: '',
-        model: '',
-        hostname: '',
-        ip: null,
-        deviceStack: '',
-        portsAmount: null,
-        softwareVersion: '',
-        powerType: 'IEC C14 socket',
-        powerW: null,
-        powerV: null,
-        powerACDC: 'AC',
-        serialNumber: '',
-        description: '',
-        linkToDocs: '',
-        project: '',
-        ownership: 'Our department',
-        responsible: '',
-        financiallyResponsiblePerson: '',
-        inventoryNumber: '',
-        fixedAsset: '',
-      },
       numericOrNullValidationError:
         'Value must be an integer and greater than zero',
       devicesWithOS: DEVICES_WITH_OS,
@@ -369,7 +366,6 @@ export default {
   created() {
     this.setVendors();
     this.setModels();
-    this.setDeviceFormProps();
   },
   validations() {
     return {
@@ -408,50 +404,18 @@ export default {
       this.models = response.data.data;
     },
     /**
-     * Set device form props
-     */
-    setDeviceFormProps() {
-      if (this.formProps.oldFirstUnit) {
-        this.form.firstUnit = this.formProps.oldFirstUnit;
-        this.form.lastUnit = this.formProps.oldLastUnit;
-        this.form.hasBacksideLocation = this.formProps.oldHasBacksideLocation;
-        this.form.status = this.formProps.oldStatus;
-        this.form.type = this.formProps.oldType;
-        this.form.vendor = this.formProps.oldVendor;
-        this.form.model = this.formProps.oldModel;
-        this.form.hostname = this.formProps.oldHostname;
-        this.form.ip = this.formProps.oldIp;
-        this.form.stack = this.formProps.oldStack;
-        this.form.portsAmount = this.formProps.oldPortsAmount;
-        this.form.softwareVersion = this.formProps.oldSoftwareVersion;
-        this.form.powerType = this.formProps.oldPowerType;
-        this.form.powerW = this.formProps.oldPowerW;
-        this.form.powerV = this.formProps.oldPowerV;
-        this.form.powerACDC = this.formProps.oldPowerACDC;
-        this.form.serialNumber = this.formProps.oldSerialNumber;
-        this.form.description = this.formProps.oldDescription;
-        this.form.linkToDocs = this.formProps.oldlinkToDocs;
-        this.form.project = this.formProps.oldProject;
-        this.form.ownership = this.formProps.oldOwnership;
-        this.form.responsible = this.formProps.oldResponsible;
-        this.form.financiallyResponsiblePerson =
-          this.formProps.oldFinanciallyResponsiblePerson;
-        this.form.inventoryNumber = this.formProps.oldInventoryNumber;
-        this.form.fixedAsset = this.formProps.oldFixedAsset;
-      }
-    },
-    /**
      * Emit data
      */
     emitData() {
       if (this.v$.$errors.length) {
-        console.log(this.v$.$errors);
         confirm('Form not valid, please check the fields');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.$emit('onSubmit', this.v$);
       } else {
         //Yes, this is a crutch, but quite simple and understandable
         const fieldNamesArr = ['stack', 'portsAmount', 'powerW', 'powerV'];
         this.setEmptyStringToNull(fieldNamesArr, this.form);
+        this.v$.$reset();
         this.$emit('onSubmit', this.form);
       }
     },

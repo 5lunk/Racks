@@ -6,7 +6,7 @@
       <div
         class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
       >
-        <TheMessage :messageProps="messageProps" />
+        <TheMessage :message="message" />
       </div>
       <div :class="frameShadowStyle">
         Device №{{ device.id }}
@@ -271,8 +271,8 @@ export default {
         updatedAt: '',
         rackId: '',
       },
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
       location: {
@@ -344,13 +344,13 @@ export default {
       if (confirm(`Do you really want to delete device ${name}?`)) {
         const response = await deleteObject('device', this.$route.params.id);
         if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.messageProps.success = true;
-          this.messageProps.message = `Device ${id} deleted successfully`;
-          alert(this.messageProps.message);
+          this.message.success = true;
+          this.message.text = `Device ${id} deleted successfully`;
+          alert(this.message.text);
           this.$router.push('/units/' + this.device.rackId);
         } else {
-          this.messageProps.success = false;
-          this.messageProps.message = getResponseMessage(response);
+          this.message.success = false;
+          this.message.text = getResponseMessage(response);
         }
       }
     },

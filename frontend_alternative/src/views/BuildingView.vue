@@ -6,7 +6,7 @@
       <div
         class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
       >
-        <TheMessage :messageProps="messageProps" />
+        <TheMessage :message="message" />
       </div>
       <div :class="frameShadowStyle">
         Building №{{ building.id }}
@@ -87,8 +87,8 @@ export default {
         updatedBy: '',
         updatedAt: '',
       },
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
       location: {
@@ -101,7 +101,7 @@ export default {
       frameShadowStyle: frameShadowStyle,
     };
   },
-  mounted() {
+  created() {
     this.setBuilding();
     this.setBuildingLocation();
   },
@@ -135,13 +135,13 @@ export default {
       ) {
         const response = await deleteObject('building', this.$route.params.id);
         if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.messageProps.success = true;
-          this.messageProps.message = `Building ${id} deleted successfully`;
-          alert(this.messageProps.message);
+          this.message.success = true;
+          this.message.text = `Building ${id} deleted successfully`;
+          alert(this.message.text);
           this.$router.push('/');
         } else {
-          this.messageProps.success = false;
-          this.messageProps.message = getResponseMessage(response);
+          this.message.success = false;
+          this.message.text = getResponseMessage(response);
         }
       }
     },

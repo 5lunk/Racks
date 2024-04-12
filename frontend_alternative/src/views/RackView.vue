@@ -6,7 +6,7 @@
       <div
         class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
       >
-        <TheMessage :messageProps="messageProps" />
+        <TheMessage :message="message" />
       </div>
       <div :class="frameShadowStyle">
         Rack №{{ rack.id }}
@@ -79,11 +79,11 @@
             {{ rack.fixedAsset }}
           </text>
           <br />
-          <template v-if="rack.link_to_docs">
+          <template v-if="rack.linkToDocs">
             Link to docs:
-            <a class="text-slate-500" v-bind:href="rack.link_to_docs">
+            <a class="text-slate-500" v-bind:href="rack.linkToDocs">
               <text class="text-blue-300"> &#9873; </text>
-              {{ rack.link_to_docs }}
+              {{ rack.linkToDocs }}
             </a>
           </template>
           <template v-else> Link to docs: </template>
@@ -270,8 +270,8 @@ export default {
         updatedBy: '',
         updatedAt: '',
       },
-      messageProps: {
-        message: '',
+      message: {
+        text: '',
         success: false,
       },
       location: {
@@ -287,7 +287,7 @@ export default {
       frameShadowStyleFit: frameShadowStyle + ' h-fit',
     };
   },
-  mounted() {
+  created() {
     this.setRack();
     this.setRackLocation();
   },
@@ -346,13 +346,13 @@ export default {
       ) {
         const response = await deleteObject('rack', this.$route.params.id);
         if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.messageProps.success = true;
-          this.messageProps.message = `Rack ${id} deleted successfully`;
-          alert(this.messageProps.message);
+          this.message.success = true;
+          this.message.text = `Rack ${id} deleted successfully`;
+          alert(this.message.text);
           this.$router.push('/');
         } else {
-          this.messageProps.success = false;
-          this.messageProps.message = getResponseMessage(response);
+          this.message.success = false;
+          this.message.text = getResponseMessage(response);
         }
       }
     },
