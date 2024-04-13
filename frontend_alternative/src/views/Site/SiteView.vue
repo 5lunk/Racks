@@ -15,7 +15,7 @@
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click="deleteSite(site.id, site.name)"
+          v-on:click.prevent="deleteSite(site.id, site.name)"
         >
           Delete
         </button>

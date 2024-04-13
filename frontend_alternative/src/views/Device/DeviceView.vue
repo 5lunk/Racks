@@ -20,7 +20,7 @@
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click="
+          v-on:click.prevent="
             deleteDevice(device.id, `${device.vendor} ${device.model}`)
           "
         >

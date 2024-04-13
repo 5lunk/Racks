@@ -15,7 +15,7 @@
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click="deleteRack(rack.id, rack.name)"
+          v-on:click.prevent="deleteRack(rack.id, rack.name)"
         >
           Delete
         </button>
