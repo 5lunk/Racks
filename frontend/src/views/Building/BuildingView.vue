@@ -18,7 +18,9 @@
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click.prevent="deleteBuilding(building.id, building.name)"
+          v-on:click.prevent="
+            $store.dispatch('deleteBuilding', building.id, building.name)
+          "
         >
           Delete
         </button>
@@ -59,14 +61,6 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import { RESPONSE_STATUS } from '@/constants';
-import {
-  deleteObject,
-  getObject,
-  getObjectLocation,
-  getResponseMessage,
-  logIfNotStatus,
-} from '@/api';
 import {
   frameShadowStyle,
   optionButtonDarkStyle,
@@ -80,84 +74,24 @@ export default {
   },
   data() {
     return {
-      building: {
-        id: this.$route.params.id,
-        name: '',
-        description: '',
-        updatedBy: '',
-        updatedAt: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-      location: {
-        siteName: '',
-        departmentName: '',
-        regionName: '',
-      },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
     };
   },
   created() {
-    this.setBuilding();
-    this.setBuildingLocation();
+    this.$store.dispatch('getBuilding', this.$route.params.id);
+    this.$store.dispatch('getBuildingLocation', this.$route.params.id);
   },
-  methods: {
-    /**
-     * Fetch and set building data
-     */
-    async setBuilding() {
-      const response = await getObject('building', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-        this.$router.push({ name: 'PageNotFoundView' });
-      }
-      const building = response.data.data;
-      this.building.name = building.name;
-      this.building.description = building.description;
-      this.building.updatedBy = building.updated_by;
-      this.building.updatedAt = building.updated_at;
-      this.building.siteId = building.site_id;
+  computed: {
+    building() {
+      return this.$store.getters.building;
     },
-    /**
-     * Delete building
-     * @param {Number} id Building id
-     * @param {String} name Building name
-     */
-    async deleteBuilding(id, name) {
-      if (
-        confirm(
-          `Do you really want to delete building ${name} and all related items?`,
-        )
-      ) {
-        const response = await deleteObject('building', this.$route.params.id);
-        if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.message.success = true;
-          this.message.text = `Building ${id} deleted successfully`;
-          alert(this.message.text);
-          this.$router.push({ name: 'TreeView' });
-        } else {
-          this.message.success = false;
-          this.message.text = getResponseMessage(response);
-        }
-      }
+    location() {
+      return this.$store.getters.location;
     },
-    /**
-     * Fetch and set building location
-     */
-    async setBuildingLocation() {
-      const response = await getObjectLocation(
-        'building',
-        this.$route.params.id,
-      );
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      const location = response.data.data;
-      this.location.siteName = location.site_name;
-      this.location.departmentName = location.department_name;
-      this.location.regionName = location.region_name;
+    message() {
+      return this.$store.getters.message;
     },
   },
 };

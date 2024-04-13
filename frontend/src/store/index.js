@@ -1,6 +1,10 @@
 import { createStore } from 'vuex';
+import Building from '@/store/modules/building';
 
 export default createStore({
+  modules: {
+    Building,
+  },
   state: {
     token: '',
     isAuthenticated: false,
