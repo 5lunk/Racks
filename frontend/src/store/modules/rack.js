@@ -41,10 +41,6 @@ const state = {
     updatedBy: '',
     updatedAt: '',
   },
-  rackMessage: {
-    text: '',
-    success: false,
-  },
   rackLocation: {
     roomName: '',
     buildingName: '',
@@ -67,9 +63,6 @@ const state = {
 const getters = {
   rack: state => {
     return state.rack;
-  },
-  rackMessage: state => {
-    return state.rackMessage;
   },
   rackLocation: state => {
     return state.rackLocation;
@@ -106,18 +99,17 @@ const actions = {
    * Delete rack
    * @param {commit} commit
    * @param {Number} id Rack id
-   * @param {String} name Rack name
    */
-  async deleteRack({commit}, id, name) {
+  async deleteRack({commit}, id) {
       const response = await deleteObject('rack', id);
       if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-        commit('setRackMessage', {
+        commit('setMessage', {
           text: `Rack ${id} deleted successfully`,
           success: true,
         });
         commit('setRackDeleted', true);
       } else {
-        commit('setRackMessage', {
+        commit('setMessage', {
           text: getResponseMessage(response),
           success: false,
         });
@@ -143,7 +135,7 @@ const actions = {
   async submitRackFormForCreate({commit}, {form, roomId}) {
     // If form not valid
     if (form.$errors) {
-      commit('setRackMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -178,13 +170,13 @@ const actions = {
     };
     const response = await postObject('rack', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      commit('setRackMessage', {
+      commit('setMessage', {
         text: `Rack ${response.data.data.name} added successfully`,
         success: true,
       });
       commit('setRackDefaults');
     } else {
-      commit('setRackMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -200,7 +192,7 @@ const actions = {
   async submitRackFormForUpdate({commit}, {form, id}) {
     // If form not valid
     if (form.$errors) {
-      commit('setRackMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -238,12 +230,12 @@ const actions = {
       formData,
     );
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      commit('setRackMessage', {
+      commit('setMessage', {
         text: `Rack ${response.data.data.name} updated successfully`,
         success: true,
       })
     } else {
-      commit('setRackMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -303,10 +295,6 @@ const mutations = {
     state.rack.updatedBy = rack.updated_by;
     state.rack.updatedAt = rack.updated_at;
   },
-  setRackMessage(state, rackMessage) {
-    state.rackMessage.text = rackMessage.text;
-    state.rackMessage.success = rackMessage.success;
-  },
   setRackLocation(state, rackLocation) {
     state.rackLocation.roomName = rackLocation.room_name;
     state.rackLocation.buildingName = rackLocation.building_name;
@@ -349,10 +337,6 @@ const mutations = {
     state.rack.powerSocketsUps = null;
     state.rack.hasExternalUps = false;
     state.rack.hasCooler = false;
-  },
-  setRackMessageDefaults(state) {
-    state.rackMessage.text = '';
-    state.rackMessage.success = false;
   },
   setRackDeleted(state, rackDeleted) {
     state.rackDeleted = rackDeleted;

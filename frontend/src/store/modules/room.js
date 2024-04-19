@@ -25,10 +25,6 @@ const state = {
     updatedBy: '',
     updatedAt: '',
   },
-  roomMessage: {
-    text: '',
-    success: false,
-  },
   roomLocation: {
     buildingName: '',
     siteName: '',
@@ -42,9 +38,6 @@ const state = {
 const getters = {
   room: (state) => {
     return state.room;
-  },
-  roomMessage: (state) => {
-    return state.roomMessage;
   },
   roomLocation: (state) => {
     return state.roomLocation;
@@ -80,13 +73,13 @@ const actions = {
   async deleteRoom({ commit }, id) {
     const response = await deleteObject('room', id);
     if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: `Room ${id} deleted successfully`,
         success: true,
       });
       commit('setRoomDeleted', true);
     } else {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -106,13 +99,13 @@ const actions = {
    * Submit add form
    * @param {commit} commit
    * @param {Object} form form
-   * @param {Number} siteId Building id
+   * @param {Number} buildingId Building id
    * @returns {Promise<void>}
    */
   async submitRoomFormForCreate({ commit }, { form, buildingId }) {
     // If form not valid
     if (form.$errors) {
-      commit('setRoomMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -131,13 +124,13 @@ const actions = {
     };
     const response = await postObject('room', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: `Room ${response.data.data.name} added successfully`,
         success: true,
       });
       commit('setRoomDefaults');
     } else {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -153,7 +146,7 @@ const actions = {
   async submitRoomFormForUpdate({ commit }, { form, id }) {
     // If form not valid
     if (form.$errors) {
-      commit('setRoomMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -171,12 +164,12 @@ const actions = {
     };
     const response = await putObject('room', id, formData);
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: `Room ${response.data.data.name} updated successfully`,
         success: true,
       });
     } else {
-      commit('setRoomMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -200,10 +193,6 @@ const mutations = {
     state.room.updatedBy = room.updated_by;
     state.room.updatedAt = room.updated_at;
   },
-  setRoomMessage(state, roomMessage) {
-    state.roomMessage.text = roomMessage.text;
-    state.roomMessage.success = roomMessage.success;
-  },
   setRoomLocation(state, roomLocation) {
     state.roomLocation.buildingName = roomLocation.building_name;
     state.roomLocation.siteName = roomLocation.site_name;
@@ -221,10 +210,6 @@ const mutations = {
     state.room.hasRaisedFloor = false;
     state.room.name = '';
     state.room.description = '';
-  },
-  setRoomMessageDefaults(state) {
-    state.roomMessage.text = '';
-    state.roomMessage.success = false;
   },
   setRoomDeleted(state, roomDeleted) {
     state.roomDeleted = roomDeleted;

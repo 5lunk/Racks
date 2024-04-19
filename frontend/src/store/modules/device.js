@@ -42,11 +42,6 @@ const state = {
     fixedAsset: '',
     rackId: null,
   },
-  devicesForRack: [],
-  deviceMessage: {
-    text: '',
-    success: false,
-  },
   deviceLocation: {
     rackName: '',
     roomName: '',
@@ -63,6 +58,7 @@ const state = {
     itemType: '',
     items: [],
   },
+  devicesForRack: [],
   deviceDeleted: false,
   noSuchDevice: false,
 };
@@ -70,9 +66,6 @@ const state = {
 const getters = {
   device: state => {
     return state.device;
-  },
-  deviceMessage: state => {
-    return state.deviceMessage;
   },
   deviceLocation: state => {
     return state.deviceLocation;
@@ -131,13 +124,13 @@ const actions = {
   async deleteDevice({commit}, id) {
     const response = await deleteObject('device', id);
     if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-      commit('setDeviceMessage', {
+      commit('setMessage', {
         text: `Device ${id} deleted successfully`,
         success: true,
       });
       commit('setDeviceDeleted', true);
     } else {
-      commit('setDeviceMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       })
@@ -199,14 +192,13 @@ const actions = {
     };
     const response = await postObject('device', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      const deviceMessage = {
+      commit('setMessage', {
         text: `Device ${response.data.data.vendor} ${response.data.data.model} added successfully`,
         success: true,
-      };
-      commit('setDeviceMessage', deviceMessage);
+      });
       commit('setDeviceDefaults');
     } else {
-      commit('setDeviceMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -222,7 +214,7 @@ const actions = {
   async submitDeviceFormForUpdate({commit}, {form, id}) {
     // If form not valid
     if (form.$errors) {
-      commit('setDeviceMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -259,12 +251,12 @@ const actions = {
       formData,
     );
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      commit('setDeviceMessage', {
+      commit('setMessage', {
         text: `Device ${response.data.data.vendor} ${response.data.data.model} updated successfully`,
         success: true,
       });
     } else {
-      commit('setDeviceMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -324,10 +316,6 @@ const mutations = {
     state.device.updatedBy = device.updated_by;
     state.device.updatedAt = device.updated_at;
   },
-  setDeviceMessage(state, deviceMessage) {
-    state.deviceMessage.text = deviceMessage.text;
-    state.deviceMessage.success = deviceMessage.success;
-  },
   setDeviceLocation(state, deviceLocation) {
     state.deviceLocation.rackName = deviceLocation.rack_name;
     state.deviceLocation.roomName = deviceLocation.room_name;
@@ -370,10 +358,6 @@ const mutations = {
     state.device.financiallyResponsiblePerson = '';
     state.device.inventoryNumber = '';
     state.device.fixedAsset = '';
-  },
-  setDeviceMessageDefaults(state) {
-    state.deviceMessage.text = '';
-    state.deviceMessage.success = false;
   },
   setDevicesForRack(state, devicesForRack) {
     state.devicesForRack = devicesForRack;

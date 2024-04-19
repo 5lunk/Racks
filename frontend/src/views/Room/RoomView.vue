@@ -1,11 +1,6 @@
 <template>
   <div class="min-h-screen">
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-    >
-      <TheMessage :message="roomMessage" />
-    </div>
-    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
       <div :class="frameShadowStyle">
@@ -131,8 +126,8 @@ export default {
     roomLocation() {
       return this.$store.getters.roomLocation;
     },
-    roomMessage() {
-      return this.$store.getters.roomMessage;
+    message() {
+      return this.$store.getters.message;
     },
     roomDeleted() {
       return this.$store.getters.roomDeleted;
@@ -144,7 +139,7 @@ export default {
   watch: {
     roomDeleted(deleted) {
       if (deleted) {
-        alert(this.roomMessage.text);
+        alert(this.message.text);
         this.$router.push({ name: 'TreeView' });
       }
     },

@@ -1,19 +1,11 @@
 <template>
   <div class="min-h-screen">
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-    >
-      <TheMessage :message="deviceMessage" />
-    </div>
-    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
       <div :class="frameShadowStyle">
         Device №{{ device.id }}
-        <router-link
-          :to="{ path: `/device/${device.id}/update` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/device/${device.id}/update` }">
           <button id="e2e_device_edit" :class="optionButtonDarkStyle">
             Edit
           </button>
@@ -67,11 +59,7 @@
           </template>
           <br />
           Installed in:
-          <a
-            class="text-slate-500"
-            v-bind:href="`/rack/${device.rackId}`"
-            target="_blank"
-          >
+          <a class="text-slate-500" v-bind:href="`/rack/${device.rackId}`">
             <text class="text-blue-300"> &#9873; </text>
             Rack №{{ device.rackId }}
           </a>
@@ -153,11 +141,7 @@
             <br />
             <template v-if="device.stack">
               Stack/Reserve (reserve ID):
-              <a
-                class="text-slate-500"
-                v-bind:href="`/device/${device.stack}`"
-                target="_blank"
-              >
+              <a class="text-slate-500" v-bind:href="`/device/${device.stack}`">
                 <text class="text-blue-300"> &#9873; </text>
                 Device №{{ device.stack }}
               </a>
@@ -249,8 +233,8 @@ export default {
     deviceLocation() {
       return this.$store.getters.deviceLocation;
     },
-    deviceMessage() {
-      return this.$store.getters.deviceMessage;
+    message() {
+      return this.$store.getters.message;
     },
     noSuchDevice() {
       return this.$store.getters.noSuchDevice;
@@ -262,7 +246,7 @@ export default {
   watch: {
     deviceDeleted(deleted) {
       if (deleted) {
-        alert(this.deviceMessage.text);
+        alert(this.message.text);
         this.$router.push({
           name: 'UnitsView',
           params: { id: this.device.rackId },

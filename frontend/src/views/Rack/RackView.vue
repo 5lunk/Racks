@@ -1,11 +1,6 @@
 <template>
   <div class="min-h-screen">
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-    >
-      <TheMessage :message="rackMessage" />
-    </div>
-    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
       <div :class="frameShadowStyle">
@@ -245,8 +240,8 @@ export default {
     rackLocation() {
       return this.$store.getters.rackLocation;
     },
-    rackMessage() {
-      return this.$store.getters.rackMessage;
+    message() {
+      return this.$store.getters.message;
     },
     rackDeleted() {
       return this.$store.getters.rackDeleted;
@@ -258,7 +253,7 @@ export default {
   watch: {
     rackDeleted(deleted) {
       if (deleted) {
-        alert(this.rackMessage.text);
+        alert(this.message.text);
         this.$router.push({ name: 'TreeView' });
       }
     },

@@ -17,10 +17,6 @@ const state = {
     updatedBy: '',
     updatedAt: '',
   },
-  buildingMessage: {
-    text: '',
-    success: false,
-  },
   buildingLocation: {
     siteName: '',
     departmentName: '',
@@ -33,9 +29,6 @@ const state = {
 const getters = {
   building: (state) => {
     return state.building;
-  },
-  buildingMessage: (state) => {
-    return state.buildingMessage;
   },
   buildingLocation: (state) => {
     return state.buildingLocation;
@@ -71,13 +64,13 @@ const actions = {
   async deleteBuilding({ commit }, id) {
       const response = await deleteObject('building', id);
       if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-        commit('setBuildingMessage', {
+        commit('setMessage', {
           text: `Building ${id} deleted successfully`,
           success: true,
         });
         commit('setBuildingDeleted', true);
       } else {
-        commit('setBuildingMessage', {
+        commit('setMessage', {
           text: getResponseMessage(response),
           success: false,
         });
@@ -103,7 +96,7 @@ const actions = {
   async submitBuildingFormForCreate({ commit }, { form, siteId }) {
     // If form not valid
     if (form.$errors) {
-      commit('setBuildingMessageDefaults');
+      commit('setDefaults');
       return;
     }
     // If form valid
@@ -114,13 +107,13 @@ const actions = {
     };
     const response = await postObject('building', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      commit('setBuildingMessage', {
+      commit('setMessage', {
         text: `Building ${response.data.data.name} added successfully`,
         success: true,
       });
       commit('setBuildingDefaults');
     } else {
-      commit('setBuildingMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -136,7 +129,7 @@ const actions = {
   async submitBuildingFormForUpdate({ commit }, { form, id }) {
     // If form not valid
     if (form.$errors) {
-      commit('setBuildingMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -146,12 +139,12 @@ const actions = {
     };
     const response = await putObject('building', id, formData);
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      commit('setBuildingMessage', {
+      commit('setMessage', {
         text: `Building ${response.data.data.name} updated successfully`,
         success: true,
       });
     } else {
-      commit('setBuildingMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -167,10 +160,6 @@ const mutations = {
     state.building.updatedBy = building.updated_by;
     state.building.updatedAt = building.updated_at;
   },
-  setBuildingMessage(state, buildingMessage) {
-    state.buildingMessage.text = buildingMessage.text;
-    state.buildingMessage.success = buildingMessage.success;
-  },
   setBuildingLocation(state, buildingLocation) {
     state.buildingLocation.siteName = buildingLocation.site_name;
     state.buildingLocation.departmentName = buildingLocation.department_name;
@@ -180,10 +169,6 @@ const mutations = {
     state.building.name = '';
     state.building.description = '';
   },
-  setBuildingMessageDefaults(state) {
-    state.buildingMessage.text = '';
-    state.buildingMessage.success = false;
-  },
   setBuildingDeleted(state, buildingDeleted) {
     state.buildingDeleted = buildingDeleted;
   },
@@ -191,6 +176,7 @@ const mutations = {
     state.noSuchBuilding = noSuchBuilding;
   }
 };
+
 export default {
   state, mutations, actions, getters
 }

@@ -53,7 +53,6 @@
 
 <script>
 import RackSideItem from '@/components/Rack/RackSideItem.vue';
-import { UNITS_REFRESH_TIME } from '@/constants';
 import {
   getDevicesForSide,
   getFirstUnits,
@@ -82,9 +81,6 @@ export default {
   created() {
     this.$store.dispatch('getRack', this.$route.params.id);
     this.$store.dispatch('getDevicesForRack', this.$route.params.id);
-    setInterval(() => {
-      this.$store.dispatch('getDevicesForRack', this.$route.params.id);
-    }, UNITS_REFRESH_TIME);
   },
   computed: {
     /**

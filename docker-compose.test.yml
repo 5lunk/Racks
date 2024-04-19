@@ -128,7 +128,7 @@ services:
       - test
 
   selenium:
-    image: selenium/node-firefox:124.0
+    image: selenium/node-firefox:dev
     shm_size: ${SHM_SIZE}
     environment:
       - SE_EVENT_BUS_HOST=hub

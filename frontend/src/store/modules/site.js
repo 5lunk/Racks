@@ -17,10 +17,6 @@ const state = {
     updatedBy: '',
     updatedAt: '',
   },
-  siteMessage: {
-    text: '',
-    success: false,
-  },
   siteLocation: {
     departmentName: '',
     regionName: '',
@@ -32,9 +28,6 @@ const state = {
 const getters = {
   site: (state) => {
     return state.site;
-  },
-  siteMessage: (state) => {
-    return state.siteMessage;
   },
   siteLocation: (state) => {
     return state.siteLocation;

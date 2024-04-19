@@ -1,11 +1,6 @@
 <template>
   <div class="min-h-screen">
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-    >
-      <TheMessage :message="siteMessage" />
-    </div>
-    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
       <div :class="frameShadowStyle">
@@ -81,8 +76,8 @@ export default {
     siteLocation() {
       return this.$store.getters.siteLocation;
     },
-    siteMessage() {
-      return this.$store.getters.siteMessage;
+    message() {
+      return this.$store.getters.message;
     },
     siteDeleted() {
       return this.$store.getters.siteDeleted;
@@ -94,7 +89,7 @@ export default {
   watch: {
     siteDeleted(deleted) {
       if (deleted) {
-        alert(this.siteMessage.text);
+        alert(this.message.text);
         this.$router.push({ name: 'TreeView' });
       }
     },

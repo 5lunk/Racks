@@ -23,5 +23,8 @@ export default {
       success: Boolean,
     },
   },
+  mounted() {
+    this.$store.commit('setMessageDefaults');
+  }
 };
 </script>

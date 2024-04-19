@@ -6,9 +6,11 @@ import auth from '@/store/modules/auth';
 import tree from '@/store/modules/tree';
 import room from '@/store/modules/room';
 import site from '@/store/modules/site';
+import message from '@/store/modules/message';
 
 export default createStore({
   modules: {
+    message,
     building,
     rack,
     device,

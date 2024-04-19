@@ -3,7 +3,7 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :message="rackMessage" />
+      <TheMessage :message="message" />
     </div>
     <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-sm font-light"
@@ -30,8 +30,8 @@ export default {
     form() {
       return this.$store.getters.rack;
     },
-    rackMessage() {
-      return this.$store.getters.rackMessage;
+    message() {
+      return this.$store.getters.message;
     },
   },
   methods: {
