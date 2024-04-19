@@ -120,12 +120,14 @@ class FormPage:
         Use first unit textbox
         """
         return self.driver.find_element_by_id(self.first_unit_textbox_id)
+        #return self.wait.until(EC.visibility_of_element_located((By.ID, self.first_unit_textbox_id)))
 
     def use_last_unit_textbox(self):
         """
         Use last unit textbox
         """
         return self.driver.find_element_by_id(self.last_unit_textbox_id)
+        #return self.wait.until(EC.visibility_of_element_located((By.ID, self.last_unit_textbox_id)))
 
     def click_submit(self):
         """
