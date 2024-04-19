@@ -8,7 +8,6 @@ import {
   putObject,
 } from '@/api';
 import { RESPONSE_STATUS } from '@/constants';
-import router from '@/router';
 
 const state = {
   building: {
@@ -18,26 +17,34 @@ const state = {
     updatedBy: '',
     updatedAt: '',
   },
-  message: {
+  buildingMessage: {
     text: '',
     success: false,
   },
-  location: {
+  buildingLocation: {
     siteName: '',
     departmentName: '',
     regionName: '',
   },
+  buildingDeleted: false,
+  noSuchBuilding: false,
 };
 
 const getters = {
-  building: state => {
+  building: (state) => {
     return state.building;
   },
-  message: state => {
-    return state.message;
+  buildingMessage: (state) => {
+    return state.buildingMessage;
   },
-  location: state => {
-    return state.location;
+  buildingLocation: (state) => {
+    return state.buildingLocation;
+  },
+  buildingDeleted: (state) => {
+    return state.buildingDeleted;
+  },
+  noSuchBuilding: (state) => {
+    return state.noSuchBuilding;
   }
 };
 
@@ -47,13 +54,13 @@ const actions = {
    * @param {commit} commit
    * @param {Number} id Building id
    */
-  async getBuilding({commit}, id) {
+  async getBuilding({ commit }, id) {
     const response = await getObject('building', id);
     logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
     if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-      await router.push({ name: 'PageNotFoundView' });
+      commit('setNoSuchBuilding', true)
     }
-    commit('setBuilding', response.data.data)
+    commit('setBuilding', response.data.data);
   },
   /**
    * Delete building
@@ -61,39 +68,30 @@ const actions = {
    * @param {Number} id Building id
    * @param {String} name Building name
    */
-  async deleteBuilding({commit}, {id, name}) {
-    if (
-      confirm(
-        `Do you really want to delete building ${name} and all related items?`,
-      )
-    ) {
+  async deleteBuilding({ commit }, id) {
       const response = await deleteObject('building', id);
       if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-        const message = {
+        commit('setBuildingMessage', {
           text: `Building ${id} deleted successfully`,
           success: true,
-        };
-        commit('setMessage', message);
-        alert(message.text);
-        await router.push({ name: 'TreeView' });
+        });
+        commit('setBuildingDeleted', true);
       } else {
-        const message = {
+        commit('setBuildingMessage', {
           text: getResponseMessage(response),
           success: false,
-        };
-        commit('setMessage', message);
+        });
       }
-    }
   },
   /**
    * Fetch and set building location
    * @param {commit} commit
    * @param {Number} id Building id
    */
-  async getBuildingLocation({commit}, id) {
+  async getBuildingLocation({ commit }, id) {
     const response = await getObjectLocation('building', id);
     logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-    commit('setLocation', response.data.data);
+    commit('setBuildingLocation', response.data.data);
   },
   /**
    * Submit add form
@@ -102,10 +100,10 @@ const actions = {
    * @param {Number} siteId Site id
    * @returns {Promise<void>}
    */
-  async submitFormForCreate({commit}, {form, siteId}) {
+  async submitBuildingFormForCreate({ commit }, { form, siteId }) {
     // If form not valid
     if (form.$errors) {
-      commit('setMessageDefaults');
+      commit('setBuildingMessageDefaults');
       return;
     }
     // If form valid
@@ -116,20 +114,17 @@ const actions = {
     };
     const response = await postObject('building', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      const message = {
+      commit('setBuildingMessage', {
         text: `Building ${response.data.data.name} added successfully`,
         success: true,
-      };
-      commit('setMessage', message);
+      });
       commit('setBuildingDefaults');
     } else {
-      const message = {
+      commit('setBuildingMessage', {
         text: getResponseMessage(response),
         success: false,
-      };
-      commit('setMessage', message);
+      });
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   },
   /**
    * Submit update form
@@ -138,10 +133,10 @@ const actions = {
    * @param {Number} id Building id
    * @returns {Promise<void>}
    */
-  async submitFormForUpdate({commit}, {form, id}) {
+  async submitBuildingFormForUpdate({ commit }, { form, id }) {
     // If form not valid
     if (form.$errors) {
-      commit('setMessageDefaults');
+      commit('setBuildingMessageDefaults');
       return;
     }
     // If form valid
@@ -149,25 +144,18 @@ const actions = {
       name: form.name,
       description: form.description,
     };
-    const response = await putObject(
-      'building',
-      id,
-      formData,
-    );
+    const response = await putObject('building', id, formData);
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      const message = {
+      commit('setBuildingMessage', {
         text: `Building ${response.data.data.name} updated successfully`,
         success: true,
-      };
-      commit('setMessage', message);
+      });
     } else {
-      const message = {
+      commit('setBuildingMessage', {
         text: getResponseMessage(response),
         success: false,
-      };
-      commit('setMessage', message);
+      });
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 };
 
@@ -179,26 +167,30 @@ const mutations = {
     state.building.updatedBy = building.updated_by;
     state.building.updatedAt = building.updated_at;
   },
-  setMessage(state, message) {
-    state.message.text = message.text;
-    state.message.success = message.success;
+  setBuildingMessage(state, buildingMessage) {
+    state.buildingMessage.text = buildingMessage.text;
+    state.buildingMessage.success = buildingMessage.success;
   },
-  setLocation(state, location) {
-    state.location = location;
-    state.location.siteName = location.site_name;
-    state.location.departmentName = location.department_name;
-    state.location.regionName = location.region_name;
+  setBuildingLocation(state, buildingLocation) {
+    state.buildingLocation.siteName = buildingLocation.site_name;
+    state.buildingLocation.departmentName = buildingLocation.department_name;
+    state.buildingLocation.regionName = buildingLocation.region_name;
   },
   setBuildingDefaults(state) {
     state.building.name = '';
     state.building.description = '';
   },
-  setMessageDefaults(state) {
-    state.message.text = '';
-    state.message.success = false;
+  setBuildingMessageDefaults(state) {
+    state.buildingMessage.text = '';
+    state.buildingMessage.success = false;
+  },
+  setBuildingDeleted(state, buildingDeleted) {
+    state.buildingDeleted = buildingDeleted;
+  },
+  setNoSuchBuilding(state, noSuchBuilding) {
+    state.noSuchBuilding = noSuchBuilding;
   }
 };
-
 export default {
   state, mutations, actions, getters
 }

@@ -3,10 +3,10 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :message="message" />
+      <TheMessage :message="buildingMessage" />
     </div>
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-sm font-light"
     >
       <BuildingForm :form="form" v-on:on-submit="submitForm" />
     </div>
@@ -27,8 +27,8 @@ export default {
     form() {
       return this.$store.getters.building;
     },
-    message() {
-      return this.$store.getters.message;
+    buildingMessage() {
+      return this.$store.getters.buildingMessage;
     },
   },
   methods: {
@@ -37,10 +37,11 @@ export default {
      * @param {Object} form Building form
      */
     submitForm(form) {
-      this.$store.dispatch('submitFormForCreate', {
+      this.$store.dispatch('submitBuildingFormForCreate', {
         form: form,
         siteId: this.$route.params.site_id,
       });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 };

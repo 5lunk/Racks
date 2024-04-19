@@ -1,34 +1,29 @@
 <template>
   <div class="min-h-screen">
     <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
+    >
+      <TheMessage :message="buildingMessage" />
+    </div>
+    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
-      <div
-        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-      >
-        <TheMessage :message="message" />
-      </div>
       <div :class="frameShadowStyle">
         Building №{{ building.id }}
-        <router-link
-          :to="{ path: `/building/${building.id}/update` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/building/${building.id}/update` }">
           <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click.prevent="
-            $store.dispatch('deleteBuilding', building.id, building.name)
-          "
+          v-on:click.prevent="deleteBuilding"
         >
           Delete
         </button>
         <br />
         <div class="pb-2 text-xs text-slate-500">
-          {{ location.regionName }} &#9002;
-          {{ location.departmentName }} &#9002;
-          {{ location.siteName }}
+          {{ buildingLocation.regionName }} &#9002;
+          {{ buildingLocation.departmentName }} &#9002;
+          {{ buildingLocation.siteName }}
         </div>
         <div class="text-xs">
           Updated by:
@@ -87,11 +82,41 @@ export default {
     building() {
       return this.$store.getters.building;
     },
-    location() {
-      return this.$store.getters.location;
+    buildingLocation() {
+      return this.$store.getters.buildingLocation;
     },
-    message() {
-      return this.$store.getters.message;
+    buildingMessage() {
+      return this.$store.getters.buildingMessage;
+    },
+    buildingDeleted() {
+      return this.$store.getters.buildingDeleted;
+    },
+    noSuchBuilding() {
+      return this.$store.getters.noSuchBuilding;
+    },
+  },
+  watch: {
+    buildingDeleted(deleted) {
+      if (deleted) {
+        alert(this.buildingMessage.text);
+        this.$router.push({ name: 'TreeView' });
+      }
+    },
+    noSuchBuilding(notFound) {
+      if (notFound) {
+        this.$router.push({ name: 'PageNotFoundView' });
+      }
+    },
+  },
+  methods: {
+    deleteBuilding() {
+      if (
+        confirm(
+          `Do you really want to delete building ${this.building.name} and all related items?`,
+        )
+      ) {
+        this.$store.dispatch('deleteBuilding', this.building.id);
+      }
     },
   },
 };
