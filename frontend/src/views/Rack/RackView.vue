@@ -1,29 +1,27 @@
 <template>
   <div class="min-h-screen">
     <div
+      class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
+    >
+      <TheMessage :message="rackMessage" />
+    </div>
+    <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
-      <div
-        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-      >
-        <TheMessage :message="message" />
-      </div>
       <div :class="frameShadowStyle">
         Rack №{{ rack.id }}
-        <router-link :to="{ path: `/rack/${rack.id}/update` }" target="_blank">
+        <router-link :to="{ path: `/rack/${rack.id}/update` }">
           <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
-        <button
-          :class="optionButtonLightStyle"
-          v-on:click.prevent="deleteRack(rack.id, rack.name)"
-        >
+        <button :class="optionButtonLightStyle" v-on:click.prevent="deleteRack">
           Delete
         </button>
         <br />
         <div class="pb-2 text-xs text-slate-500">
-          {{ location.regionName }} &#9002;
-          {{ location.departmentName }} &#9002; {{ location.siteName }} &#9002;
-          {{ location.buildingName }} &#9002; {{ location.roomName }}
+          {{ rackLocation.regionName }} &#9002;
+          {{ rackLocation.departmentName }} &#9002;
+          {{ rackLocation.siteName }} &#9002;
+          {{ rackLocation.buildingName }} &#9002; {{ rackLocation.roomName }}
         </div>
         <div class="text-xs">
           Updated by:
@@ -217,14 +215,6 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import { RESPONSE_STATUS } from '@/constants';
-import {
-  deleteObject,
-  getObject,
-  getObjectLocation,
-  getResponseMessage,
-  logIfNotStatus,
-} from '@/api';
 import {
   frameShadowStyle,
   optionButtonDarkStyle,
@@ -238,49 +228,6 @@ export default {
   },
   data() {
     return {
-      rack: {
-        id: this.$route.params.id,
-        name: '',
-        amount: null,
-        vendor: '',
-        model: '',
-        description: '',
-        hasNumberingFromTopToBottom: true,
-        responsible: '',
-        financiallyResponsiblePerson: '',
-        inventoryNumber: '',
-        fixedAsset: '',
-        linkToDocs: '',
-        row: '',
-        place: '',
-        height: null,
-        width: null,
-        depth: null,
-        unitWidth: null,
-        unitDepth: null,
-        type: 'Rack',
-        frame: 'Double frame',
-        placeType: 'Floor standing',
-        maxLoad: null,
-        powerSockets: null,
-        powerSocketsUps: null,
-        hasExternalUps: false,
-        hasCooler: false,
-        totalPowerW: null,
-        updatedBy: '',
-        updatedAt: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-      location: {
-        roomName: '',
-        buildingName: '',
-        siteName: '',
-        departmentName: '',
-        regionName: '',
-      },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
@@ -288,86 +235,48 @@ export default {
     };
   },
   created() {
-    this.setRack();
-    this.setRackLocation();
+    this.$store.dispatch('getRack', this.$route.params.id);
+    this.$store.dispatch('getRackLocation', this.$route.params.id);
   },
-  methods: {
-    /**
-     * Fetch and set rack data
-     */
-    async setRack() {
-      const response = await getObject('rack', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
+  computed: {
+    rack() {
+      return this.$store.getters.rack;
+    },
+    rackLocation() {
+      return this.$store.getters.rackLocation;
+    },
+    rackMessage() {
+      return this.$store.getters.rackMessage;
+    },
+    rackDeleted() {
+      return this.$store.getters.rackDeleted;
+    },
+    noSuchRack() {
+      return this.$store.getters.noSuchRack;
+    },
+  },
+  watch: {
+    rackDeleted(deleted) {
+      if (deleted) {
+        alert(this.rackMessage.text);
+        this.$router.push({ name: 'TreeView' });
+      }
+    },
+    noSuchRack(notFound) {
+      if (notFound) {
         this.$router.push({ name: 'PageNotFoundView' });
       }
-      const rack = response.data.data;
-      this.rack.name = rack.name;
-      this.rack.amount = rack.amount;
-      this.rack.vendor = rack.vendor;
-      this.rack.model = rack.model;
-      this.rack.description = rack.description;
-      this.rack.hasNumberingFromTopToBottom =
-        rack.has_numbering_from_top_to_bottom;
-      this.rack.responsible = rack.responsible;
-      this.rack.financiallyResponsiblePerson =
-        rack.financially_responsible_person;
-      this.rack.inventoryNumber = rack.inventory_number;
-      this.rack.fixedAsset = rack.fixed_asset;
-      this.rack.linkToDocs = rack.link_to_docs;
-      this.rack.row = rack.row;
-      this.rack.place = rack.place;
-      this.rack.height = rack.height;
-      this.rack.width = rack.width;
-      this.rack.depth = rack.depth;
-      this.rack.unitWidth = rack.unit_width;
-      this.rack.unitDepth = rack.unit_depth;
-      this.rack.type = rack.type;
-      this.rack.frame = rack.frame;
-      this.rack.placeType = rack.place_type;
-      this.rack.maxLoad = rack.max_load;
-      this.rack.powerSockets = rack.power_sockets;
-      this.rack.powerSocketsUps = rack.power_sockets_ups;
-      this.rack.hasExternalUps = rack.has_external_ups;
-      this.rack.hasCooler = rack.has_cooler;
-      this.rack.updatedBy = rack.updated_by;
-      this.rack.updatedAt = rack.updated_at;
     },
-    /**
-     * Delete rack
-     * @param {Number} id Rack id
-     * @param {String} name Rack name
-     */
-    async deleteRack(id, name) {
+  },
+  methods: {
+    deleteRack() {
       if (
         confirm(
-          `Do you really want to delete rack ${name} and all related items?`,
+          `Do you really want to delete rack ${this.rack.name} and all related items?`,
         )
       ) {
-        const response = await deleteObject('rack', this.$route.params.id);
-        if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.message.success = true;
-          this.message.text = `Rack ${id} deleted successfully`;
-          alert(this.message.text);
-          this.$router.push({ name: 'TreeView' });
-        } else {
-          this.message.success = false;
-          this.message.text = getResponseMessage(response);
-        }
+        this.$store.dispatch('deleteRack', this.rack.id);
       }
-    },
-    /**
-     * Fetch and set rack location
-     */
-    async setRackLocation() {
-      const response = await getObjectLocation('rack', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      const location = response.data.data;
-      this.location.roomName = location.room_name;
-      this.location.buildingName = location.building_name;
-      this.location.siteName = location.site_name;
-      this.location.departmentName = location.department_name;
-      this.location.regionName = location.region_name;
     },
   },
 };
