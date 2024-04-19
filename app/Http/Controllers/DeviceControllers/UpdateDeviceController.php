@@ -29,7 +29,6 @@ class UpdateDeviceController extends Controller
     public function __construct(
         private readonly UpdateDeviceInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

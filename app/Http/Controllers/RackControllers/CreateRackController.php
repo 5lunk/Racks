@@ -29,7 +29,6 @@ class CreateRackController extends Controller
     public function __construct(
         private readonly CreateRackInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

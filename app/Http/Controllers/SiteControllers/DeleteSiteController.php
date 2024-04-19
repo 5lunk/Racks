@@ -29,7 +29,6 @@ class DeleteSiteController extends Controller
     public function __construct(
         private readonly DeleteSiteInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

@@ -29,7 +29,6 @@ class GetBuildingController extends Controller
     public function __construct(
         private readonly GetBuildingInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

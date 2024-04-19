@@ -24,7 +24,6 @@ class GetAllUsersController extends Controller
     public function __construct(
         private readonly UserRepository $userRepository
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

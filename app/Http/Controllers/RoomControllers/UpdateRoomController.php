@@ -29,7 +29,6 @@ class UpdateRoomController extends Controller
     public function __construct(
         private readonly UpdateRoomInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

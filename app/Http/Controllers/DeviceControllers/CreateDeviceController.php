@@ -29,7 +29,6 @@ class CreateDeviceController extends Controller
     public function __construct(
         private readonly CreateDeviceInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

@@ -27,7 +27,6 @@ class GetRackDevicesController extends Controller
     public function __construct(
         private readonly DeviceRepository $deviceRepository,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

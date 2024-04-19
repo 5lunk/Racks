@@ -29,7 +29,6 @@ class GetRegionController extends Controller
     public function __construct(
         private readonly GetRegionInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

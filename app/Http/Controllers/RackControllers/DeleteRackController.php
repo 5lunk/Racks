@@ -29,7 +29,6 @@ class DeleteRackController extends Controller
     public function __construct(
         private readonly DeleteRackInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

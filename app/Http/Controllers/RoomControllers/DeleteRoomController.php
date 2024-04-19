@@ -29,7 +29,6 @@ class DeleteRoomController extends Controller
     public function __construct(
         private readonly DeleteRoomInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

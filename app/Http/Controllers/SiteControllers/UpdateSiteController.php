@@ -29,7 +29,6 @@ class UpdateSiteController extends Controller
     public function __construct(
         private readonly UpdateSiteInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

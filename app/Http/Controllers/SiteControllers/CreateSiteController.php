@@ -29,7 +29,6 @@ class CreateSiteController extends Controller
     public function __construct(
         private readonly CreateSiteInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

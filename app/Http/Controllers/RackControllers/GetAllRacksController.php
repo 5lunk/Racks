@@ -27,7 +27,6 @@ class GetAllRacksController extends Controller
     public function __construct(
         private readonly RackRepository $rackRepository
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

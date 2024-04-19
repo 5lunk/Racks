@@ -27,7 +27,7 @@ class GetTreeViewController extends Controller
     public function __construct(
         private readonly RegionRepository $regionRepository,
     ) {
-        $this->middleware('auth:api');
+        //$this->middleware('auth:api');
     }
 
     /**

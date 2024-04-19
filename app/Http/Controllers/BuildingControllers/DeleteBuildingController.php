@@ -29,7 +29,6 @@ class DeleteBuildingController extends Controller
     public function __construct(
         private readonly DeleteBuildingInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

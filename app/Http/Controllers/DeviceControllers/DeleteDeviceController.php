@@ -29,7 +29,6 @@ class DeleteDeviceController extends Controller
     public function __construct(
         private readonly DeleteDeviceInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

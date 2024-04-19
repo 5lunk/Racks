@@ -29,7 +29,6 @@ class GetSiteController extends Controller
     public function __construct(
         private readonly GetSiteInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

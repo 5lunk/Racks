@@ -29,7 +29,6 @@ class GetDepartmentController extends Controller
     public function __construct(
         private readonly GetDepartmentInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

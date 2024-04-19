@@ -13,16 +13,27 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::group([
     'middleware' => 'api',
+], function ($router) {
+    Route::group([
+        'prefix' => 'auth',
+    ], function ($router) {
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::post('refresh', [AuthController::class, 'refresh']);
+        Route::post('me', [AuthController::class, 'me']);
+    });
+});
+
+Route::group([
+    'middleware' => 'jwt.auth',
 ], function ($router) {
     /*
     |--------------------------------------------------------------------------
     | API v1
     |--------------------------------------------------------------------------
     */
-
     Route::group([
         'prefix' => 'v1',
     ], function ($router) {
@@ -185,11 +196,6 @@ Route::group([
             });
 
             Route::get('tree', \App\Http\Controllers\RegionControllers\GetTreeViewController::class);
-
-            Route::post('login', [AuthController::class, 'login']);
-            Route::post('logout', [AuthController::class, 'logout']);
-            Route::post('refresh', [AuthController::class, 'refresh']);
-
         });
     });
 });

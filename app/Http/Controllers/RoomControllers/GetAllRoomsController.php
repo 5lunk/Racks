@@ -27,7 +27,6 @@ class GetAllRoomsController extends Controller
     public function __construct(
         private readonly RoomRepository $roomRepository
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

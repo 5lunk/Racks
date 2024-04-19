@@ -27,7 +27,6 @@ class GetAllBuildingsController extends Controller
     public function __construct(
         private readonly BuildingRepository $buildingRepository
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

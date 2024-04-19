@@ -20,11 +20,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RacksReportController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * @param  Request  $request
      * @return BinaryFileResponse

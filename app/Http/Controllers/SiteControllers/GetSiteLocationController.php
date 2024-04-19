@@ -27,7 +27,6 @@ class GetSiteLocationController extends Controller
     public function __construct(
         private readonly SiteRepository $siteRepository,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

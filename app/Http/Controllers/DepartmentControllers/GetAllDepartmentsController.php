@@ -27,7 +27,6 @@ class GetAllDepartmentsController extends Controller
     public function __construct(
         private readonly DepartmentRepository $departmentRepository
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

@@ -29,7 +29,6 @@ class UpdateRackController extends Controller
     public function __construct(
         private readonly UpdateRackInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

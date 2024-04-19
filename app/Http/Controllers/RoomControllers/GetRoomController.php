@@ -29,7 +29,6 @@ class GetRoomController extends Controller
     public function __construct(
         private readonly GetRoomInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**

@@ -18,11 +18,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GetUserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * @param  Request  $request
      * @return JsonResponse

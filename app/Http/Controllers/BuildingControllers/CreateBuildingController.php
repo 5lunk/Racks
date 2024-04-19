@@ -29,7 +29,6 @@ class CreateBuildingController extends Controller
     public function __construct(
         private readonly CreateBuildingInputPort $interactor,
     ) {
-        $this->middleware('auth:api');
     }
 
     /**
