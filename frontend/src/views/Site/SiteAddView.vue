@@ -3,10 +3,10 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-thin"
     >
-      <TheMessage :message="message" />
+      <TheMessage :message="siteMessage" />
     </div>
     <div
-      class="container mx-auto justify-between px-4 pl-8 font-sans text-sm font-light"
+      class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-sm font-light"
     >
       <SiteForm :form="form" v-on:on-submit="submitForm" />
     </div>
@@ -16,8 +16,6 @@
 <script>
 import SiteForm from '@/components/Site/SiteForm.vue';
 import TheMessage from '@/components/TheMessage.vue';
-import { getResponseMessage, postObject } from '@/api';
-import { RESPONSE_STATUS } from '@/constants';
 
 export default {
   name: 'SiteAddView',
@@ -25,47 +23,24 @@ export default {
     SiteForm,
     TheMessage,
   },
-  data() {
-    return {
-      form: {
-        name: '',
-        description: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-    };
+  computed: {
+    form() {
+      return this.$store.getters.site;
+    },
+    siteMessage() {
+      return this.$store.getters.siteMessage;
+    },
   },
   methods: {
     /**
      * Submit site form
      * @param {Object} form Site form
      */
-    async submitForm(form) {
-      // If form not valid
-      if (form.$errors) {
-        this.message.text = '';
-        this.message.success = false;
-        return;
-      }
-      // If form valid
-      const formData = {
-        name: form.name,
-        description: form.description,
-        department_id: this.$route.params.department_id,
-      };
-      const response = await postObject('site', formData);
-      if (response.status === RESPONSE_STATUS.CREATED) {
-        this.message.success = true;
-        this.message.text = `Site ${response.data.data.name} added successfully`;
-        // Reset form
-        this.form.name = '';
-        this.form.description = '';
-      } else {
-        this.message.success = false;
-        this.message.text = getResponseMessage(response);
-      }
+    submitForm(form) {
+      this.$store.dispatch('submitSiteFormForCreate', {
+        form: form,
+        departmentId: this.$route.params.department_id,
+      });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
