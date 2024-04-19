@@ -11,7 +11,7 @@
     :class="className"
     :rowspan="rowspan"
   >
-    <router-link :to="{ path: `/device/${id}` }" target="_blank">
+    <router-link :to="{ path: `/device/${id}` }">
       <template v-if="vendor || model">
         <a>
           {{
@@ -32,7 +32,7 @@
     class="text-center"
     :rowspan="rowspan"
   >
-    <router-link :to="{ path: `/device/${id}` }" target="_blank">
+    <router-link :to="{ path: `/device/${id}` }">
       <a> №{{ id }} </a>
     </router-link>
   </td>

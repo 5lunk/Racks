@@ -17,30 +17,18 @@
 
 <script>
 import TreeItem from '@/components/TreeItem.vue';
-import { getUnique, logIfNotStatus } from '@/api';
-import { RESPONSE_STATUS } from '@/constants';
 
 export default {
   name: 'TreeView',
   components: {
     TreeItem,
   },
-  data() {
-    return {
-      regions: {},
-    };
-  },
   created() {
-    this.getTreeData();
+    this.$store.dispatch('getTree');
   },
-  methods: {
-    /**
-     * Fetch and set tree data
-     */
-    async getTreeData() {
-      const response = await getUnique('tree', 'tree');
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      this.regions = response.data.data;
+  computed: {
+    regions() {
+      return this.$store.getters.tree;
     },
   },
 };

@@ -5,18 +5,12 @@
     >
       <div :class="frameShadowStyle">
         Rack №{{ rack.id }}
-        <router-link
-          :to="{ path: `/device/create/${this.$route.params.id}` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/device/create/${this.$route.params.id}` }">
           <button id="e2e_add_device" :class="optionButtonDarkStyle">
             Add device
           </button>
         </router-link>
-        <router-link
-          :to="{ path: `/rack/${this.$route.params.id}` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/rack/${this.$route.params.id}` }">
           <button :class="optionButtonLightStyle">Info</button>
         </router-link>
         <div class="text-sm">
