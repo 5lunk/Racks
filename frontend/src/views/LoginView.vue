@@ -66,45 +66,35 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { BASE_PATH, RESPONSE_STATUS } from '@/constants';
-
 export default {
   name: 'LoginView',
   data() {
     return {
       name: '',
       password: '',
-      loginError: '',
     };
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+    loginError() {
+      return this.$store.getters.loginError;
+    },
+  },
+  watch: {
+    isAuthenticated(authenticated) {
+      if (authenticated) {
+        this.$router.push({ name: 'TreeView' });
+      }
+    },
   },
   methods: {
     /**
      * Submit form
      */
     submitForm() {
-      const formData = {
-        name: this.name,
-        password: this.password,
-      };
-      // Get and store token
-      axios
-        .post(`${BASE_PATH}/login`, formData)
-        .then((response) => {
-          const token = response.data.access_token;
-          this.$store.commit('setToken', token);
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-          localStorage.setItem('token', token);
-          this.$router.push({ name: 'TreeView' });
-        })
-        .catch((error) => {
-          if (error.response.status === RESPONSE_STATUS.UNAUTHORIZED) {
-            this.loginError = "We couldn't verify your account details";
-          } else {
-            this.loginError =
-              'Something went wrong, please refresh and try again';
-          }
-        });
+      this.$store.dispatch('logIn', { name: this.name, password: this.password });
     },
   },
 };
