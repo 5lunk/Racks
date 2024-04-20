@@ -3,30 +3,22 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
-      <div
-        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-      >
-        <TheMessage :message="message" />
-      </div>
       <div :class="frameShadowStyle">
         Building №{{ building.id }}
-        <router-link
-          :to="{ path: `/building/${building.id}/update` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/building/${building.id}/update` }">
           <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click.prevent="deleteBuilding(building.id, building.name)"
+          v-on:click.prevent="deleteBuilding"
         >
           Delete
         </button>
         <br />
         <div class="pb-2 text-xs text-slate-500">
-          {{ location.regionName }} &#9002;
-          {{ location.departmentName }} &#9002;
-          {{ location.siteName }}
+          {{ buildingLocation.regionName }} &#9002;
+          {{ buildingLocation.departmentName }} &#9002;
+          {{ buildingLocation.siteName }}
         </div>
         <div class="text-xs">
           Updated by:
@@ -59,14 +51,6 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import { RESPONSE_STATUS } from '@/constants';
-import {
-  deleteObject,
-  getObject,
-  getObjectLocation,
-  getResponseMessage,
-  logIfNotStatus,
-} from '@/api';
 import {
   frameShadowStyle,
   optionButtonDarkStyle,
@@ -80,84 +64,54 @@ export default {
   },
   data() {
     return {
-      building: {
-        id: this.$route.params.id,
-        name: '',
-        description: '',
-        updatedBy: '',
-        updatedAt: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-      location: {
-        siteName: '',
-        departmentName: '',
-        regionName: '',
-      },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
     };
   },
   created() {
-    this.setBuilding();
-    this.setBuildingLocation();
+    this.$store.dispatch('getBuilding', this.$route.params.id);
+    this.$store.dispatch('getBuildingLocation', this.$route.params.id);
   },
-  methods: {
-    /**
-     * Fetch and set building data
-     */
-    async setBuilding() {
-      const response = await getObject('building', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
+  computed: {
+    building() {
+      return this.$store.getters.building;
+    },
+    buildingLocation() {
+      return this.$store.getters.buildingLocation;
+    },
+    message() {
+      return this.$store.getters.message;
+    },
+    buildingDeleted() {
+      return this.$store.getters.buildingDeleted;
+    },
+    noSuchBuilding() {
+      return this.$store.getters.noSuchBuilding;
+    },
+  },
+  watch: {
+    buildingDeleted(deleted) {
+      if (deleted) {
+        alert(this.message.text);
+        this.$router.push({ name: 'TreeView' });
+      }
+    },
+    noSuchBuilding(notFound) {
+      if (notFound) {
         this.$router.push({ name: 'PageNotFoundView' });
       }
-      const building = response.data.data;
-      this.building.name = building.name;
-      this.building.description = building.description;
-      this.building.updatedBy = building.updated_by;
-      this.building.updatedAt = building.updated_at;
-      this.building.siteId = building.site_id;
     },
-    /**
-     * Delete building
-     * @param {Number} id Building id
-     * @param {String} name Building name
-     */
-    async deleteBuilding(id, name) {
+  },
+  methods: {
+    deleteBuilding() {
       if (
         confirm(
-          `Do you really want to delete building ${name} and all related items?`,
+          `Do you really want to delete building ${this.building.name} and all related items?`,
         )
       ) {
-        const response = await deleteObject('building', this.$route.params.id);
-        if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.message.success = true;
-          this.message.text = `Building ${id} deleted successfully`;
-          alert(this.message.text);
-          this.$router.push({ name: 'TreeView' });
-        } else {
-          this.message.success = false;
-          this.message.text = getResponseMessage(response);
-        }
+        this.$store.dispatch('deleteBuilding', this.building.id);
       }
-    },
-    /**
-     * Fetch and set building location
-     */
-    async setBuildingLocation() {
-      const response = await getObjectLocation(
-        'building',
-        this.$route.params.id,
-      );
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      const location = response.data.data;
-      this.location.siteName = location.site_name;
-      this.location.departmentName = location.department_name;
-      this.location.regionName = location.region_name;
     },
   },
 };

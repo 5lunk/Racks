@@ -5,7 +5,7 @@
     <div
       class="container mx-auto flex flex-wrap items-center justify-between px-4"
     >
-      <router-link :to="{ path: '/' }">
+      <router-link :to="{ name: 'TreeView' }">
         <img alt="Logo" class="h-16 w-32 object-fill" :src="mySVG" />
       </router-link>
       <div class="flex-grow items-center lg:flex" id="example-navbar-warning">
@@ -42,14 +42,12 @@
     >
       rooms.csv &#8681;
     </button>
-    you are logged in as <u>{{ user }}</u>
+    you are logged in as <u>{{ userName }}</u>
   </div>
 </template>
 
 <script>
-import { getUnique, logIfNotStatus } from '@/api';
-import { RESPONSE_STATUS } from '@/constants';
-import axios from 'axios';
+import api from '@/api';
 
 export default {
   name: 'TheHeader',
@@ -59,14 +57,14 @@ export default {
       user: '',
     };
   },
-  created() {
-    this.setUser();
+  computed: {
+    userName() {
+      return this.$store.getters.userName;
+    },
   },
   methods: {
     logout() {
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('user');
-      this.$router.push({ name: 'LoginView' });
+      this.$store.dispatch('logOut');
     },
     /**
      * Download report
@@ -75,7 +73,7 @@ export default {
      */
     async downloadReport(reportName, fileName) {
       alert('Download will start in a few seconds');
-      await axios({
+      await api({
         url: `${process.env.VUE_APP_AXIOS_URL}/api/${process.env.VUE_APP_API_VERSION}/auth/export/${reportName}`,
         method: 'GET',
         responseType: 'blob',
@@ -89,19 +87,6 @@ export default {
         link.click();
         link.remove();
       });
-    },
-    /**
-     * Fetch and set user
-     */
-    async setUser() {
-      if (sessionStorage.hasOwnProperty('user')) {
-        this.user = sessionStorage.getItem('user');
-        return;
-      }
-      const response = await getUnique('user', 'user');
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      this.user = response.data.data.name;
-      sessionStorage.setItem('user', this.user);
     },
   },
 };

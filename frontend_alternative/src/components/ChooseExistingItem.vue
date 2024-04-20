@@ -35,7 +35,6 @@
         </template>
       </template>
     </div>
-    <br />
   </div>
 </template>
 
@@ -66,8 +65,8 @@ export default {
     };
   },
   created() {
-    this.inputId = this.getDataFromMatch(this.itemsData.item_type, MATCH_ID);
-    this.label = this.getDataFromMatch(this.itemsData.item_type, MATCH_LABEL);
+    this.inputId = this.getDataFromMatch(this.itemsData.itemType, MATCH_ID);
+    this.label = this.getDataFromMatch(this.itemsData.itemType, MATCH_LABEL);
   },
   methods: {
     /**

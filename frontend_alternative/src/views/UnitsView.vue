@@ -53,8 +53,6 @@
 
 <script>
 import RackSideItem from '@/components/Rack/RackSideItem.vue';
-import { getObject, getObjectsForParent, logIfNotStatus } from '@/api';
-import { RESPONSE_STATUS, UNITS_REFRESH_TIME } from '@/constants';
 import {
   getDevicesForSide,
   getFirstUnits,
@@ -75,32 +73,39 @@ export default {
   data() {
     return {
       objectExist: true,
-      devices: [],
-      rack: {},
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
     };
   },
   created() {
-    this.setRack();
-    this.setDevices();
-    setInterval(() => {
-      this.setDevices();
-    }, UNITS_REFRESH_TIME);
+    this.$store.dispatch('getRack', this.$route.params.id);
+    this.$store.dispatch('getDevicesForRack', this.$route.params.id);
   },
   computed: {
+    /**
+     * Rack
+     */
+    rack() {
+      return this.$store.getters.rack;
+    },
+    /**
+     * Devices for single rack
+     */
+    devicesForRack() {
+      return this.$store.getters.devicesForRack;
+    },
     /**
      * Devices front side
      */
     devicesFront() {
-      return this.getDevicesForSide(this.devices).front;
+      return this.getDevicesForSide(this.devicesForRack).front;
     },
     /**
      * Devices back side
      */
     devicesBack() {
-      return this.getDevicesForSide(this.devices).back;
+      return this.getDevicesForSide(this.devicesForRack).back;
     },
     /**
      * Devices first units front side
@@ -140,29 +145,6 @@ export default {
     },
   },
   methods: {
-    /**
-     * Fetch and set rack data
-     */
-    async setRack() {
-      const response = await getObject('rack', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
-        this.$router.push({ name: 'PageNotFoundView' });
-      }
-      this.rack = response.data.data;
-    },
-    /**
-     * Fetch and set devices data
-     */
-    async setDevices() {
-      const response = await getObjectsForParent(
-        'devices',
-        'rack',
-        this.$route.params.id,
-      );
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      this.devices = response.data.data;
-    },
     getRowSpans: getRowSpans,
     getFirstUnits: getFirstUnits,
     getStartList: getStartList,

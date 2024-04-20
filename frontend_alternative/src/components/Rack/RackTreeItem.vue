@@ -7,7 +7,7 @@
     }"
   >
     <span>
-      <router-link :to="{ path: `/units/${id}` }" target="_blank">
+      <router-link :to="{ path: `/units/${id}` }">
         <text class="text-blue-300"> &#9873; </text>
         <a :id="getId(name, null, null)" class="group transition duration-300">
           {{ truncate(name, truncationLength.RACK) }}

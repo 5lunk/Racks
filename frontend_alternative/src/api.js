@@ -1,5 +1,30 @@
 import axios from 'axios';
+import store from '@/store';
 import { BASE_PATH, RESPONSE_STATUS } from '@/constants';
+
+const api = new axios.create({
+  baseURL: process.env.VUE_APP_AXIOS_URL,
+});
+
+const controller = new AbortController();
+
+api.interceptors.request.use( config => {
+  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  return {
+    ...config,
+    signal: controller.signal,
+  };
+});
+
+api.interceptors.response.use(response => {
+  return response;
+},  error => {
+  if (error.response.data.message === 'Token has expired') {
+    store.commit('setTokenNeedsRefresh', true);
+    controller.abort();
+  }
+  return Promise.reject(error);
+});
 
 /**
  * Log error
@@ -45,7 +70,7 @@ export function getResponseMessage(response) {
  */
 export async function getObject(objName, id) {
   try {
-    return await axios.get(`${BASE_PATH}/${objName}/${id}`);
+    return await api.get(`${BASE_PATH}/${objName}/${id}`);
   } catch (error) {
     logError(error, objName, 'get');
     return error.response;
@@ -60,7 +85,7 @@ export async function getObject(objName, id) {
  */
 export async function postObject(objName, formData) {
   try {
-    return await axios.post(`${BASE_PATH}/${objName}`, formData);
+    return await api.post(`${BASE_PATH}/${objName}`, formData);
   } catch (error) {
     logError(error, objName, 'post');
     return error.response;
@@ -73,12 +98,12 @@ export async function postObject(objName, formData) {
  * but client app sends all fields, so on this level it is called PUT)
  * @param {String} objName Object name
  * @param {Object} formData Form data
- * @param {number} id Object id
+ * @param {Number} id Object id
  * @returns {Promise} Response
  */
 export async function putObject(objName, id, formData) {
   try {
-    return await axios.patch(`${BASE_PATH}/${objName}/${id}`, formData);
+    return await api.patch(`${BASE_PATH}/${objName}/${id}`, formData);
   } catch (error) {
     logError(error, objName, 'put');
     return error.response;
@@ -93,7 +118,7 @@ export async function putObject(objName, id, formData) {
  */
 export async function deleteObject(objName, id) {
   try {
-    return await axios.delete(`${BASE_PATH}/${objName}/${id}`);
+    return await api.delete(`${BASE_PATH}/${objName}/${id}`);
   } catch (error) {
     logError(error, objName, 'delete');
     return error.response;
@@ -103,12 +128,12 @@ export async function deleteObject(objName, id) {
 /**
  * GET Object location
  * @param {String} objName Object name
- * @param {String} id Object id
+ * @param {Number} id Object id
  * @returns {Promise} Response
  */
 export async function getObjectLocation(objName, id) {
   try {
-    return await axios.get(`${BASE_PATH}/${objName}/${id}/location`);
+    return await api.get(`${BASE_PATH}/${objName}/${id}/location`);
   } catch (error) {
     logError(error, `${objName} location`, 'get');
     return error.response;
@@ -117,14 +142,14 @@ export async function getObjectLocation(objName, id) {
 
 /**
  * GET object for FK
- * @param objNamePlural Object name plural
- * @param parentName Parent object name
- * @param parenId Parent object id
+ * @param {String} objNamePlural Object name plural
+ * @param {String} parentName Parent object name
+ * @param {Number} parenId Parent object id
  * @returns {Promise} Response
  */
 export async function getObjectsForParent(objNamePlural, parentName, parenId) {
   try {
-    return await axios.get(
+    return await api.get(
       `${BASE_PATH}/${parentName}/${parenId}/${objNamePlural}`,
     );
   } catch (error) {
@@ -141,9 +166,11 @@ export async function getObjectsForParent(objNamePlural, parentName, parenId) {
  */
 export async function getUnique(objName, subPath) {
   try {
-    return await axios.get(`${BASE_PATH}/${subPath}`);
+    return await api.get(`${BASE_PATH}/${subPath}`);
   } catch (error) {
     logError(error, objName, 'get');
     return error.response;
   }
 }
+
+export default api;

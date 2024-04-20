@@ -3,27 +3,20 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
-      <div
-        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-      >
-        <TheMessage :message="message" />
-      </div>
       <div :class="frameShadowStyle">
         Room №{{ room.id }}
-        <router-link :to="{ path: `/room/${room.id}/update` }" target="_blank">
+        <router-link :to="{ path: `/room/${room.id}/update` }">
           <button :class="optionButtonDarkStyle">Edit</button>
         </router-link>
-        <button
-          :class="optionButtonLightStyle"
-          v-on:click.prevent="deleteRoom(room.id, room.name)"
-        >
+        <button :class="optionButtonLightStyle" v-on:click.prevent="deleteRoom">
           Delete
         </button>
         <br />
         <div class="pb-2 text-xs text-slate-500">
-          {{ location.regionName }} &#9002;
-          {{ location.departmentName }} &#9002; {{ location.siteName }} &#9002;
-          {{ location.buildingName }}
+          {{ roomLocation.regionName }} &#9002;
+          {{ roomLocation.departmentName }} &#9002;
+          {{ roomLocation.siteName }} &#9002;
+          {{ roomLocation.buildingName }}
         </div>
         <div class="text-xs">
           Updated by:
@@ -104,14 +97,6 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import { RESPONSE_STATUS } from '@/constants';
-import {
-  deleteObject,
-  getObject,
-  getObjectLocation,
-  getResponseMessage,
-  logIfNotStatus,
-} from '@/api';
 import {
   frameShadowStyle,
   optionButtonDarkStyle,
@@ -125,99 +110,54 @@ export default {
   },
   data() {
     return {
-      room: {
-        id: this.$route.params.id,
-        name: '',
-        buildingFloor: '',
-        description: '',
-        numberOfRackSpaces: null,
-        area: null,
-        responsible: '',
-        coolingSystem: 'Centralized',
-        fireSuppressionSystem: 'Centralized',
-        accessIsOpen: false,
-        hasRaisedFloor: false,
-        updatedBy: '',
-        updatedAt: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-      location: {
-        buildingName: '',
-        siteName: '',
-        departmentName: '',
-        regionName: '',
-      },
       optionButtonLightStyle: optionButtonLightStyle,
       optionButtonDarkStyle: optionButtonDarkStyle,
       frameShadowStyle: frameShadowStyle,
     };
   },
   created() {
-    this.setRoom();
-    this.setRoomLocation();
+    this.$store.dispatch('getRoom', this.$route.params.id);
+    this.$store.dispatch('getRoomLocation', this.$route.params.id);
   },
-  methods: {
-    /**
-     * Fetch and set room data
-     */
-    async setRoom() {
-      const response = await getObject('room', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
+  computed: {
+    room() {
+      return this.$store.getters.room;
+    },
+    roomLocation() {
+      return this.$store.getters.roomLocation;
+    },
+    message() {
+      return this.$store.getters.message;
+    },
+    roomDeleted() {
+      return this.$store.getters.roomDeleted;
+    },
+    noSuchRoom() {
+      return this.$store.getters.noSuchRoom;
+    },
+  },
+  watch: {
+    roomDeleted(deleted) {
+      if (deleted) {
+        alert(this.message.text);
+        this.$router.push({ name: 'TreeView' });
+      }
+    },
+    noSuchRoom(notFound) {
+      if (notFound) {
         this.$router.push({ name: 'PageNotFoundView' });
       }
-      const room = response.data.data;
-      this.room.name = room.name;
-      this.room.buildingFloor = room.building_floor;
-      this.room.description = room.description;
-      this.room.numberOfRackSpaces = room.number_of_rack_spaces;
-      this.room.area = room.area;
-      this.room.responsible = room.responsible;
-      this.room.coolingSystem = room.cooling_system;
-      this.room.fireSuppressionSystem = room.fire_suppression_system;
-      this.room.accessIsOpen = room.access_is_open;
-      this.room.hasRaisedFloor = room.has_raised_floor;
-      this.room.updatedBy = room.updated_by;
-      this.room.updatedAt = room.updated_at;
-      this.room.buildingId = room.building_id;
     },
-    /**
-     * Delete room
-     * @param {Number} id Room id
-     * @param {String} name Room name
-     */
-    async deleteRoom(id, name) {
+  },
+  methods: {
+    deleteRoom() {
       if (
         confirm(
-          `Do you really want to delete room ${name} and all related items?`,
+          `Do you really want to delete room ${this.room.name} and all related items?`,
         )
       ) {
-        const response = await deleteObject('room', this.$route.params.id);
-        if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.message.success = true;
-          this.message.text = `Room ${id} deleted successfully`;
-          alert(this.message.text);
-          this.$router.push({ name: 'TreeView' });
-        } else {
-          this.message.success = false;
-          this.message.text = getResponseMessage(response);
-        }
+        this.$store.dispatch('deleteRoom', this.room.id);
       }
-    },
-    /**
-     * Fetch and set room location
-     */
-    async setRoomLocation() {
-      const response = await getObjectLocation('room', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      const location = response.data.data;
-      this.location.buildingName = location.building_name;
-      this.location.siteName = location.site_name;
-      this.location.departmentName = location.department_name;
-      this.location.regionName = location.region_name;
     },
   },
 };

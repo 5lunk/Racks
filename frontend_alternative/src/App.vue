@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import TheHeader from '@/components/TheHeader.vue';
 
 export default {
@@ -16,14 +15,33 @@ export default {
   components: {
     TheHeader,
   },
-  beforeCreate() {
-    this.$store.commit('initializeStore');
-    const token = this.$store.state.token;
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    } else {
-      axios.defaults.headers.common['Authorization'] = '';
-    }
+  computed: {
+    tokenRefreshed() {
+      return this.$store.getters.tokenRefreshed;
+    },
+    loggedOut() {
+      return this.$store.getters.loggedOut;
+    },
+    tokenNeedsRefresh() {
+      return this.$store.getters.tokenNeedsRefresh;
+    },
+  },
+  watch: {
+    tokenRefreshed(refreshed) {
+      if (refreshed) {
+        this.$router.go();
+      }
+    },
+    loggedOut(out) {
+      if (out) {
+        this.$router.push({ name: 'LoginView' });
+      }
+    },
+    tokenNeedsRefresh(needs) {
+      if (needs) {
+        this.$store.dispatch('refreshToken');
+      }
+    },
   },
 };
 </script>

@@ -11,7 +11,7 @@
       <text class="px-2">
         {{ truncate(name, truncationLength.DEFAULT) }}
       </text>
-      <router-link :to="{ path: `/building/create/${id}` }" target="_blank">
+      <router-link :to="{ path: `/building/create/${id}` }">
         <button
           :id="getId(name, 'add', 'button')"
           :class="optionButtonDarkStyle"
@@ -19,7 +19,7 @@
           Add building
         </button>
       </router-link>
-      <router-link :to="{ path: `/site/${id}` }" target="_blank">
+      <router-link :to="{ path: `/site/${id}` }">
         <button :class="optionButtonLightStyle">Info</button>
       </router-link>
     </span>

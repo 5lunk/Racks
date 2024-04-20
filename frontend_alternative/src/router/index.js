@@ -128,10 +128,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
-  if (token || to.name === 'LoginView') {
-    next();
+  if (!token && to.name !== 'LoginView') {
+    return next({name: 'LoginView'})
+  }
+  if (token && to.name === 'LoginView') {
+    return next({name: 'TreeView'})
   } else {
-    next({ name: 'LoginView' });
+    return next()
   }
 });
 

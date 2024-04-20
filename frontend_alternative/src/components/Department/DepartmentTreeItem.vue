@@ -11,7 +11,7 @@
       <text class="px-2">
         {{ truncate(name, truncationLength.DEFAULT) }}
       </text>
-      <router-link :to="{ path: `/site/create/${id}` }" target="_blank">
+      <router-link :to="{ path: `/site/create/${id}` }">
         <button
           :id="getId(name, 'add', 'button')"
           type="button"

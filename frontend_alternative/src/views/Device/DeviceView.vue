@@ -3,35 +3,27 @@
     <div
       class="container mx-auto justify-between px-4 pl-8 pt-4 font-sans text-xl font-light"
     >
-      <div
-        class="container mx-auto justify-between px-4 pl-8 font-sans text-xl font-light"
-      >
-        <TheMessage :message="message" />
-      </div>
       <div :class="frameShadowStyle">
         Device №{{ device.id }}
-        <router-link
-          :to="{ path: `/device/${device.id}/update` }"
-          target="_blank"
-        >
+        <router-link :to="{ path: `/device/${device.id}/update` }">
           <button id="e2e_device_edit" :class="optionButtonDarkStyle">
             Edit
           </button>
         </router-link>
         <button
           :class="optionButtonLightStyle"
-          v-on:click.prevent="
-            deleteDevice(device.id, `${device.vendor} ${device.model}`)
-          "
+          v-on:click.prevent="deleteDevice"
         >
           Delete
         </button>
         <br />
         <div class="pb-2 text-xs text-slate-500">
-          {{ location.regionName }} &#9002;
-          {{ location.departmentName }} &#9002; {{ location.siteName }} &#9002;
-          {{ location.buildingName }} &#9002; {{ location.roomName }} &#9002;
-          {{ location.rackName }}
+          {{ deviceLocation.regionName }} &#9002;
+          {{ deviceLocation.departmentName }} &#9002;
+          {{ deviceLocation.siteName }} &#9002;
+          {{ deviceLocation.buildingName }} &#9002;
+          {{ deviceLocation.roomName }} &#9002;
+          {{ deviceLocation.rackName }}
         </div>
         <div class="text-xs">
           Updated by:
@@ -67,18 +59,14 @@
           </template>
           <br />
           Installed in:
-          <a
-            class="text-slate-500"
-            v-bind:href="`/rack/${device.rackId}`"
-            target="_blank"
-          >
+          <a class="text-slate-500" v-bind:href="`/rack/${device.rackId}`">
             <text class="text-blue-300"> &#9873; </text>
             Rack №{{ device.rackId }}
           </a>
           <br />
           Units:
           <text class="text-slate-500">
-            {{ device.units }}
+            {{ device.units.toString() }}
           </text>
           <br />
           Ownership:
@@ -153,11 +141,7 @@
             <br />
             <template v-if="device.stack">
               Stack/Reserve (reserve ID):
-              <a
-                class="text-slate-500"
-                v-bind:href="`/device/${device.stack}`"
-                target="_blank"
-              >
+              <a class="text-slate-500" v-bind:href="`/device/${device.stack}`">
                 <text class="text-blue-300"> &#9873; </text>
                 Device №{{ device.stack }}
               </a>
@@ -216,18 +200,7 @@
 
 <script>
 import TheMessage from '@/components/TheMessage.vue';
-import {
-  deleteObject,
-  getObject,
-  getObjectLocation,
-  getResponseMessage,
-  logIfNotStatus,
-} from '@/api';
-import {
-  DEVICES_WITH_OS,
-  DEVICES_WITH_PORTS,
-  RESPONSE_STATUS,
-} from '@/constants';
+import { DEVICES_WITH_OS, DEVICES_WITH_PORTS } from '@/constants';
 import {
   frameShadowStyle,
   optionButtonDarkStyle,
@@ -241,48 +214,6 @@ export default {
   },
   data() {
     return {
-      device: {
-        id: this.$route.params.id,
-        units: '',
-        hasBacksideLocation: false,
-        status: 'Device active',
-        type: 'Other',
-        vendor: '',
-        model: '',
-        hostname: '',
-        ip: null,
-        stack: null,
-        portsAmount: null,
-        softwareVersion: '',
-        powerType: 'IEC C14 socket',
-        powerW: null,
-        powerV: null,
-        powerACDC: 'AC',
-        serialNumber: '',
-        description: '',
-        project: '',
-        ownership: 'Our department',
-        responsible: '',
-        financiallyResponsiblePerson: '',
-        inventoryNumber: '',
-        fixedAsset: '',
-        link: '',
-        updatedBy: '',
-        updatedAt: '',
-        rackId: '',
-      },
-      message: {
-        text: '',
-        success: false,
-      },
-      location: {
-        rackName: '',
-        roomName: '',
-        buildingName: '',
-        siteName: '',
-        departmentName: '',
-        regionName: '',
-      },
       devicesWithPorts: DEVICES_WITH_PORTS,
       devicesWithOS: DEVICES_WITH_OS,
       optionButtonLightStyle: optionButtonLightStyle,
@@ -292,84 +223,51 @@ export default {
     };
   },
   created() {
-    this.setDevice();
-    this.setDeviceLocation();
+    this.$store.dispatch('getDevice', this.$route.params.id);
+    this.$store.dispatch('getDeviceLocation', this.$route.params.id);
   },
-  methods: {
-    /**
-     * Fetch and set device data
-     */
-    async setDevice() {
-      const response = await getObject('device', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      if (response.status === RESPONSE_STATUS.NOT_FOUND) {
+  computed: {
+    device() {
+      return this.$store.getters.device;
+    },
+    deviceLocation() {
+      return this.$store.getters.deviceLocation;
+    },
+    message() {
+      return this.$store.getters.message;
+    },
+    noSuchDevice() {
+      return this.$store.getters.noSuchDevice;
+    },
+    deviceDeleted() {
+      return this.$store.getters.deviceDeleted;
+    },
+  },
+  watch: {
+    deviceDeleted(deleted) {
+      if (deleted) {
+        alert(this.message.text);
+        this.$router.push({
+          name: 'UnitsView',
+          params: { id: this.device.rackId },
+        });
+      }
+    },
+    noSuchDevice(notFound) {
+      if (notFound) {
         this.$router.push({ name: 'PageNotFoundView' });
       }
-      const device = response.data.data;
-      this.device.units = device.units.toString();
-      this.device.hasBacksideLocation = device.has_backside_location;
-      this.device.status = device.status;
-      this.device.type = device.type;
-      this.device.vendor = device.vendor;
-      this.device.model = device.model;
-      this.device.hostname = device.hostname;
-      this.device.ip = device.ip;
-      this.device.stack = device.stack;
-      this.device.portsAmount = device.ports_amount;
-      this.device.softwareVersion = device.software_version;
-      this.device.powerType = device.power_type;
-      this.device.powerW = device.power_w;
-      this.device.powerV = device.power_v;
-      this.device.powerACDC = device.power_ac_dc;
-      this.device.serialNumber = device.serial_number;
-      this.device.description = device.description;
-      this.device.project = device.project;
-      this.device.ownership = device.ownership;
-      this.device.responsible = device.responsible;
-      this.device.financiallyResponsiblePerson =
-        device.financially_responsible_person;
-      this.device.inventoryNumber = device.inventory_number;
-      this.device.fixedAsset = device.fixed_asset;
-      this.device.linkToDocs = device.link_to_docs;
-      this.device.updatedBy = device.updated_by;
-      this.device.updatedAt = device.updated_at;
-      this.device.rackId = device.rack_id;
     },
-    /**
-     * Delete device
-     * @param {Number} id Device id
-     * @param {String} name Device name
-     */
-    async deleteDevice(id, name) {
-      if (confirm(`Do you really want to delete device ${name}?`)) {
-        const response = await deleteObject('device', this.$route.params.id);
-        if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-          this.message.success = true;
-          this.message.text = `Device ${id} deleted successfully`;
-          alert(this.message.text);
-          this.$router.push({
-            name: 'UnitsView',
-            params: { id: this.device.rackId },
-          });
-        } else {
-          this.message.success = false;
-          this.message.text = getResponseMessage(response);
-        }
+  },
+  methods: {
+    deleteDevice() {
+      if (
+        confirm(
+          `Do you really want to delete device ${this.device.vendor} ${this.device.model} and all related items?`,
+        )
+      ) {
+        this.$store.dispatch('deleteDevice', this.device.id);
       }
-    },
-    /**
-     * Fetch and set device location
-     */
-    async setDeviceLocation() {
-      const response = await getObjectLocation('device', this.$route.params.id);
-      logIfNotStatus(response, RESPONSE_STATUS.OK, 'Unexpected response!');
-      const location = response.data.data;
-      this.location.rackName = location.rack_name;
-      this.location.roomName = location.room_name;
-      this.location.buildingName = location.building_name;
-      this.location.siteName = location.site_name;
-      this.location.departmentName = location.department_name;
-      this.location.regionName = location.region_name;
     },
   },
 };
