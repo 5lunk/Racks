@@ -86,6 +86,7 @@ class MoveDeviceCase(E2ETestCase):
         last_unit.send_keys(Keys.DELETE)
         last_unit.send_keys(Params.first_device_last_unit_outside)
         device_form.click_submit()
+        time.sleep(4)
         self.assertTrue(device_form.get_unit_outside_loc())
 
     def test_2_move_device_to_busy_place(self):

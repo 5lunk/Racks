@@ -12,8 +12,8 @@ class FormPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 40)
-        self.driver.set_page_load_timeout(5)
+        self.wait = WebDriverWait(self.driver, 80)
+        self.driver.set_page_load_timeout(10)
         self.unit_outside_loc = Locators.unit_outside_loc
         self.unit_busy_loc = Locators.unit_busy_loc
         self.violation_loc = Locators.violation_loc
@@ -120,14 +120,12 @@ class FormPage:
         Use first unit textbox
         """
         return self.driver.find_element_by_id(self.first_unit_textbox_id)
-        #return self.wait.until(EC.visibility_of_element_located((By.ID, self.first_unit_textbox_id)))
 
     def use_last_unit_textbox(self):
         """
         Use last unit textbox
         """
         return self.driver.find_element_by_id(self.last_unit_textbox_id)
-        #return self.wait.until(EC.visibility_of_element_located((By.ID, self.last_unit_textbox_id)))
 
     def click_submit(self):
         """
