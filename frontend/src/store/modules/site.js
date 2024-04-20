@@ -63,13 +63,13 @@ const actions = {
   async deleteSite({ commit }, id) {
     const response = await deleteObject('site', id);
     if (response.status === RESPONSE_STATUS.NO_CONTENT) {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: `Site ${id} deleted successfully`,
         success: true,
       });
       commit('setSiteDeleted', true);
     } else {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -95,7 +95,7 @@ const actions = {
   async submitSiteFormForCreate({ commit }, { form, departmentId }) {
     // If form not valid
     if (form.$errors) {
-      commit('setSiteMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -106,13 +106,13 @@ const actions = {
     };
     const response = await postObject('site', formData);
     if (response.status === RESPONSE_STATUS.CREATED) {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: `Site ${response.data.data.name} added successfully`,
         success: true,
       });
       commit('setSiteDefaults');
     } else {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -128,7 +128,7 @@ const actions = {
   async submitSiteFormForUpdate({ commit }, { form, id }) {
     // If form not valid
     if (form.$errors) {
-      commit('setSiteMessageDefaults');
+      commit('setMessageDefaults');
       return;
     }
     // If form valid
@@ -138,12 +138,12 @@ const actions = {
     };
     const response = await putObject('site', id, formData);
     if (response.status === RESPONSE_STATUS.ACCEPTED) {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: `Site ${response.data.data.name} updated successfully`,
         success: true,
       });
     } else {
-      commit('setSiteMessage', {
+      commit('setMessage', {
         text: getResponseMessage(response),
         success: false,
       });
@@ -159,10 +159,6 @@ const mutations = {
     state.site.updatedBy = site.updated_by;
     state.site.updatedAt = site.updated_at;
   },
-  setSiteMessage(state, siteMessage) {
-    state.siteMessage.text = siteMessage.text;
-    state.siteMessage.success = siteMessage.success;
-  },
   setSiteLocation(state, siteLocation) {
     state.siteLocation.departmentName = siteLocation.department_name;
     state.siteLocation.regionName = siteLocation.region_name;
@@ -170,10 +166,6 @@ const mutations = {
   setSiteDefaults(state) {
     state.site.name = '';
     state.site.description = '';
-  },
-  setSiteMessageDefaults(state) {
-    state.siteMessage.text = '';
-    state.siteMessage.success = false;
   },
   setSiteDeleted(state, siteDeleted) {
     state.siteDeleted = siteDeleted;
