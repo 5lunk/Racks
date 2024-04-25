@@ -9,13 +9,13 @@ interface SiteFactory
 {
     /**
      * @param  CreateSiteRequestModel  $request
-     * @return SiteEntity
+     * @return SiteEntity|SiteBusinessRules|SiteModel
      */
-    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity;
+    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity|SiteBusinessRules|SiteModel;
 
     /**
      * @param  UpdateSiteRequestModel  $request
-     * @return SiteEntity
+     * @return SiteEntity|SiteBusinessRules|SiteModel
      */
-    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity;
+    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity|SiteBusinessRules|SiteModel;
 }

@@ -8,9 +8,9 @@ interface BuildingRepository
 {
     /**
      * @param  int  $id
-     * @return BuildingEntity
+     * @return BuildingEntity|BuildingModel
      */
-    public function getById(int $id): BuildingEntity;
+    public function getById(int $id): BuildingEntity|BuildingModel;
 
     /**
      * @return array<string> $items
@@ -19,21 +19,21 @@ interface BuildingRepository
 
     /**
      * @param  BuildingEntity  $building
-     * @return BuildingEntity
+     * @return BuildingEntity|BuildingModel
      */
-    public function create(BuildingEntity $building): BuildingEntity;
+    public function create(BuildingEntity $building): BuildingEntity|BuildingModel;
 
     /**
      * @param  BuildingEntity  $building
-     * @return BuildingEntity
+     * @return BuildingEntity|BuildingModel
      */
-    public function update(BuildingEntity $building): BuildingEntity;
+    public function update(BuildingEntity $building): BuildingEntity|BuildingModel;
 
     /**
-     * @param  BuildingEntity  $building
+     * @param  BuildingEntity|BuildingModel  $building
      * @return int
      */
-    public function delete(BuildingEntity $building): int;
+    public function delete(BuildingEntity|BuildingModel $building): int;
 
     /**
      * @param  string|null  $id

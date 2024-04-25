@@ -5,6 +5,7 @@ namespace App\Factories;
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 use App\Domain\Interfaces\RoomInterfaces\RoomFactory;
+use App\Domain\Interfaces\RoomInterfaces\RoomModel;
 use App\Models\Room;
 use App\UseCases\RoomUseCases\CreateRoomUseCase\CreateRoomRequestModel;
 use App\UseCases\RoomUseCases\UpdateRoomUseCase\UpdateRoomRequestModel;
@@ -13,9 +14,9 @@ class RoomModelFactory implements RoomFactory
 {
     /**
      * @param  CreateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity|RoomBusinessRules|RoomModel
      */
-    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity|RoomBusinessRules
+    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity|RoomBusinessRules|RoomModel
     {
         return new Room([
             'name' => $request->getName(),
@@ -34,9 +35,9 @@ class RoomModelFactory implements RoomFactory
 
     /**
      * @param  UpdateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity|RoomBusinessRules|RoomModel
      */
-    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity|RoomBusinessRules
+    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity|RoomBusinessRules|RoomModel
     {
         return new Room([
             'id' => $request->getId(),

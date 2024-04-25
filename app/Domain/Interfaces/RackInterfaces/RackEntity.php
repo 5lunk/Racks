@@ -5,9 +5,6 @@ namespace App\Domain\Interfaces\RackInterfaces;
 use App\Models\Rack;
 use App\Models\ValueObjects\RackAttributesValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Rack entity
@@ -372,30 +369,4 @@ interface RackEntity
      * @return string|null
      */
     public function getOldName(): ?string;
-
-    /**
-     * @return BelongsTo
-     */
-    public function department(): BelongsTo;
-
-    /**
-     * @return BelongsTo
-     */
-    public function room(): BelongsTo;
-
-    /**
-     * @return HasMany
-     */
-    public function devices(): HasMany;
-
-    /**
-     * @return array<mixed>
-     */
-    public function toArray(): array;
-
-    /**
-     * @param  array<mixed>|string  $with
-     * @return Model|null
-     */
-    public function fresh($with): ?Model;
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\RegionInterfaces\RegionBusinessRules;
 use App\Domain\Interfaces\RegionInterfaces\RegionEntity;
+use App\Domain\Interfaces\RegionInterfaces\RegionModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Region whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Region whereUpdatedAt($value)
  */
-class Region extends Model implements RegionBusinessRules, RegionEntity
+class Region extends Model implements RegionBusinessRules, RegionEntity, RegionModel
 {
     /**
      * @var array<int, string>

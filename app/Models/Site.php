@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
 use App\Domain\Interfaces\SiteInterfaces\SiteEntity;
+use App\Domain\Interfaces\SiteInterfaces\SiteModel;
 use App\Models\ValueObjects\SiteAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -41,7 +42,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Site whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Site whereDescription($value)
  */
-class Site extends Model implements SiteBusinessRules, SiteEntity
+class Site extends Model implements SiteBusinessRules, SiteEntity, SiteModel
 {
     /**
      * @var array<int, string>

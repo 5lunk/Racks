@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
+use App\Domain\Interfaces\RoomInterfaces\RoomModel;
 use App\Domain\Interfaces\RoomInterfaces\RoomRepository;
 use App\Models\Room;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,9 +14,9 @@ class RoomDatabaseRepository implements RoomRepository
 {
     /**
      * @param  int  $id
-     * @return RoomEntity
+     * @return RoomEntity|RoomBusinessRules|RoomModel
      */
-    public function getById(int $id): RoomEntity
+    public function getById(int $id): RoomEntity|RoomBusinessRules|RoomModel
     {
         return Room::where('id', $id)
             ->get()
@@ -33,19 +35,19 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  RoomEntity  $room
-     * @return RoomEntity
+     * @param  RoomEntity|RoomBusinessRules|RoomModel  $room
+     * @return RoomEntity|RoomBusinessRules|RoomModel
      */
-    public function create(RoomEntity $room): RoomEntity
+    public function create(RoomEntity|RoomBusinessRules|RoomModel $room): RoomEntity|RoomBusinessRules|RoomModel
     {
         return Room::create($room->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RoomEntity  $room
-     * @return RoomEntity
+     * @param  RoomEntity|RoomBusinessRules|RoomModel  $room
+     * @return RoomEntity|RoomBusinessRules|RoomModel
      */
-    public function update(RoomEntity $room): RoomEntity
+    public function update(RoomEntity|RoomBusinessRules|RoomModel $room): RoomEntity|RoomBusinessRules|RoomModel
     {
         return tap(Room::where('id', $room->getId())
             ->first())
@@ -58,7 +60,7 @@ class RoomDatabaseRepository implements RoomRepository
      * @param  RoomEntity  $room
      * @return int
      */
-    public function delete(RoomEntity $room): int
+    public function delete(RoomEntity|RoomBusinessRules|RoomModel $room): int
     {
         return Room::where('id', $room->getId())
             ->first()

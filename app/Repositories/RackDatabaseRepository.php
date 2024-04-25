@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Domain\Interfaces\RackInterfaces\RackBusinessRules;
 use App\Domain\Interfaces\RackInterfaces\RackEntity;
+use App\Domain\Interfaces\RackInterfaces\RackModel;
 use App\Domain\Interfaces\RackInterfaces\RackRepository;
 use App\Models\Rack;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,9 +14,9 @@ class RackDatabaseRepository implements RackRepository
 {
     /**
      * @param  int  $id
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity|RackBusinessRules|RackModel
      */
-    public function getById(int $id): RackEntity|RackBusinessRules
+    public function getById(int $id): RackEntity|RackBusinessRules|RackModel
     {
         return Rack::where('id', $id)
             ->get()
@@ -23,19 +24,19 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackModel  $rack
+     * @return RackEntity|RackModel
      */
-    public function create(RackEntity $rack): RackEntity
+    public function create(RackEntity|RackModel $rack): RackEntity|RackModel
     {
         return Rack::create($rack->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackModel  $rack
      * @return int
      */
-    public function updateBusyUnits(RackEntity $rack): int
+    public function updateBusyUnits(RackEntity|RackModel $rack): int
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -56,10 +57,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackModel  $rack
      * @return int
      */
-    public function delete(RackEntity $rack): int
+    public function delete(RackEntity|RackModel $rack): int
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -67,10 +68,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackModel  $rack
+     * @return RackEntity|RackModel
      */
-    public function update(RackEntity $rack): RackEntity
+    public function update(RackEntity|RackModel $rack): RackEntity|RackModel
     {
 
         return tap(Rack::where('id', $rack->getId())

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
 use App\Domain\Interfaces\UserInterfaces\UserEntity;
+use App\Domain\Interfaces\UserInterfaces\UserModel;
 use App\Models\ValueObjects\EmailValueObject;
 use App\Models\ValueObjects\PasswordValueObject;
 use Illuminate\Database\Eloquent\Model;
@@ -53,7 +54,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @property-read \App\Models\Department $department
  */
-class User extends Authenticatable implements JWTSubject, UserBusinessRules, UserEntity
+class User extends Authenticatable implements JWTSubject, UserBusinessRules, UserEntity, UserModel
 {
     use HasApiTokens;
     use Notifiable;

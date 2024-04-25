@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
+use App\Domain\Interfaces\BuildingInterfaces\BuildingModel;
 use App\Models\ValueObjects\BuildingAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -44,7 +45,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Building whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Building whereDescription($value)
  */
-class Building extends Model implements BuildingBusinessRules, BuildingEntity
+class Building extends Model implements BuildingBusinessRules, BuildingEntity, BuildingModel
 {
     /**
      * @var array<int, string>
@@ -240,6 +241,11 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
         return $this->attributes['updated_at'];
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Model only methods
+    |--------------------------------------------------------------------------
+    */
     /**
      * Belongs to site
      *

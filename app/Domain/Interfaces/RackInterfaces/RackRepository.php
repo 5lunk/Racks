@@ -7,16 +7,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface RackRepository
 {
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackModel  $rack
+     * @return RackEntity|RackModel
      */
-    public function create(RackEntity $rack): RackEntity;
+    public function create(RackEntity|RackModel $rack): RackEntity|RackModel;
 
     /**
      * @param  int  $id
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity|RackBusinessRules|RackModel
      */
-    public function getById(int $id): RackEntity|RackBusinessRules;
+    public function getById(int $id): RackEntity|RackBusinessRules|RackModel;
 
     /**
      * @param  int  $id
@@ -25,22 +25,22 @@ interface RackRepository
     public function lockById(int $id): void;
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackModel  $rack
      * @return int
      */
-    public function updateBusyUnits(RackEntity $rack): int;
+    public function updateBusyUnits(RackEntity|RackModel $rack): int;
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackModel  $rack
      * @return int
      */
-    public function delete(RackEntity $rack): int;
+    public function delete(RackEntity|RackModel $rack): int;
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackModel  $rack
+     * @return RackEntity|RackModel
      */
-    public function update(RackEntity $rack): RackEntity;
+    public function update(RackEntity|RackModel $rack): RackEntity|RackModel;
 
     /**
      * @param  int  $roomId  Room ID

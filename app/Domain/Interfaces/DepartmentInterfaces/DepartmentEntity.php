@@ -3,9 +3,6 @@
 namespace App\Domain\Interfaces\DepartmentInterfaces;
 
 use App\Models\Department;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Department entity
@@ -54,30 +51,4 @@ interface DepartmentEntity
      * @return string
      */
     public function getUpdatedAt(): string;
-
-    /**
-     * @return BelongsTo
-     */
-    public function region(): BelongsTo;
-
-    /**
-     * @return HasMany
-     */
-    public function children(): HasMany;
-
-    /**
-     * @return HasMany
-     */
-    public function users(): HasMany;
-
-    /**
-     * @return HasMany
-     */
-    public function buildings(): HasMany;
-
-    /**
-     * @param  array<mixed>|string  $with
-     * @return Model|null
-     */
-    public function fresh($with): ?Model;
 }

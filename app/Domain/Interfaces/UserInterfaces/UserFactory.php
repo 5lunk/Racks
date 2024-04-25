@@ -10,19 +10,19 @@ interface UserFactory
 {
     /**
      * @param  CreateUserRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity;
+    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity|UserBusinessRules|UserModel;
 
     /**
      * @param  ResetUserPasswordRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity;
+    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity|UserBusinessRules|UserModel;
 
     /**
      * @param  UpdateUserRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity;
+    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity|UserBusinessRules|UserModel;
 }

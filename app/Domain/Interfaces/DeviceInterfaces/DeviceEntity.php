@@ -5,8 +5,6 @@ namespace App\Domain\Interfaces\DeviceInterfaces;
 use App\Models\Device;
 use App\Models\ValueObjects\DeviceAttributesValueObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Device entity
@@ -333,22 +331,4 @@ interface DeviceEntity
      * @return string
      */
     public function getUpdatedAt(): string;
-
-    /**
-     * @param  array<mixed>|string  $with  Reload param
-     * @return Model|null ?Model
-     */
-    public function fresh($with): ?Model;
-
-    /**
-     * Belongs to rack
-     *
-     * @return BelongsTo
-     */
-    public function rack(): BelongsTo;
-
-    /**
-     * @return array<mixed>
-     */
-    public function toArray(): array;
 }

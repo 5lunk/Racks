@@ -7,16 +7,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface UserRepository
 {
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules|UserModel  $user
      * @return bool
      */
-    public function exists(UserEntity $user): bool;
+    public function exists(UserEntity|UserBusinessRules|UserModel $user): bool;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules|UserModel  $user
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function create(UserEntity $user): UserEntity;
+    public function create(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel;
 
     /**
      * @param  string|null  $perPage
@@ -26,25 +26,25 @@ interface UserRepository
 
     /**
      * @param  int  $id
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function getById(int $id): UserEntity;
+    public function getById(int $id): UserEntity|UserBusinessRules|UserModel;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules|UserModel  $user
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function updatePassword(UserEntity $user): UserEntity;
+    public function updatePassword(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules|UserModel  $user
+     * @return UserEntity|UserBusinessRules|UserModel
      */
-    public function update(UserEntity $user): UserEntity;
+    public function update(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel;
 
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules|UserModel  $user
      * @return int
      */
-    public function delete(UserEntity $user): int;
+    public function delete(UserEntity|UserBusinessRules|UserModel $user): int;
 }
