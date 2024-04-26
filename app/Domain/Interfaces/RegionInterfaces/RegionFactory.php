@@ -9,13 +9,13 @@ interface RegionFactory
 {
     /**
      * @param  CreateRegionRequestModel  $request
-     * @return RegionEntity|RegionModel|RegionBusinessRules
+     * @return RegionEntity
      */
-    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity|RegionModel|RegionBusinessRules;
+    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity;
 
     /**
      * @param  UpdateRegionRequestModel  $request
-     * @return RegionEntity|RegionModel|RegionBusinessRules
+     * @return RegionEntity
      */
-    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity|RegionModel|RegionBusinessRules;
+    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity;
 }

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
 use App\Domain\Interfaces\UserInterfaces\UserEntity;
-use App\Domain\Interfaces\UserInterfaces\UserModel;
 use App\Domain\Interfaces\UserInterfaces\UserRepository;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,12 +10,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class UserDatabaseRepository implements UserRepository
 {
     /**
-     * @param  UserEntity|UserBusinessRules|UserModel  $user
+     * @param  UserEntity  $user
      * @return bool
-     *
-     * @throws \DomainException|\Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function exists(UserEntity|UserBusinessRules|UserModel $user): bool
+    public function exists(UserEntity $user): bool
     {
         return User::where([
             'name' => $user->getName(),
@@ -26,12 +22,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity|UserBusinessRules|UserModel  $user
-     * @return UserEntity|UserBusinessRules|UserModel
-     *
-     * @throws \DomainException|\Illuminate\Contracts\Container\BindingResolutionException
+     * @param  UserEntity  $user
+     * @return UserEntity
      */
-    public function create(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel
+    public function create(UserEntity $user): UserEntity
     {
         return User::create([
             'name' => $user->getName(),
@@ -43,12 +37,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity|UserBusinessRules|UserModel  $user
-     * @return UserEntity|UserBusinessRules|UserModel
-     *
-     * @throws \DomainException|\Illuminate\Contracts\Container\BindingResolutionException
+     * @param  UserEntity  $user
+     * @return UserEntity
      */
-    public function update(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel
+    public function update(UserEntity $user): UserEntity
     {
         return tap(User::where('id', $user->getId())
             ->first())
@@ -71,9 +63,9 @@ class UserDatabaseRepository implements UserRepository
 
     /**
      * @param  int  $id
-     * @return UserEntity|UserBusinessRules|UserModel
+     * @return UserEntity
      */
-    public function getById(int $id): UserEntity|UserBusinessRules|UserModel
+    public function getById(int $id): UserEntity
     {
         return User::where('id', $id)
             ->get()
@@ -81,12 +73,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity|UserBusinessRules|UserModel  $user
-     * @return UserEntity|UserBusinessRules|UserModel
-     *
-     * @throws \DomainException|\Illuminate\Contracts\Container\BindingResolutionException
+     * @param  UserEntity  $user
+     * @return UserEntity
      */
-    public function updatePassword(UserEntity|UserBusinessRules|UserModel $user): UserEntity|UserBusinessRules|UserModel
+    public function updatePassword(UserEntity $user): UserEntity
     {
         return tap(User::where('id', $user->getId())
             ->first())
@@ -96,10 +86,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity|UserBusinessRules|UserModel  $user
+     * @param  UserEntity  $user
      * @return int
      */
-    public function delete(UserEntity|UserBusinessRules|UserModel $user): int
+    public function delete(UserEntity $user): int
     {
         return User::where('id', $user->getId())
             ->first()

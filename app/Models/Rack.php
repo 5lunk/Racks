@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 use App\Domain\Interfaces\RackInterfaces\RackBusinessRules;
 use App\Domain\Interfaces\RackInterfaces\RackEntity;
-use App\Domain\Interfaces\RackInterfaces\RackModel;
 use App\Models\Enums\RackFrameEnum;
 use App\Models\Enums\RackPlaceTypeEnum;
 use App\Models\Enums\RackTypeEnum;
@@ -102,7 +101,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Rack whereVendor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rack whereWidth($value)
  */
-class Rack extends Model implements RackBusinessRules, RackEntity, RackModel
+class Rack extends Model implements RackBusinessRules, RackEntity
 {
     /**
      * @var array<int, string>

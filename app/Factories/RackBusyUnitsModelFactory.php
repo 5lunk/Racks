@@ -6,7 +6,7 @@ use App\Domain\Interfaces\RackInterfaces\RackBusyUnitsFactory;
 use App\Domain\Interfaces\RackInterfaces\RackBusyUnitsInterface;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
 
-class RackBusyUnitsValueObjectFactory implements RackBusyUnitsFactory
+class RackBusyUnitsModelFactory implements RackBusyUnitsFactory
 {
     /**
      * @param  array{front: array<int>, back: array<int>}|array<null>  $attributes

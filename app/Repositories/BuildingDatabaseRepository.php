@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
-use App\Domain\Interfaces\BuildingInterfaces\BuildingModel;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingRepository;
 use App\Models\Building;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,9 +12,9 @@ class BuildingDatabaseRepository implements BuildingRepository
 {
     /**
      * @param  int  $id
-     * @return BuildingEntity|BuildingModel
+     * @return BuildingEntity
      */
-    public function getById(int $id): BuildingEntity|BuildingModel
+    public function getById(int $id): BuildingEntity
     {
         return Building::where('id', $id)
             ->get()
@@ -33,19 +32,19 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity|BuildingModel  $building
-     * @return BuildingEntity|BuildingModel
+     * @param  BuildingEntity  $building
+     * @return BuildingEntity
      */
-    public function create(BuildingEntity|BuildingModel $building): BuildingEntity|BuildingModel
+    public function create(BuildingEntity $building): BuildingEntity
     {
         return Building::create($building->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  BuildingEntity|BuildingModel  $building
-     * @return BuildingEntity|BuildingModel
+     * @param  BuildingEntity  $building
+     * @return BuildingEntity
      */
-    public function update(BuildingEntity|BuildingModel $building): BuildingEntity|BuildingModel
+    public function update(BuildingEntity $building): BuildingEntity
     {
         return tap(Building::where('id', $building->getId())
             ->first())
@@ -55,10 +54,10 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity|BuildingModel  $building
+     * @param  BuildingEntity  $building
      * @return int
      */
-    public function delete(BuildingEntity|BuildingModel $building): int
+    public function delete(BuildingEntity $building): int
     {
         return Building::where('id', $building->getId())
             ->first()

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
-use App\Domain\Interfaces\DeviceInterfaces\DeviceModel;
 use App\Models\Enums\DevicePowerACDCEnum;
 use App\Models\Enums\DevicePowerTypeEnum;
 use App\Models\Enums\DeviceStatusEnum;
@@ -92,7 +91,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\Department $department
  * @property-read \App\Models\Rack $rack
  */
-class Device extends Model implements DeviceBusinessRules, DeviceEntity, DeviceModel
+class Device extends Model implements DeviceBusinessRules, DeviceEntity
 {
     /**
      * @var array<int, string>

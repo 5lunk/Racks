@@ -9,13 +9,13 @@ interface RoomFactory
 {
     /**
      * @param  CreateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules|RoomModel
+     * @return RoomEntity|RoomBusinessRules
      */
-    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity|RoomBusinessRules|RoomModel;
+    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity|RoomBusinessRules;
 
     /**
      * @param  UpdateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules|RoomModel
+     * @return RoomEntity|RoomBusinessRules
      */
-    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity|RoomBusinessRules|RoomModel;
+    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity|RoomBusinessRules;
 }

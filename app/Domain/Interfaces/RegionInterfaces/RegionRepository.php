@@ -8,33 +8,33 @@ interface RegionRepository
 {
     /**
      * @param  int  $id
-     * @return RegionEntity|RegionModel|RegionBusinessRules
+     * @return RegionEntity
      */
-    public function getById(int $id): RegionEntity|RegionModel|RegionBusinessRules;
+    public function getById(int $id): RegionEntity;
 
     /**
-     * @param  RegionEntity|RegionModel|RegionBusinessRules  $region
+     * @param  RegionEntity  $region
      * @return bool
      */
-    public function exists(RegionEntity|RegionModel|RegionBusinessRules $region): bool;
+    public function exists(RegionEntity $region): bool;
 
     /**
-     * @param  RegionEntity|RegionModel|RegionBusinessRules  $region
-     * @return RegionEntity|RegionModel|RegionBusinessRules
+     * @param  RegionEntity  $region
+     * @return RegionEntity
      */
-    public function create(RegionEntity|RegionModel|RegionBusinessRules $region): RegionEntity|RegionModel|RegionBusinessRules;
+    public function create(RegionEntity $region): RegionEntity;
 
     /**
-     * @param  RegionEntity|RegionModel|RegionBusinessRules  $region
+     * @param  RegionEntity  $region
      * @return int
      */
-    public function delete(RegionEntity|RegionModel|RegionBusinessRules $region): int;
+    public function delete(RegionEntity $region): int;
 
     /**
-     * @param  RegionEntity|RegionModel|RegionBusinessRules  $region
-     * @return RegionEntity|RegionModel|RegionBusinessRules
+     * @param  RegionEntity  $region
+     * @return RegionEntity
      */
-    public function update(RegionEntity|RegionModel|RegionBusinessRules $region): RegionEntity|RegionModel|RegionBusinessRules;
+    public function update(RegionEntity $region): RegionEntity;
 
     /**
      * @return array{

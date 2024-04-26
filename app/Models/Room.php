@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
-use App\Domain\Interfaces\RoomInterfaces\RoomModel;
 use App\Models\Enums\RoomCoolingSystemEnum;
 use App\Models\Enums\RoomFireSuppressionSystemEnum;
 use App\Models\ValueObjects\RoomAttributesValueObject;
@@ -65,7 +64,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Room whereNumberOfRackSpaces($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Room whereResponsible($value)
  */
-class Room extends Model implements RoomBusinessRules, RoomEntity, RoomModel
+class Room extends Model implements RoomBusinessRules, RoomEntity
 {
     /**
      * @var array<int, string>

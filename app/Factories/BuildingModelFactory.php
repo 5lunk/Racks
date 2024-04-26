@@ -5,7 +5,6 @@ namespace App\Factories;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingFactory;
-use App\Domain\Interfaces\BuildingInterfaces\BuildingModel;
 use App\Models\Building;
 use App\UseCases\BuildingUseCases\CreateBuildingUseCase\CreateBuildingRequestModel;
 use App\UseCases\BuildingUseCases\UpdateBuildingUseCase\UpdateBuildingRequestModel;
@@ -14,9 +13,9 @@ class BuildingModelFactory implements BuildingFactory
 {
     /**
      * @param  CreateBuildingRequestModel  $request
-     * @return BuildingEntity|BuildingBusinessRules|BuildingModel
+     * @return BuildingEntity|BuildingBusinessRules
      */
-    public function makeFromCreateRequest(CreateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules|BuildingModel
+    public function makeFromCreateRequest(CreateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules
     {
         return new Building([
             'name' => $request->getName(),
@@ -27,9 +26,9 @@ class BuildingModelFactory implements BuildingFactory
 
     /**
      * @param  UpdateBuildingRequestModel  $request
-     * @return BuildingEntity|BuildingBusinessRules|BuildingModel
+     * @return BuildingEntity|BuildingBusinessRules
      */
-    public function makeFromPatchRequest(UpdateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules|BuildingModel
+    public function makeFromPatchRequest(UpdateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules
     {
         return new Building([
             'id' => $request->getId(),

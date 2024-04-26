@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentEntity;
-use App\Domain\Interfaces\DepartmentInterfaces\DepartmentModel;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -48,7 +47,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  */
-class Department extends Model implements DepartmentEntity, DepartmentModel, DeviceBusinessRules
+class Department extends Model implements DepartmentEntity, DeviceBusinessRules
 {
     /**
      * @var array<int, string>
@@ -124,11 +123,6 @@ class Department extends Model implements DepartmentEntity, DepartmentModel, Dev
         return $this->attributes['updated_at'];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Model only methods
-    |--------------------------------------------------------------------------
-    */
     /**
      * Belongs to region
      *

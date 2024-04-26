@@ -8,33 +8,33 @@ interface DepartmentRepository
 {
     /**
      * @param  int  $id
-     * @return DepartmentEntity|DepartmentBusinessRules|DepartmentModel
+     * @return DepartmentEntity
      */
-    public function getById(int $id): DepartmentEntity|DepartmentBusinessRules|DepartmentModel;
+    public function getById(int $id): DepartmentEntity;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules|DepartmentModel  $department
+     * @param  DepartmentEntity  $department
      * @return bool
      */
-    public function exists(DepartmentEntity|DepartmentBusinessRules|DepartmentModel $department): bool;
+    public function exists(DepartmentEntity $department): bool;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules|DepartmentModel  $department
-     * @return DepartmentEntity|DepartmentBusinessRules|DepartmentModel
+     * @param  DepartmentEntity  $department
+     * @return DepartmentEntity
      */
-    public function create(DepartmentEntity|DepartmentBusinessRules|DepartmentModel $department): DepartmentEntity|DepartmentBusinessRules|DepartmentModel;
+    public function create(DepartmentEntity $department): DepartmentEntity;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules|DepartmentModel  $department
+     * @param  DepartmentEntity  $department
      * @return int
      */
-    public function delete(DepartmentEntity|DepartmentBusinessRules|DepartmentModel $department): int;
+    public function delete(DepartmentEntity $department): int;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules|DepartmentModel  $department
-     * @return DepartmentEntity|DepartmentBusinessRules|DepartmentModel
+     * @param  DepartmentEntity  $department
+     * @return DepartmentEntity
      */
-    public function update(DepartmentEntity|DepartmentBusinessRules|DepartmentModel $department): DepartmentEntity|DepartmentBusinessRules|DepartmentModel;
+    public function update(DepartmentEntity $department): DepartmentEntity;
 
     /**
      * @param  string|null  $perPage

@@ -5,7 +5,6 @@ namespace App\Factories;
 use App\Domain\Interfaces\RackInterfaces\RackBusinessRules;
 use App\Domain\Interfaces\RackInterfaces\RackEntity;
 use App\Domain\Interfaces\RackInterfaces\RackFactory;
-use App\Domain\Interfaces\RackInterfaces\RackModel;
 use App\Models\Rack;
 use App\UseCases\RackUseCases\CreateRackUseCase\CreateRackRequestModel;
 use App\UseCases\RackUseCases\UpdateRackUseCase\UpdateRackRequestModel;
@@ -14,9 +13,9 @@ class RackModelFactory implements RackFactory
 {
     /**
      * @param  CreateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules|RackModel
+     * @return RackEntity|RackBusinessRules
      */
-    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity|RackBusinessRules|RackModel
+    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity|RackBusinessRules
     {
         return new Rack([
             'name' => $request->getName(),
@@ -51,9 +50,9 @@ class RackModelFactory implements RackFactory
 
     /**
      * @param  UpdateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules|RackModel
+     * @return RackEntity|RackBusinessRules
      */
-    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity|RackBusinessRules|RackModel
+    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity|RackBusinessRules
     {
         return new Rack([
             'id' => $request->getId(),

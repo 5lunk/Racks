@@ -2,10 +2,8 @@
 
 namespace App\Factories;
 
-use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
 use App\Domain\Interfaces\UserInterfaces\UserEntity;
 use App\Domain\Interfaces\UserInterfaces\UserFactory;
-use App\Domain\Interfaces\UserInterfaces\UserModel;
 use App\Models\User;
 use App\Models\ValueObjects\EmailValueObject;
 use App\Models\ValueObjects\PasswordValueObject;
@@ -17,11 +15,11 @@ class UserModelFactory implements UserFactory
 {
     /**
      * @param  CreateUserRequestModel  $request
-     * @return UserEntity|UserBusinessRules|UserModel
+     * @return UserEntity
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity|UserBusinessRules|UserModel
+    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity
     {
         return new User([
             'name' => $request->getName(),
@@ -34,11 +32,11 @@ class UserModelFactory implements UserFactory
 
     /**
      * @param  ResetUserPasswordRequestModel  $request
-     * @return UserEntity|UserBusinessRules|UserModel
+     * @return UserEntity
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity|UserBusinessRules|UserModel
+    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity
     {
         return new User([
             'id' => $request->getId(),
@@ -48,11 +46,11 @@ class UserModelFactory implements UserFactory
 
     /**
      * @param  UpdateUserRequestModel  $request
-     * @return UserEntity|UserBusinessRules|UserModel
+     * @return UserEntity
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity|UserBusinessRules|UserModel
+    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity
     {
         return new User([
             'id' => $request->getId(),

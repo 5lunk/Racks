@@ -17,8 +17,6 @@ class EmailValueObject implements EmailInterface
 
     /**
      * @param  string  $email
-     *
-     * @throws \DomainException Invalid email
      */
     public function __construct(string $email)
     {

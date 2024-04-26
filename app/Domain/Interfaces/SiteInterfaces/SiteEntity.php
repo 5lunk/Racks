@@ -4,6 +4,9 @@ namespace App\Domain\Interfaces\SiteInterfaces;
 
 use App\Models\Site;
 use App\Models\ValueObjects\SiteAttributesValueObject;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Site entity
@@ -79,4 +82,25 @@ interface SiteEntity
      * @return string
      */
     public function getUpdatedAt(): string;
+
+    /**
+     * @return array<mixed>
+     */
+    public function toArray(): array;
+
+    /**
+     * @return BelongsTo
+     */
+    public function department(): BelongsTo;
+
+    /**
+     * @return HasMany
+     */
+    public function children(): HasMany;
+
+    /**
+     * @param  array<mixed>|string  $with
+     * @return Model|null
+     */
+    public function fresh($with): ?Model;
 }
