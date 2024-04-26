@@ -147,7 +147,6 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     | Business rules
     |--------------------------------------------------------------------------
     */
-
     /**
      * @see RackBusinessRules::addNewBusyUnits()
      *

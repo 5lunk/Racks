@@ -9,13 +9,13 @@ interface DeviceFactory
 {
     /**
      * @param  CreateDeviceRequestModel  $request
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity;
+    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules;
 
     /**
      * @param  UpdateDeviceRequestModel  $request
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity;
+    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules;
 }

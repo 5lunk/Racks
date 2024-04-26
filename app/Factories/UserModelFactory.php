@@ -2,6 +2,7 @@
 
 namespace App\Factories;
 
+use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
 use App\Domain\Interfaces\UserInterfaces\UserEntity;
 use App\Domain\Interfaces\UserInterfaces\UserFactory;
 use App\Models\User;
@@ -15,11 +16,11 @@ class UserModelFactory implements UserFactory
 {
     /**
      * @param  CreateUserRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity
+    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity|UserBusinessRules
     {
         return new User([
             'name' => $request->getName(),
@@ -32,11 +33,11 @@ class UserModelFactory implements UserFactory
 
     /**
      * @param  ResetUserPasswordRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity
+    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity|UserBusinessRules
     {
         return new User([
             'id' => $request->getId(),

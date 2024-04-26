@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceRepository;
 use App\Models\Device;
@@ -11,9 +12,9 @@ class DeviceDatabaseRepository implements DeviceRepository
 {
     /**
      * @param  int  $id
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function getById(int $id): DeviceEntity
+    public function getById(int $id): DeviceEntity|DeviceBusinessRules
     {
         return Device::where('id', $id)
             ->get()
@@ -32,10 +33,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity  $device
+     * @param  DeviceEntity|DeviceBusinessRules  $device
      * @return int
      */
-    public function updateUnits(DeviceEntity $device): int
+    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): int
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -45,10 +46,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity  $device
+     * @param  DeviceEntity|DeviceBusinessRules  $device
      * @return int
      */
-    public function delete(DeviceEntity $device): int
+    public function delete(DeviceEntity|DeviceBusinessRules $device): int
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -56,10 +57,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity  $device
-     * @return DeviceEntity
+     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function update(DeviceEntity $device): DeviceEntity
+    public function update(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules
     {
         return tap(Device::where('id', $device->getId())
             ->first())
@@ -69,10 +70,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity  $device
-     * @return DeviceEntity
+     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function create(DeviceEntity $device): DeviceEntity
+    public function create(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules
     {
         return Device::create($device->getAttributeSet()->toArray());
     }

@@ -66,8 +66,10 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
     |--------------------------------------------------------------------------
     */
     /**
+     * @see BuildingBusinessRules::isNameValid()
+     *
      * @param  array<string>  $namesList
-     * @return bool Is name valid
+     * @return bool
      */
     public function isNameValid(array $namesList): bool
     {
@@ -79,6 +81,8 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
     }
 
     /**
+     * @see BuildingBusinessRules::isNameChanging()
+     *
      * @param  string  $buildingOldName
      * @return bool
      */

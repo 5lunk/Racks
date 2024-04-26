@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
 use App\Domain\Interfaces\SiteInterfaces\SiteEntity;
 use App\Domain\Interfaces\SiteInterfaces\SiteRepository;
 use App\Models\Site;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -12,9 +14,9 @@ class SiteDatabaseRepository implements SiteRepository
 {
     /**
      * @param  int  $id
-     * @return SiteEntity
+     * @return SiteEntity|SiteBusinessRules
      */
-    public function getById(int $id): SiteEntity
+    public function getById(int $id): SiteEntity|SiteBusinessRules
     {
         return Site::where('id', $id)
             ->get()
@@ -22,19 +24,23 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  SiteEntity  $site
-     * @return SiteEntity
+     * @param  SiteEntity|SiteBusinessRules  $site
+     * @return SiteEntity|SiteBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function create(SiteEntity $site): SiteEntity
+    public function create(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules
     {
         return Site::create($site->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  SiteEntity  $site
-     * @return SiteEntity
+     * @param  SiteEntity|SiteBusinessRules  $site
+     * @return SiteEntity|SiteBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function update(SiteEntity $site): SiteEntity
+    public function update(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules
     {
         return tap(Site::where('id', $site->getId())
             ->first())
@@ -44,10 +50,10 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  SiteEntity  $site
+     * @param  SiteEntity|SiteBusinessRules  $site
      * @return int
      */
-    public function delete(SiteEntity $site): int
+    public function delete(SiteEntity|SiteBusinessRules $site): int
     {
         return Site::where('id', $site->getId())
             ->first()

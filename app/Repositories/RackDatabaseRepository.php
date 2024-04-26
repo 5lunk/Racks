@@ -23,19 +23,19 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackBusinessRules  $rack
+     * @return RackEntity|RackBusinessRules
      */
-    public function create(RackEntity $rack): RackEntity
+    public function create(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
     {
         return Rack::create($rack->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackBusinessRules  $rack
      * @return int
      */
-    public function updateBusyUnits(RackEntity $rack): int
+    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): int
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -56,10 +56,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackBusinessRules  $rack
      * @return int
      */
-    public function delete(RackEntity $rack): int
+    public function delete(RackEntity|RackBusinessRules $rack): int
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -67,10 +67,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackBusinessRules  $rack
+     * @return RackEntity|RackBusinessRules
      */
-    public function update(RackEntity $rack): RackEntity
+    public function update(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
     {
 
         return tap(Rack::where('id', $rack->getId())

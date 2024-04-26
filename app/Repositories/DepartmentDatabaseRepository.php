@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\DepartmentInterfaces\DepartmentBusinessRules;
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentEntity;
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentRepository;
 use App\Models\Department;
@@ -11,9 +12,9 @@ class DepartmentDatabaseRepository implements DepartmentRepository
 {
     /**
      * @param  int  $id
-     * @return DepartmentEntity
+     * @return DepartmentEntity|DepartmentBusinessRules
      */
-    public function getById(int $id): DepartmentEntity
+    public function getById(int $id): DepartmentEntity|DepartmentBusinessRules
     {
         return Department::where('id', $id)
             ->get()
@@ -21,10 +22,10 @@ class DepartmentDatabaseRepository implements DepartmentRepository
     }
 
     /**
-     * @param  DepartmentEntity  $department
+     * @param  DepartmentEntity|DepartmentBusinessRules  $department
      * @return bool
      */
-    public function exists(DepartmentEntity $department): bool
+    public function exists(DepartmentEntity|DepartmentBusinessRules $department): bool
     {
         return Department::where([
             'name' => $department->getName(),
@@ -33,10 +34,10 @@ class DepartmentDatabaseRepository implements DepartmentRepository
     }
 
     /**
-     * @param  DepartmentEntity  $department
-     * @return DepartmentEntity
+     * @param  DepartmentEntity|DepartmentBusinessRules  $department
+     * @return DepartmentEntity|DepartmentBusinessRules
      */
-    public function create(DepartmentEntity $department): DepartmentEntity
+    public function create(DepartmentEntity|DepartmentBusinessRules $department): DepartmentEntity|DepartmentBusinessRules
     {
         return Department::create([
             'name' => $department->getName(),
@@ -45,10 +46,10 @@ class DepartmentDatabaseRepository implements DepartmentRepository
     }
 
     /**
-     * @param  DepartmentEntity  $department
+     * @param  DepartmentEntity|DepartmentBusinessRules  $department
      * @return int
      */
-    public function delete(DepartmentEntity $department): int
+    public function delete(DepartmentEntity|DepartmentBusinessRules $department): int
     {
         return Department::where('id', $department->getId())
             ->first()
@@ -56,10 +57,10 @@ class DepartmentDatabaseRepository implements DepartmentRepository
     }
 
     /**
-     * @param  DepartmentEntity  $department
-     * @return DepartmentEntity
+     * @param  DepartmentEntity|DepartmentBusinessRules  $department
+     * @return DepartmentEntity|DepartmentBusinessRules
      */
-    public function update(DepartmentEntity $department): DepartmentEntity
+    public function update(DepartmentEntity|DepartmentBusinessRules $department): DepartmentEntity|DepartmentBusinessRules
     {
         return tap(Department::where('id', $department->getId())
             ->first())

@@ -2,6 +2,7 @@
 
 namespace App\Factories;
 
+use App\Domain\Interfaces\RegionInterfaces\RegionBusinessRules;
 use App\Domain\Interfaces\RegionInterfaces\RegionEntity;
 use App\Domain\Interfaces\RegionInterfaces\RegionFactory;
 use App\Models\Region;
@@ -12,9 +13,9 @@ class RegionModelFactory implements RegionFactory
 {
     /**
      * @param  CreateRegionRequestModel  $request
-     * @return RegionEntity
+     * @return RegionEntity|RegionBusinessRules
      */
-    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity
+    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity|RegionBusinessRules
     {
         return new Region([
             'name' => $request->getName(),
@@ -23,9 +24,9 @@ class RegionModelFactory implements RegionFactory
 
     /**
      * @param  UpdateRegionRequestModel  $request
-     * @return RegionEntity
+     * @return RegionEntity|RegionBusinessRules
      */
-    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity
+    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity|RegionBusinessRules
     {
         return new Region([
             'id' => $request->getId(),

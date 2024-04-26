@@ -2,18 +2,22 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
 use App\Domain\Interfaces\UserInterfaces\UserEntity;
 use App\Domain\Interfaces\UserInterfaces\UserRepository;
 use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserDatabaseRepository implements UserRepository
 {
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules  $user
      * @return bool
+     *
+     * @throws BindingResolutionException
      */
-    public function exists(UserEntity $user): bool
+    public function exists(UserEntity|UserBusinessRules $user): bool
     {
         return User::where([
             'name' => $user->getName(),
@@ -22,10 +26,12 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function create(UserEntity $user): UserEntity
+    public function create(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules
     {
         return User::create([
             'name' => $user->getName(),
@@ -37,10 +43,12 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function update(UserEntity $user): UserEntity
+    public function update(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules
     {
         return tap(User::where('id', $user->getId())
             ->first())
@@ -63,9 +71,9 @@ class UserDatabaseRepository implements UserRepository
 
     /**
      * @param  int  $id
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules
      */
-    public function getById(int $id): UserEntity
+    public function getById(int $id): UserEntity|UserBusinessRules
     {
         return User::where('id', $id)
             ->get()
@@ -73,10 +81,12 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function updatePassword(UserEntity $user): UserEntity
+    public function updatePassword(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules
     {
         return tap(User::where('id', $user->getId())
             ->first())
@@ -86,10 +96,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules  $user
      * @return int
      */
-    public function delete(UserEntity $user): int
+    public function delete(UserEntity|UserBusinessRules $user): int
     {
         return User::where('id', $user->getId())
             ->first()

@@ -2,6 +2,7 @@
 
 namespace App\Factories;
 
+use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
 use App\Domain\Interfaces\SiteInterfaces\SiteEntity;
 use App\Domain\Interfaces\SiteInterfaces\SiteFactory;
 use App\Models\Site;
@@ -12,9 +13,9 @@ class SiteModelFactory implements SiteFactory
 {
     /**
      * @param  CreateSiteRequestModel  $request
-     * @return SiteEntity
+     * @return SiteEntity|SiteBusinessRules
      */
-    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity
+    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity|SiteBusinessRules
     {
         return new Site([
             'name' => $request->getName(),
@@ -25,9 +26,9 @@ class SiteModelFactory implements SiteFactory
 
     /**
      * @param  UpdateSiteRequestModel  $request
-     * @return SiteEntity
+     * @return SiteEntity|SiteBusinessRules
      */
-    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity
+    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity|SiteBusinessRules
     {
         return new Site([
             'id' => $request->getId(),

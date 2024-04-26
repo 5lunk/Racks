@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingRepository;
 use App\Models\Building;
@@ -12,9 +13,9 @@ class BuildingDatabaseRepository implements BuildingRepository
 {
     /**
      * @param  int  $id
-     * @return BuildingEntity
+     * @return BuildingEntity|BuildingBusinessRules
      */
-    public function getById(int $id): BuildingEntity
+    public function getById(int $id): BuildingEntity|BuildingBusinessRules
     {
         return Building::where('id', $id)
             ->get()
@@ -32,19 +33,19 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity  $building
-     * @return BuildingEntity
+     * @param  BuildingEntity|BuildingBusinessRules  $building
+     * @return BuildingEntity|BuildingBusinessRules
      */
-    public function create(BuildingEntity $building): BuildingEntity
+    public function create(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
     {
         return Building::create($building->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  BuildingEntity  $building
-     * @return BuildingEntity
+     * @param  BuildingEntity|BuildingBusinessRules  $building
+     * @return BuildingEntity|BuildingBusinessRules
      */
-    public function update(BuildingEntity $building): BuildingEntity
+    public function update(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
     {
         return tap(Building::where('id', $building->getId())
             ->first())
@@ -54,10 +55,10 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity  $building
+     * @param  BuildingEntity|BuildingBusinessRules  $building
      * @return int
      */
-    public function delete(BuildingEntity $building): int
+    public function delete(BuildingEntity|BuildingBusinessRules $building): int
     {
         return Building::where('id', $building->getId())
             ->first()

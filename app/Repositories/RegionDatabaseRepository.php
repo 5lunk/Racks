@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\RegionInterfaces\RegionBusinessRules;
 use App\Domain\Interfaces\RegionInterfaces\RegionEntity;
 use App\Domain\Interfaces\RegionInterfaces\RegionRepository;
 use App\Models\Region;
@@ -11,9 +12,9 @@ class RegionDatabaseRepository implements RegionRepository
 {
     /**
      * @param  int  $id
-     * @return RegionEntity
+     * @return RegionEntity|RegionBusinessRules
      */
-    public function getById(int $id): RegionEntity
+    public function getById(int $id): RegionEntity|RegionBusinessRules
     {
         return Region::where('id', $id)
             ->get()
@@ -40,10 +41,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity  $region
+     * @param  RegionEntity|RegionBusinessRules  $region
      * @return bool
      */
-    public function exists(RegionEntity $region): bool
+    public function exists(RegionEntity|RegionBusinessRules $region): bool
     {
         return Region::where([
             'name' => $region->getName(),
@@ -51,10 +52,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity  $region
-     * @return RegionEntity
+     * @param  RegionEntity|RegionBusinessRules  $region
+     * @return RegionEntity|RegionBusinessRules
      */
-    public function create(RegionEntity $region): RegionEntity
+    public function create(RegionEntity|RegionBusinessRules $region): RegionEntity|RegionBusinessRules
     {
         return Region::create([
             'name' => $region->getName(),
@@ -62,10 +63,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity  $region
+     * @param  RegionEntity|RegionBusinessRules  $region
      * @return int
      */
-    public function delete(RegionEntity $region): int
+    public function delete(RegionEntity|RegionBusinessRules $region): int
     {
         return Region::where('id', $region->getId())
             ->first()
@@ -73,10 +74,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity  $region
-     * @return RegionEntity
+     * @param  RegionEntity|RegionBusinessRules  $region
+     * @return RegionEntity|RegionBusinessRules
      */
-    public function update(RegionEntity $region): RegionEntity
+    public function update(RegionEntity|RegionBusinessRules $region): RegionEntity|RegionBusinessRules
     {
         return tap(Region::where('id', $region->getId())
             ->first())

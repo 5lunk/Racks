@@ -7,10 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface RackRepository
 {
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackBusinessRules  $rack
+     * @return RackEntity|RackBusinessRules
      */
-    public function create(RackEntity $rack): RackEntity;
+    public function create(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules;
 
     /**
      * @param  int  $id
@@ -25,22 +25,22 @@ interface RackRepository
     public function lockById(int $id): void;
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackBusinessRules  $rack
      * @return int
      */
-    public function updateBusyUnits(RackEntity $rack): int;
+    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): int;
 
     /**
-     * @param  RackEntity  $rack
+     * @param  RackEntity|RackBusinessRules  $rack
      * @return int
      */
-    public function delete(RackEntity $rack): int;
+    public function delete(RackEntity|RackBusinessRules $rack): int;
 
     /**
-     * @param  RackEntity  $rack
-     * @return RackEntity
+     * @param  RackEntity|RackBusinessRules  $rack
+     * @return RackEntity|RackBusinessRules
      */
-    public function update(RackEntity $rack): RackEntity;
+    public function update(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules;
 
     /**
      * @param  int  $roomId  Room ID

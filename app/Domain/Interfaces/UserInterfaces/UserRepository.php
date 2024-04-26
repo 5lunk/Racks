@@ -7,16 +7,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface UserRepository
 {
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules  $user
      * @return bool
      */
-    public function exists(UserEntity $user): bool;
+    public function exists(UserEntity|UserBusinessRules $user): bool;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
      */
-    public function create(UserEntity $user): UserEntity;
+    public function create(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
 
     /**
      * @param  string|null  $perPage
@@ -26,25 +26,25 @@ interface UserRepository
 
     /**
      * @param  int  $id
-     * @return UserEntity
+     * @return UserEntity|UserBusinessRules
      */
-    public function getById(int $id): UserEntity;
+    public function getById(int $id): UserEntity|UserBusinessRules;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
      */
-    public function updatePassword(UserEntity $user): UserEntity;
+    public function updatePassword(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
 
     /**
-     * @param  UserEntity  $user
-     * @return UserEntity
+     * @param  UserEntity|UserBusinessRules  $user
+     * @return UserEntity|UserBusinessRules
      */
-    public function update(UserEntity $user): UserEntity;
+    public function update(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
 
     /**
-     * @param  UserEntity  $user
+     * @param  UserEntity|UserBusinessRules  $user
      * @return int
      */
-    public function delete(UserEntity $user): int;
+    public function delete(UserEntity|UserBusinessRules $user): int;
 }

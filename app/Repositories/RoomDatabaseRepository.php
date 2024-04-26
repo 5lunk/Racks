@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 use App\Domain\Interfaces\RoomInterfaces\RoomRepository;
 use App\Models\Room;
@@ -12,9 +13,9 @@ class RoomDatabaseRepository implements RoomRepository
 {
     /**
      * @param  int  $id
-     * @return RoomEntity
+     * @return RoomEntity|RoomBusinessRules
      */
-    public function getById(int $id): RoomEntity
+    public function getById(int $id): RoomEntity|RoomBusinessRules
     {
         return Room::where('id', $id)
             ->get()
@@ -33,19 +34,19 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  RoomEntity  $room
-     * @return RoomEntity
+     * @param  RoomEntity|RoomBusinessRules  $room
+     * @return RoomEntity|RoomBusinessRules
      */
-    public function create(RoomEntity $room): RoomEntity
+    public function create(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
     {
         return Room::create($room->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RoomEntity  $room
-     * @return RoomEntity
+     * @param  RoomEntity|RoomBusinessRules  $room
+     * @return RoomEntity|RoomBusinessRules
      */
-    public function update(RoomEntity $room): RoomEntity
+    public function update(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
     {
         return tap(Room::where('id', $room->getId())
             ->first())
@@ -55,10 +56,10 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  RoomEntity  $room
+     * @param  RoomEntity|RoomBusinessRules  $room
      * @return int
      */
-    public function delete(RoomEntity $room): int
+    public function delete(RoomEntity|RoomBusinessRules $room): int
     {
         return Room::where('id', $room->getId())
             ->first()

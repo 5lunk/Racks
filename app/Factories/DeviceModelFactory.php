@@ -2,6 +2,7 @@
 
 namespace App\Factories;
 
+use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceFactory;
 use App\Models\Device;
@@ -13,11 +14,11 @@ class DeviceModelFactory implements DeviceFactory
 {
     /**
      * @param  CreateDeviceRequestModel  $request
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity
+    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules
     {
         return new Device([
             'vendor' => $request->getVendor(),
@@ -50,11 +51,11 @@ class DeviceModelFactory implements DeviceFactory
 
     /**
      * @param  UpdateDeviceRequestModel  $request
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity
+    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules
     {
         return new Device([
             'id' => $request->getId(),

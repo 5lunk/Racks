@@ -5,16 +5,16 @@ namespace App\Domain\Interfaces\DeviceInterfaces;
 interface DeviceRepository
 {
     /**
-     * @param  DeviceEntity  $device
-     * @return DeviceEntity
+     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function create(DeviceEntity $device): DeviceEntity;
+    public function create(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules;
 
     /**
      * @param  int  $id
-     * @return DeviceEntity
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function getById(int $id): DeviceEntity;
+    public function getById(int $id): DeviceEntity|DeviceBusinessRules;
 
     /**
      * @param  string|null  $rackId  Rack ID
@@ -23,22 +23,22 @@ interface DeviceRepository
     public function getByRackId(?string $rackId): array;
 
     /**
-     * @param  DeviceEntity  $device
+     * @param  DeviceEntity|DeviceBusinessRules  $device
      * @return int
      */
-    public function delete(DeviceEntity $device): int;
+    public function delete(DeviceEntity|DeviceBusinessRules $device): int;
 
     /**
-     * @param  DeviceEntity  $device
-     * @return DeviceEntity
+     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @return DeviceEntity|DeviceBusinessRules
      */
-    public function update(DeviceEntity $device): DeviceEntity;
+    public function update(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules;
 
     /**
-     * @param  DeviceEntity  $device
+     * @param  DeviceEntity|DeviceBusinessRules  $device
      * @return int
      */
-    public function updateUnits(DeviceEntity $device): int;
+    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): int;
 
     /**
      * @param  string|null  $id  Rack ID

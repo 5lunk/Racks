@@ -93,7 +93,6 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     | Business rules
     |--------------------------------------------------------------------------
     */
-
     /**
      * @see RoomBusinessRules::isNameValid()
      *
