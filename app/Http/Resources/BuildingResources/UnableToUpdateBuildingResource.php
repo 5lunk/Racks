@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\BuildingResources;
 
 use Illuminate\Http\Request;
@@ -48,7 +50,7 @@ class UnableToUpdateBuildingResource extends JsonResource
     {
         return [
             'message' => 'Unable to update building',
-            'error' => $this->e->getMessage(),
+            'error' => (config('app.debug') ? $this->e->getMessage() : 'Internal server error'),
         ];
     }
 }

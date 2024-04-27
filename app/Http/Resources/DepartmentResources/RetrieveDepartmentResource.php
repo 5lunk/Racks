@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\DepartmentResources;
 
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentEntity;

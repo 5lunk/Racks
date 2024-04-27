@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\RegionInterfaces\RegionBusinessRules;
@@ -64,9 +66,9 @@ class RegionDatabaseRepository implements RegionRepository
 
     /**
      * @param  RegionEntity|RegionBusinessRules  $region
-     * @return int
+     * @return bool
      */
-    public function delete(RegionEntity|RegionBusinessRules $region): int
+    public function delete(RegionEntity|RegionBusinessRules $region): bool
     {
         return Region::where('id', $region->getId())
             ->first()
@@ -87,10 +89,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return Region::paginate($perPage);
     }

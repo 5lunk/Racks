@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\RoomUseCases\CreateRoomUseCase;
 
 use App\Models\User;
@@ -34,7 +36,7 @@ class CreateRoomRequestModel
      */
     public function getBuildingId(): int
     {
-        return $this->attributes['building_id'];
+        return (int) $this->attributes['building_id'];
     }
 
     public function getBuildingFloor(): ?string

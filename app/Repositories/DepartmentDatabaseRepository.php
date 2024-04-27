@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentBusinessRules;
@@ -47,9 +49,9 @@ class DepartmentDatabaseRepository implements DepartmentRepository
 
     /**
      * @param  DepartmentEntity|DepartmentBusinessRules  $department
-     * @return int
+     * @return bool
      */
-    public function delete(DepartmentEntity|DepartmentBusinessRules $department): int
+    public function delete(DepartmentEntity|DepartmentBusinessRules $department): bool
     {
         return Department::where('id', $department->getId())
             ->first()
@@ -70,10 +72,10 @@ class DepartmentDatabaseRepository implements DepartmentRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return Department::paginate($perPage);
     }

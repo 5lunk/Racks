@@ -24,7 +24,7 @@ export default {
     TheMessage,
   },
   created() {
-    this.$store.dispatch('getRoom', this.$route.params.id);
+    this.$store.dispatch('getRoom', parseInt(this.$route.params.id));
   },
   computed: {
     form() {
@@ -42,7 +42,7 @@ export default {
     submitForm(form) {
       this.$store.dispatch('submitRoomFormForUpdate', {
         form: form,
-        id: this.$route.params.id,
+        id: parseInt(this.$route.params.id),
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

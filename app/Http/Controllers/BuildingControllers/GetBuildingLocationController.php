@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\BuildingControllers;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingRepository;
@@ -36,7 +38,7 @@ class GetBuildingLocationController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $buildingLocation = $this->buildingRepository->getLocation($request->route('id'));
+            $buildingLocation = $this->buildingRepository->getLocation((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $buildingLocation[0]]

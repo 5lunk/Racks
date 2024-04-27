@@ -39,7 +39,7 @@ export default {
     submitForm(form) {
       this.$store.dispatch('submitRoomFormForCreate', {
         form: form,
-        buildingId: this.$route.params.building_id,
+        buildingId: parseInt(this.$route.params.building_id),
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

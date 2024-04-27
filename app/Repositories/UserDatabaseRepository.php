@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\UserInterfaces\UserBusinessRules;
@@ -61,10 +63,10 @@ class UserDatabaseRepository implements UserRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return User::paginate($perPage);
     }
@@ -97,9 +99,9 @@ class UserDatabaseRepository implements UserRepository
 
     /**
      * @param  UserEntity|UserBusinessRules  $user
-     * @return int
+     * @return bool
      */
-    public function delete(UserEntity|UserBusinessRules $user): int
+    public function delete(UserEntity|UserBusinessRules $user): bool
     {
         return User::where('id', $user->getId())
             ->first()

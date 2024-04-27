@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\SiteRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,7 +44,7 @@ class CreateSiteRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'department_id' => ['required', 'int'],
+            'department_id' => ['required', 'integer'],
         ];
     }
 }

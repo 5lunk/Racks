@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\RoomResources;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\UserUseCases\CreateUserUseCase;
 
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentRepository;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\BuildingControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetBuildingController extends Controller
     public function __invoke(GetBuildingRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getBuilding(
-            App()->makeWith(GetBuildingRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetBuildingRequestModel::class, ['id' => (int) $request->route('id')])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

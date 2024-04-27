@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\RoomInterfaces;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -32,9 +34,9 @@ interface RoomRepository
 
     /**
      * @param  RoomEntity|RoomBusinessRules  $room
-     * @return int
+     * @return bool
      */
-    public function delete(RoomEntity|RoomBusinessRules $room): int;
+    public function delete(RoomEntity|RoomBusinessRules $room): bool;
 
     /**
      * @return void
@@ -42,13 +44,13 @@ interface RoomRepository
     public function lockTable(): void;
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator;
+    public function getAll(?int $perPage): LengthAwarePaginator;
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<array{
      *      region_name: string,
      *      department_name: string,
@@ -56,5 +58,5 @@ interface RoomRepository
      *      building_name: string
      * }>
      */
-    public function getLocation(?string $id): array;
+    public function getLocation(?int $id): array;
 }

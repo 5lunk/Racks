@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\SiteControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetSiteController extends Controller
     public function __invoke(GetSiteRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getSite(
-            App()->makeWith(GetSiteRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetSiteRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

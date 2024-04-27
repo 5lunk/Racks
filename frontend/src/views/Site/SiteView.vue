@@ -66,8 +66,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('getSite', this.$route.params.id);
-    this.$store.dispatch('getSiteLocation', this.$route.params.id);
+    this.$store.dispatch('getSite', parseInt(this.$route.params.id));
+    this.$store.dispatch('getSiteLocation', parseInt(this.$route.params.id));
   },
   computed: {
     site() {

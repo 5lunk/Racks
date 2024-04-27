@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RackControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetRackController extends Controller
     public function __invoke(GetRackRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRack(
-            App()->makeWith(GetRackRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetRackRequestModel::class, ['id' => (int) $request->route('id')])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

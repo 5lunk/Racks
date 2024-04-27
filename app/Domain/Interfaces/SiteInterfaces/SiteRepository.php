@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\SiteInterfaces;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,22 +28,22 @@ interface SiteRepository
 
     /**
      * @param  SiteEntity|SiteBusinessRules  $site
-     * @return int
+     * @return bool
      */
-    public function delete(SiteEntity|SiteBusinessRules $site): int;
+    public function delete(SiteEntity|SiteBusinessRules $site): bool;
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string
      * }>
      */
-    public function getLocation(?string $id): array;
+    public function getLocation(?int $id): array;
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator;
+    public function getAll(?int $perPage): LengthAwarePaginator;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RoomControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -42,7 +44,7 @@ class UpdateRoomController extends Controller
         $viewModel = $this->interactor->updateRoom(
             App()->makeWith(
                 UpdateRoomRequestModel::class,
-                ['attributes' => $request->validated(), 'id' => $request->route('id'), 'user' => $request->user()]
+                ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )
         );
 

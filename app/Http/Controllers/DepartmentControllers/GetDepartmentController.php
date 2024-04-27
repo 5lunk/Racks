@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\DepartmentControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetDepartmentController extends Controller
     public function __invoke(GetDepartmentRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getDepartment(
-            App()->makeWith(GetDepartmentRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetDepartmentRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

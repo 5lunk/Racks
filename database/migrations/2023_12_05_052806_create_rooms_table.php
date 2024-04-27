@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Enums\RoomCoolingSystemEnum;
 use App\Models\Enums\RoomFireSuppressionSystemEnum;
 use Illuminate\Database\Migrations\Migration;

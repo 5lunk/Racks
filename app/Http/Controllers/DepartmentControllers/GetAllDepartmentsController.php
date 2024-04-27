@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\DepartmentControllers;
 
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentRepository;
@@ -36,7 +38,7 @@ class GetAllDepartmentsController extends Controller
     public function __invoke(Request $request): LengthAwarePaginator
     {
         return $this->departmentRepository->getAll(
-            $request->route('per_page')
+            (int) $request->route('per_page')
         );
     }
 }

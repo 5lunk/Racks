@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\RegionInterfaces;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,9 +28,9 @@ interface RegionRepository
 
     /**
      * @param  RegionEntity|RegionBusinessRules  $region
-     * @return int
+     * @return bool
      */
-    public function delete(RegionEntity|RegionBusinessRules $region): int;
+    public function delete(RegionEntity|RegionBusinessRules $region): bool;
 
     /**
      * @param  RegionEntity|RegionBusinessRules  $region
@@ -65,8 +67,8 @@ interface RegionRepository
     public function getTreeView(): array;
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator;
+    public function getAll(?int $perPage): LengthAwarePaginator;
 }

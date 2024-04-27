@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
@@ -24,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static \App\Models\Rack create(array $attributes = [])
- * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?string $perPage, array $columns)
+ * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?int $perPage, array $columns)
  *
  * @property int $id PK
  * @property string $name Name, number or other identifier
@@ -402,7 +404,11 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      */
     public function getHasNumberingFromTopToBottom(): ?bool
     {
-        return $this->attributes['has_numbering_from_top_to_bottom'];
+        if (is_null($this->attributes['has_numbering_from_top_to_bottom'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['has_numbering_from_top_to_bottom'];
     }
 
     /**
@@ -783,7 +789,11 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      */
     public function getHasExternalUps(): ?bool
     {
-        return $this->attributes['has_external_ups'];
+        if (is_null($this->attributes['has_external_ups'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['has_external_ups'];
     }
 
     /**
@@ -800,7 +810,11 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      */
     public function getHasCooler(): ?bool
     {
-        return $this->attributes['has_cooler'];
+        if (is_null($this->attributes['has_cooler'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['has_cooler'];
     }
 
     /**

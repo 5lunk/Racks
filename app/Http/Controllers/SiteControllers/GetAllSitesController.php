@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\SiteControllers;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteRepository;
@@ -36,7 +38,7 @@ class GetAllSitesController extends Controller
     public function __invoke(Request $request): LengthAwarePaginator
     {
         return $this->siteRepository->getAll(
-            $request->route('per_page')
+            (int) $request->route('per_page')
         );
     }
 }

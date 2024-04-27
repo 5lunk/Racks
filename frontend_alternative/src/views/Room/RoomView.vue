@@ -116,8 +116,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('getRoom', this.$route.params.id);
-    this.$store.dispatch('getRoomLocation', this.$route.params.id);
+    this.$store.dispatch('getRoom', parseInt(this.$route.params.id));
+    this.$store.dispatch('getRoomLocation', parseInt(this.$route.params.id));
   },
   computed: {
     room() {

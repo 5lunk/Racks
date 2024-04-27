@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RackControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -42,7 +44,7 @@ class UpdateRackController extends Controller
         $viewModel = $this->interactor->updateRack(
             App()->makeWith(
                 UpdateRackRequestModel::class,
-                ['attributes' => $request->validated(), 'id' => $request->route('id'), 'user' => $request->user()]
+                ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )
         );
 

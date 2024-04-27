@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RegionControllers;
 
 use App\Domain\Interfaces\RegionInterfaces\RegionRepository;
@@ -36,7 +38,7 @@ class GetAllRegionsController extends Controller
     public function __invoke(Request $request): LengthAwarePaginator
     {
         return $this->regionRepository->getAll(
-            $request->route('per_page')
+            (int) $request->route('per_page')
         );
     }
 }

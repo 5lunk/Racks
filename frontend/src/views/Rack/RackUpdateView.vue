@@ -24,7 +24,7 @@ export default {
     TheMessage,
   },
   created() {
-    this.$store.dispatch('getRack', this.$route.params.id);
+    this.$store.dispatch('getRack', parseInt(this.$route.params.id));
   },
   computed: {
     form() {
@@ -42,7 +42,7 @@ export default {
     submitForm(form) {
       this.$store.dispatch('submitRackFormForUpdate', {
         form: form,
-        id: this.$route.params.id,
+        id: parseInt(this.$route.params.id),
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

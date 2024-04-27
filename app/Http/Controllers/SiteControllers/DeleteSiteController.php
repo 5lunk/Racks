@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\SiteControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -41,7 +43,7 @@ class DeleteSiteController extends Controller
     {
         $viewModel = $this->interactor->deleteSite(
             App()->makeWith(DeleteSiteRequestModel::class,
-                ['id' => $request->route('id'), 'user' => $request->user()])
+                ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

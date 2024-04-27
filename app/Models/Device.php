@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
@@ -646,7 +648,11 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
      */
     public function getLocation(): ?bool
     {
-        return $this->attributes['has_backside_location'];
+        if (is_null($this->attributes['has_backside_location'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['has_backside_location'];
     }
 
     /**

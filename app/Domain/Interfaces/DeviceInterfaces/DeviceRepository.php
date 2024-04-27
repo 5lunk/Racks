@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\DeviceInterfaces;
 
 interface DeviceRepository
@@ -17,16 +19,16 @@ interface DeviceRepository
     public function getById(int $id): DeviceEntity|DeviceBusinessRules;
 
     /**
-     * @param  string|null  $rackId  Rack ID
+     * @param  int|null  $rackId  Rack ID
      * @return array{string: string|int|bool} Rack model to array
      */
-    public function getByRackId(?string $rackId): array;
+    public function getByRackId(?int $rackId): array;
 
     /**
      * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return int
+     * @return bool
      */
-    public function delete(DeviceEntity|DeviceBusinessRules $device): int;
+    public function delete(DeviceEntity|DeviceBusinessRules $device): bool;
 
     /**
      * @param  DeviceEntity|DeviceBusinessRules  $device
@@ -36,12 +38,12 @@ interface DeviceRepository
 
     /**
      * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return int
+     * @return bool
      */
-    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): int;
+    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): bool;
 
     /**
-     * @param  string|null  $id  Rack ID
+     * @param  int|null  $id  Rack ID
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
@@ -51,7 +53,7 @@ interface DeviceRepository
      *     rack_name: string
      * }> Device location array
      */
-    public function getLocation(?string $id): array;
+    public function getLocation(?int $id): array;
 
     /**
      * @return array{

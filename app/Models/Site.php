@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
@@ -17,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static \App\Models\Site create(array $attributes = [])
- * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?string $perPage)
+ * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?int $perPage)
  *
  * @property int $id PK
  * @property string $name Name

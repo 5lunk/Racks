@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RoomControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -41,7 +43,7 @@ class DeleteRoomController extends Controller
     {
         $viewModel = $this->interactor->deleteRoom(
             App()->makeWith(DeleteRoomRequestModel::class,
-                ['id' => $request->route('id'), 'user' => $request->user()])
+                ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

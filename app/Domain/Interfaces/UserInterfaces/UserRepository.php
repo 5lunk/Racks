@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\UserInterfaces;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -19,10 +21,10 @@ interface UserRepository
     public function create(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator;
+    public function getAll(?int $perPage): LengthAwarePaginator;
 
     /**
      * @param  int  $id
@@ -44,7 +46,7 @@ interface UserRepository
 
     /**
      * @param  UserEntity|UserBusinessRules  $user
-     * @return int
+     * @return bool
      */
-    public function delete(UserEntity|UserBusinessRules $user): int;
+    public function delete(UserEntity|UserBusinessRules $user): bool;
 }

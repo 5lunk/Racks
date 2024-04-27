@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\SiteControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -42,7 +44,7 @@ class UpdateSiteController extends Controller
         $viewModel = $this->interactor->updateSite(
             App()->makeWith(
                 UpdateSiteRequestModel::class,
-                ['attributes' => $request->validated(), 'id' => $request->route('id'), 'user' => $request->user()]
+                ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )
         );
 

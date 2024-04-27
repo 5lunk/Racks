@@ -79,8 +79,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('getRack', this.$route.params.id);
-    this.$store.dispatch('getDevicesForRack', this.$route.params.id);
+    this.$store.dispatch('getRack', parseInt(this.$route.params.id));
+    this.$store.dispatch('getDevicesForRack', parseInt(this.$route.params.id));
   },
   computed: {
     /**

@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingRepository;
 use App\Models\Building;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -35,6 +38,8 @@ class BuildingDatabaseRepository implements BuildingRepository
     /**
      * @param  BuildingEntity|BuildingBusinessRules  $building
      * @return BuildingEntity|BuildingBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function create(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
     {
@@ -44,6 +49,8 @@ class BuildingDatabaseRepository implements BuildingRepository
     /**
      * @param  BuildingEntity|BuildingBusinessRules  $building
      * @return BuildingEntity|BuildingBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function update(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
     {
@@ -56,9 +63,9 @@ class BuildingDatabaseRepository implements BuildingRepository
 
     /**
      * @param  BuildingEntity|BuildingBusinessRules  $building
-     * @return int
+     * @return bool
      */
-    public function delete(BuildingEntity|BuildingBusinessRules $building): int
+    public function delete(BuildingEntity|BuildingBusinessRules $building): bool
     {
         return Building::where('id', $building->getId())
             ->first()
@@ -66,14 +73,14 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
      *     site_name: string
      * }>
      */
-    public function getLocation(?string $id): array
+    public function getLocation(?int $id): array
     {
         return DB::table('buildings')
             ->where('buildings.id', $id)
@@ -99,10 +106,10 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return Building::paginate($perPage);
     }

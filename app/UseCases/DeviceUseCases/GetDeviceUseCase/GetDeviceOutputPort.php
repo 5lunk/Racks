@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\DeviceUseCases\GetDeviceUseCase;
 
 use App\Domain\Interfaces\ViewModel;

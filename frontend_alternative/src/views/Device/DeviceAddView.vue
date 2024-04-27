@@ -39,7 +39,7 @@ export default {
     submitForm(form) {
       this.$store.dispatch('submitDeviceFormForCreate', {
         form: form,
-        rackId: this.$route.params.rack_id,
+        rackId: parseInt(this.$route.params.rack_id),
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

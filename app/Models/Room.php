@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
@@ -21,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static \App\Models\Room create(array $attributes = [])
- * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?string $perPage)
+ * @method static \Illuminate\Pagination\LengthAwarePaginator paginate(?int $perPage)
  *
  * @property int $id PK
  * @property string|null $name Room name or number including floor
@@ -297,7 +299,11 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
      */
     public function getAccessIsOpen(): ?bool
     {
-        return $this->attributes['access_is_open'];
+        if (is_null($this->attributes['access_is_open'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['access_is_open'];
     }
 
     /**
@@ -314,7 +320,11 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
      */
     public function getHasRaisedFloor(): ?bool
     {
-        return $this->attributes['has_raised_floor'];
+        if (is_null($this->attributes['has_raised_floor'])) {
+            return null;
+        }
+
+        return (bool) $this->attributes['has_raised_floor'];
     }
 
     /**

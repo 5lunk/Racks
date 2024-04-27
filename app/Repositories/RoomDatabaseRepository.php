@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 use App\Domain\Interfaces\RoomInterfaces\RoomRepository;
 use App\Models\Room;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -36,6 +39,8 @@ class RoomDatabaseRepository implements RoomRepository
     /**
      * @param  RoomEntity|RoomBusinessRules  $room
      * @return RoomEntity|RoomBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function create(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
     {
@@ -45,6 +50,8 @@ class RoomDatabaseRepository implements RoomRepository
     /**
      * @param  RoomEntity|RoomBusinessRules  $room
      * @return RoomEntity|RoomBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function update(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
     {
@@ -57,9 +64,9 @@ class RoomDatabaseRepository implements RoomRepository
 
     /**
      * @param  RoomEntity|RoomBusinessRules  $room
-     * @return int
+     * @return bool
      */
-    public function delete(RoomEntity|RoomBusinessRules $room): int
+    public function delete(RoomEntity|RoomBusinessRules $room): bool
     {
         return Room::where('id', $room->getId())
             ->first()
@@ -76,16 +83,16 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return Room::paginate($perPage);
     }
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
@@ -93,7 +100,7 @@ class RoomDatabaseRepository implements RoomRepository
      *     building_name: string
      * }>
      */
-    public function getLocation(?string $id): array
+    public function getLocation(?int $id): array
     {
         return DB::table('rooms')
             ->where('rooms.id', $id)

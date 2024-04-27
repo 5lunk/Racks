@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
@@ -51,9 +53,9 @@ class SiteDatabaseRepository implements SiteRepository
 
     /**
      * @param  SiteEntity|SiteBusinessRules  $site
-     * @return int
+     * @return bool
      */
-    public function delete(SiteEntity|SiteBusinessRules $site): int
+    public function delete(SiteEntity|SiteBusinessRules $site): bool
     {
         return Site::where('id', $site->getId())
             ->first()
@@ -61,13 +63,13 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string
      * }>
      */
-    public function getLocation(?string $id): array
+    public function getLocation(?int $id): array
     {
         return DB::table('sites')
             ->where('sites.id', $id)
@@ -82,10 +84,10 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator
+    public function getAll(?int $perPage): LengthAwarePaginator
     {
         return Site::paginate($perPage);
     }

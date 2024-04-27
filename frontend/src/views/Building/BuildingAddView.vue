@@ -39,7 +39,7 @@ export default {
     submitForm(form) {
       this.$store.dispatch('submitBuildingFormForCreate', {
         form: form,
-        siteId: this.$route.params.site_id,
+        siteId: parseInt(this.$route.params.site_id),
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },

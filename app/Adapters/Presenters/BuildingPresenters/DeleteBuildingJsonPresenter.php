@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapters\Presenters\BuildingPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;

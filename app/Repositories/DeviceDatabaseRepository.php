@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
@@ -22,10 +24,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  string|null  $rackId
+     * @param  int|null  $rackId
      * @return array<mixed>
      */
-    public function getByRackId(?string $rackId): array
+    public function getByRackId(?int $rackId): array
     {
         return Device::where('rack_id', $rackId)
             ->get()
@@ -34,9 +36,9 @@ class DeviceDatabaseRepository implements DeviceRepository
 
     /**
      * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return int
+     * @return bool
      */
-    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): int
+    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): bool
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -47,9 +49,9 @@ class DeviceDatabaseRepository implements DeviceRepository
 
     /**
      * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return int
+     * @return bool
      */
-    public function delete(DeviceEntity|DeviceBusinessRules $device): int
+    public function delete(DeviceEntity|DeviceBusinessRules $device): bool
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -79,10 +81,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<mixed>
      */
-    public function getLocation(?string $id): array
+    public function getLocation(?int $id): array
     {
         return DB::table('devices')
             ->where('devices.id', $id)

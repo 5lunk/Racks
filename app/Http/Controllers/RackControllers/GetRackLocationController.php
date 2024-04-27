@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RackControllers;
 
 use App\Domain\Interfaces\RackInterfaces\RackRepository;
@@ -36,7 +38,7 @@ class GetRackLocationController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $rackLocation = $this->rackRepository->getLocation($request->route('id'));
+            $rackLocation = $this->rackRepository->getLocation((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $rackLocation[0]]

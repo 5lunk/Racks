@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RegionControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetRegionController extends Controller
     public function __invoke(GetRegionRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRegion(
-            App()->makeWith(GetRegionRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetRegionRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

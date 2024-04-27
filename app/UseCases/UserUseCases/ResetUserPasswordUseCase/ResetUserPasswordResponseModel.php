@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\UserUseCases\ResetUserPasswordUseCase;
 
 use App\Domain\Interfaces\UserInterfaces\UserEntity;

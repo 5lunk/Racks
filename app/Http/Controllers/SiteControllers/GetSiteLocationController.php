@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\SiteControllers;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteRepository;
@@ -36,7 +38,7 @@ class GetSiteLocationController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $siteLocation = $this->siteRepository->getLocation($request->route('id'));
+            $siteLocation = $this->siteRepository->getLocation((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $siteLocation[0]]

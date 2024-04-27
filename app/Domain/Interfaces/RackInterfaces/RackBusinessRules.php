@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\RackInterfaces;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;

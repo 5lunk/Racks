@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\RackResources;
 
 use Illuminate\Http\Request;
@@ -48,7 +50,7 @@ class UnableToUpdateRackResource extends JsonResource
     {
         return [
             'message' => 'Unable to update rack',
-            'error' => $this->e->getMessage(),
+            'error' => (config('app.debug') ? $this->e->getMessage() : 'Internal server error'),
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RackControllers;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceRepository;
@@ -36,7 +38,7 @@ class GetRackDevicesController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $rackDevices = $this->deviceRepository->getByRackId($request->route('id'));
+            $rackDevices = $this->deviceRepository->getByRackId((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $rackDevices]

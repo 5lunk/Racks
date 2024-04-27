@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\UserControllers;
 
 use App\Domain\Interfaces\UserInterfaces\UserRepository;
@@ -33,7 +35,7 @@ class GetAllUsersController extends Controller
     public function __invoke(Request $request): LengthAwarePaginator
     {
         return $this->userRepository->getAll(
-            $request->route('per_page')
+            (int) $request->route('per_page')
         );
     }
 }

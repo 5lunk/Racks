@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Interfaces\DepartmentInterfaces;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,9 +28,9 @@ interface DepartmentRepository
 
     /**
      * @param  DepartmentEntity|DepartmentBusinessRules  $department
-     * @return int
+     * @return bool
      */
-    public function delete(DepartmentEntity|DepartmentBusinessRules $department): int;
+    public function delete(DepartmentEntity|DepartmentBusinessRules $department): bool;
 
     /**
      * @param  DepartmentEntity|DepartmentBusinessRules  $department
@@ -37,8 +39,8 @@ interface DepartmentRepository
     public function update(DepartmentEntity|DepartmentBusinessRules $department): DepartmentEntity|DepartmentBusinessRules;
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage): LengthAwarePaginator;
+    public function getAll(?int $perPage): LengthAwarePaginator;
 }

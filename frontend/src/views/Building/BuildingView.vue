@@ -70,8 +70,11 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('getBuilding', this.$route.params.id);
-    this.$store.dispatch('getBuildingLocation', this.$route.params.id);
+    this.$store.dispatch('getBuilding', parseInt(this.$route.params.id));
+    this.$store.dispatch(
+      'getBuildingLocation',
+      parseInt(this.$route.params.id),
+    );
   },
   computed: {
     building() {

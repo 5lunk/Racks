@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\DeviceControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -41,7 +43,7 @@ class UpdateDeviceController extends Controller
     {
         $viewModel = $this->interactor->updateDevice(
             App()->makeWith(UpdateDeviceRequestModel::class,
-                ['attributes' => $request->validated(), 'id' => $request->route('id'), 'user' => $request->user()]
+                ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )
         );
         if ($viewModel instanceof JsonResourceViewModel) {

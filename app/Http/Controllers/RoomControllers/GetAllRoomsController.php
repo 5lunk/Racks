@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RoomControllers;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomRepository;
@@ -36,7 +38,7 @@ class GetAllRoomsController extends Controller
     public function __invoke(Request $request): LengthAwarePaginator
     {
         return $this->roomRepository->getAll(
-            $request->route('per_page')
+            (int) $request->route('per_page')
         );
     }
 }

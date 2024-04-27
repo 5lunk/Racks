@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands\RegionCommands;
 
 use App\Adapters\ViewModels\CliViewModel;

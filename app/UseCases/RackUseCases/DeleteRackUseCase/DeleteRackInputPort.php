@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\RackUseCases\DeleteRackUseCase;
 
 use App\Domain\Interfaces\ViewModel;

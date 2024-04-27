@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Domain\Interfaces\RackInterfaces\RackBusinessRules;
 use App\Domain\Interfaces\RackInterfaces\RackEntity;
 use App\Domain\Interfaces\RackInterfaces\RackRepository;
 use App\Models\Rack;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +28,8 @@ class RackDatabaseRepository implements RackRepository
     /**
      * @param  RackEntity|RackBusinessRules  $rack
      * @return RackEntity|RackBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function create(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
     {
@@ -33,9 +38,11 @@ class RackDatabaseRepository implements RackRepository
 
     /**
      * @param  RackEntity|RackBusinessRules  $rack
-     * @return int
+     * @return bool
+     *
+     * @throws BindingResolutionException
      */
-    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): int
+    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): bool
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -57,9 +64,9 @@ class RackDatabaseRepository implements RackRepository
 
     /**
      * @param  RackEntity|RackBusinessRules  $rack
-     * @return int
+     * @return bool
      */
-    public function delete(RackEntity|RackBusinessRules $rack): int
+    public function delete(RackEntity|RackBusinessRules $rack): bool
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -69,6 +76,8 @@ class RackDatabaseRepository implements RackRepository
     /**
      * @param  RackEntity|RackBusinessRules  $rack
      * @return RackEntity|RackBusinessRules
+     *
+     * @throws BindingResolutionException
      */
     public function update(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
     {
@@ -101,10 +110,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  string|null  $id
+     * @param  int|null  $id
      * @return array<mixed>
      */
-    public function getLocation(?string $id): array
+    public function getLocation(?int $id): array
     {
         return DB::table('racks')
             ->where('racks.id', $id)
@@ -149,11 +158,11 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  string|null  $perPage
+     * @param  int|null  $perPage
      * @param  array<string>  $columns
      * @return LengthAwarePaginator
      */
-    public function getAll(?string $perPage, array $columns): LengthAwarePaginator
+    public function getAll(?int $perPage, array $columns): LengthAwarePaginator
     {
         return Rack::paginate($perPage, $columns);
     }

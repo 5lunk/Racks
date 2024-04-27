@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\DeviceControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetDeviceController extends Controller
     public function __invoke(GetDeviceRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getDevice(
-            App()->makeWith(GetDeviceRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetDeviceRequestModel::class, ['id' => (int) $request->route('id')])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

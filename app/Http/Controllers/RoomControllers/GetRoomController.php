@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RoomControllers;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
@@ -40,7 +42,7 @@ class GetRoomController extends Controller
     public function __invoke(GetRoomRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRoom(
-            App()->makeWith(GetRoomRequestModel::class, ['id' => $request->route('id')])
+            App()->makeWith(GetRoomRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

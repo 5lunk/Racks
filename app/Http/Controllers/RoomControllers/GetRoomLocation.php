@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\RoomControllers;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomRepository;
@@ -36,7 +38,7 @@ class GetRoomLocation extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $roomLocation = $this->roomRepository->getLocation($request->route('id'));
+            $roomLocation = $this->roomRepository->getLocation((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $roomLocation[0]]

@@ -223,8 +223,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('getDevice', this.$route.params.id);
-    this.$store.dispatch('getDeviceLocation', this.$route.params.id);
+    this.$store.dispatch('getDevice', parseInt(this.$route.params.id));
+    this.$store.dispatch('getDeviceLocation', parseInt(this.$route.params.id));
   },
   computed: {
     device() {

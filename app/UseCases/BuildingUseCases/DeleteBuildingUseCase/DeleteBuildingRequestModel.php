@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\BuildingUseCases\DeleteBuildingUseCase;
 
 use App\Models\User;

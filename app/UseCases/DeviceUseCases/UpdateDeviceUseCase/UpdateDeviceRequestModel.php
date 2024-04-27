@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\DeviceUseCases\UpdateDeviceUseCase;
 
 use App\Models\User;

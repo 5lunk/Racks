@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\DeviceControllers;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceRepository;
@@ -36,7 +38,7 @@ class GetDeviceLocationController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $deviceLocation = $this->deviceRepository->getLocation($request->route('id'));
+            $deviceLocation = $this->deviceRepository->getLocation((int) $request->route('id'));
 
             return response()->json(
                 ['data' => $deviceLocation[0]]
