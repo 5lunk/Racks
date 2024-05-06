@@ -60,7 +60,7 @@ class CreateRoomInteractor implements CreateRoomInputPort
 
         DB::beginTransaction();
 
-        $this->roomRepository->lockTable();
+        DB::table('room')->lockForUpdate();
 
         // Name check (can not be repeated inside one building)
         if (! $room->isNameValid($this->roomRepository->getNamesListByBuildingId($building->getId()))) {

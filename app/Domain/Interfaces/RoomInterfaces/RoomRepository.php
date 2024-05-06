@@ -39,11 +39,6 @@ interface RoomRepository
     public function delete(RoomEntity|RoomBusinessRules $room): bool;
 
     /**
-     * @return void
-     */
-    public function lockTable(): void;
-
-    /**
      * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */

@@ -97,15 +97,6 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @return void
-     */
-    public function lockTable(): void
-    {
-        DB::table('building')
-            ->sharedLock();
-    }
-
-    /**
      * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */

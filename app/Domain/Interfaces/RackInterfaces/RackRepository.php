@@ -51,11 +51,6 @@ interface RackRepository
     public function getNamesListByRoomId(int $roomId): array;
 
     /**
-     * @return void
-     */
-    public function lockTable(): void;
-
-    /**
      * Rack location
      * Region>Department>Site>Building>Room
      *

@@ -60,7 +60,7 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
 
         DB::beginTransaction();
 
-        $this->buildingRepository->lockTable();
+        DB::table('building')->lockForUpdate();
 
         // Name check (can not be repeated inside one site)
         if (! $building->isNameValid($this->buildingRepository->getNamesListBySiteId($site->getId()))) {

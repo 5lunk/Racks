@@ -60,7 +60,7 @@ class CreateRackInteractor implements CreateRackInputPort
 
         DB::beginTransaction();
 
-        $this->rackRepository->lockTable();
+        DB::table('rack')->lockForUpdate();
 
         // Name check (can not be repeated inside one room)
         if (! $rack->isNameValid($this->rackRepository->getNamesListByRoomId($room->getId()))) {

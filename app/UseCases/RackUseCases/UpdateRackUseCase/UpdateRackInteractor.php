@@ -65,7 +65,7 @@ class UpdateRackInteractor implements UpdateRackInputPort
 
         DB::beginTransaction();
 
-        $this->rackRepository->lockTable();
+        DB::table('rack')->lockForUpdate();
 
         $rackNamesList = $this->rackRepository->getNamesListByRoomId($room->getId());
 

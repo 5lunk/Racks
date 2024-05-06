@@ -62,7 +62,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
 
         DB::beginTransaction();
 
-        $this->buildingRepository->lockTable();
+        DB::table('building')->lockForUpdate();
 
         $buildingNamesList = $this->buildingRepository->getNamesListBySiteId($site->getId());
 

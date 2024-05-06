@@ -101,15 +101,6 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @return void
-     */
-    public function lockTable(): void
-    {
-        DB::table('rack')
-            ->sharedLock();
-    }
-
-    /**
      * @param  int|null  $id
      * @return array<mixed>
      */

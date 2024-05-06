@@ -48,11 +48,6 @@ interface BuildingRepository
     public function getLocation(?int $id): array;
 
     /**
-     * @return void
-     */
-    public function lockTable(): void;
-
-    /**
      * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */

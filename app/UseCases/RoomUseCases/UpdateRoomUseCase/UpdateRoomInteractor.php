@@ -64,7 +64,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
 
         DB::beginTransaction();
 
-        $this->roomRepository->lockTable();
+        DB::table('room')->lockForUpdate();
 
         $roomNamesList = $this->roomRepository->getNamesListByBuildingId($building->getId());
 

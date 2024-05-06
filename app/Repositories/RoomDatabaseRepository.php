@@ -74,15 +74,6 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @return void
-     */
-    public function lockTable(): void
-    {
-        DB::table('room')
-            ->sharedLock();
-    }
-
-    /**
      * @param  int|null  $perPage
      * @return LengthAwarePaginator
      */

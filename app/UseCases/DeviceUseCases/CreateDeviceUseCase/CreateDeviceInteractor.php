@@ -69,7 +69,9 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
 
         // Try to create
         try {
-            $this->rackRepository->lockById($request->getRackId());
+            DB::table('racks')
+                ->where('id', $request->getRackId())
+                ->lockForUpdate();
 
             $rack = $this->rackRepository->getById($request->getRackId());
 
