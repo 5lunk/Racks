@@ -58,7 +58,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setRackId(): void
+    private function setRackId(): void
     {
         $rackId = $this->device->getRackId();
         if ($rackId !== null) {
@@ -69,7 +69,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setUnits(): void
+    private function setUnits(): void
     {
         $units = $this->device->getUnits()->toArray();
         if (count($units)) {
@@ -80,7 +80,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setLocation(): void
+    private function setLocation(): void
     {
         $location = $this->device->getLocation();
         if (! is_null($location)) {
@@ -91,7 +91,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setModel(): void
+    private function setModel(): void
     {
         $model = $this->device->getModel();
         if ($model) {
@@ -102,7 +102,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setVendor(): void
+    private function setVendor(): void
     {
         $vendor = $this->device->getVendor();
         if ($vendor) {
@@ -113,7 +113,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setUpdatedBy(): void
+    private function setUpdatedBy(): void
     {
         $updatedBy = $this->device->getUpdatedBy();
         if ($updatedBy) {
@@ -124,7 +124,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setType(): void
+    private function setType(): void
     {
         $type = $this->device->getType();
         if ($type) {
@@ -135,7 +135,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setStatus(): void
+    private function setStatus(): void
     {
         $status = $this->device->getStatus();
         if ($status) {
@@ -146,7 +146,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setHostname(): void
+    private function setHostname(): void
     {
         $hostname = $this->device->getHostname();
         if ($hostname) {
@@ -157,7 +157,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setIp(): void
+    private function setIp(): void
     {
         $ip = $this->device->getIp();
         if ($ip) {
@@ -168,7 +168,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setPortsAmount(): void
+    private function setPortsAmount(): void
     {
         $portsAmount = $this->device->getPortsAmount();
         if ($portsAmount) {
@@ -179,7 +179,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setSoftwareVersion(): void
+    private function setSoftwareVersion(): void
     {
         $softwareVersion = $this->device->getSoftwareVersion();
         if ($softwareVersion) {
@@ -190,7 +190,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerType(): void
+    private function setPowerType(): void
     {
         $powerType = $this->device->getPowerType();
         if ($powerType) {
@@ -201,7 +201,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerW(): void
+    private function setPowerW(): void
     {
         $powerW = $this->device->getPowerW();
         if ($powerW) {
@@ -212,7 +212,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerV(): void
+    private function setPowerV(): void
     {
         $powerV = $this->device->getPowerV();
         if ($powerV) {
@@ -223,7 +223,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerACDC(): void
+    private function setPowerACDC(): void
     {
         $powerACDC = $this->device->getPowerACDC();
         if ($powerACDC) {
@@ -234,7 +234,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setSerialNumber(): void
+    private function setSerialNumber(): void
     {
         $serialNumber = $this->device->getSerialNumber();
         if ($serialNumber) {
@@ -245,7 +245,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setDescription(): void
+    private function setDescription(): void
     {
         $description = $this->device->getDescription();
         if ($description) {
@@ -256,7 +256,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setProject(): void
+    private function setProject(): void
     {
         $project = $this->device->getProject();
         if ($project) {
@@ -267,7 +267,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setOwnership(): void
+    private function setOwnership(): void
     {
         $ownership = $this->device->getOwnership();
         if ($ownership) {
@@ -278,7 +278,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setResponsible(): void
+    private function setResponsible(): void
     {
         $responsible = $this->device->getResponsible();
         if ($responsible) {
@@ -289,7 +289,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setFinanciallyResponsiblePerson(): void
+    private function setFinanciallyResponsiblePerson(): void
     {
         $financiallyResponsiblePerson = $this->device->getFinanciallyResponsiblePerson();
         if ($financiallyResponsiblePerson) {
@@ -300,7 +300,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setInventoryNumber(): void
+    private function setInventoryNumber(): void
     {
         $inventoryNumber = $this->device->getInventoryNumber();
         if ($inventoryNumber) {
@@ -311,7 +311,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setFixedAsset(): void
+    private function setFixedAsset(): void
     {
         $fixedAsset = $this->device->getFixedAsset();
         if ($fixedAsset) {
@@ -322,7 +322,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setLinkToDocs(): void
+    private function setLinkToDocs(): void
     {
         $linkToDocs = $this->device->getLinkToDocs();
         if ($linkToDocs) {
@@ -333,7 +333,7 @@ class DeviceAttributesValueObject
     /**
      * @return void
      */
-    public function setDepartmentId(): void
+    private function setDepartmentId(): void
     {
         $departmentId = $this->device->getDepartmentId();
         if ($departmentId) {

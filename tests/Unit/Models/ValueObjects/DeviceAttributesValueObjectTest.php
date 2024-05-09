@@ -24,11 +24,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setRackId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setRackId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['rack_id' => 4],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -45,11 +46,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setRackId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setRackId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -74,11 +76,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setUnits');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setUnits();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['units' => '[3,4,5]'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -100,11 +103,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setUnits');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setUnits();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -124,11 +128,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setLocation');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setLocation();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['has_backside_location' => true],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -145,11 +150,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setLocation');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setLocation();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -169,11 +175,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setModel');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setModel();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['model' => 'model'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -190,11 +197,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setModel');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setModel();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -214,11 +222,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setVendor');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setVendor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['vendor' => 'vendor'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -235,11 +244,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setVendor');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setVendor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -259,11 +269,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['updated_by' => 'user'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -280,11 +291,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -304,11 +316,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setType();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['type' => 'Other'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -325,11 +338,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setType();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -349,11 +363,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setStatus');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setStatus();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['status' => 'Active'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -370,11 +385,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setStatus');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setStatus();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -394,11 +410,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setHostname');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setHostname();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['hostname' => 'hostname'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -415,11 +432,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setHostname');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setHostname();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -439,11 +457,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setIp');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setIp();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['ip' => '192.168.10.10'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -460,11 +479,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setIp');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setIp();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -484,11 +504,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPortsAmount');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPortsAmount();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['ports_amount' => 24],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -505,11 +526,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPortsAmount');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPortsAmount();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -529,11 +551,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setSoftwareVersion');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setSoftwareVersion();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['software_version' => 'v12'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -550,11 +573,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setSoftwareVersion');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setSoftwareVersion();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -574,11 +598,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerType();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['power_type' => 'Other'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -595,11 +620,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerType();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -619,11 +645,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerW');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerW();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['power_w' => 200],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -640,11 +667,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerW');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerW();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -664,11 +692,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerV');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerV();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['power_v' => 220],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -685,11 +714,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerV');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerV();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -709,11 +739,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerACDC');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerACDC();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['power_ac_dc' => 'AC'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -730,11 +761,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setPowerACDC');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setPowerACDC();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -754,11 +786,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setSerialNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setSerialNumber();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['serial_number' => '123142352'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -775,11 +808,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setSerialNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setSerialNumber();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -799,11 +833,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['description' => 'description'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -820,11 +855,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -844,11 +880,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setProject');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setProject();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['project' => 'project'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -865,11 +902,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setProject');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setProject();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -889,11 +927,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setOwnership');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setOwnership();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['ownership' => 'ownership'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -910,11 +949,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setOwnership');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setOwnership();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -934,11 +974,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setResponsible');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setResponsible();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['responsible' => 'responsible'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -955,11 +996,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setResponsible');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setResponsible();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -979,11 +1021,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setFinanciallyResponsiblePerson();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['financially_responsible_person' => 'responsible'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1000,11 +1043,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setFinanciallyResponsiblePerson();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1024,11 +1068,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setInventoryNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setInventoryNumber();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['inventory_number' => '3426546245645'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1045,11 +1090,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setInventoryNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setInventoryNumber();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1069,11 +1115,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setFixedAsset');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setFixedAsset();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['fixed_asset' => '3426546245'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1090,11 +1137,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setFixedAsset');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setFixedAsset();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1114,11 +1162,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setLinkToDocs');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setLinkToDocs();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['link_to_docs' => 'link'],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1135,11 +1184,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setLinkToDocs');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setLinkToDocs();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1159,11 +1209,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['department_id' => 3],
             $attributesForDeviceProp->getValue($attrsMock)
@@ -1180,11 +1231,12 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
         $deviceProp->setValue($attrsMock, $deviceMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForDeviceProp->getValue($attrsMock)

@@ -23,11 +23,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setName');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setName();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['name' => 'some name'],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -44,11 +45,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setName');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setName();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -68,11 +70,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setSiteId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setSiteId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['site_id' => 12],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -89,11 +92,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setSiteId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setSiteId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -113,11 +117,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['updated_by' => 'user'],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -134,11 +139,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -158,11 +164,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['description' => 'description'],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -179,11 +186,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -203,11 +211,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['department_id' => 5],
             $attributesForBuildingProp->getValue($attrsMock)
@@ -224,11 +233,12 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
         $buildingProp->setValue($attrsMock, $buildingMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForBuildingProp->getValue($attrsMock)

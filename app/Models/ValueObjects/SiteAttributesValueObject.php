@@ -36,7 +36,7 @@ class SiteAttributesValueObject
     /**
      * @return void
      */
-    public function setName(): void
+    private function setName(): void
     {
         $name = $this->site->getName();
         if ($name) {
@@ -47,7 +47,7 @@ class SiteAttributesValueObject
     /**
      * @return void
      */
-    public function setUpdatedBy(): void
+    private function setUpdatedBy(): void
     {
         $updatedBy = $this->site->getUpdatedBy();
         if ($updatedBy) {
@@ -58,7 +58,7 @@ class SiteAttributesValueObject
     /**
      * @return void
      */
-    public function setDescription(): void
+    private function setDescription(): void
     {
         $description = $this->site->getDescription();
         if ($description) {
@@ -69,7 +69,7 @@ class SiteAttributesValueObject
     /**
      * @return void
      */
-    public function setDepartmentId(): void
+    private function setDepartmentId(): void
     {
         $departmentId = $this->site->getDepartmentId();
         if ($departmentId) {

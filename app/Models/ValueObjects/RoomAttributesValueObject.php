@@ -45,7 +45,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setName(): void
+    private function setName(): void
     {
         $name = $this->room->getName();
         if ($name) {
@@ -56,7 +56,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setBuildingFloor(): void
+    private function setBuildingFloor(): void
     {
         $buildingFloor = $this->room->getBuildingFloor();
         if ($buildingFloor) {
@@ -67,7 +67,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setBuildingId(): void
+    private function setBuildingId(): void
     {
         $buildingId = $this->room->getBuildingId();
         if ($buildingId) {
@@ -78,7 +78,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setNumberOfRackSpaces(): void
+    private function setNumberOfRackSpaces(): void
     {
         $numberOfRackSpaces = $this->room->getNumberOfRackSpaces();
         if ($numberOfRackSpaces) {
@@ -89,7 +89,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setArea(): void
+    private function setArea(): void
     {
         $area = $this->room->getArea();
         if ($area) {
@@ -100,7 +100,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setCoolingSystem(): void
+    private function setCoolingSystem(): void
     {
         $coolingSystem = $this->room->getCoolingSystem();
         if ($coolingSystem) {
@@ -111,7 +111,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setFireSuppressionSystem(): void
+    private function setFireSuppressionSystem(): void
     {
         $fireSuppressionSystem = $this->room->getFireSuppressionSystem();
         if ($fireSuppressionSystem) {
@@ -122,7 +122,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setAccessIsOpen(): void
+    private function setAccessIsOpen(): void
     {
         $accessIsOpen = $this->room->getAccessIsOpen();
         if (! is_null($accessIsOpen)) {
@@ -133,7 +133,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setHasRaisedFloor(): void
+    private function setHasRaisedFloor(): void
     {
         $hasRaisedFloor = $this->room->getHasRaisedFloor();
         if (! is_null($hasRaisedFloor)) {
@@ -144,7 +144,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setResponsible(): void
+    private function setResponsible(): void
     {
         $responsible = $this->room->getResponsible();
         if ($responsible) {
@@ -155,7 +155,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setUpdatedBy(): void
+    private function setUpdatedBy(): void
     {
         $updatedBy = $this->room->getUpdatedBy();
         if ($updatedBy) {
@@ -166,7 +166,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setDescription(): void
+    private function setDescription(): void
     {
         $description = $this->room->getDescription();
         if ($description) {
@@ -177,7 +177,7 @@ class RoomAttributesValueObject
     /**
      * @return void
      */
-    public function setDepartmentId(): void
+    private function setDepartmentId(): void
     {
         $departmentId = $this->room->getDepartmentId();
         if ($departmentId) {

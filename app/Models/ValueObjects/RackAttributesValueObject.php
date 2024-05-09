@@ -61,7 +61,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setName(): void
+    private function setName(): void
     {
         $name = $this->rack->getName();
         if ($name) {
@@ -72,7 +72,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setAmount(): void
+    private function setAmount(): void
     {
         $amount = $this->rack->getAmount();
         if ($amount) {
@@ -83,7 +83,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setVendor(): void
+    private function setVendor(): void
     {
         $vendor = $this->rack->getVendor();
         if ($vendor) {
@@ -94,7 +94,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setUpdatedBy(): void
+    private function setUpdatedBy(): void
     {
         $updatedBy = $this->rack->getUpdatedBy();
         if ($updatedBy) {
@@ -105,7 +105,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setModel(): void
+    private function setModel(): void
     {
         $model = $this->rack->getModel();
         if ($model) {
@@ -116,7 +116,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setDescription(): void
+    private function setDescription(): void
     {
         $description = $this->rack->getDescription();
         if ($description) {
@@ -127,7 +127,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setHasNumberingFromTopToBottom(): void
+    private function setHasNumberingFromTopToBottom(): void
     {
         $hasNumberingFromTopToBottom = $this->rack->getHasNumberingFromTopToBottom();
         if (! is_null($hasNumberingFromTopToBottom)) {
@@ -138,7 +138,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setResponsible(): void
+    private function setResponsible(): void
     {
         $responsible = $this->rack->getResponsible();
         if ($responsible) {
@@ -149,7 +149,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setFinanciallyResponsiblePerson(): void
+    private function setFinanciallyResponsiblePerson(): void
     {
         $financiallyResponsiblePerson = $this->rack->getFinanciallyResponsiblePerson();
         if ($financiallyResponsiblePerson) {
@@ -160,7 +160,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setInventoryNumber(): void
+    private function setInventoryNumber(): void
     {
         $inventoryNumber = $this->rack->getInventoryNumber();
         if ($inventoryNumber) {
@@ -171,7 +171,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setFixedAsset(): void
+    private function setFixedAsset(): void
     {
         $fixedAsset = $this->rack->getFixedAsset();
         if ($fixedAsset) {
@@ -182,7 +182,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setLinkToDocs(): void
+    private function setLinkToDocs(): void
     {
         $linkToDocs = $this->rack->getLinkToDocs();
         if ($linkToDocs) {
@@ -193,7 +193,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setRow(): void
+    private function setRow(): void
     {
         $row = $this->rack->getRow();
         if ($row) {
@@ -204,7 +204,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setPlace(): void
+    private function setPlace(): void
     {
         $place = $this->rack->getPlace();
         if ($place) {
@@ -215,7 +215,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setHeight(): void
+    private function setHeight(): void
     {
         $height = $this->rack->getHeight();
         if ($height) {
@@ -226,7 +226,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setWidth(): void
+    private function setWidth(): void
     {
         $width = $this->rack->getWidth();
         if ($width) {
@@ -237,7 +237,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setDepth(): void
+    private function setDepth(): void
     {
         $depth = $this->rack->getDepth();
         if ($depth) {
@@ -248,7 +248,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setUnitWidth(): void
+    private function setUnitWidth(): void
     {
         $unitWidth = $this->rack->getUnitWidth();
         if ($unitWidth) {
@@ -259,7 +259,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setUnitDepth(): void
+    private function setUnitDepth(): void
     {
         $unitDepth = $this->rack->getUnitDepth();
         if ($unitDepth) {
@@ -270,7 +270,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setType(): void
+    private function setType(): void
     {
         $type = $this->rack->getType();
         if ($type) {
@@ -281,7 +281,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setFrame(): void
+    private function setFrame(): void
     {
         $frame = $this->rack->getFrame();
         if ($frame) {
@@ -292,7 +292,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setPlaceType(): void
+    private function setPlaceType(): void
     {
         $placeType = $this->rack->getPlaceType();
         if ($placeType) {
@@ -303,7 +303,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setMaxLoad(): void
+    private function setMaxLoad(): void
     {
         $maxLoad = $this->rack->getMaxLoad();
         if ($maxLoad) {
@@ -314,7 +314,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerSockets(): void
+    private function setPowerSockets(): void
     {
         $powerSockets = $this->rack->getPowerSockets();
         if ($powerSockets) {
@@ -325,7 +325,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setPowerSocketsUps(): void
+    private function setPowerSocketsUps(): void
     {
         $powerSocketsUps = $this->rack->getPowerSocketsUps();
         if ($powerSocketsUps) {
@@ -336,7 +336,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setHasExternalUps(): void
+    private function setHasExternalUps(): void
     {
         $hasExternalUps = $this->rack->getHasExternalUps();
         if (! is_null($hasExternalUps)) {
@@ -347,7 +347,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setHasCooler(): void
+    private function setHasCooler(): void
     {
         $hasCooler = $this->rack->getHasCooler();
         if (! is_null($hasCooler)) {
@@ -358,7 +358,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setDepartmentId(): void
+    private function setDepartmentId(): void
     {
         $departmentId = $this->rack->getDepartmentId();
         if ($departmentId) {
@@ -369,7 +369,7 @@ class RackAttributesValueObject
     /**
      * @return void
      */
-    public function setRoomId(): void
+    private function setRoomId(): void
     {
         $roomId = $this->rack->getRoomId();
         if ($roomId) {

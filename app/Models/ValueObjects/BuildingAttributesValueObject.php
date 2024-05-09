@@ -37,7 +37,7 @@ class BuildingAttributesValueObject
     /**
      * @return void
      */
-    public function setName(): void
+    private function setName(): void
     {
         $name = $this->building->getName();
         if ($name) {
@@ -48,7 +48,7 @@ class BuildingAttributesValueObject
     /**
      * @return void
      */
-    public function setSiteId(): void
+    private function setSiteId(): void
     {
         $siteId = $this->building->getSiteId();
         if ($siteId) {
@@ -59,7 +59,7 @@ class BuildingAttributesValueObject
     /**
      * @return void
      */
-    public function setUpdatedBy(): void
+    private function setUpdatedBy(): void
     {
         $updatedBy = $this->building->getUpdatedBy();
         if ($updatedBy) {
@@ -70,7 +70,7 @@ class BuildingAttributesValueObject
     /**
      * @return void
      */
-    public function setDescription(): void
+    private function setDescription(): void
     {
         $description = $this->building->getDescription();
         if ($description) {
@@ -81,7 +81,7 @@ class BuildingAttributesValueObject
     /**
      * @return void
      */
-    public function setDepartmentId(): void
+    private function setDepartmentId(): void
     {
         $departmentId = $this->building->getDepartmentId();
         if ($departmentId) {

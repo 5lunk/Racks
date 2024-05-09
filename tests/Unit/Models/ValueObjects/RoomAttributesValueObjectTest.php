@@ -23,11 +23,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setName');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setName();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['name' => 'some name'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -44,11 +45,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setName');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setName();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -68,11 +70,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setBuildingFloor');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setBuildingFloor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['building_floor' => '1st'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -89,11 +92,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setBuildingFloor');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setBuildingFloor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -113,11 +117,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setBuildingId');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setBuildingId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['building_id' => 5],
             $attributesForRoomProp->getValue($attrsMock)
@@ -134,11 +139,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setBuildingId');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setBuildingId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -158,11 +164,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setNumberOfRackSpaces');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setNumberOfRackSpaces();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['number_of_rack_spaces' => 5],
             $attributesForRoomProp->getValue($attrsMock)
@@ -179,11 +186,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setNumberOfRackSpaces');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setNumberOfRackSpaces();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -203,11 +211,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setArea');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setArea();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['area' => 50],
             $attributesForRoomProp->getValue($attrsMock)
@@ -224,11 +233,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setArea');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setArea();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -248,11 +258,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setCoolingSystem');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setCoolingSystem();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['cooling_system' => 'None'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -269,11 +280,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setCoolingSystem');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setCoolingSystem();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -293,11 +305,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setFireSuppressionSystem');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setFireSuppressionSystem();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['fire_suppression_system' => 'None'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -314,11 +327,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setFireSuppressionSystem');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setFireSuppressionSystem();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -338,11 +352,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setAccessIsOpen');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setAccessIsOpen();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['access_is_open' => true],
             $attributesForRoomProp->getValue($attrsMock)
@@ -359,11 +374,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setAccessIsOpen');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setAccessIsOpen();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -383,11 +399,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setHasRaisedFloor');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setHasRaisedFloor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['has_raised_floor' => true],
             $attributesForRoomProp->getValue($attrsMock)
@@ -404,11 +421,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setHasRaisedFloor');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setHasRaisedFloor();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -428,11 +446,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setResponsible');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setResponsible();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['responsible' => 'responsible'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -449,11 +468,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setResponsible');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setResponsible();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -473,11 +493,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['updated_by' => 'user'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -494,11 +515,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setUpdatedBy');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setUpdatedBy();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -518,11 +540,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['description' => 'description'],
             $attributesForRoomProp->getValue($attrsMock)
@@ -539,11 +562,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setDescription');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setDescription();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
@@ -563,11 +587,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             ['department_id' => 8],
             $attributesForRoomProp->getValue($attrsMock)
@@ -584,11 +609,12 @@ class RoomAttributesValueObjectTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $reflection = new \ReflectionClass(RoomAttributesValueObject::class);
+        $method = $reflection->getMethod('setDepartmentId');
         $attributesForRoomProp = $reflection->getProperty('attributesForRoom');
         $roomProp = $reflection->getProperty('room');
         $roomProp->setValue($attrsMock, $roomMock);
 
-        $attrsMock->setDepartmentId();
+        $method->invoke($attrsMock);
         $this->assertEquals(
             [],
             $attributesForRoomProp->getValue($attrsMock)
