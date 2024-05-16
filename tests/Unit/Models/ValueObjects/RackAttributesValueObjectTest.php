@@ -1389,7 +1389,7 @@ class RackAttributesValueObjectTest extends TestCase
         );
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $rack = new Rack([
             'name' => 'some name',

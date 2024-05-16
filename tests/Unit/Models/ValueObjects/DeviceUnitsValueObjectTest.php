@@ -38,7 +38,7 @@ class DeviceUnitsValueObjectTest extends TestCase
         );
     }
 
-    public function testValidateUnits()
+    public function testValidateUnits(): void
     {
         $units = new DeviceUnitsValueObject(
             [5, 6, 7]

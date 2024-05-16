@@ -1259,7 +1259,7 @@ class DeviceAttributesValueObjectTest extends TestCase
         );
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $device = new Device([
             'rack_id' => 2,

@@ -214,7 +214,7 @@ class SiteAttributesValueObjectTest extends TestCase
         );
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $site = new Site([
             'name' => 'name',

@@ -15,9 +15,9 @@ class GetRoomControllerTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public $path = '/api/v1/auth/room';
+    public $path = '/api/v1/auth/room'; // @phpstan-ignore-line
 
-    public $now;
+    public $now; // @phpstan-ignore-line
 
     protected function afterRefreshingDatabase(): void
     {

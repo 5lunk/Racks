@@ -637,7 +637,7 @@ class RoomAttributesValueObjectTest extends TestCase
         );
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $room = new Room([
             'name' => 'name',

@@ -16,13 +16,13 @@ class CreateSiteControllerTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public $path = '/api/v1/auth/site';
+    public $path = '/api/v1/auth/site'; // @phpstan-ignore-line
 
-    public $now;
+    public $now; // @phpstan-ignore-line
 
-    public $firstUser;
+    public $firstUser; // @phpstan-ignore-line
 
-    public $secondUser;
+    public $secondUser; // @phpstan-ignore-line
 
     protected function afterRefreshingDatabase(): void
     {

@@ -15,9 +15,9 @@ class GetBuildingControllerTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public $path = '/api/v1/auth/building';
+    public $path = '/api/v1/auth/building'; // @phpstan-ignore-line
 
-    public $now;
+    public $now; // @phpstan-ignore-line
 
     protected function afterRefreshingDatabase(): void
     {

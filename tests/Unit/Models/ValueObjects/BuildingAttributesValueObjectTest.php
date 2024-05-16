@@ -261,7 +261,7 @@ class BuildingAttributesValueObjectTest extends TestCase
         );
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $building = new Building([
             'name' => 'name',

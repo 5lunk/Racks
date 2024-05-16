@@ -81,43 +81,43 @@ class RackBusyUnitsValueObjectTest extends TestCase
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['front' => '[3, 4, 5]', 'back' => [11, 12, 13]])
+            $busyUnits->validateBusyUnits(['front' => '[3, 4, 5]', 'back' => [11, 12, 13]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['back' => [11, 12, 13]])
+            $busyUnits->validateBusyUnits(['back' => [11, 12, 13]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['front' => [3, 4, 5]])
+            $busyUnits->validateBusyUnits(['front' => [3, 4, 5]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['front' => ['a', 4, 5]])
+            $busyUnits->validateBusyUnits(['front' => ['a', 4, 5]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['front' => [4, 4, 5]])
+            $busyUnits->validateBusyUnits(['front' => [4, 4, 5]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['front' => [3, 4, 5], 'back' => '[11, 12, 13]'])
+            $busyUnits->validateBusyUnits(['front' => [3, 4, 5], 'back' => '[11, 12, 13]']) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['back' => [11, 12, 13]])
+            $busyUnits->validateBusyUnits(['back' => [11, 12, 13]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['back' => [3, 4, 5]])
+            $busyUnits->validateBusyUnits(['back' => [3, 4, 5]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['back' => ['a', 4, 5]])
+            $busyUnits->validateBusyUnits(['back' => ['a', 4, 5]]) // @phpstan-ignore-line
         );
 
         $this->assertFalse(
-            $busyUnits->validateBusyUnits(['back' => [4, 4, 5]])
+            $busyUnits->validateBusyUnits(['back' => [4, 4, 5]]) // @phpstan-ignore-line
         );
     }
 

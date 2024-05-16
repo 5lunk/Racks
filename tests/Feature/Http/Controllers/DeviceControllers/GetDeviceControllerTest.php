@@ -16,13 +16,13 @@ class GetDeviceControllerTest extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public $path = '/api/v1/auth/device';
+    public $path = '/api/v1/auth/device'; // @phpstan-ignore-line
 
-    public $now;
+    public $now; // @phpstan-ignore-line
 
-    public $firstUser;
+    public $firstUser; // @phpstan-ignore-line
 
-    public $secondUser;
+    public $secondUser; // @phpstan-ignore-line
 
     protected function afterRefreshingDatabase(): void
     {
