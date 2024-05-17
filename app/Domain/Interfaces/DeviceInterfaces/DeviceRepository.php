@@ -7,16 +7,16 @@ namespace App\Domain\Interfaces\DeviceInterfaces;
 interface DeviceRepository
 {
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return DeviceEntity|DeviceBusinessRules
+     * @param  DeviceEntity&DeviceBusinessRules  $device
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function create(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules;
+    public function create(DeviceEntity&DeviceBusinessRules $device): DeviceEntity&DeviceBusinessRules;
 
     /**
      * @param  int  $id
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function getById(int $id): DeviceEntity|DeviceBusinessRules;
+    public function getById(int $id): DeviceEntity&DeviceBusinessRules;
 
     /**
      * @param  int|null  $rackId  Rack ID
@@ -25,22 +25,22 @@ interface DeviceRepository
     public function getByRackId(?int $rackId): array;
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @param  DeviceEntity&DeviceBusinessRules  $device
      * @return bool
      */
-    public function delete(DeviceEntity|DeviceBusinessRules $device): bool;
+    public function delete(DeviceEntity&DeviceBusinessRules $device): bool;
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return DeviceEntity|DeviceBusinessRules
+     * @param  DeviceEntity&DeviceBusinessRules  $device
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function update(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules;
+    public function update(DeviceEntity&DeviceBusinessRules $device): DeviceEntity&DeviceBusinessRules;
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @param  DeviceEntity&DeviceBusinessRules  $device
      * @return bool
      */
-    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): bool;
+    public function updateUnits(DeviceEntity&DeviceBusinessRules $device): bool;
 
     /**
      * @param  int|null  $id  Rack ID

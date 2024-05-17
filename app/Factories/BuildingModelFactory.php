@@ -15,9 +15,9 @@ class BuildingModelFactory implements BuildingFactory
 {
     /**
      * @param  CreateBuildingRequestModel  $request
-     * @return BuildingEntity|BuildingBusinessRules
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function makeFromCreateRequest(CreateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules
+    public function makeFromCreateRequest(CreateBuildingRequestModel $request): BuildingEntity&BuildingBusinessRules
     {
         return new Building([
             'name' => $request->getName(),
@@ -28,9 +28,9 @@ class BuildingModelFactory implements BuildingFactory
 
     /**
      * @param  UpdateBuildingRequestModel  $request
-     * @return BuildingEntity|BuildingBusinessRules
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function makeFromPatchRequest(UpdateBuildingRequestModel $request): BuildingEntity|BuildingBusinessRules
+    public function makeFromPatchRequest(UpdateBuildingRequestModel $request): BuildingEntity&BuildingBusinessRules
     {
         return new Building([
             'id' => $request->getId(),

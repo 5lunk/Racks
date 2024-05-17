@@ -18,11 +18,11 @@ class UserModelFactory implements UserFactory
 {
     /**
      * @param  CreateUserRequestModel  $request
-     * @return UserEntity|UserBusinessRules
+     * @return UserEntity&UserBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity|UserBusinessRules
+    public function makeFromCreateRequest(CreateUserRequestModel $request): UserEntity&UserBusinessRules
     {
         return new User([
             'name' => $request->getName(),
@@ -35,11 +35,11 @@ class UserModelFactory implements UserFactory
 
     /**
      * @param  ResetUserPasswordRequestModel  $request
-     * @return UserEntity|UserBusinessRules
+     * @return UserEntity&UserBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity|UserBusinessRules
+    public function makeFromResetPasswordRequest(ResetUserPasswordRequestModel $request): UserEntity&UserBusinessRules
     {
         return new User([
             'id' => $request->getId(),
@@ -49,11 +49,11 @@ class UserModelFactory implements UserFactory
 
     /**
      * @param  UpdateUserRequestModel  $request
-     * @return UserEntity
+     * @return UserEntity&UserBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity
+    public function makeFromUpdateRequest(UpdateUserRequestModel $request): UserEntity&UserBusinessRules
     {
         return new User([
             'id' => $request->getId(),

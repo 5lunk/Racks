@@ -16,9 +16,9 @@ class BuildingDatabaseRepository implements BuildingRepository
 {
     /**
      * @param  int  $id
-     * @return BuildingEntity|BuildingBusinessRules
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function getById(int $id): BuildingEntity|BuildingBusinessRules
+    public function getById(int $id): BuildingEntity&BuildingBusinessRules
     {
         return Building::where('id', $id)
             ->get()
@@ -36,23 +36,23 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
-     * @return BuildingEntity|BuildingBusinessRules
+     * @param  BuildingEntity&BuildingBusinessRules  $building
+     * @return BuildingEntity&BuildingBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function create(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
+    public function create(BuildingEntity&BuildingBusinessRules $building): BuildingEntity&BuildingBusinessRules
     {
         return Building::create($building->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
-     * @return BuildingEntity|BuildingBusinessRules
+     * @param  BuildingEntity&BuildingBusinessRules  $building
+     * @return BuildingEntity&BuildingBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function update(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules
+    public function update(BuildingEntity&BuildingBusinessRules $building): BuildingEntity&BuildingBusinessRules
     {
         return tap(Building::where('id', $building->getId())
             ->first())
@@ -62,10 +62,10 @@ class BuildingDatabaseRepository implements BuildingRepository
     }
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
+     * @param  BuildingEntity&BuildingBusinessRules  $building
      * @return bool
      */
-    public function delete(BuildingEntity|BuildingBusinessRules $building): bool
+    public function delete(BuildingEntity&BuildingBusinessRules $building): bool
     {
         return Building::where('id', $building->getId())
             ->first()

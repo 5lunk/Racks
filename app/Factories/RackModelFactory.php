@@ -15,9 +15,9 @@ class RackModelFactory implements RackFactory
 {
     /**
      * @param  CreateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity|RackBusinessRules
+    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity&RackBusinessRules
     {
         return new Rack([
             'name' => $request->getName(),
@@ -52,9 +52,9 @@ class RackModelFactory implements RackFactory
 
     /**
      * @param  UpdateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity|RackBusinessRules
+    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity&RackBusinessRules
     {
         return new Rack([
             'id' => $request->getId(),

@@ -10,9 +10,9 @@ interface BuildingRepository
 {
     /**
      * @param  int  $id
-     * @return BuildingEntity|BuildingBusinessRules
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function getById(int $id): BuildingEntity|BuildingBusinessRules;
+    public function getById(int $id): BuildingEntity&BuildingBusinessRules;
 
     /**
      * @return array<string> $items
@@ -20,22 +20,22 @@ interface BuildingRepository
     public function getNamesListBySiteId(int $siteId): array;
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
-     * @return BuildingEntity|BuildingBusinessRules
+     * @param  BuildingEntity&BuildingBusinessRules  $building
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function create(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules;
+    public function create(BuildingEntity&BuildingBusinessRules $building): BuildingEntity&BuildingBusinessRules;
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
-     * @return BuildingEntity|BuildingBusinessRules
+     * @param  BuildingEntity&BuildingBusinessRules  $building
+     * @return BuildingEntity&BuildingBusinessRules
      */
-    public function update(BuildingEntity|BuildingBusinessRules $building): BuildingEntity|BuildingBusinessRules;
+    public function update(BuildingEntity&BuildingBusinessRules $building): BuildingEntity&BuildingBusinessRules;
 
     /**
-     * @param  BuildingEntity|BuildingBusinessRules  $building
+     * @param  BuildingEntity&BuildingBusinessRules  $building
      * @return bool
      */
-    public function delete(BuildingEntity|BuildingBusinessRules $building): bool;
+    public function delete(BuildingEntity&BuildingBusinessRules $building): bool;
 
     /**
      * @param  int|null  $id

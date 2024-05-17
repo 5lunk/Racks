@@ -11,13 +11,13 @@ interface DepartmentFactory
 {
     /**
      * @param  CreateDepartmentRequestModel  $request
-     * @return DepartmentEntity|DepartmentBusinessRules
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function makeFromCreateRequest(CreateDepartmentRequestModel $request): DepartmentEntity|DepartmentBusinessRules;
+    public function makeFromCreateRequest(CreateDepartmentRequestModel $request): DepartmentEntity&DepartmentBusinessRules;
 
     /**
      * @param  UpdateDepartmentRequestModel  $request
-     * @return DepartmentEntity|DepartmentBusinessRules
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function makeFromPatchRequest(UpdateDepartmentRequestModel $request): DepartmentEntity|DepartmentBusinessRules;
+    public function makeFromPatchRequest(UpdateDepartmentRequestModel $request): DepartmentEntity&DepartmentBusinessRules;
 }

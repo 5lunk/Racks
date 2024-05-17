@@ -15,9 +15,9 @@ class RoomModelFactory implements RoomFactory
 {
     /**
      * @param  CreateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity|RoomBusinessRules
+    public function makeFromCreateRequest(CreateRoomRequestModel $request): RoomEntity&RoomBusinessRules
     {
         return new Room([
             'name' => $request->getName(),
@@ -36,9 +36,9 @@ class RoomModelFactory implements RoomFactory
 
     /**
      * @param  UpdateRoomRequestModel  $request
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity|RoomBusinessRules
+    public function makeFromPutRequest(UpdateRoomRequestModel $request): RoomEntity&RoomBusinessRules
     {
         return new Room([
             'id' => $request->getId(),

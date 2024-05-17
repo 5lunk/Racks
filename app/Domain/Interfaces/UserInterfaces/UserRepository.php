@@ -9,16 +9,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface UserRepository
 {
     /**
-     * @param  UserEntity|UserBusinessRules  $user
+     * @param  UserEntity&UserBusinessRules  $user
      * @return bool
      */
-    public function exists(UserEntity|UserBusinessRules $user): bool;
+    public function exists(UserEntity&UserBusinessRules $user): bool;
 
     /**
-     * @param  UserEntity|UserBusinessRules  $user
-     * @return UserEntity|UserBusinessRules
+     * @param  UserEntity&UserBusinessRules  $user
+     * @return UserEntity&UserBusinessRules
      */
-    public function create(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
+    public function create(UserEntity&UserBusinessRules $user): UserEntity&UserBusinessRules;
 
     /**
      * @param  int|null  $perPage
@@ -28,25 +28,25 @@ interface UserRepository
 
     /**
      * @param  int  $id
-     * @return UserEntity|UserBusinessRules
+     * @return UserEntity&UserBusinessRules
      */
-    public function getById(int $id): UserEntity|UserBusinessRules;
+    public function getById(int $id): UserEntity&UserBusinessRules;
 
     /**
-     * @param  UserEntity|UserBusinessRules  $user
-     * @return UserEntity|UserBusinessRules
+     * @param  UserEntity&UserBusinessRules  $user
+     * @return UserEntity&UserBusinessRules
      */
-    public function updatePassword(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
+    public function updatePassword(UserEntity&UserBusinessRules $user): UserEntity&UserBusinessRules;
 
     /**
-     * @param  UserEntity|UserBusinessRules  $user
-     * @return UserEntity|UserBusinessRules
+     * @param  UserEntity&UserBusinessRules  $user
+     * @return UserEntity&UserBusinessRules
      */
-    public function update(UserEntity|UserBusinessRules $user): UserEntity|UserBusinessRules;
+    public function update(UserEntity&UserBusinessRules $user): UserEntity&UserBusinessRules;
 
     /**
-     * @param  UserEntity|UserBusinessRules  $user
+     * @param  UserEntity&UserBusinessRules  $user
      * @return bool
      */
-    public function delete(UserEntity|UserBusinessRules $user): bool;
+    public function delete(UserEntity&UserBusinessRules $user): bool;
 }

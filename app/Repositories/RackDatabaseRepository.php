@@ -16,9 +16,9 @@ class RackDatabaseRepository implements RackRepository
 {
     /**
      * @param  int  $id
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function getById(int $id): RackEntity|RackBusinessRules
+    public function getById(int $id): RackEntity&RackBusinessRules
     {
         return Rack::where('id', $id)
             ->get()
@@ -26,23 +26,23 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
-     * @return RackEntity|RackBusinessRules
+     * @param  RackEntity&RackBusinessRules  $rack
+     * @return RackEntity&RackBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function create(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
+    public function create(RackEntity&RackBusinessRules $rack): RackEntity&RackBusinessRules
     {
         return Rack::create($rack->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
+     * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      *
      * @throws BindingResolutionException
      */
-    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): bool
+    public function updateBusyUnits(RackEntity&RackBusinessRules $rack): bool
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -63,10 +63,10 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
+     * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      */
-    public function delete(RackEntity|RackBusinessRules $rack): bool
+    public function delete(RackEntity&RackBusinessRules $rack): bool
     {
         return Rack::where('id', $rack->getId())
             ->first()
@@ -74,12 +74,12 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
-     * @return RackEntity|RackBusinessRules
+     * @param  RackEntity&RackBusinessRules  $rack
+     * @return RackEntity&RackBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function update(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules
+    public function update(RackEntity&RackBusinessRules $rack): RackEntity&RackBusinessRules
     {
 
         return tap(Rack::where('id', $rack->getId())

@@ -11,13 +11,13 @@ interface DeviceFactory
 {
     /**
      * @param  CreateDeviceRequestModel  $request
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules;
+    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity&DeviceBusinessRules;
 
     /**
      * @param  UpdateDeviceRequestModel  $request
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules;
+    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity&DeviceBusinessRules;
 }

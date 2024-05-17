@@ -11,13 +11,13 @@ interface RackFactory
 {
     /**
      * @param  CreateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity|RackBusinessRules;
+    public function makeFromCreateRequest(CreateRackRequestModel $request): RackEntity&RackBusinessRules;
 
     /**
      * @param  UpdateRackRequestModel  $request
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity|RackBusinessRules;
+    public function makeFromPatchRequest(UpdateRackRequestModel $request): RackEntity&RackBusinessRules;
 }

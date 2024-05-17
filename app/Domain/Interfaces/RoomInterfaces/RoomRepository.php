@@ -10,9 +10,9 @@ interface RoomRepository
 {
     /**
      * @param  int  $id
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function getById(int $id): RoomEntity|RoomBusinessRules;
+    public function getById(int $id): RoomEntity&RoomBusinessRules;
 
     /**
      * @param  int  $buildingId
@@ -21,22 +21,22 @@ interface RoomRepository
     public function getNamesListByBuildingId(int $buildingId): array;
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
-     * @return RoomEntity|RoomBusinessRules
+     * @param  RoomEntity&RoomBusinessRules  $room
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function create(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules;
+    public function create(RoomEntity&RoomBusinessRules $room): RoomEntity&RoomBusinessRules;
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
-     * @return RoomEntity|RoomBusinessRules
+     * @param  RoomEntity&RoomBusinessRules  $room
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function update(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules;
+    public function update(RoomEntity&RoomBusinessRules $room): RoomEntity&RoomBusinessRules;
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
+     * @param  RoomEntity&RoomBusinessRules  $room
      * @return bool
      */
-    public function delete(RoomEntity|RoomBusinessRules $room): bool;
+    public function delete(RoomEntity&RoomBusinessRules $room): bool;
 
     /**
      * @param  int|null  $perPage

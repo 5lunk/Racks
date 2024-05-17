@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Domain\Interfaces\DepartmentInterfaces\DepartmentBusinessRules;
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentEntity;
-use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,7 +49,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  */
-class Department extends Model implements DepartmentEntity, DeviceBusinessRules
+class Department extends Model implements DepartmentBusinessRules, DepartmentEntity
 {
     /**
      * @var array<int, string>

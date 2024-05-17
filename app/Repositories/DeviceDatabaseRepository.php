@@ -8,15 +8,16 @@ use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceRepository;
 use App\Models\Device;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\DB;
 
 class DeviceDatabaseRepository implements DeviceRepository
 {
     /**
      * @param  int  $id
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      */
-    public function getById(int $id): DeviceEntity|DeviceBusinessRules
+    public function getById(int $id): DeviceEntity&DeviceBusinessRules
     {
         return Device::where('id', $id)
             ->get()
@@ -35,10 +36,12 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @param  DeviceEntity&DeviceBusinessRules  $device
      * @return bool
+     *
+     * @throws BindingResolutionException
      */
-    public function updateUnits(DeviceEntity|DeviceBusinessRules $device): bool
+    public function updateUnits(DeviceEntity&DeviceBusinessRules $device): bool
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -48,10 +51,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
+     * @param  DeviceEntity&DeviceBusinessRules  $device
      * @return bool
      */
-    public function delete(DeviceEntity|DeviceBusinessRules $device): bool
+    public function delete(DeviceEntity&DeviceBusinessRules $device): bool
     {
         return Device::where('id', $device->getId())
             ->first()
@@ -59,10 +62,12 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return DeviceEntity|DeviceBusinessRules
+     * @param  DeviceEntity&DeviceBusinessRules  $device
+     * @return DeviceEntity&DeviceBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function update(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules
+    public function update(DeviceEntity&DeviceBusinessRules $device): DeviceEntity&DeviceBusinessRules
     {
         return tap(Device::where('id', $device->getId())
             ->first())
@@ -72,10 +77,12 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  DeviceEntity|DeviceBusinessRules  $device
-     * @return DeviceEntity|DeviceBusinessRules
+     * @param  DeviceEntity&DeviceBusinessRules  $device
+     * @return DeviceEntity&DeviceBusinessRules
+     *
+     * @throws BindingResolutionException
      */
-    public function create(DeviceEntity|DeviceBusinessRules $device): DeviceEntity|DeviceBusinessRules
+    public function create(DeviceEntity&DeviceBusinessRules $device): DeviceEntity&DeviceBusinessRules
     {
         return Device::create($device->getAttributeSet()->toArray());
     }

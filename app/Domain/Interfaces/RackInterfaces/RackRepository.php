@@ -9,16 +9,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface RackRepository
 {
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
-     * @return RackEntity|RackBusinessRules
+     * @param  RackEntity&RackBusinessRules  $rack
+     * @return RackEntity&RackBusinessRules
      */
-    public function create(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules;
+    public function create(RackEntity&RackBusinessRules $rack): RackEntity&RackBusinessRules;
 
     /**
      * @param  int  $id
-     * @return RackEntity|RackBusinessRules
+     * @return RackEntity&RackBusinessRules
      */
-    public function getById(int $id): RackEntity|RackBusinessRules;
+    public function getById(int $id): RackEntity&RackBusinessRules;
 
     /**
      * @param  int  $id
@@ -27,22 +27,22 @@ interface RackRepository
     public function lockById(int $id): void;
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
+     * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      */
-    public function updateBusyUnits(RackEntity|RackBusinessRules $rack): bool;
+    public function updateBusyUnits(RackEntity&RackBusinessRules $rack): bool;
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
+     * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      */
-    public function delete(RackEntity|RackBusinessRules $rack): bool;
+    public function delete(RackEntity&RackBusinessRules $rack): bool;
 
     /**
-     * @param  RackEntity|RackBusinessRules  $rack
-     * @return RackEntity|RackBusinessRules
+     * @param  RackEntity&RackBusinessRules  $rack
+     * @return RackEntity&RackBusinessRules
      */
-    public function update(RackEntity|RackBusinessRules $rack): RackEntity|RackBusinessRules;
+    public function update(RackEntity&RackBusinessRules $rack): RackEntity&RackBusinessRules;
 
     /**
      * @param  int  $roomId  Room ID

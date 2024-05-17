@@ -14,9 +14,9 @@ class RegionDatabaseRepository implements RegionRepository
 {
     /**
      * @param  int  $id
-     * @return RegionEntity|RegionBusinessRules
+     * @return RegionEntity&RegionBusinessRules
      */
-    public function getById(int $id): RegionEntity|RegionBusinessRules
+    public function getById(int $id): RegionEntity&RegionBusinessRules
     {
         return Region::where('id', $id)
             ->get()
@@ -43,10 +43,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity|RegionBusinessRules  $region
+     * @param  RegionEntity&RegionBusinessRules  $region
      * @return bool
      */
-    public function exists(RegionEntity|RegionBusinessRules $region): bool
+    public function exists(RegionEntity&RegionBusinessRules $region): bool
     {
         return Region::where([
             'name' => $region->getName(),
@@ -54,10 +54,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity|RegionBusinessRules  $region
-     * @return RegionEntity|RegionBusinessRules
+     * @param  RegionEntity&RegionBusinessRules  $region
+     * @return RegionEntity&RegionBusinessRules
      */
-    public function create(RegionEntity|RegionBusinessRules $region): RegionEntity|RegionBusinessRules
+    public function create(RegionEntity&RegionBusinessRules $region): RegionEntity&RegionBusinessRules
     {
         return Region::create([
             'name' => $region->getName(),
@@ -65,10 +65,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity|RegionBusinessRules  $region
+     * @param  RegionEntity&RegionBusinessRules  $region
      * @return bool
      */
-    public function delete(RegionEntity|RegionBusinessRules $region): bool
+    public function delete(RegionEntity&RegionBusinessRules $region): bool
     {
         return Region::where('id', $region->getId())
             ->first()
@@ -76,10 +76,10 @@ class RegionDatabaseRepository implements RegionRepository
     }
 
     /**
-     * @param  RegionEntity|RegionBusinessRules  $region
-     * @return RegionEntity|RegionBusinessRules
+     * @param  RegionEntity&RegionBusinessRules  $region
+     * @return RegionEntity&RegionBusinessRules
      */
-    public function update(RegionEntity|RegionBusinessRules $region): RegionEntity|RegionBusinessRules
+    public function update(RegionEntity&RegionBusinessRules $region): RegionEntity&RegionBusinessRules
     {
         return tap(Region::where('id', $region->getId())
             ->first())

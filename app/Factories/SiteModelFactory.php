@@ -15,9 +15,9 @@ class SiteModelFactory implements SiteFactory
 {
     /**
      * @param  CreateSiteRequestModel  $request
-     * @return SiteEntity|SiteBusinessRules
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity|SiteBusinessRules
+    public function makeFromCreateRequest(CreateSiteRequestModel $request): SiteEntity&SiteBusinessRules
     {
         return new Site([
             'name' => $request->getName(),
@@ -28,9 +28,9 @@ class SiteModelFactory implements SiteFactory
 
     /**
      * @param  UpdateSiteRequestModel  $request
-     * @return SiteEntity|SiteBusinessRules
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity|SiteBusinessRules
+    public function makeFromPatchRequest(UpdateSiteRequestModel $request): SiteEntity&SiteBusinessRules
     {
         return new Site([
             'id' => $request->getId(),

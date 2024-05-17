@@ -16,9 +16,9 @@ class RoomDatabaseRepository implements RoomRepository
 {
     /**
      * @param  int  $id
-     * @return RoomEntity|RoomBusinessRules
+     * @return RoomEntity&RoomBusinessRules
      */
-    public function getById(int $id): RoomEntity|RoomBusinessRules
+    public function getById(int $id): RoomEntity&RoomBusinessRules
     {
         return Room::where('id', $id)
             ->get()
@@ -37,23 +37,23 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
-     * @return RoomEntity|RoomBusinessRules
+     * @param  RoomEntity&RoomBusinessRules  $room
+     * @return RoomEntity&RoomBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function create(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
+    public function create(RoomEntity&RoomBusinessRules $room): RoomEntity&RoomBusinessRules
     {
         return Room::create($room->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
-     * @return RoomEntity|RoomBusinessRules
+     * @param  RoomEntity&RoomBusinessRules  $room
+     * @return RoomEntity&RoomBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function update(RoomEntity|RoomBusinessRules $room): RoomEntity|RoomBusinessRules
+    public function update(RoomEntity&RoomBusinessRules $room): RoomEntity&RoomBusinessRules
     {
         return tap(Room::where('id', $room->getId())
             ->first())
@@ -63,10 +63,10 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  RoomEntity|RoomBusinessRules  $room
+     * @param  RoomEntity&RoomBusinessRules  $room
      * @return bool
      */
-    public function delete(RoomEntity|RoomBusinessRules $room): bool
+    public function delete(RoomEntity&RoomBusinessRules $room): bool
     {
         return Room::where('id', $room->getId())
             ->first()

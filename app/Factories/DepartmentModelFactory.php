@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factories;
 
+use App\Domain\Interfaces\DepartmentInterfaces\DepartmentBusinessRules;
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentEntity;
 use App\Domain\Interfaces\DepartmentInterfaces\DepartmentFactory;
 use App\Models\Department;
@@ -14,9 +15,9 @@ class DepartmentModelFactory implements DepartmentFactory
 {
     /**
      * @param  CreateDepartmentRequestModel  $request
-     * @return DepartmentEntity
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function makeFromCreateRequest(CreateDepartmentRequestModel $request): DepartmentEntity
+    public function makeFromCreateRequest(CreateDepartmentRequestModel $request): DepartmentEntity&DepartmentBusinessRules
     {
         return new Department([
             'name' => $request->getName(),
@@ -26,9 +27,9 @@ class DepartmentModelFactory implements DepartmentFactory
 
     /**
      * @param  UpdateDepartmentRequestModel  $request
-     * @return DepartmentEntity
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function makeFromPatchRequest(UpdateDepartmentRequestModel $request): DepartmentEntity
+    public function makeFromPatchRequest(UpdateDepartmentRequestModel $request): DepartmentEntity&DepartmentBusinessRules
     {
         return new Department([
             'id' => $request->getId(),

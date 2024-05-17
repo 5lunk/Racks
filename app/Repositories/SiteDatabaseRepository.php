@@ -16,9 +16,9 @@ class SiteDatabaseRepository implements SiteRepository
 {
     /**
      * @param  int  $id
-     * @return SiteEntity|SiteBusinessRules
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function getById(int $id): SiteEntity|SiteBusinessRules
+    public function getById(int $id): SiteEntity&SiteBusinessRules
     {
         return Site::where('id', $id)
             ->get()
@@ -26,23 +26,23 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
-     * @return SiteEntity|SiteBusinessRules
+     * @param  SiteEntity&SiteBusinessRules  $site
+     * @return SiteEntity&SiteBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function create(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules
+    public function create(SiteEntity&SiteBusinessRules $site): SiteEntity&SiteBusinessRules
     {
         return Site::create($site->getAttributeSet()->toArray());
     }
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
-     * @return SiteEntity|SiteBusinessRules
+     * @param  SiteEntity&SiteBusinessRules  $site
+     * @return SiteEntity&SiteBusinessRules
      *
      * @throws BindingResolutionException
      */
-    public function update(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules
+    public function update(SiteEntity&SiteBusinessRules $site): SiteEntity&SiteBusinessRules
     {
         return tap(Site::where('id', $site->getId())
             ->first())
@@ -52,10 +52,10 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
+     * @param  SiteEntity&SiteBusinessRules  $site
      * @return bool
      */
-    public function delete(SiteEntity|SiteBusinessRules $site): bool
+    public function delete(SiteEntity&SiteBusinessRules $site): bool
     {
         return Site::where('id', $site->getId())
             ->first()

@@ -10,27 +10,27 @@ interface SiteRepository
 {
     /**
      * @param  int  $id
-     * @return SiteEntity|SiteBusinessRules
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function getById(int $id): SiteEntity|SiteBusinessRules;
+    public function getById(int $id): SiteEntity&SiteBusinessRules;
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
-     * @return SiteEntity|SiteBusinessRules
+     * @param  SiteEntity&SiteBusinessRules  $site
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function create(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules;
+    public function create(SiteEntity&SiteBusinessRules $site): SiteEntity&SiteBusinessRules;
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
-     * @return SiteEntity|SiteBusinessRules
+     * @param  SiteEntity&SiteBusinessRules  $site
+     * @return SiteEntity&SiteBusinessRules
      */
-    public function update(SiteEntity|SiteBusinessRules $site): SiteEntity|SiteBusinessRules;
+    public function update(SiteEntity&SiteBusinessRules $site): SiteEntity&SiteBusinessRules;
 
     /**
-     * @param  SiteEntity|SiteBusinessRules  $site
+     * @param  SiteEntity&SiteBusinessRules  $site
      * @return bool
      */
-    public function delete(SiteEntity|SiteBusinessRules $site): bool;
+    public function delete(SiteEntity&SiteBusinessRules $site): bool;
 
     /**
      * @param  int|null  $id

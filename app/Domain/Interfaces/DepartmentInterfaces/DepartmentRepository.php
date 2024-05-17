@@ -10,33 +10,33 @@ interface DepartmentRepository
 {
     /**
      * @param  int  $id
-     * @return DepartmentEntity|DepartmentBusinessRules
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function getById(int $id): DepartmentEntity|DepartmentBusinessRules;
+    public function getById(int $id): DepartmentEntity&DepartmentBusinessRules;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules  $department
+     * @param  DepartmentEntity&DepartmentBusinessRules  $department
      * @return bool
      */
-    public function exists(DepartmentEntity|DepartmentBusinessRules $department): bool;
+    public function exists(DepartmentEntity&DepartmentBusinessRules $department): bool;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules  $department
-     * @return DepartmentEntity|DepartmentBusinessRules
+     * @param  DepartmentEntity&DepartmentBusinessRules  $department
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function create(DepartmentEntity|DepartmentBusinessRules $department): DepartmentEntity|DepartmentBusinessRules;
+    public function create(DepartmentEntity&DepartmentBusinessRules $department): DepartmentEntity&DepartmentBusinessRules;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules  $department
+     * @param  DepartmentEntity&DepartmentBusinessRules  $department
      * @return bool
      */
-    public function delete(DepartmentEntity|DepartmentBusinessRules $department): bool;
+    public function delete(DepartmentEntity&DepartmentBusinessRules $department): bool;
 
     /**
-     * @param  DepartmentEntity|DepartmentBusinessRules  $department
-     * @return DepartmentEntity|DepartmentBusinessRules
+     * @param  DepartmentEntity&DepartmentBusinessRules  $department
+     * @return DepartmentEntity&DepartmentBusinessRules
      */
-    public function update(DepartmentEntity|DepartmentBusinessRules $department): DepartmentEntity|DepartmentBusinessRules;
+    public function update(DepartmentEntity&DepartmentBusinessRules $department): DepartmentEntity&DepartmentBusinessRules;
 
     /**
      * @param  int|null  $perPage

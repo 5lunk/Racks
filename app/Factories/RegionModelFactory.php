@@ -15,9 +15,9 @@ class RegionModelFactory implements RegionFactory
 {
     /**
      * @param  CreateRegionRequestModel  $request
-     * @return RegionEntity|RegionBusinessRules
+     * @return RegionEntity&RegionBusinessRules
      */
-    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity|RegionBusinessRules
+    public function makeFromCreateRequest(CreateRegionRequestModel $request): RegionEntity&RegionBusinessRules
     {
         return new Region([
             'name' => $request->getName(),
@@ -26,9 +26,9 @@ class RegionModelFactory implements RegionFactory
 
     /**
      * @param  UpdateRegionRequestModel  $request
-     * @return RegionEntity|RegionBusinessRules
+     * @return RegionEntity&RegionBusinessRules
      */
-    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity|RegionBusinessRules
+    public function makeFromPatchRequest(UpdateRegionRequestModel $request): RegionEntity&RegionBusinessRules
     {
         return new Region([
             'id' => $request->getId(),

@@ -16,11 +16,11 @@ class DeviceModelFactory implements DeviceFactory
 {
     /**
      * @param  CreateDeviceRequestModel  $request
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules
+    public function makeFromPostRequest(CreateDeviceRequestModel $request): DeviceEntity&DeviceBusinessRules
     {
         return new Device([
             'vendor' => $request->getVendor(),
@@ -53,11 +53,11 @@ class DeviceModelFactory implements DeviceFactory
 
     /**
      * @param  UpdateDeviceRequestModel  $request
-     * @return DeviceEntity|DeviceBusinessRules
+     * @return DeviceEntity&DeviceBusinessRules
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity|DeviceBusinessRules
+    public function makeFromPatchRequest(UpdateDeviceRequestModel $request): DeviceEntity&DeviceBusinessRules
     {
         return new Device([
             'id' => $request->getId(),
