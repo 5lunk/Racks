@@ -47,17 +47,6 @@ interface BuildingEntity
     public function setDescription(?string $description): void;
 
     /**
-     * @param  string|null  $oldName
-     * @return void
-     */
-    public function setOldName(?string $oldName): void;
-
-    /**
-     * @return string|null
-     */
-    public function getOldName(): ?string;
-
-    /**
      * @return int|null
      */
     public function getSiteId(): ?int;

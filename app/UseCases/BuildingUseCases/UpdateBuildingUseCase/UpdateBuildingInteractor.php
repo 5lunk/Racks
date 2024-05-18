@@ -58,8 +58,6 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
 
         $buildingUpdating->setUpdatedBy($request->getUserName());
 
-        $buildingUpdating->setOldName($building->getName());
-
         DB::beginTransaction();
 
         DB::table('building')->lockForUpdate();
@@ -67,8 +65,9 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
         $buildingNamesList = $this->buildingRepository->getNamesListBySiteId($site->getId());
 
         // Name check (can not be repeated inside one site)
-        if (! $buildingUpdating->isNameValid($buildingNamesList) &&
-            $buildingUpdating->isNameChanging($buildingUpdating->getOldName())) {
+        if (! $buildingUpdating->isNameValid($buildingUpdating->getName(), $buildingNamesList) &&
+            $building->getName() !== $buildingUpdating->getName()
+        ) {
             return $this->output->buildingNameException(
                 App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
             );

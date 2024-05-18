@@ -62,8 +62,10 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
 
         DB::table('building')->lockForUpdate();
 
+        $buildingNamesList = $this->buildingRepository->getNamesListBySiteId($site->getId());
+
         // Name check (can not be repeated inside one site)
-        if (! $building->isNameValid($this->buildingRepository->getNamesListBySiteId($site->getId()))) {
+        if (! $building->isNameValid($building->getName(), $buildingNamesList)) {
             return $this->output->buildingNameException(
                 App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building])
             );

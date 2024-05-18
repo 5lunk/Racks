@@ -26,80 +26,6 @@ class BuildingTest extends TestCase
         $this->attributes = $reflection->getProperty('attributes');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Business rules
-    |--------------------------------------------------------------------------
-    */
-    public function testIsNameValid(): void
-    {
-        // Not valid (not unique)
-        $namesList1 = ['other name', 'third name', 'test name'];
-
-        $buildingMock = $this->getMockBuilder(Building::class)
-            ->onlyMethods(['getName'])
-            ->getMock();
-
-        $buildingMock->expects($this->once())
-            ->method('getName')
-            ->willReturn('test name');
-
-        $this->assertFalse(
-            $buildingMock->isNameValid($namesList1)
-        );
-
-        // Valid
-        $namesList1 = ['Timmy!'];
-
-        $buildingMock = $this->getMockBuilder(Building::class)
-            ->onlyMethods(['getName'])
-            ->getMock();
-
-        $buildingMock->expects($this->once())
-            ->method('getName')
-            ->willReturn('test name');
-
-        $this->assertTrue(
-            $buildingMock->isNameValid($namesList1)
-        );
-    }
-
-    public function testIsNameChanging(): void
-    {
-        // Changing
-        $newName1 = 'test name';
-
-        $buildingMock = $this->getMockBuilder(Building::class)
-            ->onlyMethods(['getName'])
-            ->getMock();
-
-        $buildingMock->expects($this->once())
-            ->method('getName')
-            ->willReturn('not test name');
-
-        $this->assertTrue(
-            $buildingMock->isNameChanging($newName1)
-        );
-
-        // Not changing
-        $newName2 = 'Timmy!';
-
-        $buildingMock = $this->getMockBuilder(Building::class)
-            ->onlyMethods(['getName'])
-            ->getMock();
-
-        $buildingMock->expects($this->once())
-            ->method('getName')
-            ->willReturn('Timmy!');
-
-        $this->assertFalse(
-            $buildingMock->isNameChanging($newName2)
-        );
-    }
-    /*
-    |--------------------------------------------------------------------------
-    */
-
     public function testGetId(): void
     {
         $this->attributes->setValue($this->building, ['id' => 5]);
@@ -155,30 +81,6 @@ class BuildingTest extends TestCase
 
         $this->building->setDescription(null);
         $this->assertNull($this->attributes->getValue($this->building)['description']);
-    }
-
-    public function testGetOldName(): void
-    {
-        $this->building->setOldName('test old name');
-        $this->assertEquals(
-            'test old name',
-            $this->attributes->getValue($this->building)['old_name']
-        );
-
-        $this->building->setOldName(null);
-        $this->assertNull($this->attributes->getValue($this->building)['old_name']);
-    }
-
-    public function testSetOldName(): void
-    {
-        $this->attributes->setValue($this->building, ['old_name' => 'other old name']);
-        $this->assertEquals(
-            'other old name',
-            $this->building->getOldName()
-        );
-
-        $this->building->setOldName(null);
-        $this->assertNull($this->attributes->getValue($this->building)['old_name']);
     }
 
     public function testGetUpdatedBy(): void

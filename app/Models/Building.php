@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
+use App\Models\Traits\UniqueNameableTrait;
 use App\Models\ValueObjects\BuildingAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -48,6 +49,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Building extends Model implements BuildingBusinessRules, BuildingEntity
 {
+    use UniqueNameableTrait;
+
     /**
      * @var array<int, string>
      */
@@ -61,44 +64,6 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
         'created_at',
         'updated_at',
     ];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Business rules
-    |--------------------------------------------------------------------------
-    */
-    /**
-     * @see BuildingBusinessRules::isNameValid()
-     *
-     * @param  array<string>  $namesList
-     * @return bool
-     */
-    public function isNameValid(array $namesList): bool
-    {
-        if (in_array($this->getName(), $namesList)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @see BuildingBusinessRules::isNameChanging()
-     *
-     * @param  string  $buildingOldName
-     * @return bool
-     */
-    public function isNameChanging(string $buildingOldName): bool
-    {
-        if ($this->getName() !== $buildingOldName) {
-            return true;
-        }
-
-        return false;
-    }
-    /*
-    |--------------------------------------------------------------------------
-    */
 
     /**
      * @return int
@@ -140,23 +105,6 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
     public function setDescription(?string $description): void
     {
         $this->attributes['description'] = $description;
-    }
-
-    /**
-     * @param  string|null  $oldName
-     * @return void
-     */
-    public function setOldName(?string $oldName): void
-    {
-        $this->attributes['old_name'] = $oldName;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getOldName(): ?string
-    {
-        return $this->attributes['old_name'];
     }
 
     /**

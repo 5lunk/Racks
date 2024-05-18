@@ -62,8 +62,10 @@ class CreateRackInteractor implements CreateRackInputPort
 
         DB::table('rack')->lockForUpdate();
 
+        $rackNamesList = $this->rackRepository->getNamesListByRoomId($room->getId());
+
         // Name check (can not be repeated inside one room)
-        if (! $rack->isNameValid($this->rackRepository->getNamesListByRoomId($room->getId()))) {
+        if (! $rack->isNameValid($rack->getName(), $rackNamesList)) {
             return $this->output->rackNameException(
                 App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack])
             );

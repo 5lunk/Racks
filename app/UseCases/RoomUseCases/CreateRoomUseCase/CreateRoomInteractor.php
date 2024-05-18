@@ -62,8 +62,10 @@ class CreateRoomInteractor implements CreateRoomInputPort
 
         DB::table('room')->lockForUpdate();
 
+        $roomNamesList = $this->roomRepository->getNamesListByBuildingId($building->getId());
+
         // Name check (can not be repeated inside one building)
-        if (! $room->isNameValid($this->roomRepository->getNamesListByBuildingId($building->getId()))) {
+        if (! $room->isNameValid($room->getName(), $roomNamesList)) {
             return $this->output->roomNameException(
                 App()->makeWith(CreateRoomResponseModel::class, ['room' => $room])
             );

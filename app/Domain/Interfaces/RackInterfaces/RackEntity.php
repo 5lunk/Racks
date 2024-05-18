@@ -354,12 +354,6 @@ interface RackEntity
     public function setUpdatedBy(?string $updatedBy): void;
 
     /**
-     * @param  string|null  $oldName
-     * @return void
-     */
-    public function setOldName(?string $oldName): void;
-
-    /**
      * @return int|null
      */
     public function getDepartmentId(): ?int;
@@ -369,11 +363,6 @@ interface RackEntity
      * @return void
      */
     public function setDepartmentId(?int $departmentId): void;
-
-    /**
-     * @return string|null
-     */
-    public function getOldName(): ?string;
 
     /**
      * @return BelongsTo

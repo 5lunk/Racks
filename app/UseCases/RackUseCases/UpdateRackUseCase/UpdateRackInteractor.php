@@ -59,8 +59,6 @@ class UpdateRackInteractor implements UpdateRackInputPort
 
         $rackUpdating->setRoomId($rack->getRoomId());
 
-        $rackUpdating->setOldName($rack->getName());
-
         $room = $this->roomRepository->getById($rack->getRoomId());
 
         DB::beginTransaction();
@@ -70,7 +68,9 @@ class UpdateRackInteractor implements UpdateRackInputPort
         $rackNamesList = $this->rackRepository->getNamesListByRoomId($room->getId());
 
         // Name check (can not be repeated inside one room)
-        if (! $rackUpdating->isNameValid($rackNamesList) && $rackUpdating->isNameChanging($rackUpdating->getOldName())) {
+        if (! $rackUpdating->isNameValid($rackUpdating->getName(), $rackNamesList) &&
+            $rack->getName() !== $rackUpdating->getName()
+        ) {
             return $this->output->rackNameException(
                 App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
             );

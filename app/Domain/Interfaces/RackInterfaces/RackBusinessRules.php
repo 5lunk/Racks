@@ -59,23 +59,11 @@ interface RackBusinessRules
      *
      * Takes as arguments list of rack names for this room, checks that it is not on the list, returns bool
      *
+     * @param  string|null  $name  Rack name
      * @param  array<string>  $namesList  List of Rack names for this room
      * @return bool Is name valid
      */
-    public function isNameValid(array $namesList): bool;
-
-    /**
-     * Check that rack name changed (for update)
-     * When updating information about a rack, it is necessary to take into account
-     * that the name should not be repeated within the same room.
-     * In this case, the post request should not be blocked due to repetition of the same name.
-     *
-     * Takes as arguments old rack name, checks that it is not the same as old, returns bool
-     *
-     * @param  string  $rackOldName
-     * @return bool
-     */
-    public function isNameChanging(string $rackOldName): bool;
+    public function isNameValid(?string $name, array $namesList): bool;
 
     /**
      * Updating rack busy units data by adding new ones (add new device).

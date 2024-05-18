@@ -173,17 +173,6 @@ interface RoomEntity
     public function getUpdatedAt(): ?string;
 
     /**
-     * @param  string|null  $oldName
-     * @return void
-     */
-    public function setOldName(?string $oldName): void;
-
-    /**
-     * @return string|null
-     */
-    public function getOldName(): ?string;
-
-    /**
      * @return string|null
      */
     public function getCreatedAt(): ?string;

@@ -60,8 +60,6 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
 
         $roomUpdating->setUpdatedBy($request->getUserName());
 
-        $roomUpdating->setOldName($room->getName());
-
         DB::beginTransaction();
 
         DB::table('room')->lockForUpdate();
@@ -69,8 +67,9 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
         $roomNamesList = $this->roomRepository->getNamesListByBuildingId($building->getId());
 
         // Name check (can not be repeated inside one building)
-        if (! $roomUpdating->isNameValid($roomNamesList) &&
-            $roomUpdating->isNameChanging($roomUpdating->getOldName())) {
+        if (! $roomUpdating->isNameValid($roomUpdating->getName(), $roomNamesList) &&
+            $room->getName() !== $roomUpdating->getName()
+        ) {
             return $this->output->roomNameException(
                 App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
             );

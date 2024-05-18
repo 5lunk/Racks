@@ -8,6 +8,7 @@ use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 use App\Enums\RoomCoolingSystemEnum;
 use App\Enums\RoomFireSuppressionSystemEnum;
+use App\Models\Traits\UniqueNameableTrait;
 use App\Models\ValueObjects\RoomAttributesValueObject;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -68,6 +69,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Room extends Model implements RoomBusinessRules, RoomEntity
 {
+    use UniqueNameableTrait;
+
     /**
      * @var array<int, string>
      */
@@ -89,44 +92,6 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
         'created_at',
         'updated_at',
     ];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Business rules
-    |--------------------------------------------------------------------------
-    */
-    /**
-     * @see RoomBusinessRules::isNameValid()
-     *
-     * @param  array<string>  $namesList
-     * @return bool
-     */
-    public function isNameValid(array $namesList): bool
-    {
-        if (in_array($this->getName(), $namesList)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @see RoomBusinessRules::isNameChanging()
-     *
-     * @param  string  $roomOldName
-     * @return bool
-     */
-    public function isNameChanging(string $roomOldName): bool
-    {
-        if ($this->getName() !== $roomOldName) {
-            return true;
-        }
-
-        return false;
-    }
-    /*
-    |--------------------------------------------------------------------------
-    */
 
     /**
      * @return int

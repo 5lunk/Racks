@@ -10,6 +10,7 @@ use App\Domain\Interfaces\RackInterfaces\RackEntity;
 use App\Enums\RackFrameEnum;
 use App\Enums\RackPlaceTypeEnum;
 use App\Enums\RackTypeEnum;
+use App\Models\Traits\UniqueNameableTrait;
 use App\Models\ValueObjects\RackAttributesValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
 use App\Providers\AuthServiceProvider;
@@ -105,6 +106,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Rack extends Model implements RackBusinessRules, RackEntity
 {
+    use UniqueNameableTrait;
+
     /**
      * @var array<int, string>
      */
@@ -266,36 +269,6 @@ class Rack extends Model implements RackBusinessRules, RackEntity
         }
 
         return true;
-    }
-
-    /**
-     * @see RackBusinessRules::isNameValid()
-     *
-     * @param  array<string>  $namesList
-     * @return bool
-     */
-    public function isNameValid(array $namesList): bool
-    {
-        if (in_array($this->getName(), $namesList)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @see RackBusinessRules::isNameChanging()
-     *
-     * @param  string  $rackOldName
-     * @return bool
-     */
-    public function isNameChanging(string $rackOldName): bool
-    {
-        if ($this->getName() !== $rackOldName) {
-            return true;
-        }
-
-        return false;
     }
     /*
     |--------------------------------------------------------------------------
