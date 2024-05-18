@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\DevicePresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\DeviceResources\NoSuchDeviceResource;
 use App\Http\Resources\DeviceResources\RetrieveDeviceResource;
 use App\UseCases\DeviceUseCases\GetDeviceUseCase\GetDeviceOutputPort;
@@ -25,7 +26,7 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveDeviceResource::class, ['device' => $response->getDevice()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

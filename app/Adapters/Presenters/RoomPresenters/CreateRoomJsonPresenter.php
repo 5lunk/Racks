@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RoomPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RoomResources\NoSuchBuildingResource;
 use App\Http\Resources\RoomResources\PermissionExceptionResource;
 use App\Http\Resources\RoomResources\RoomCreatedResource;
@@ -28,7 +29,7 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     RoomCreatedResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 201,
+                'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
     }
@@ -45,7 +46,7 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchBuildingResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -62,7 +63,7 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     RoomNameExceptionResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -85,7 +86,7 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToCreateRoomResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -102,7 +103,7 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RegionPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RegionResources\NoSuchRegionResource;
 use App\Http\Resources\RegionResources\RetrieveRegionResource;
 use App\UseCases\RegionUseCases\GetRegionUseCase\GetRegionOutputPort;
@@ -25,7 +26,7 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveRegionResource::class, ['region' => $response->getRegion()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchRegionResource::class, ['region' => $response->getRegion()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

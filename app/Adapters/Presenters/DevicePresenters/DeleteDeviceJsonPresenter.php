@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\DevicePresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\DeviceResources\DeviceDeletedResource;
 use App\Http\Resources\DeviceResources\DeviceDeletionFailedResource;
 use App\Http\Resources\DeviceResources\NoSuchDeviceResource;
@@ -28,7 +29,7 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     DeviceDeletedResource::class, ['device' => $response->getDevice()]),
-                'statusCode' => 204,
+                'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
     }
@@ -45,7 +46,7 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }
@@ -68,7 +69,7 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     DeviceDeletionFailedResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -91,7 +92,7 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToDeleteDeviceResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -108,7 +109,7 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['device' => $response->getDevice()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

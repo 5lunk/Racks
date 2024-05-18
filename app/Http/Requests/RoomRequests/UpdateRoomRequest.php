@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\RoomRequests;
 
-use App\Models\Enums\RoomCoolingSystemEnum;
-use App\Models\Enums\RoomFireSuppressionSystemEnum;
+use App\Enums\RoomCoolingSystemEnum;
+use App\Enums\RoomFireSuppressionSystemEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use OpenApi\Annotations as OA;

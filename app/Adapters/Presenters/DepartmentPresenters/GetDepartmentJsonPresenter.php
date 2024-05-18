@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\DepartmentPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\DepartmentResources\NoSuchDepartmentResource;
 use App\Http\Resources\DepartmentResources\RetrieveDepartmentResource;
 use App\UseCases\DepartmentUseCases\GetDepartmentUseCase\GetDepartmentOutputPort;
@@ -25,7 +26,7 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveDepartmentResource::class, ['department' => $response->getDepartment()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchDepartmentResource::class, ['department' => $response->getDepartment()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

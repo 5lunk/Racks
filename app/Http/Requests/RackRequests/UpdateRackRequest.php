@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\RackRequests;
 
-use App\Models\Enums\RackFrameEnum;
-use App\Models\Enums\RackPlaceTypeEnum;
-use App\Models\Enums\RackTypeEnum;
+use App\Enums\RackFrameEnum;
+use App\Enums\RackPlaceTypeEnum;
+use App\Enums\RackTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use OpenApi\Annotations as OA;

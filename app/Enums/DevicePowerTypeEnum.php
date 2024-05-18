@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Enums;
+namespace App\Enums;
 
 enum DevicePowerTypeEnum: string
 {

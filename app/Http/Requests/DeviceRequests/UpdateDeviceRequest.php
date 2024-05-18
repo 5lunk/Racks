@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\DeviceRequests;
 
+use App\Enums\DevicePowerACDCEnum;
+use App\Enums\DevicePowerTypeEnum;
+use App\Enums\DeviceTypeEnum;
 use App\Http\Validators\Rules\DeviceUnitsRule;
-use App\Models\Enums\DevicePowerACDCEnum;
-use App\Models\Enums\DevicePowerTypeEnum;
-use App\Models\Enums\DeviceTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use OpenApi\Annotations as OA;

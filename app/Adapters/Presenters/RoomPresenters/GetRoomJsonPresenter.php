@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RoomPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RoomResources\NoSuchRoomResource;
 use App\Http\Resources\RoomResources\RetrieveRoomResource;
 use App\UseCases\RoomUseCases\GetRoomUseCase\GetRoomOutputPort;
@@ -25,7 +26,7 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveRoomResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchRoomResource::class, ['room' => $response->getRoom()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

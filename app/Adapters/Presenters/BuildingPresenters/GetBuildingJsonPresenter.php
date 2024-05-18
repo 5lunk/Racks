@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\BuildingPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\BuildingResources\NoSuchBuildingResource;
 use App\Http\Resources\BuildingResources\RetrieveBuildingResource;
 use App\UseCases\BuildingUseCases\GetBuildingUseCase\GetBuildingOutputPort;
@@ -25,7 +26,7 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveBuildingResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\BuildingPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\BuildingResources\BuildingCreatedResource;
 use App\Http\Resources\BuildingResources\BuildingNameExceptionResource;
 use App\Http\Resources\BuildingResources\NoSuchSiteResource;
@@ -28,7 +29,7 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     BuildingCreatedResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 201,
+                'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
     }
@@ -45,7 +46,7 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchSiteResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -62,7 +63,7 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     BuildingNameExceptionResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -85,7 +86,7 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToCreateBuildingResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -102,7 +103,7 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

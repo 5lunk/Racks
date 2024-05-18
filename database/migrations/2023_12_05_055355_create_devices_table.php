@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Models\Enums\DevicePowerACDCEnum;
-use App\Models\Enums\DevicePowerTypeEnum;
-use App\Models\Enums\DeviceStatusEnum;
-use App\Models\Enums\DeviceTypeEnum;
+use App\Enums\DevicePowerACDCEnum;
+use App\Enums\DevicePowerTypeEnum;
+use App\Enums\DeviceStatusEnum;
+use App\Enums\DeviceTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

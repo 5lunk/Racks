@@ -6,8 +6,8 @@ namespace App\Models;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
-use App\Models\Enums\RoomCoolingSystemEnum;
-use App\Models\Enums\RoomFireSuppressionSystemEnum;
+use App\Enums\RoomCoolingSystemEnum;
+use App\Enums\RoomFireSuppressionSystemEnum;
 use App\Models\ValueObjects\RoomAttributesValueObject;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Casts\Attribute;

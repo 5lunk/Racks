@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RackPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RackResources\NoSuchRoomResource;
 use App\Http\Resources\RackResources\PermissionExceptionResource;
 use App\Http\Resources\RackResources\RackCreatedResource;
@@ -28,7 +29,7 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             [
                 'resource' => App()->makeWith(
                     RackCreatedResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 201,
+                'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
     }
@@ -45,7 +46,7 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchRoomResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -62,7 +63,7 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             [
                 'resource' => App()->makeWith(
                     RackNameExceptionResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
@@ -85,7 +86,7 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToCreateRackResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -102,7 +103,7 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

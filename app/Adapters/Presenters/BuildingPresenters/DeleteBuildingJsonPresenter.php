@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\BuildingPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\BuildingResources\BuildingDeletedResource;
 use App\Http\Resources\BuildingResources\NoSuchBuildingResource;
 use App\Http\Resources\BuildingResources\PermissionExceptionResource;
@@ -27,7 +28,7 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     BuildingDeletedResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 204,
+                'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
     }
@@ -44,7 +45,7 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }
@@ -67,7 +68,7 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToDeleteBuildingResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -84,7 +85,7 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

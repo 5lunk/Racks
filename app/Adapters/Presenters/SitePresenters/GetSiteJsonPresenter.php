@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\SitePresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\SiteResources\NoSuchSiteResource;
 use App\Http\Resources\SiteResources\RetrieveSiteResource;
 use App\UseCases\SiteUseCases\GetSiteUseCase\GetSiteOutputPort;
@@ -25,7 +26,7 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveSiteResource::class, ['site' => $response->getSite()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchSiteResource::class, ['site' => $response->getSite()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

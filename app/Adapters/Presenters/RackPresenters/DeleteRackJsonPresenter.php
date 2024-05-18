@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RackPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RackResources\NoSuchRackResource;
 use App\Http\Resources\RackResources\PermissionExceptionResource;
 use App\Http\Resources\RackResources\RackDeletedResource;
@@ -27,7 +28,7 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
             [
                 'resource' => App()->makeWith(
                     RackDeletedResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 204,
+                'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
     }
@@ -44,7 +45,7 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchRackResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }
@@ -67,7 +68,7 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToDeleteRackResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -84,7 +85,7 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }

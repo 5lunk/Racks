@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\RackPresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\RackResources\NoSuchRackResource;
 use App\Http\Resources\RackResources\RetrieveRackResource;
 use App\UseCases\RackUseCases\GetRackUseCase\GetRackOutputPort;
@@ -25,7 +26,7 @@ class GetRackJsonPresenter implements GetRackOutputPort
             [
                 'resource' => App()->makeWith(
                     RetrieveRackResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 200,
+                'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
     }
@@ -42,7 +43,7 @@ class GetRackJsonPresenter implements GetRackOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchRackResource::class, ['rack' => $response->getRack()]),
-                'statusCode' => 404,
+                'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
     }

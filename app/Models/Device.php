@@ -6,10 +6,10 @@ namespace App\Models;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceBusinessRules;
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
-use App\Models\Enums\DevicePowerACDCEnum;
-use App\Models\Enums\DevicePowerTypeEnum;
-use App\Models\Enums\DeviceStatusEnum;
-use App\Models\Enums\DeviceTypeEnum;
+use App\Enums\DevicePowerACDCEnum;
+use App\Enums\DevicePowerTypeEnum;
+use App\Enums\DeviceStatusEnum;
+use App\Enums\DeviceTypeEnum;
 use App\Models\ValueObjects\DeviceAttributesValueObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;

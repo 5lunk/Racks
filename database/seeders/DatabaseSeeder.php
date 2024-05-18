@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\DeviceStatusEnum;
+use App\Enums\DeviceTypeEnum;
+use App\Enums\RoomCoolingSystemEnum;
+use App\Enums\RoomFireSuppressionSystemEnum;
 use App\Models\Building;
 use App\Models\Department;
 use App\Models\Device;
-use App\Models\Enums\DeviceStatusEnum;
-use App\Models\Enums\DeviceTypeEnum;
-use App\Models\Enums\RoomCoolingSystemEnum;
-use App\Models\Enums\RoomFireSuppressionSystemEnum;
 use App\Models\Rack;
 use App\Models\Region;
 use App\Models\Room;

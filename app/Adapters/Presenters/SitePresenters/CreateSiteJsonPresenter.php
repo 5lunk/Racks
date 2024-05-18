@@ -6,6 +6,7 @@ namespace App\Adapters\Presenters\SitePresenters;
 
 use App\Adapters\ViewModels\JsonResourceViewModel;
 use App\Domain\Interfaces\ViewModel;
+use App\Enums\StatusCodeEnum;
 use App\Http\Resources\SiteResources\NoSuchDepartmentResource;
 use App\Http\Resources\SiteResources\PermissionExceptionResource;
 use App\Http\Resources\SiteResources\SiteCreatedResource;
@@ -27,7 +28,7 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     SiteCreatedResource::class, ['site' => $response->getSite()]),
-                'statusCode' => 201,
+                'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
     }
@@ -50,7 +51,7 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     UnableToCreateSiteResource::class, ['e' => $e]),
-                'statusCode' => 500,
+                'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
     }
@@ -67,7 +68,7 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     PermissionExceptionResource::class, ['site' => $response->getSite()]),
-                'statusCode' => 403,
+                'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
     }
@@ -84,7 +85,7 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
             [
                 'resource' => App()->makeWith(
                     NoSuchDepartmentResource::class, ['site' => $response->getSite()]),
-                'statusCode' => 400,
+                'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
     }
