@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
+use App\Models\HelperObjects\RackAttributesHelperObject;
 use App\Models\Rack;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
-use App\Models\ValueObjects\RackAttributesValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
 use Tests\TestCase;
 
@@ -1507,11 +1507,11 @@ class RackTest extends TestCase
 
     public function testGetAttributeSet(): void
     {
-        $attrsValObjMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsValObjMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->app->bind(RackAttributesValueObject::class, function () use ($attrsValObjMock) {
+        $this->app->bind(RackAttributesHelperObject::class, function () use ($attrsValObjMock) {
             return $attrsValObjMock;
         });
 
@@ -1520,6 +1520,6 @@ class RackTest extends TestCase
             $this->rack->getAttributeSet(),
         );
 
-        $this->app->offsetUnset(RackAttributesValueObject::class);
+        $this->app->offsetUnset(RackAttributesHelperObject::class);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Interfaces\DeviceInterfaces;
 
 use App\Models\Device;
-use App\Models\ValueObjects\DeviceAttributesValueObject;
+use App\Models\HelperObjects\DeviceAttributesHelperObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -311,9 +311,9 @@ interface DeviceEntity
     public function setLocation(?bool $location): void;
 
     /**
-     * @return DeviceAttributesValueObject
+     * @return DeviceAttributesHelperObject
      */
-    public function getAttributeSet(): DeviceAttributesValueObject;
+    public function getAttributeSet(): DeviceAttributesHelperObject;
 
     /**
      * @return string|null

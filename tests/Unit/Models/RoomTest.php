@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\HelperObjects\RoomAttributesHelperObject;
 use App\Models\Room;
-use App\Models\ValueObjects\RoomAttributesValueObject;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -447,11 +447,11 @@ class RoomTest extends TestCase
 
     public function testGetAttributeSet(): void
     {
-        $attrsValObjMock = $this->getMockBuilder(RoomAttributesValueObject::class)
+        $attrsValObjMock = $this->getMockBuilder(RoomAttributesHelperObject::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->app->bind(RoomAttributesValueObject::class, function () use ($attrsValObjMock) {
+        $this->app->bind(RoomAttributesHelperObject::class, function () use ($attrsValObjMock) {
             return $attrsValObjMock;
         });
 
@@ -460,6 +460,6 @@ class RoomTest extends TestCase
             $this->room->getAttributeSet(),
         );
 
-        $this->app->offsetUnset(RoomAttributesValueObject::class);
+        $this->app->offsetUnset(RoomAttributesHelperObject::class);
     }
 }

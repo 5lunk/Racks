@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Interfaces\BuildingInterfaces;
 
 use App\Models\Building;
-use App\Models\ValueObjects\BuildingAttributesValueObject;
+use App\Models\HelperObjects\BuildingAttributesHelperObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -84,9 +84,9 @@ interface BuildingEntity
     public function setUpdatedBy(?string $updatedBy): void;
 
     /**
-     * @return BuildingAttributesValueObject
+     * @return BuildingAttributesHelperObject
      */
-    public function getAttributeSet(): BuildingAttributesValueObject;
+    public function getAttributeSet(): BuildingAttributesHelperObject;
 
     /**
      * @return string

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\HelperObjects\SiteAttributesHelperObject;
 use App\Models\Site;
-use App\Models\ValueObjects\SiteAttributesValueObject;
 use Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -163,11 +163,11 @@ class SiteTest extends TestCase
 
     public function testGetAttributeSet(): void
     {
-        $attrsValObjMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsValObjMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->app->bind(SiteAttributesValueObject::class, function () use ($attrsValObjMock) {
+        $this->app->bind(SiteAttributesHelperObject::class, function () use ($attrsValObjMock) {
             return $attrsValObjMock;
         });
 
@@ -176,6 +176,6 @@ class SiteTest extends TestCase
             $this->site->getAttributeSet(),
         );
 
-        $this->app->offsetUnset(SiteAttributesValueObject::class);
+        $this->app->offsetUnset(SiteAttributesHelperObject::class);
     }
 }

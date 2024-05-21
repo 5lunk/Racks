@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\ValueObjects;
+namespace Tests\Unit\Models\HelperObjects;
 
+use App\Models\HelperObjects\SiteAttributesHelperObject;
 use App\Models\Site;
-use App\Models\ValueObjects\SiteAttributesValueObject;
 use Tests\TestCase;
 
 class SiteAttributesValueObjectTest extends TestCase
@@ -18,11 +18,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn('some name');
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -40,11 +40,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -65,11 +65,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn('user');
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -87,11 +87,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -112,11 +112,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn('description');
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -134,11 +134,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -159,11 +159,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(7);
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -181,11 +181,11 @@ class SiteAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
         $siteProp = $reflection->getProperty('site');
@@ -200,11 +200,11 @@ class SiteAttributesValueObjectTest extends TestCase
 
     public function testToArray(): void
     {
-        $attrsMock = $this->getMockBuilder(SiteAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(SiteAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(SiteAttributesValueObject::class);
+        $reflection = new \ReflectionClass(SiteAttributesHelperObject::class);
         $attributesForSiteProp = $reflection->getProperty('attributesForSite');
 
         $attributesForSiteProp->setValue($attrsMock, ['oops' => 'oops']);
@@ -222,7 +222,7 @@ class SiteAttributesValueObjectTest extends TestCase
             'updated_by' => 'user',
             'department_id' => 1,
         ]);
-        $siteAttrsValueObj = new SiteAttributesValueObject($site);
+        $siteAttrsValueObj = new SiteAttributesHelperObject($site);
         $this->assertEquals(
             [
                 'name' => 'name',
@@ -239,7 +239,7 @@ class SiteAttributesValueObjectTest extends TestCase
             'updated_by' => 'user',
             'department_id' => 1,
         ]);
-        $siteAttrsValueObj = new SiteAttributesValueObject($site);
+        $siteAttrsValueObj = new SiteAttributesHelperObject($site);
         $this->assertEquals(
             [
                 'name' => 'name',

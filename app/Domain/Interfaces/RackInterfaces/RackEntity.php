@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Interfaces\RackInterfaces;
 
+use App\Models\HelperObjects\RackAttributesHelperObject;
 use App\Models\Rack;
-use App\Models\ValueObjects\RackAttributesValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -328,9 +328,9 @@ interface RackEntity
     public function setBusyUnits(RackBusyUnitsValueObject $busyUnits): void;
 
     /**
-     * @return RackAttributesValueObject
+     * @return RackAttributesHelperObject
      */
-    public function getAttributeSet(): RackAttributesValueObject;
+    public function getAttributeSet(): RackAttributesHelperObject;
 
     /**
      * @return string

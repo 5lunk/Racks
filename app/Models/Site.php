@@ -6,7 +6,7 @@ namespace App\Models;
 
 use App\Domain\Interfaces\SiteInterfaces\SiteBusinessRules;
 use App\Domain\Interfaces\SiteInterfaces\SiteEntity;
-use App\Models\ValueObjects\SiteAttributesValueObject;
+use App\Models\HelperObjects\SiteAttributesHelperObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -123,13 +123,13 @@ class Site extends Model implements SiteBusinessRules, SiteEntity
     }
 
     /**
-     * @return SiteAttributesValueObject
+     * @return SiteAttributesHelperObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getAttributeSet(): SiteAttributesValueObject
+    public function getAttributeSet(): SiteAttributesHelperObject
     {
-        return App()->makeWith(SiteAttributesValueObject::class, ['site' => $this]);
+        return App()->makeWith(SiteAttributesHelperObject::class, ['site' => $this]);
     }
 
     /**

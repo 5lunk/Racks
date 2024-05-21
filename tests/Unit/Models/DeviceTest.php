@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Models\Device;
-use App\Models\ValueObjects\DeviceAttributesValueObject;
+use App\Models\HelperObjects\DeviceAttributesHelperObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Tests\TestCase;
 
@@ -859,11 +859,11 @@ class DeviceTest extends TestCase
 
     public function testGetAttributeSet(): void
     {
-        $attrsValObjMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsValObjMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->app->bind(DeviceAttributesValueObject::class, function () use ($attrsValObjMock) {
+        $this->app->bind(DeviceAttributesHelperObject::class, function () use ($attrsValObjMock) {
             return $attrsValObjMock;
         });
 
@@ -872,6 +872,6 @@ class DeviceTest extends TestCase
             $this->device->getAttributeSet(),
         );
 
-        $this->app->offsetUnset(DeviceAttributesValueObject::class);
+        $this->app->offsetUnset(DeviceAttributesHelperObject::class);
     }
 }

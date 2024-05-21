@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\ValueObjects;
+namespace Tests\Unit\Models\HelperObjects;
 
+use App\Models\HelperObjects\RackAttributesHelperObject;
 use App\Models\Rack;
-use App\Models\ValueObjects\RackAttributesValueObject;
 use Tests\TestCase;
 
 class RackAttributesValueObjectTest extends TestCase
@@ -18,11 +18,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn('some name');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -40,11 +40,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -65,11 +65,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getAmount')
             ->willReturn(22);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setAmount');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -87,11 +87,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getAmount')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setAmount');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -112,11 +112,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getVendor')
             ->willReturn('vendor');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setVendor');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -134,11 +134,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getVendor')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setVendor');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -159,11 +159,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn('user');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -181,11 +181,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -206,11 +206,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getModel')
             ->willReturn('model');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setModel');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -228,11 +228,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getModel')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setModel');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -253,11 +253,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn('description');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -275,11 +275,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -300,11 +300,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasNumberingFromTopToBottom')
             ->willReturn(true);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasNumberingFromTopToBottom');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -322,11 +322,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasNumberingFromTopToBottom')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasNumberingFromTopToBottom');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -347,11 +347,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getResponsible')
             ->willReturn('responsible');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setResponsible');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -369,11 +369,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getResponsible')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setResponsible');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -394,11 +394,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFinanciallyResponsiblePerson')
             ->willReturn('responsible');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -416,11 +416,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFinanciallyResponsiblePerson')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -441,11 +441,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getInventoryNumber')
             ->willReturn('3463645745');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setInventoryNumber');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -463,11 +463,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getInventoryNumber')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setInventoryNumber');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -488,11 +488,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFixedAsset')
             ->willReturn('3463645745Q');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFixedAsset');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -510,11 +510,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFixedAsset')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFixedAsset');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -535,11 +535,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getLinkToDocs')
             ->willReturn('some link');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setLinkToDocs');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -557,11 +557,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getLinkToDocs')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setLinkToDocs');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -582,11 +582,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getRow')
             ->willReturn('row');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setRow');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -604,11 +604,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getRow')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setRow');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -629,11 +629,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPlace')
             ->willReturn('place');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPlace');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -651,11 +651,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPlace')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPlace');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -676,11 +676,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHeight')
             ->willReturn(200);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHeight');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -698,11 +698,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHeight')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHeight');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -723,11 +723,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getWidth')
             ->willReturn(200);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setWidth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -745,11 +745,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getWidth')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setWidth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -770,11 +770,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDepth')
             ->willReturn(200);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -792,11 +792,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDepth')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -817,11 +817,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUnitWidth')
             ->willReturn(20);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnitWidth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -839,11 +839,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUnitWidth')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnitWidth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -864,11 +864,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUnitDepth')
             ->willReturn(20);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnitDepth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -886,11 +886,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getUnitDepth')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnitDepth');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -911,11 +911,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getType')
             ->willReturn('Rack');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setType');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -933,11 +933,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getType')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setType');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -958,11 +958,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFrame')
             ->willReturn('Single frame');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFrame');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -980,11 +980,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getFrame')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setFrame');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1005,11 +1005,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPlaceType')
             ->willReturn('Wall mounted');
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPlaceType');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1027,11 +1027,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPlaceType')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPlaceType');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1052,11 +1052,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getMaxLoad')
             ->willReturn(500);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setMaxLoad');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1074,11 +1074,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getMaxLoad')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setMaxLoad');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1099,11 +1099,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPowerSockets')
             ->willReturn(10);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerSockets');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1121,11 +1121,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPowerSockets')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerSockets');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1146,11 +1146,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPowerSocketsUps')
             ->willReturn(10);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerSocketsUps');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1168,11 +1168,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getPowerSocketsUps')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerSocketsUps');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1193,11 +1193,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasExternalUps')
             ->willReturn(true);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasExternalUps');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1215,11 +1215,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasExternalUps')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasExternalUps');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1240,11 +1240,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasCooler')
             ->willReturn(true);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasCooler');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1262,11 +1262,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getHasCooler')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setHasCooler');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1287,11 +1287,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(12);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1309,11 +1309,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1334,11 +1334,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getRoomId')
             ->willReturn(12);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setRoomId');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1356,11 +1356,11 @@ class RackAttributesValueObjectTest extends TestCase
             ->method('getRoomId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $method = $reflection->getMethod('setRoomId');
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
         $rackProp = $reflection->getProperty('rack');
@@ -1375,11 +1375,11 @@ class RackAttributesValueObjectTest extends TestCase
 
     public function testToArray(): void
     {
-        $attrsMock = $this->getMockBuilder(RackAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(RackAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(RackAttributesValueObject::class);
+        $reflection = new \ReflectionClass(RackAttributesHelperObject::class);
         $attributesForRackProp = $reflection->getProperty('attributesForRack');
 
         $attributesForRackProp->setValue($attrsMock, ['oops' => 'oops']);
@@ -1422,7 +1422,7 @@ class RackAttributesValueObjectTest extends TestCase
             'department_id' => 12,
             'room_id' => 12,
         ]);
-        $rackAttrsValueObj = new RackAttributesValueObject($rack);
+        $rackAttrsValueObj = new RackAttributesHelperObject($rack);
         $this->assertEquals(
             [
                 'name' => 'some name',
@@ -1489,7 +1489,7 @@ class RackAttributesValueObjectTest extends TestCase
             'department_id' => 12,
             'room_id' => 12,
         ]);
-        $rackAttrsValueObj = new RackAttributesValueObject($rack);
+        $rackAttrsValueObj = new RackAttributesHelperObject($rack);
         $this->assertEquals(
             [
                 'name' => 'some name',

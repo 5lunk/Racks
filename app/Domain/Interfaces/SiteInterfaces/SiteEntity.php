@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Interfaces\SiteInterfaces;
 
+use App\Models\HelperObjects\SiteAttributesHelperObject;
 use App\Models\Site;
-use App\Models\ValueObjects\SiteAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -60,9 +60,9 @@ interface SiteEntity
     public function setDepartmentId(?int $departmentId): void;
 
     /**
-     * @return SiteAttributesValueObject
+     * @return SiteAttributesHelperObject
      */
-    public function getAttributeSet(): SiteAttributesValueObject;
+    public function getAttributeSet(): SiteAttributesHelperObject;
 
     /**
      * @return string|null

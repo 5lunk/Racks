@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Interfaces\RoomInterfaces;
 
+use App\Models\HelperObjects\RoomAttributesHelperObject;
 use App\Models\Room;
-use App\Models\ValueObjects\RoomAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -178,9 +178,9 @@ interface RoomEntity
     public function getCreatedAt(): ?string;
 
     /**
-     * @return RoomAttributesValueObject
+     * @return RoomAttributesHelperObject
      */
-    public function getAttributeSet(): RoomAttributesValueObject;
+    public function getAttributeSet(): RoomAttributesHelperObject;
 
     /**
      * @return BelongsTo

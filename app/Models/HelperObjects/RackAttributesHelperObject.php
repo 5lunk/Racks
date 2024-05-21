@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models\ValueObjects;
+namespace App\Models\HelperObjects;
 
 use App\Domain\Interfaces\RackInterfaces\RackEntity;
 
 /**
- * Value object for rack PATCHing (reverse DTO)
+ * Helper object for rack PATCHing
  */
-class RackAttributesValueObject
+class RackAttributesHelperObject
 {
     /**
      * @var array<mixed>

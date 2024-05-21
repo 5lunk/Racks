@@ -10,8 +10,8 @@ use App\Domain\Interfaces\RackInterfaces\RackEntity;
 use App\Enums\RackFrameEnum;
 use App\Enums\RackPlaceTypeEnum;
 use App\Enums\RackTypeEnum;
+use App\Models\HelperObjects\RackAttributesHelperObject;
 use App\Models\Traits\UniqueNameableTrait;
-use App\Models\ValueObjects\RackAttributesValueObject;
 use App\Models\ValueObjects\RackBusyUnitsValueObject;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -913,13 +913,13 @@ class Rack extends Model implements RackBusinessRules, RackEntity
     }
 
     /**
-     * @return RackAttributesValueObject
+     * @return RackAttributesHelperObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getAttributeSet(): RackAttributesValueObject
+    public function getAttributeSet(): RackAttributesHelperObject
     {
-        return App()->makeWith(RackAttributesValueObject::class, ['rack' => $this]);
+        return App()->makeWith(RackAttributesHelperObject::class, ['rack' => $this]);
     }
 
     /**

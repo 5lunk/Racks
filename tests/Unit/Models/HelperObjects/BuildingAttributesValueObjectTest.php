@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\ValueObjects;
+namespace Tests\Unit\Models\HelperObjects;
 
 use App\Models\Building;
-use App\Models\ValueObjects\BuildingAttributesValueObject;
+use App\Models\HelperObjects\BuildingAttributesHelperObject;
 use Tests\TestCase;
 
 class BuildingAttributesValueObjectTest extends TestCase
@@ -18,11 +18,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn('some name');
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -40,11 +40,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getName')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setName');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -65,11 +65,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getSiteId')
             ->willReturn(12);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setSiteId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -87,11 +87,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getSiteId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setSiteId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -112,11 +112,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn('user');
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -134,11 +134,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -159,11 +159,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn('description');
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -181,11 +181,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -206,11 +206,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(5);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -228,11 +228,11 @@ class BuildingAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
         $buildingProp = $reflection->getProperty('building');
@@ -247,11 +247,11 @@ class BuildingAttributesValueObjectTest extends TestCase
 
     public function testToArray(): void
     {
-        $attrsMock = $this->getMockBuilder(BuildingAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(BuildingAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(BuildingAttributesValueObject::class);
+        $reflection = new \ReflectionClass(BuildingAttributesHelperObject::class);
         $attributesForBuildingProp = $reflection->getProperty('attributesForBuilding');
 
         $attributesForBuildingProp->setValue($attrsMock, ['oops' => 'oops']);
@@ -270,7 +270,7 @@ class BuildingAttributesValueObjectTest extends TestCase
             'site_id' => 2,
             'department_id' => 1,
         ]);
-        $buildingAttrsValueObj = new BuildingAttributesValueObject($building);
+        $buildingAttrsValueObj = new BuildingAttributesHelperObject($building);
         $this->assertEquals(
             [
                 'name' => 'name',
@@ -289,7 +289,7 @@ class BuildingAttributesValueObjectTest extends TestCase
             'site_id' => 2,
             'department_id' => 1,
         ]);
-        $buildingAttrsValueObj = new BuildingAttributesValueObject($building);
+        $buildingAttrsValueObj = new BuildingAttributesHelperObject($building);
         $this->assertEquals(
             [
                 'name' => 'name',

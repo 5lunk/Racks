@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\ValueObjects;
+namespace Tests\Unit\Models\HelperObjects;
 
 use App\Models\Device;
-use App\Models\ValueObjects\DeviceAttributesValueObject;
+use App\Models\HelperObjects\DeviceAttributesHelperObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Tests\TestCase;
 
@@ -19,11 +19,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getRackId')
             ->willReturn(4);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setRackId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -41,11 +41,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getRackId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setRackId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -71,11 +71,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getUnits')
             ->willReturn($deviceUnitsMock);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnits');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -98,11 +98,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getUnits')
             ->willReturn($deviceUnitsMock);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setUnits');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -123,11 +123,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getLocation')
             ->willReturn(true);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setLocation');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -145,11 +145,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getLocation')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setLocation');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -170,11 +170,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getModel')
             ->willReturn('model');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setModel');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -192,11 +192,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getModel')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setModel');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -217,11 +217,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getVendor')
             ->willReturn('vendor');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setVendor');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -239,11 +239,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getVendor')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setVendor');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -264,11 +264,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn('user');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -286,11 +286,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getUpdatedBy')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setUpdatedBy');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -311,11 +311,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getType')
             ->willReturn('Other');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -333,11 +333,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getType')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -358,11 +358,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getStatus')
             ->willReturn('Active');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setStatus');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -380,11 +380,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getStatus')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setStatus');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -405,11 +405,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getHostname')
             ->willReturn('hostname');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setHostname');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -427,11 +427,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getHostname')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setHostname');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -452,11 +452,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getIp')
             ->willReturn('192.168.10.10');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setIp');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -474,11 +474,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getIp')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setIp');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -499,11 +499,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPortsAmount')
             ->willReturn(24);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPortsAmount');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -521,11 +521,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPortsAmount')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPortsAmount');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -546,11 +546,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getSoftwareVersion')
             ->willReturn('v12');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setSoftwareVersion');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -568,11 +568,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getSoftwareVersion')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setSoftwareVersion');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -593,11 +593,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerType')
             ->willReturn('Other');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -615,11 +615,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerType')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerType');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -640,11 +640,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerW')
             ->willReturn(200);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerW');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -662,11 +662,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerW')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerW');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -687,11 +687,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerV')
             ->willReturn(220);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerV');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -709,11 +709,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerV')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerV');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -734,11 +734,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerACDC')
             ->willReturn('AC');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerACDC');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -756,11 +756,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getPowerACDC')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setPowerACDC');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -781,11 +781,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getSerialNumber')
             ->willReturn('123142352');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setSerialNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -803,11 +803,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getSerialNumber')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setSerialNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -828,11 +828,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn('description');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -850,11 +850,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getDescription')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setDescription');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -875,11 +875,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getProject')
             ->willReturn('project');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setProject');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -897,11 +897,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getProject')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setProject');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -922,11 +922,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getOwnership')
             ->willReturn('ownership');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setOwnership');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -944,11 +944,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getOwnership')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setOwnership');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -969,11 +969,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getResponsible')
             ->willReturn('responsible');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setResponsible');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -991,11 +991,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getResponsible')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setResponsible');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1016,11 +1016,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getFinanciallyResponsiblePerson')
             ->willReturn('responsible');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1038,11 +1038,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getFinanciallyResponsiblePerson')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setFinanciallyResponsiblePerson');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1063,11 +1063,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getInventoryNumber')
             ->willReturn('3426546245645');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setInventoryNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1085,11 +1085,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getInventoryNumber')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setInventoryNumber');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1110,11 +1110,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getFixedAsset')
             ->willReturn('3426546245');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setFixedAsset');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1132,11 +1132,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getFixedAsset')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setFixedAsset');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1157,11 +1157,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getLinkToDocs')
             ->willReturn('link');
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setLinkToDocs');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1179,11 +1179,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getLinkToDocs')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setLinkToDocs');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1204,11 +1204,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(3);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1226,11 +1226,11 @@ class DeviceAttributesValueObjectTest extends TestCase
             ->method('getDepartmentId')
             ->willReturn(null);
 
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $method = $reflection->getMethod('setDepartmentId');
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
         $deviceProp = $reflection->getProperty('device');
@@ -1245,11 +1245,11 @@ class DeviceAttributesValueObjectTest extends TestCase
 
     public function testToArray(): void
     {
-        $attrsMock = $this->getMockBuilder(DeviceAttributesValueObject::class)
+        $attrsMock = $this->getMockBuilder(DeviceAttributesHelperObject::class)
             ->onlyMethods(['__construct'])
             ->disableOriginalConstructor()
             ->getMock();
-        $reflection = new \ReflectionClass(DeviceAttributesValueObject::class);
+        $reflection = new \ReflectionClass(DeviceAttributesHelperObject::class);
         $attributesForDeviceProp = $reflection->getProperty('attributesForDevice');
 
         $attributesForDeviceProp->setValue($attrsMock, ['oops' => 'oops']);
@@ -1289,7 +1289,7 @@ class DeviceAttributesValueObjectTest extends TestCase
             'link_to_docs' => 'link',
             'department_id' => 12,
         ]);
-        $deviceAttrsValueObj = new DeviceAttributesValueObject($device);
+        $deviceAttrsValueObj = new DeviceAttributesHelperObject($device);
         $this->assertEquals(
             [
                 'rack_id' => 2,
@@ -1350,7 +1350,7 @@ class DeviceAttributesValueObjectTest extends TestCase
             'link_to_docs' => 'link',
             'department_id' => 12,
         ]);
-        $deviceAttrsValueObj = new DeviceAttributesValueObject($device);
+        $deviceAttrsValueObj = new DeviceAttributesHelperObject($device);
         $this->assertEquals(
             [
                 'rack_id' => 2,

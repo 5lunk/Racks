@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models\ValueObjects;
+namespace App\Models\HelperObjects;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
 
 /**
- * Value object for building PATCHing (reverse DTO)
+ * Helper object for building PATCHing
  */
-class BuildingAttributesValueObject
+class BuildingAttributesHelperObject
 {
     /**
      * @var array<mixed>

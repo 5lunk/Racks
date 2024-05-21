@@ -10,7 +10,7 @@ use App\Enums\DevicePowerACDCEnum;
 use App\Enums\DevicePowerTypeEnum;
 use App\Enums\DeviceStatusEnum;
 use App\Enums\DeviceTypeEnum;
-use App\Models\ValueObjects\DeviceAttributesValueObject;
+use App\Models\HelperObjects\DeviceAttributesHelperObject;
 use App\Models\ValueObjects\DeviceUnitsValueObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -719,13 +719,13 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
     /**
      * Get attributes for patch method
      *
-     * @return DeviceAttributesValueObject
+     * @return DeviceAttributesHelperObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getAttributeSet(): DeviceAttributesValueObject
+    public function getAttributeSet(): DeviceAttributesHelperObject
     {
-        return App()->makeWith(DeviceAttributesValueObject::class, ['device' => $this]);
+        return App()->makeWith(DeviceAttributesHelperObject::class, ['device' => $this]);
     }
 
     /**

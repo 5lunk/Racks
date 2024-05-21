@@ -6,8 +6,8 @@ namespace App\Models;
 
 use App\Domain\Interfaces\BuildingInterfaces\BuildingBusinessRules;
 use App\Domain\Interfaces\BuildingInterfaces\BuildingEntity;
+use App\Models\HelperObjects\BuildingAttributesHelperObject;
 use App\Models\Traits\UniqueNameableTrait;
-use App\Models\ValueObjects\BuildingAttributesValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -169,13 +169,13 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
     }
 
     /**
-     * @return BuildingAttributesValueObject
+     * @return BuildingAttributesHelperObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getAttributeSet(): BuildingAttributesValueObject
+    public function getAttributeSet(): BuildingAttributesHelperObject
     {
-        return App()->makeWith(BuildingAttributesValueObject::class, ['building' => $this]);
+        return App()->makeWith(BuildingAttributesHelperObject::class, ['building' => $this]);
     }
 
     /**

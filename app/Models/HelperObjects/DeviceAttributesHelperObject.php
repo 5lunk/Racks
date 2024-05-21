@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models\ValueObjects;
+namespace App\Models\HelperObjects;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceEntity;
 
 /**
- * Value object for device PATCHing (reverse DTO)
+ * Helper object for device PATCHing
  */
-class DeviceAttributesValueObject
+class DeviceAttributesHelperObject
 {
     /**
      * @var array<mixed>

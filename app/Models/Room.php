@@ -8,8 +8,8 @@ use App\Domain\Interfaces\RoomInterfaces\RoomBusinessRules;
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 use App\Enums\RoomCoolingSystemEnum;
 use App\Enums\RoomFireSuppressionSystemEnum;
+use App\Models\HelperObjects\RoomAttributesHelperObject;
 use App\Models\Traits\UniqueNameableTrait;
-use App\Models\ValueObjects\RoomAttributesValueObject;
 use App\Providers\AuthServiceProvider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -396,13 +396,13 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
     }
 
     /**
-     * @return RoomAttributesValueObject
+     * @return RoomAttributesHelperObject
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getAttributeSet(): RoomAttributesValueObject
+    public function getAttributeSet(): RoomAttributesHelperObject
     {
-        return App()->makeWith(RoomAttributesValueObject::class, ['room' => $this]);
+        return App()->makeWith(RoomAttributesHelperObject::class, ['room' => $this]);
     }
 
     /**

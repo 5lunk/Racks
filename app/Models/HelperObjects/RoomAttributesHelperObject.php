@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models\ValueObjects;
+namespace App\Models\HelperObjects;
 
 use App\Domain\Interfaces\RoomInterfaces\RoomEntity;
 
 /**
- * Value object for room PATCHing (reverse DTO)
+ * Helper object for room PATCHing
  */
-class RoomAttributesValueObject
+class RoomAttributesHelperObject
 {
     /**
      * @var array<mixed>
