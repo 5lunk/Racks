@@ -42,4 +42,14 @@ class EmailValueObjectTest extends TestCase
             (new EmailValueObject('test@mail.com'))->__toString()
         );
     }
+
+    public function testEqualTo(): void
+    {
+        $email1 = new EmailValueObject('test1@mail.com');
+        $email2 = new EmailValueObject('test1@mail.com');
+        $email3 = new EmailValueObject('test2@mail.com');
+
+        $this->assertTrue($email1->equalTo($email2));
+        $this->assertFalse($email1->equalTo($email3));
+    }
 }

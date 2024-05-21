@@ -43,26 +43,30 @@ class RackBusyUnitsValueObjectTest extends TestCase
         );
     }
 
-    public function testUpdateBusyUnits(): void
+    public function testGetNewBusyBusyUnits(): void
     {
         $busyUnits = new RackBusyUnitsValueObject(
             ['front' => [3, 4, 5], 'back' => [11, 12, 13]],
         );
 
-        $busyUnits->updateBusyUnits([7, 8], false);
+        $newBusyUnits = $busyUnits->getNewBusyUnits([7, 8], false);
         $this->assertEquals(
             (new RackBusyUnitsValueObject(
                 ['front' => [7, 8], 'back' => [11, 12, 13]],
             ))->toArray(),
-            $busyUnits->toArray()
+            $newBusyUnits->toArray()
         );
 
-        $busyUnits->updateBusyUnits([4, 8], true);
+        $busyUnits = new RackBusyUnitsValueObject(
+            ['front' => [3, 4, 5], 'back' => [11, 12, 13]],
+        );
+
+        $newBusyUnits = $busyUnits->getNewBusyUnits([4, 8], true);
         $this->assertEquals(
             (new RackBusyUnitsValueObject(
-                ['front' => [7, 8], 'back' => [4, 8]],
+                ['front' => [3, 4, 5], 'back' => [4, 8]],
             ))->toArray(),
-            $busyUnits->toArray()
+            $newBusyUnits->toArray()
         );
     }
 
@@ -131,5 +135,15 @@ class RackBusyUnitsValueObjectTest extends TestCase
             ['front' => [3, 4, 5], 'back' => [11, 12, 13]],
             $busyUnits->toArray()
         );
+    }
+
+    public function testEqualsTo(): void
+    {
+        $busyUnits1 = new RackBusyUnitsValueObject(['front' => [3, 4, 5], 'back' => [11, 12, 13]]);
+        $busyUnits2 = new RackBusyUnitsValueObject(['front' => [3, 4, 5], 'back' => [11, 12, 13]]);
+        $busyUnits3 = new RackBusyUnitsValueObject(['front' => [3, 4, 5], 'back' => [10, 12, 13]]);
+
+        $this->assertTrue($busyUnits1->equalTo($busyUnits2));
+        $this->assertFalse($busyUnits1->equalTo($busyUnits3));
     }
 }

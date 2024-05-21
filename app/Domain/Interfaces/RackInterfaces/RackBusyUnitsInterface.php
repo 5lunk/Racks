@@ -22,7 +22,7 @@ interface RackBusyUnitsInterface
      * @param  bool  $side
      * @return RackBusyUnitsValueObject
      */
-    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject;
+    public function getNewBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject;
 
     /**
      * @return array{
@@ -40,4 +40,10 @@ interface RackBusyUnitsInterface
      * @return bool
      */
     public function validateBusyUnits(array $busyUnits): bool;
+
+    /**
+     * @param  RackBusyUnitsValueObject  $busyUnitsObject
+     * @return bool
+     */
+    public function equalTo(RackBusyUnitsValueObject $busyUnitsObject): bool;
 }

@@ -21,7 +21,7 @@ class PasswordValueObject implements PasswordInterface
     /**
      * @var string
      */
-    private string $password;
+    private readonly string $password;
 
     /**
      * @param  string  $password

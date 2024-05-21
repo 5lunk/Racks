@@ -18,7 +18,7 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
      *     back: array<int>
      * }|array<null>
      */
-    private array $busyUnits;
+    private readonly array $busyUnits;
 
     /**
      * @param  array{
@@ -67,16 +67,18 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
      * @param  bool  $side
      * @return RackBusyUnitsValueObject
      */
-    public function updateBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject
+    public function getNewBusyUnits(array $updatedBusyUnitsForSide, bool $side): RackBusyUnitsValueObject
     {
         sort($updatedBusyUnitsForSide);
         if (! $side) {
-            $this->busyUnits['front'] = $updatedBusyUnitsForSide;
+            $front = $updatedBusyUnitsForSide;
+            $back = $this->busyUnits['back'];
         } else {
-            $this->busyUnits['back'] = $updatedBusyUnitsForSide;
+            $front = $this->busyUnits['front'];
+            $back = $updatedBusyUnitsForSide;
         }
 
-        return $this;
+        return new self(['front' => $front, 'back' => $back]);
     }
 
     /**
@@ -99,5 +101,14 @@ class RackBusyUnitsValueObject implements RackBusyUnitsInterface
         }
 
         return true;
+    }
+
+    /**
+     * @param  RackBusyUnitsValueObject  $busyUnitsObject
+     * @return bool
+     */
+    public function equalTo(RackBusyUnitsValueObject $busyUnitsObject): bool
+    {
+        return $this->busyUnits === $busyUnitsObject->toArray();
     }
 }

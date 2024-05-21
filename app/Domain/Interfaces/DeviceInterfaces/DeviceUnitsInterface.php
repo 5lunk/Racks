@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Interfaces\DeviceInterfaces;
 
+use App\Models\ValueObjects\DeviceUnitsValueObject;
+
 interface DeviceUnitsInterface
 {
     /**
@@ -18,4 +20,10 @@ interface DeviceUnitsInterface
      * @throws \DomainException $units is not valid
      */
     public function validateUnits(array $units): bool;
+
+    /**
+     * @param  DeviceUnitsValueObject  $unitsObject
+     * @return bool
+     */
+    public function equalTo(DeviceUnitsValueObject $unitsObject): bool;
 }

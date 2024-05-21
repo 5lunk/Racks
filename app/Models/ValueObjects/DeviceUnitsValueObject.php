@@ -17,7 +17,7 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
     /**
      * @var array<int>
      */
-    private array $units;
+    private readonly array $units;
 
     /**
      * @param  array<int>  $units
@@ -57,5 +57,14 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
         }
 
         return true;
+    }
+
+    /**
+     * @param  DeviceUnitsValueObject  $unitsObject
+     * @return bool
+     */
+    public function equalTo(DeviceUnitsValueObject $unitsObject): bool
+    {
+        return $this->units === $unitsObject->toArray();
     }
 }

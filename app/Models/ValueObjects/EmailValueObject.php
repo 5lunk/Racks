@@ -15,7 +15,7 @@ class EmailValueObject implements EmailInterface
     /**
      * @var string
      */
-    private string $email;
+    private readonly string $email;
 
     /**
      * @param  string  $email
@@ -36,5 +36,14 @@ class EmailValueObject implements EmailInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    /**
+     * @param  EmailValueObject  $emailObject
+     * @return bool
+     */
+    public function equalTo(EmailValueObject $emailObject): bool
+    {
+        return $this->email === (string) $emailObject;
     }
 }

@@ -168,7 +168,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
             $device->getUnits()->toArray()
         );
         $this->setBusyUnits(
-            $this->getBusyUnits()->updateBusyUnits(
+            $this->getBusyUnits()->getNewBusyUnits(
                 $updatedBusyUnitsForSide,
                 $device->getLocation()
             )
@@ -193,7 +193,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
             $device->getUnits()->toArray()
         );
         $this->setBusyUnits(
-            $this->getBusyUnits()->updateBusyUnits(
+            $this->getBusyUnits()->getNewBusyUnits(
                 $updatedBusyUnitsForSide,
                 $device->getLocation()
             )

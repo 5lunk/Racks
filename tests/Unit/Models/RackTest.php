@@ -65,7 +65,7 @@ class RackTest extends TestCase
             ->willReturn([7, 8, 9, 10]);
 
         $busyUnitsMock->expects($this->once())
-            ->method('updateBusyUnits')
+            ->method('getNewBusyUnits')
             ->with([7, 8, 9, 10, 1, 2, 3])
             ->willReturn($busyUnitsMock);
 
@@ -101,7 +101,7 @@ class RackTest extends TestCase
             ->willReturn([8, 9, 10, 11]);
 
         $busyUnitsMock->expects($this->once())
-            ->method('updateBusyUnits')
+            ->method('getNewBusyUnits')
             ->with([8, 9, 10, 11, 2, 3, 4])
             ->willReturn($busyUnitsMock);
 
@@ -141,7 +141,7 @@ class RackTest extends TestCase
             ->willReturn([7, 8, 9, 10, 11, 12]);
 
         $busyUnitsMock->expects($this->once())
-            ->method('updateBusyUnits')
+            ->method('getNewBusyUnits')
             ->with([7, 8, 9, 10])
             ->willReturn($busyUnitsMock);
 
@@ -177,7 +177,7 @@ class RackTest extends TestCase
             ->willReturn([10, 11, 12, 13, 14, 15]);
 
         $busyUnitsMock->expects($this->once())
-            ->method('updateBusyUnits')
+            ->method('getNewBusyUnits')
             ->with([10, 11, 12, 5 => 15])
             ->willReturn($busyUnitsMock);
 

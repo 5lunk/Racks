@@ -52,4 +52,14 @@ class DeviceUnitsValueObjectTest extends TestCase
             $units->validateUnits([11, 12, 14])
         );
     }
+
+    public function testEqualTo(): void
+    {
+        $units1 = new DeviceUnitsValueObject([1, 2, 3]);
+        $units2 = new DeviceUnitsValueObject([1, 2, 3]);
+        $units3 = new DeviceUnitsValueObject([2, 3, 4, 5]);
+
+        $this->assertTrue($units1->equalTo($units2));
+        $this->assertFalse($units1->equalTo($units3));
+    }
 }
