@@ -108,6 +108,7 @@ const actions = {
           success: true,
         });
         commit('setRackDeleted', true);
+        commit('setRackDefaults');
       } else {
         commit('setMessage', {
           text: getResponseMessage(response),
@@ -233,7 +234,8 @@ const actions = {
       commit('setMessage', {
         text: `Rack ${response.data.data.name} updated successfully`,
         success: true,
-      })
+      });
+      commit('setRackDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),

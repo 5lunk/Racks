@@ -31,6 +31,9 @@ export default {
       return this.$store.getters.message;
     },
   },
+  created() {
+    this.$store.commit('setDeviceDefaults');
+  },
   methods: {
     /**
      * Submit device form

@@ -31,6 +31,9 @@ export default {
       return this.$store.getters.message;
     },
   },
+  created() {
+    this.$store.commit('setRoomDefaults');
+  },
   methods: {
     /**
      * Submit room form

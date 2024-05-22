@@ -69,6 +69,7 @@ const actions = {
           success: true,
         });
         commit('setBuildingDeleted', true);
+        commit('setBuildingDefaults');
       } else {
         commit('setMessage', {
           text: getResponseMessage(response),
@@ -143,6 +144,7 @@ const actions = {
         text: `Building ${response.data.data.name} updated successfully`,
         success: true,
       });
+      commit('setBuildingDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),

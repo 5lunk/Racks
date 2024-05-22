@@ -68,6 +68,7 @@ const actions = {
         success: true,
       });
       commit('setSiteDeleted', true);
+      commit('setSiteDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),
@@ -142,6 +143,7 @@ const actions = {
         text: `Site ${response.data.data.name} updated successfully`,
         success: true,
       });
+      commit('setSiteDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),

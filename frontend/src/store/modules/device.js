@@ -129,6 +129,7 @@ const actions = {
         success: true,
       });
       commit('setDeviceDeleted', true);
+      commit('setDeviceDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),
@@ -255,6 +256,7 @@ const actions = {
         text: `Device ${response.data.data.vendor} ${response.data.data.model} updated successfully`,
         success: true,
       });
+      commit('setDeviceDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),

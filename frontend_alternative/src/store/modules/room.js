@@ -78,6 +78,7 @@ const actions = {
         success: true,
       });
       commit('setRoomDeleted', true);
+      commit('setRoomDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),
@@ -168,6 +169,7 @@ const actions = {
         text: `Room ${response.data.data.name} updated successfully`,
         success: true,
       });
+      commit('setRoomDefaults');
     } else {
       commit('setMessage', {
         text: getResponseMessage(response),
