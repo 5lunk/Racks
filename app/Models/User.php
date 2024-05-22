@@ -156,7 +156,7 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
             return $email;
         }
 
-        return App()->makeWith(EmailValueObject::class, ['value' => $this->attributes['email']]);
+        return App()->makeWith(EmailValueObject::class, ['email' => $email]);
     }
 
     /**
@@ -176,11 +176,11 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
     public function getPassword(): PasswordValueObject
     {
         $password = $this->attributes['password'];
-        if ($password  instanceof PasswordValueObject) {
+        if ($password instanceof PasswordValueObject) {
             return $password;
         }
 
-        return App()->makeWith(PasswordValueObject::class, ['value' => $this->attributes['password']]);
+        return App()->makeWith(PasswordValueObject::class, ['password' => $password]);
     }
 
     /**
