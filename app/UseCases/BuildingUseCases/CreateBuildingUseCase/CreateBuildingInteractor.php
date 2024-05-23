@@ -43,14 +43,14 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
             $site = $this->siteRepository->getById($request->getSiteId());
         } catch (\Exception $e) {
             return $this->output->noSuchSite(
-                App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building])
+                resolve_proxy(CreateBuildingResponseModel::class, ['building' => $building])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $site->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building])
+                resolve_proxy(CreateBuildingResponseModel::class, ['building' => $building])
             );
         }
 
@@ -67,7 +67,7 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
         // Name check (can not be repeated inside one site)
         if (! $building->isNameValid($building->getName(), $buildingNamesList)) {
             return $this->output->buildingNameException(
-                App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building])
+                resolve_proxy(CreateBuildingResponseModel::class, ['building' => $building])
             );
         }
 
@@ -78,7 +78,7 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
             $building = $building->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateBuilding(
-                App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building]),
+                resolve_proxy(CreateBuildingResponseModel::class, ['building' => $building]),
                 $e
             );
         }
@@ -91,7 +91,7 @@ class CreateBuildingInteractor implements CreateBuildingInputPort
         ]);
 
         return $this->output->buildingCreated(
-            App()->makeWith(CreateBuildingResponseModel::class, ['building' => $building])
+            resolve_proxy(CreateBuildingResponseModel::class, ['building' => $building])
         );
     }
 }

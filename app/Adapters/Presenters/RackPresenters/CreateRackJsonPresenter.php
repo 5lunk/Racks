@@ -25,9 +25,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
      */
     public function rackCreated(CreateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RackCreatedResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
@@ -42,9 +42,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
      */
     public function noSuchRoom(CreateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRoomResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -59,9 +59,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
      */
     public function rackNameException(CreateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RackNameExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -82,9 +82,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToCreateRackResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -99,9 +99,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
      */
     public function permissionException(CreateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

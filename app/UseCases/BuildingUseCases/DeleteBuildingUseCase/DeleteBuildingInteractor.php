@@ -34,14 +34,14 @@ class DeleteBuildingInteractor implements DeleteBuildingInputPort
             $building = $this->buildingRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchBuilding(
-                App()->makeWith(DeleteBuildingResponseModel::class, ['building' => null])
+                resolve_proxy(DeleteBuildingResponseModel::class, ['building' => null])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $building->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(DeleteBuildingResponseModel::class, ['building' => $building])
+                resolve_proxy(DeleteBuildingResponseModel::class, ['building' => $building])
             );
         }
 
@@ -50,7 +50,7 @@ class DeleteBuildingInteractor implements DeleteBuildingInputPort
             $this->buildingRepository->delete($building);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteBuilding(
-                App()->makeWith(DeleteBuildingResponseModel::class, ['building' => $building]),
+                resolve_proxy(DeleteBuildingResponseModel::class, ['building' => $building]),
                 $e
             );
         }
@@ -61,7 +61,7 @@ class DeleteBuildingInteractor implements DeleteBuildingInputPort
         ]);
 
         return $this->output->buildingDeleted(
-            App()->makeWith(DeleteBuildingResponseModel::class, ['building' => $building])
+            resolve_proxy(DeleteBuildingResponseModel::class, ['building' => $building])
         );
     }
 }

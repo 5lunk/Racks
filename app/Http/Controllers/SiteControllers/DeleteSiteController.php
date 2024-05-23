@@ -42,7 +42,7 @@ class DeleteSiteController extends Controller
     public function __invoke(DeleteSiteRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->deleteSite(
-            App()->makeWith(DeleteSiteRequestModel::class,
+            resolve_proxy(DeleteSiteRequestModel::class,
                 ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
         if ($viewModel instanceof JsonResourceViewModel) {

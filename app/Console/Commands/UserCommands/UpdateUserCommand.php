@@ -43,7 +43,7 @@ class UpdateUserCommand extends Command
     public function handle(): int
     {
         $viewModel = $this->interactor->updateUser(
-            App()->makeWith(
+            resolve_proxy(
                 UpdateUserRequestModel::class,
                 ['attributes' => ['id' => $this->argument('id'),
                     'name' => $this->argument('name'),

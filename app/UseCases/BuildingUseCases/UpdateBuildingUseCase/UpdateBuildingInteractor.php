@@ -43,7 +43,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
             $building = $this->buildingRepository->getById($buildingUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchBuilding(
-                App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
+                resolve_proxy(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
             );
         }
 
@@ -52,7 +52,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
         // User department check
         if (! Gate::allows('departmentCheck', $building->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
+                resolve_proxy(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
             );
         }
 
@@ -69,7 +69,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
             $building->getName() !== $buildingUpdating->getName()
         ) {
             return $this->output->buildingNameException(
-                App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
+                resolve_proxy(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
             );
         }
 
@@ -78,7 +78,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
             $buildingUpdating = $this->buildingRepository->update($buildingUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateBuilding(
-                App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating]),
+                resolve_proxy(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating]),
                 $e
             );
         }
@@ -92,7 +92,7 @@ class UpdateBuildingInteractor implements UpdateBuildingInputPort
         ]);
 
         return $this->output->buildingUpdated(
-            App()->makeWith(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
+            resolve_proxy(UpdateBuildingResponseModel::class, ['building' => $buildingUpdating])
         );
     }
 }

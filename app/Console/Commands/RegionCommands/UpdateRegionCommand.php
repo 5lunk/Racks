@@ -42,7 +42,7 @@ class UpdateRegionCommand extends Command
             'name' => $this->argument('name'),
         ];
         $viewModel = $this->interactor->updateRegion(
-            App()->makeWith(UpdateRegionRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(UpdateRegionRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

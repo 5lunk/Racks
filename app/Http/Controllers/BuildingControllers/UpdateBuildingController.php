@@ -42,7 +42,7 @@ class UpdateBuildingController extends Controller
     public function __invoke(UpdateBuildingRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->updateBuilding(
-            App()->makeWith(UpdateBuildingRequestModel::class,
+            resolve_proxy(UpdateBuildingRequestModel::class,
                 ['attributes' => $request->validated(), 'id' => $request->route('id'), 'user' => $request->user()]
             )
         );

@@ -22,9 +22,9 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
      */
     public function retrieveDevice(GetDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveDeviceResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
      */
     public function noSuchDevice(GetDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

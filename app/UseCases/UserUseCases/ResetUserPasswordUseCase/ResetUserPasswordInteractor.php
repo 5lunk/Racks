@@ -37,7 +37,7 @@ class ResetUserPasswordInteractor implements ResetUserPasswordInputPort
             $user = $this->userRepository->getById($userUpdated->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchUser(
-                App()->makeWith(ResetUserPasswordResponseModel::class, ['user' => $userUpdated])
+                resolve_proxy(ResetUserPasswordResponseModel::class, ['user' => $userUpdated])
             );
         }
 
@@ -46,13 +46,13 @@ class ResetUserPasswordInteractor implements ResetUserPasswordInputPort
             $userUpdated = $this->userRepository->updatePassword($userUpdated);
         } catch (\Exception $e) {
             return $this->output->unableToResetPassword(
-                App()->makeWith(ResetUserPasswordResponseModel::class, ['user' => $userUpdated]),
+                resolve_proxy(ResetUserPasswordResponseModel::class, ['user' => $userUpdated]),
                 $e
             );
         }
 
         return $this->output->passwordReseted(
-            App()->makeWith(ResetUserPasswordResponseModel::class, ['user' => $userUpdated])
+            resolve_proxy(ResetUserPasswordResponseModel::class, ['user' => $userUpdated])
         );
     }
 }

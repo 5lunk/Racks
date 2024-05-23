@@ -22,9 +22,9 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
      */
     public function retrieveRoom(GetRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveRoomResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
      */
     public function noSuchRoom(GetRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRoomResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

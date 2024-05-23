@@ -32,12 +32,12 @@ class GetSiteInteractor implements GetSiteInputPort
             $site = $this->siteRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchSite(
-                App()->makeWith(GetSiteResponseModel::class, ['site' => null])
+                resolve_proxy(GetSiteResponseModel::class, ['site' => null])
             );
         }
 
         return $this->output->retrieveSite(
-            App()->makeWith(GetSiteResponseModel::class, ['site' => $site])
+            resolve_proxy(GetSiteResponseModel::class, ['site' => $site])
         );
     }
 }

@@ -402,7 +402,7 @@ class Room extends Model implements RoomBusinessRules, RoomEntity
      */
     public function getAttributeSet(): RoomAttributesHelperObject
     {
-        return App()->makeWith(RoomAttributesHelperObject::class, ['room' => $this]);
+        return resolve_proxy(RoomAttributesHelperObject::class, ['room' => $this]);
     }
 
     /**

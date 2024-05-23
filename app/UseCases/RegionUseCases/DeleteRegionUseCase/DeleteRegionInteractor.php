@@ -32,7 +32,7 @@ class DeleteRegionInteractor implements DeleteRegionInputPort
             $region = $this->regionRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRegion(
-                App()->makeWith(DeleteRegionResponseModel::class, ['region' => null])
+                resolve_proxy(DeleteRegionResponseModel::class, ['region' => null])
             );
         }
 
@@ -41,13 +41,13 @@ class DeleteRegionInteractor implements DeleteRegionInputPort
             $this->regionRepository->delete($region);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteRegion(
-                App()->makeWith(DeleteRegionResponseModel::class, ['region' => $region]),
+                resolve_proxy(DeleteRegionResponseModel::class, ['region' => $region]),
                 $e
             );
         }
 
         return $this->output->regionDeleted(
-            App()->makeWith(DeleteRegionResponseModel::class, ['region' => $region])
+            resolve_proxy(DeleteRegionResponseModel::class, ['region' => $region])
         );
     }
 }

@@ -42,7 +42,7 @@ class UpdateDepartmentCommand extends Command
             'name' => $this->argument('name'),
         ];
         $viewModel = $this->interactor->updateDepartment(
-            App()->makeWith(UpdateDepartmentRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(UpdateDepartmentRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

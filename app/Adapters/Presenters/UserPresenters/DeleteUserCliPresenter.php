@@ -20,7 +20,7 @@ class DeleteUserCliPresenter implements DeleteUserOutputPort
      */
     public function userDeleted(DeleteUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("User {$response->getUser()->getName()} successfully deleted.");
@@ -38,7 +38,7 @@ class DeleteUserCliPresenter implements DeleteUserOutputPort
      */
     public function noSuchUser(DeleteUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such user');
@@ -57,7 +57,7 @@ class DeleteUserCliPresenter implements DeleteUserOutputPort
      */
     public function unableToDeleteUser(DeleteUserResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to delete user: {$e->getMessage()}");

@@ -43,14 +43,14 @@ class CreateRackInteractor implements CreateRackInputPort
             $room = $this->roomRepository->getById($request->getRoomId());
         } catch (\Exception $e) {
             return $this->output->noSuchRoom(
-                App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack])
+                resolve_proxy(CreateRackResponseModel::class, ['rack' => $rack])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $room->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack])
+                resolve_proxy(CreateRackResponseModel::class, ['rack' => $rack])
             );
         }
 
@@ -67,7 +67,7 @@ class CreateRackInteractor implements CreateRackInputPort
         // Name check (can not be repeated inside one room)
         if (! $rack->isNameValid($rack->getName(), $rackNamesList)) {
             return $this->output->rackNameException(
-                App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack])
+                resolve_proxy(CreateRackResponseModel::class, ['rack' => $rack])
             );
         }
 
@@ -78,7 +78,7 @@ class CreateRackInteractor implements CreateRackInputPort
             $rack = $rack->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateRack(
-                App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack]),
+                resolve_proxy(CreateRackResponseModel::class, ['rack' => $rack]),
                 $e
             );
         }
@@ -91,7 +91,7 @@ class CreateRackInteractor implements CreateRackInputPort
         ]);
 
         return $this->output->rackCreated(
-            App()->makeWith(CreateRackResponseModel::class, ['rack' => $rack])
+            resolve_proxy(CreateRackResponseModel::class, ['rack' => $rack])
         );
     }
 }

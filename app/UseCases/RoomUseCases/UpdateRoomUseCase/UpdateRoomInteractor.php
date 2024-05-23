@@ -43,7 +43,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
             $room = $this->roomRepository->getById($roomUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRoom(
-                App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
+                resolve_proxy(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
             );
         }
 
@@ -54,7 +54,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
         // User department check
         if (! Gate::allows('departmentCheck', $room->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
+                resolve_proxy(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
             );
         }
 
@@ -71,7 +71,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
             $room->getName() !== $roomUpdating->getName()
         ) {
             return $this->output->roomNameException(
-                App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
+                resolve_proxy(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
             );
         }
 
@@ -80,7 +80,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
             $roomUpdating = $this->roomRepository->update($roomUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateRoom(
-                App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating]),
+                resolve_proxy(UpdateRoomResponseModel::class, ['room' => $roomUpdating]),
                 $e
             );
         }
@@ -94,7 +94,7 @@ class UpdateRoomInteractor implements UpdateRoomInputPort
         ]);
 
         return $this->output->roomUpdated(
-            App()->makeWith(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
+            resolve_proxy(UpdateRoomResponseModel::class, ['room' => $roomUpdating])
         );
     }
 }

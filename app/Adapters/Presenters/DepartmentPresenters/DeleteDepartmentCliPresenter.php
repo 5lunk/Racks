@@ -20,7 +20,7 @@ class DeleteDepartmentCliPresenter implements DeleteDepartmentOutputPort
      */
     public function departmentDeleted(DeleteDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Department {$response->getDepartment()->getName()} successfully deleted.");
@@ -38,7 +38,7 @@ class DeleteDepartmentCliPresenter implements DeleteDepartmentOutputPort
      */
     public function noSuchDepartment(DeleteDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such department!');
@@ -57,7 +57,7 @@ class DeleteDepartmentCliPresenter implements DeleteDepartmentOutputPort
      */
     public function unableToDeleteDepartment(DeleteDepartmentResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to delete department: {$e->getMessage()}");

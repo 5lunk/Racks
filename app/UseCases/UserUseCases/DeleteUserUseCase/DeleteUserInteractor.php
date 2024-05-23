@@ -32,7 +32,7 @@ class DeleteUserInteractor implements DeleteUserInputPort
             $user = $this->userRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchUser(
-                App()->makeWith(DeleteUserResponseModel::class, ['user' => null])
+                resolve_proxy(DeleteUserResponseModel::class, ['user' => null])
             );
         }
 
@@ -41,13 +41,13 @@ class DeleteUserInteractor implements DeleteUserInputPort
             $this->userRepository->delete($user);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteUser(
-                App()->makeWith(DeleteUserResponseModel::class, ['user' => $user]),
+                resolve_proxy(DeleteUserResponseModel::class, ['user' => $user]),
                 $e
             );
         }
 
         return $this->output->userDeleted(
-            App()->makeWith(DeleteUserResponseModel::class, ['user' => $user])
+            resolve_proxy(DeleteUserResponseModel::class, ['user' => $user])
         );
     }
 }

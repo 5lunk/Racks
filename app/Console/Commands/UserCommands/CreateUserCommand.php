@@ -51,7 +51,7 @@ class CreateUserCommand extends Command
         }
 
         $viewModel = $this->interactor->createUser(
-            App()->makeWith(
+            resolve_proxy(
                 CreateUserRequestModel::class,
                 ['attributes' => ['name' => $this->argument('name'),
                     'full_name' => $this->argument('full_name'),

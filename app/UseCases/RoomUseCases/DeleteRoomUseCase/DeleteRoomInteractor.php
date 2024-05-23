@@ -34,14 +34,14 @@ class DeleteRoomInteractor implements DeleteRoomInputPort
             $room = $this->roomRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRoom(
-                App()->makeWith(DeleteRoomResponseModel::class, ['room' => null])
+                resolve_proxy(DeleteRoomResponseModel::class, ['room' => null])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $room->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(DeleteRoomResponseModel::class, ['room' => $room])
+                resolve_proxy(DeleteRoomResponseModel::class, ['room' => $room])
             );
         }
 
@@ -50,7 +50,7 @@ class DeleteRoomInteractor implements DeleteRoomInputPort
             $this->roomRepository->delete($room);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteRoom(
-                App()->makeWith(DeleteRoomResponseModel::class, ['room' => $room]),
+                resolve_proxy(DeleteRoomResponseModel::class, ['room' => $room]),
                 $e
             );
         }
@@ -61,7 +61,7 @@ class DeleteRoomInteractor implements DeleteRoomInputPort
         ]);
 
         return $this->output->roomDeleted(
-            App()->makeWith(DeleteRoomResponseModel::class, ['room' => $room])
+            resolve_proxy(DeleteRoomResponseModel::class, ['room' => $room])
         );
     }
 }

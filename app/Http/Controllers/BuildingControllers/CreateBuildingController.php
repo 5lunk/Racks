@@ -42,7 +42,7 @@ class CreateBuildingController extends Controller
     public function __invoke(CreateBuildingRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->createBuilding(
-            App()->makeWith(CreateBuildingRequestModel::class,
+            resolve_proxy(CreateBuildingRequestModel::class,
                 ['attributes' => $request->validated(), 'user' => $request->user()]
             )
         );

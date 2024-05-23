@@ -12,8 +12,7 @@ use Monolog\LogRecord;
 class MySQLLoggingHandler extends AbstractProcessingHandler
 {
     /**
-     * Reference:
-     * https://github.com/markhilton/monolog-mysql/blob/master/src/Logger/Monolog/Handler/MysqlHandler.php
+     * @var string
      */
     private string $table;
 

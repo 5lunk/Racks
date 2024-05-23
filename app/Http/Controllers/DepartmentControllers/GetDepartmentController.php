@@ -42,7 +42,7 @@ class GetDepartmentController extends Controller
     public function __invoke(GetDepartmentRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getDepartment(
-            App()->makeWith(GetDepartmentRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetDepartmentRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

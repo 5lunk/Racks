@@ -35,7 +35,7 @@ class CreateRegionInteractor implements CreateRegionInputPort
         // Check region exists
         if ($this->regionRepository->exists($region)) {
             return $this->output->regionAlreadyExists(
-                App()->makeWith(CreateRegionResponseModel::class, ['region' => $region])
+                resolve_proxy(CreateRegionResponseModel::class, ['region' => $region])
             );
         }
 
@@ -46,13 +46,13 @@ class CreateRegionInteractor implements CreateRegionInputPort
             $region = $region->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateRegion(
-                App()->makeWith(CreateRegionResponseModel::class, ['region' => $region]),
+                resolve_proxy(CreateRegionResponseModel::class, ['region' => $region]),
                 $e
             );
         }
 
         return $this->output->regionCreated(
-            App()->makeWith(CreateRegionResponseModel::class, ['region' => $region])
+            resolve_proxy(CreateRegionResponseModel::class, ['region' => $region])
         );
     }
 }

@@ -20,7 +20,7 @@ class UpdateRegionCliPresenter implements UpdateRegionOutputPort
      */
     public function regionUpdated(UpdateRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Region {$response->getRegion()->getName()} successfully updated.");
@@ -38,7 +38,7 @@ class UpdateRegionCliPresenter implements UpdateRegionOutputPort
      */
     public function noSuchRegion(UpdateRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such region!');
@@ -57,7 +57,7 @@ class UpdateRegionCliPresenter implements UpdateRegionOutputPort
      */
     public function unableToUpdateRegion(UpdateRegionResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to update region: {$e->getMessage()}");

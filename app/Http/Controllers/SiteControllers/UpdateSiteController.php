@@ -42,7 +42,7 @@ class UpdateSiteController extends Controller
     public function __invoke(UpdateSiteRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->updateSite(
-            App()->makeWith(
+            resolve_proxy(
                 UpdateSiteRequestModel::class,
                 ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )

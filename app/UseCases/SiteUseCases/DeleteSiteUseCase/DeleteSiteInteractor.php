@@ -34,14 +34,14 @@ class DeleteSiteInteractor implements DeleteSiteInputPort
             $site = $this->siteRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchSite(
-                App()->makeWith(DeleteSiteResponseModel::class, ['site' => null])
+                resolve_proxy(DeleteSiteResponseModel::class, ['site' => null])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $site->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(DeleteSiteResponseModel::class, ['site' => $site])
+                resolve_proxy(DeleteSiteResponseModel::class, ['site' => $site])
             );
         }
 
@@ -50,7 +50,7 @@ class DeleteSiteInteractor implements DeleteSiteInputPort
             $this->siteRepository->delete($site);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteSite(
-                App()->makeWith(DeleteSiteResponseModel::class, ['site' => $site]),
+                resolve_proxy(DeleteSiteResponseModel::class, ['site' => $site]),
                 $e
             );
         }
@@ -61,7 +61,7 @@ class DeleteSiteInteractor implements DeleteSiteInputPort
         ]);
 
         return $this->output->siteDeleted(
-            App()->makeWith(DeleteSiteResponseModel::class, ['site' => $site])
+            resolve_proxy(DeleteSiteResponseModel::class, ['site' => $site])
         );
     }
 }

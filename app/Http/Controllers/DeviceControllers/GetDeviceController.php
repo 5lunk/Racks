@@ -42,7 +42,7 @@ class GetDeviceController extends Controller
     public function __invoke(GetDeviceRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getDevice(
-            App()->makeWith(GetDeviceRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetDeviceRequestModel::class, ['id' => (int) $request->route('id')])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

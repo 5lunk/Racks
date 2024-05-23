@@ -32,12 +32,12 @@ class GetRegionInteractor implements GetRegionInputPort
             $region = $this->regionRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRegion(
-                App()->makeWith(GetRegionResponseModel::class, ['region' => null])
+                resolve_proxy(GetRegionResponseModel::class, ['region' => null])
             );
         }
 
         return $this->output->retrieveRegion(
-            App()->makeWith(GetRegionResponseModel::class, ['region' => $region])
+            resolve_proxy(GetRegionResponseModel::class, ['region' => $region])
         );
     }
 }

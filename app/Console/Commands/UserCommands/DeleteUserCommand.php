@@ -38,7 +38,7 @@ class DeleteUserCommand extends Command
     public function handle(): int
     {
         $viewModel = $this->interactor->deleteUser(
-            App()->makeWith(
+            resolve_proxy(
                 DeleteUserRequestModel::class,
                 ['attributes' => ['id' => $this->argument('id')]]
             )

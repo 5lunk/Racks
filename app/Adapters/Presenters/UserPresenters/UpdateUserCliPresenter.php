@@ -20,7 +20,7 @@ class UpdateUserCliPresenter implements UpdateUserOutputPort
      */
     public function userUpdated(UpdateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("User {$response->getUser()->getName()} successfully updated.");
@@ -38,7 +38,7 @@ class UpdateUserCliPresenter implements UpdateUserOutputPort
      */
     public function noSuchUser(UpdateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such user!');
@@ -56,7 +56,7 @@ class UpdateUserCliPresenter implements UpdateUserOutputPort
      */
     public function noSuchDepartment(UpdateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such department!');
@@ -75,7 +75,7 @@ class UpdateUserCliPresenter implements UpdateUserOutputPort
      */
     public function unableToUpdateUser(UpdateUserResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to update user: {$e->getMessage()}");

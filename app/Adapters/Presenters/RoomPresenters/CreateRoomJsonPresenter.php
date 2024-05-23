@@ -25,9 +25,9 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
      */
     public function roomCreated(CreateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RoomCreatedResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
@@ -42,9 +42,9 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
      */
     public function noSuchBuilding(CreateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchBuildingResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -59,9 +59,9 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
      */
     public function roomNameException(CreateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RoomNameExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -82,9 +82,9 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToCreateRoomResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -99,9 +99,9 @@ class CreateRoomJsonPresenter implements CreateRoomOutputPort
      */
     public function permissionException(CreateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

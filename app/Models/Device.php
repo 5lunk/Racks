@@ -587,7 +587,7 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
             throw new \DomainException('$units dont match any allowed type');
         }
 
-        return App()->makeWith(DeviceUnitsValueObject::class, ['units' => $unitsArray]);
+        return resolve_proxy(DeviceUnitsValueObject::class, ['units' => $unitsArray]);
     }
 
     /**
@@ -725,7 +725,7 @@ class Device extends Model implements DeviceBusinessRules, DeviceEntity
      */
     public function getAttributeSet(): DeviceAttributesHelperObject
     {
-        return App()->makeWith(DeviceAttributesHelperObject::class, ['device' => $this]);
+        return resolve_proxy(DeviceAttributesHelperObject::class, ['device' => $this]);
     }
 
     /**

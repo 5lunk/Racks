@@ -42,7 +42,7 @@ class GetRoomController extends Controller
     public function __invoke(GetRoomRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRoom(
-            App()->makeWith(GetRoomRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetRoomRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

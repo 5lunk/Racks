@@ -38,7 +38,7 @@ class CreateUserInteractor implements CreateUserInputPort
         // Check user exists
         if ($this->userRepository->exists($user)) {
             return $this->output->userAlreadyExists(
-                App()->makeWith(CreateUserResponseModel::class, ['user' => $user])
+                resolve_proxy(CreateUserResponseModel::class, ['user' => $user])
             );
         }
 
@@ -47,7 +47,7 @@ class CreateUserInteractor implements CreateUserInputPort
             $department = $this->departmentRepository->getById($user->getDepartmentId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(CreateUserResponseModel::class, ['user' => $user])
+                resolve_proxy(CreateUserResponseModel::class, ['user' => $user])
             );
         }
 
@@ -58,13 +58,13 @@ class CreateUserInteractor implements CreateUserInputPort
             $user = $user->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateUser(
-                App()->makeWith(CreateUserResponseModel::class, ['user' => $user]),
+                resolve_proxy(CreateUserResponseModel::class, ['user' => $user]),
                 $e
             );
         }
 
         return $this->output->userCreated(
-            App()->makeWith(CreateUserResponseModel::class, ['user' => $user])
+            resolve_proxy(CreateUserResponseModel::class, ['user' => $user])
         );
     }
 }

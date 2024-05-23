@@ -20,7 +20,7 @@ class ResetUserPasswordCliPresenter implements ResetUserPasswordOutputPort
      */
     public function passwordReseted(ResetUserPasswordResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("User password {$response->getUser()->getName()} successfully reseted.");
@@ -38,7 +38,7 @@ class ResetUserPasswordCliPresenter implements ResetUserPasswordOutputPort
      */
     public function noSuchUser(ResetUserPasswordResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such user');
@@ -57,7 +57,7 @@ class ResetUserPasswordCliPresenter implements ResetUserPasswordOutputPort
      */
     public function unableToResetPassword(ResetUserPasswordResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to reset password: {$e->getMessage()}");

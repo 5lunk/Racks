@@ -40,7 +40,7 @@ class UpdateUserInteractor implements UpdateUserInputPort
             $user = $this->userRepository->getById($userUpdated->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchUser(
-                App()->makeWith(UpdateUserResponseModel::class, ['user' => $userUpdated])
+                resolve_proxy(UpdateUserResponseModel::class, ['user' => $userUpdated])
             );
         }
 
@@ -49,7 +49,7 @@ class UpdateUserInteractor implements UpdateUserInputPort
             $department = $this->departmentRepository->getById($userUpdated->getDepartmentId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(UpdateUserResponseModel::class, ['user' => $userUpdated])
+                resolve_proxy(UpdateUserResponseModel::class, ['user' => $userUpdated])
             );
         }
 
@@ -58,13 +58,13 @@ class UpdateUserInteractor implements UpdateUserInputPort
             $userUpdated = $this->userRepository->update($userUpdated);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateUser(
-                App()->makeWith(UpdateUserResponseModel::class, ['user' => $userUpdated]),
+                resolve_proxy(UpdateUserResponseModel::class, ['user' => $userUpdated]),
                 $e
             );
         }
 
         return $this->output->userUpdated(
-            App()->makeWith(UpdateUserResponseModel::class, ['user' => $userUpdated])
+            resolve_proxy(UpdateUserResponseModel::class, ['user' => $userUpdated])
         );
     }
 }

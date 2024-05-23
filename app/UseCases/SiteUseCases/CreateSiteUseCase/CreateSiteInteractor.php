@@ -42,14 +42,14 @@ class CreateSiteInteractor implements CreateSiteInputPort
             $department = $this->departmentRepository->getById($request->getDepartmentId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(CreateSiteResponseModel::class, ['site' => $site])
+                resolve_proxy(CreateSiteResponseModel::class, ['site' => $site])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $department->getId())) {
             return $this->output->permissionException(
-                App()->makeWith(CreateSiteResponseModel::class, ['site' => $site])
+                resolve_proxy(CreateSiteResponseModel::class, ['site' => $site])
             );
         }
 
@@ -62,7 +62,7 @@ class CreateSiteInteractor implements CreateSiteInputPort
             $site = $site->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateSite(
-                App()->makeWith(CreateSiteResponseModel::class, ['site' => $site]),
+                resolve_proxy(CreateSiteResponseModel::class, ['site' => $site]),
                 $e
             );
         }
@@ -73,7 +73,7 @@ class CreateSiteInteractor implements CreateSiteInputPort
         ]);
 
         return $this->output->siteCreated(
-            App()->makeWith(CreateSiteResponseModel::class, ['site' => $site])
+            resolve_proxy(CreateSiteResponseModel::class, ['site' => $site])
         );
     }
 }

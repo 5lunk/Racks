@@ -175,7 +175,7 @@ class Building extends Model implements BuildingBusinessRules, BuildingEntity
      */
     public function getAttributeSet(): BuildingAttributesHelperObject
     {
-        return App()->makeWith(BuildingAttributesHelperObject::class, ['building' => $this]);
+        return resolve_proxy(BuildingAttributesHelperObject::class, ['building' => $this]);
     }
 
     /**

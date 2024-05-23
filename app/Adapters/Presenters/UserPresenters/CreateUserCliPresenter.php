@@ -20,7 +20,7 @@ class CreateUserCliPresenter implements CreateUserOutputPort
      */
     public function userCreated(CreateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("User {$response->getUser()->getName()} successfully created.");
@@ -38,7 +38,7 @@ class CreateUserCliPresenter implements CreateUserOutputPort
      */
     public function userAlreadyExists(CreateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->error("User {$response->getUser()->getEmail()} already exists!");
@@ -56,7 +56,7 @@ class CreateUserCliPresenter implements CreateUserOutputPort
      */
     public function noSuchDepartment(CreateUserResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such department');
@@ -75,7 +75,7 @@ class CreateUserCliPresenter implements CreateUserOutputPort
      */
     public function unableToCreateUser(CreateUserResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to create user: {$e->getMessage()}");

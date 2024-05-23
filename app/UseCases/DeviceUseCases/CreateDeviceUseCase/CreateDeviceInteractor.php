@@ -43,21 +43,21 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
             $rack = $this->rackRepository->getById($request->getRackId());
         } catch (\Exception $e) {
             return $this->output->noSuchRack(
-                App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device])
+                resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device])
             );
         }
 
         // Check  device units exist
         if (! $rack->hasDeviceUnits($device)) {
             return $this->output->noSuchUnits(
-                App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device])
+                resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $rack->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device])
+                resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device])
             );
         }
 
@@ -78,7 +78,7 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
             // Check rack units busy
             if (! $rack->isDeviceAddable($device)) {
                 return $this->output->unitsAreBusy(
-                    App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device])
+                    resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device])
                 );
             }
 
@@ -95,7 +95,7 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
                 $device = $device->fresh([]);
             } catch (\Exception $e) {
                 return $this->output->unableToCreateDevice(
-                    App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device]),
+                    resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device]),
                     $e
                 );
             }
@@ -103,7 +103,7 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
             DB::rollback();
 
             return $this->output->creationFailed(
-                App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device]),
+                resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device]),
                 $e
             );
         }
@@ -116,7 +116,7 @@ class CreateDeviceInteractor implements CreateDeviceInputPort
         ]);
 
         return $this->output->deviceCreated(
-            App()->makeWith(CreateDeviceResponseModel::class, ['device' => $device])
+            resolve_proxy(CreateDeviceResponseModel::class, ['device' => $device])
         );
     }
 }

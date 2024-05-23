@@ -24,9 +24,9 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
      */
     public function siteCreated(CreateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     SiteCreatedResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
@@ -47,9 +47,9 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToCreateSiteResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -64,9 +64,9 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
      */
     public function permissionException(CreateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
@@ -81,9 +81,9 @@ class CreateSiteJsonPresenter implements CreateSiteOutputPort
      */
     public function noSuchDepartment(CreateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchDepartmentResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]

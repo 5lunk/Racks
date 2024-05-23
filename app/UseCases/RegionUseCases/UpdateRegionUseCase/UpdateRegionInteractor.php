@@ -37,7 +37,7 @@ class UpdateRegionInteractor implements UpdateRegionInputPort
             $region = $this->regionRepository->getById($regionUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRegion(
-                App()->makeWith(UpdateRegionResponseModel::class, ['region' => $regionUpdating])
+                resolve_proxy(UpdateRegionResponseModel::class, ['region' => $regionUpdating])
             );
         }
 
@@ -46,13 +46,13 @@ class UpdateRegionInteractor implements UpdateRegionInputPort
             $regionUpdating = $this->regionRepository->update($regionUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateRegion(
-                App()->makeWith(UpdateRegionResponseModel::class, ['region' => $regionUpdating]),
+                resolve_proxy(UpdateRegionResponseModel::class, ['region' => $regionUpdating]),
                 $e
             );
         }
 
         return $this->output->regionUpdated(
-            App()->makeWith(UpdateRegionResponseModel::class, ['region' => $regionUpdating])
+            resolve_proxy(UpdateRegionResponseModel::class, ['region' => $regionUpdating])
         );
     }
 }

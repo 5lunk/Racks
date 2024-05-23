@@ -27,8 +27,8 @@ class UserModelFactory implements UserFactory
         return new User([
             'name' => $request->getName(),
             'full_name' => $request->getFullName(),
-            'email' => App()->makeWith(EmailValueObject::class, ['email' => $request->getEmail()]),
-            'password' => App()->makeWith(PasswordValueObject::class, ['password' => $request->getPassword()]),
+            'email' => resolve_proxy(EmailValueObject::class, ['email' => $request->getEmail()]),
+            'password' => resolve_proxy(PasswordValueObject::class, ['password' => $request->getPassword()]),
             'department_id' => $request->getDepartmentId(),
         ]);
     }
@@ -43,7 +43,7 @@ class UserModelFactory implements UserFactory
     {
         return new User([
             'id' => $request->getId(),
-            'password' => App()->makeWith(PasswordValueObject::class, ['password' => $request->getPassword()]),
+            'password' => resolve_proxy(PasswordValueObject::class, ['password' => $request->getPassword()]),
         ]);
     }
 
@@ -59,7 +59,7 @@ class UserModelFactory implements UserFactory
             'id' => $request->getId(),
             'name' => $request->getName(),
             'full_name' => $request->getFullName(),
-            'email' => App()->makeWith(EmailValueObject::class, ['email' => $request->getEmail()]),
+            'email' => resolve_proxy(EmailValueObject::class, ['email' => $request->getEmail()]),
             'department_id' => $request->getDepartmentId(),
         ]);
     }

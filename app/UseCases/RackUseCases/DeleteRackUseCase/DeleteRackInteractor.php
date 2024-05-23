@@ -34,14 +34,14 @@ class DeleteRackInteractor implements DeleteRackInputPort
             $rack = $this->rackRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRack(
-                App()->makeWith(DeleteRackResponseModel::class, ['rack' => null])
+                resolve_proxy(DeleteRackResponseModel::class, ['rack' => null])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $rack->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(DeleteRackResponseModel::class, ['rack' => $rack])
+                resolve_proxy(DeleteRackResponseModel::class, ['rack' => $rack])
             );
         }
 
@@ -50,7 +50,7 @@ class DeleteRackInteractor implements DeleteRackInputPort
             $this->rackRepository->delete($rack);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteRack(
-                App()->makeWith(DeleteRackResponseModel::class, ['rack' => $rack]),
+                resolve_proxy(DeleteRackResponseModel::class, ['rack' => $rack]),
                 $e
             );
         }
@@ -61,7 +61,7 @@ class DeleteRackInteractor implements DeleteRackInputPort
         ]);
 
         return $this->output->rackDeleted(
-            App()->makeWith(DeleteRackResponseModel::class, ['rack' => $rack])
+            resolve_proxy(DeleteRackResponseModel::class, ['rack' => $rack])
         );
     }
 }

@@ -32,12 +32,12 @@ class GetDepartmentInteractor implements GetDepartmentInputPort
             $department = $this->departmentRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(GetDepartmentResponseModel::class, ['department' => null])
+                resolve_proxy(GetDepartmentResponseModel::class, ['department' => null])
             );
         }
 
         return $this->output->retrieveDepartment(
-            App()->makeWith(GetDepartmentResponseModel::class, ['department' => $department])
+            resolve_proxy(GetDepartmentResponseModel::class, ['department' => $department])
         );
     }
 }

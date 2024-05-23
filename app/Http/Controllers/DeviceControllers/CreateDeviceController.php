@@ -42,7 +42,7 @@ class CreateDeviceController extends Controller
     public function __invoke(CreateDeviceRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->createDevice(
-            App()->makeWith(CreateDeviceRequestModel::class,
+            resolve_proxy(CreateDeviceRequestModel::class,
                 ['attributes' => $request->validated(), 'user' => $request->user()])
         );
         if ($viewModel instanceof JsonResourceViewModel) {

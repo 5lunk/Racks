@@ -20,7 +20,7 @@ class CreateDepartmentCliPresenter implements CreateDepartmentOutputPort
      */
     public function departmentCreated(CreateDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Department {$response->getDepartment()->getName()} successfully created.");
@@ -38,7 +38,7 @@ class CreateDepartmentCliPresenter implements CreateDepartmentOutputPort
      */
     public function departmentAlreadyExists(CreateDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->error("Department {$response->getDepartment()->getName()} already exists!");
@@ -56,7 +56,7 @@ class CreateDepartmentCliPresenter implements CreateDepartmentOutputPort
      */
     public function noSuchRegion(CreateDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such region!');
@@ -75,7 +75,7 @@ class CreateDepartmentCliPresenter implements CreateDepartmentOutputPort
      */
     public function unableToCreateDepartment(CreateDepartmentResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to create department: {$e->getMessage()}");

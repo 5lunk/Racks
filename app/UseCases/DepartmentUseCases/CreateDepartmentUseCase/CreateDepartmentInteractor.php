@@ -40,14 +40,14 @@ class CreateDepartmentInteractor implements CreateDepartmentInputPort
             $region = $this->regionRepository->getById($request->getRegionId());
         } catch (\Exception $e) {
             return $this->output->noSuchRegion(
-                App()->makeWith(CreateDepartmentResponseModel::class, ['department' => $department])
+                resolve_proxy(CreateDepartmentResponseModel::class, ['department' => $department])
             );
         }
 
         // Check department exists
         if ($this->departmentRepository->exists($department)) {
             return $this->output->departmentAlreadyExists(
-                App()->makeWith(CreateDepartmentResponseModel::class, ['department' => $department])
+                resolve_proxy(CreateDepartmentResponseModel::class, ['department' => $department])
             );
         }
 
@@ -58,13 +58,13 @@ class CreateDepartmentInteractor implements CreateDepartmentInputPort
             $department = $department->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateDepartment(
-                App()->makeWith(CreateDepartmentResponseModel::class, ['department' => $department]),
+                resolve_proxy(CreateDepartmentResponseModel::class, ['department' => $department]),
                 $e
             );
         }
 
         return $this->output->departmentCreated(
-            App()->makeWith(CreateDepartmentResponseModel::class, ['department' => $department])
+            resolve_proxy(CreateDepartmentResponseModel::class, ['department' => $department])
         );
     }
 }

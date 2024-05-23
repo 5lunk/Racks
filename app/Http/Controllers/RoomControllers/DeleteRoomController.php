@@ -42,7 +42,7 @@ class DeleteRoomController extends Controller
     public function __invoke(DeleteRoomRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->deleteRoom(
-            App()->makeWith(DeleteRoomRequestModel::class,
+            resolve_proxy(DeleteRoomRequestModel::class,
                 ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
 

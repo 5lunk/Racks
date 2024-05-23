@@ -43,14 +43,14 @@ class CreateRoomInteractor implements CreateRoomInputPort
             $building = $this->buildingRepository->getById($request->getBuildingId());
         } catch (\Exception $e) {
             return $this->output->noSuchBuilding(
-                App()->makeWith(CreateRoomResponseModel::class, ['room' => $room])
+                resolve_proxy(CreateRoomResponseModel::class, ['room' => $room])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $building->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(CreateRoomResponseModel::class, ['room' => $room])
+                resolve_proxy(CreateRoomResponseModel::class, ['room' => $room])
             );
         }
 
@@ -67,7 +67,7 @@ class CreateRoomInteractor implements CreateRoomInputPort
         // Name check (can not be repeated inside one building)
         if (! $room->isNameValid($room->getName(), $roomNamesList)) {
             return $this->output->roomNameException(
-                App()->makeWith(CreateRoomResponseModel::class, ['room' => $room])
+                resolve_proxy(CreateRoomResponseModel::class, ['room' => $room])
             );
         }
 
@@ -78,7 +78,7 @@ class CreateRoomInteractor implements CreateRoomInputPort
             $room = $room->fresh([]);
         } catch (\Exception $e) {
             return $this->output->unableToCreateRoom(
-                App()->makeWith(CreateRoomResponseModel::class, ['room' => $room]),
+                resolve_proxy(CreateRoomResponseModel::class, ['room' => $room]),
                 $e
             );
         }
@@ -91,7 +91,7 @@ class CreateRoomInteractor implements CreateRoomInputPort
         ]);
 
         return $this->output->roomCreated(
-            App()->makeWith(CreateRoomResponseModel::class, ['room' => $room])
+            resolve_proxy(CreateRoomResponseModel::class, ['room' => $room])
         );
     }
 }

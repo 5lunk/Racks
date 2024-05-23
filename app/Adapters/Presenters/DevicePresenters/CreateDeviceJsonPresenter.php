@@ -27,9 +27,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
      */
     public function deviceCreated(CreateDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     DeviceCreatedResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
@@ -44,9 +44,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
      */
     public function noSuchUnits(CreateDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchUnitsResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -61,9 +61,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
      */
     public function unitsAreBusy(CreateDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnitsAreBusyResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -84,9 +84,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(DeviceCreationFailedResource::class, ['e' => $e]),
+                'resource' => resolve_proxy(DeviceCreationFailedResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -100,9 +100,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
      */
     public function noSuchRack(CreateDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRackResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -123,9 +123,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToCreateDeviceResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -140,9 +140,9 @@ class CreateDeviceJsonPresenter implements CreateDeviceOutputPort
      */
     public function permissionException(CreateDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

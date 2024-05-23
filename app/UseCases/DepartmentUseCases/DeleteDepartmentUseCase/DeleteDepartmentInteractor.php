@@ -33,7 +33,7 @@ class DeleteDepartmentInteractor implements DeleteDepartmentInputPort
             $department = $this->departmentRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(DeleteDepartmentResponseModel::class, ['department' => null])
+                resolve_proxy(DeleteDepartmentResponseModel::class, ['department' => null])
             );
         }
 
@@ -42,13 +42,13 @@ class DeleteDepartmentInteractor implements DeleteDepartmentInputPort
             $this->departmentRepository->delete($department);
         } catch (\Exception $e) {
             return $this->output->unableToDeleteDepartment(
-                App()->makeWith(UpdateDepartmentResponseModel::class, ['department' => $department]),
+                resolve_proxy(UpdateDepartmentResponseModel::class, ['department' => $department]),
                 $e
             );
         }
 
         return $this->output->departmentDeleted(
-            App()->makeWith(DeleteDepartmentResponseModel::class, ['department' => $department])
+            resolve_proxy(DeleteDepartmentResponseModel::class, ['department' => $department])
         );
     }
 }

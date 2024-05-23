@@ -24,9 +24,9 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
      */
     public function rackDeleted(DeleteRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RackDeletedResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
@@ -41,9 +41,9 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
      */
     public function noSuchRack(DeleteRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRackResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -64,9 +64,9 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToDeleteRackResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -81,9 +81,9 @@ class DeleteRackJsonPresenter implements DeleteRackOutputPort
      */
     public function permissionException(DeleteRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

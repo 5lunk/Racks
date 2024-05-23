@@ -25,9 +25,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
      */
     public function deviceDeleted(DeleteDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     DeviceDeletedResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
@@ -42,9 +42,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
      */
     public function noSuchDevice(DeleteDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -65,9 +65,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     DeviceDeletionFailedResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -88,9 +88,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToDeleteDeviceResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -105,9 +105,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
      */
     public function permissionException(DeleteDeviceResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['device' => $response->getDevice()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

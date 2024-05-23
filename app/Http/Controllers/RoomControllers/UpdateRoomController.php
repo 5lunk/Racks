@@ -42,7 +42,7 @@ class UpdateRoomController extends Controller
     public function __invoke(UpdateRoomRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->updateRoom(
-            App()->makeWith(
+            resolve_proxy(
                 UpdateRoomRequestModel::class,
                 ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )

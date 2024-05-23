@@ -42,7 +42,7 @@ class CreateRoomController extends Controller
     public function __invoke(CreateRoomRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->createRoom(
-            App()->makeWith(CreateRoomRequestModel::class,
+            resolve_proxy(CreateRoomRequestModel::class,
                 ['attributes' => $request->validated(), 'user' => $request->user()])
         );
 

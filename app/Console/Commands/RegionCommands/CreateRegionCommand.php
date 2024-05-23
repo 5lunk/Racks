@@ -41,7 +41,7 @@ class CreateRegionCommand extends Command
             'name' => $this->argument('name'),
         ];
         $viewModel = $this->interactor->createRegion(
-            App()->makeWith(CreateRegionRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(CreateRegionRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

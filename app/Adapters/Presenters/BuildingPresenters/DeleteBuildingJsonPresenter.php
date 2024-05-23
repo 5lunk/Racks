@@ -24,9 +24,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
      */
     public function buildingDeleted(DeleteBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     BuildingDeletedResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
@@ -41,9 +41,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
      */
     public function noSuchBuilding(DeleteBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -64,9 +64,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToDeleteBuildingResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -81,9 +81,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
      */
     public function permissionException(DeleteBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

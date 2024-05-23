@@ -32,12 +32,12 @@ class GetDeviceInteractor implements GetDeviceInputPort
             $device = $this->deviceRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDevice(
-                App()->makeWith(GetDeviceResponseModel::class, ['device' => null])
+                resolve_proxy(GetDeviceResponseModel::class, ['device' => null])
             );
         }
 
         return $this->output->retrieveDevice(
-            App()->makeWith(GetDeviceResponseModel::class, ['device' => $device])
+            resolve_proxy(GetDeviceResponseModel::class, ['device' => $device])
         );
     }
 }

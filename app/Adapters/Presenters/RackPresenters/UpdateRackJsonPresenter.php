@@ -25,9 +25,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
      */
     public function rackUpdated(UpdateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RackUpdatedResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
@@ -42,9 +42,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
      */
     public function noSuchRack(UpdateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRackResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -59,9 +59,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
      */
     public function rackNameException(UpdateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RackNameExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -82,9 +82,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToUpdateRackResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -99,9 +99,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
      */
     public function permissionException(UpdateRackResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['rack' => $response->getRack()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

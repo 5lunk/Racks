@@ -43,14 +43,14 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             $device = $this->deviceRepository->getById($deviceUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDevice(
-                App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
+                resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $device->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
+                resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
             );
         }
 
@@ -71,7 +71,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
         // Check device units exist
         if (! $rack->hasDeviceUnits($deviceUpdating)) {
             return $this->output->noSuchUnits(
-                App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
+                resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
             );
         }
 
@@ -91,7 +91,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             // Check device can be moved
             if (! $rack->isDeviceMovingValid($device, $deviceUpdating)) {
                 return $this->output->unitsAreBusy(
-                    App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
+                    resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
                 );
             }
 
@@ -104,7 +104,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
                 $deviceUpdating = $this->deviceRepository->update($deviceUpdating);
             } catch (\Exception $e) {
                 return $this->output->unableToUpdateDevice(
-                    App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating]),
+                    resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating]),
                     $e
                 );
             }
@@ -112,7 +112,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
             DB::rollback();
 
             return $this->output->updateFailed(
-                App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating]),
+                resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating]),
                 $e
             );
         }
@@ -126,7 +126,7 @@ class UpdateDeviceInteractor implements UpdateDeviceInputPort
         ]);
 
         return $this->output->deviceUpdated(
-            App()->makeWith(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
+            resolve_proxy(UpdateDeviceResponseModel::class, ['device' => $deviceUpdating])
         );
     }
 }

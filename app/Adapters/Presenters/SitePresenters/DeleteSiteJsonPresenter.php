@@ -24,9 +24,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
      */
     public function siteDeleted(DeleteSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     SiteDeletedResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
@@ -41,9 +41,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
      */
     public function noSuchSite(DeleteSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchSiteResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -58,9 +58,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
      */
     public function permissionException(DeleteSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
@@ -81,9 +81,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToDeleteSiteResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]

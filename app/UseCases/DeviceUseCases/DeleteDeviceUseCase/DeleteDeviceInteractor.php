@@ -38,14 +38,14 @@ class DeleteDeviceInteractor implements DeleteDeviceInputPort
             $device = $this->deviceRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDevice(
-                App()->makeWith(DeleteDeviceResponseModel::class, ['device' => null])
+                resolve_proxy(DeleteDeviceResponseModel::class, ['device' => null])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $device->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(DeleteDeviceResponseModel::class, ['device' => $device])
+                resolve_proxy(DeleteDeviceResponseModel::class, ['device' => $device])
             );
         }
 
@@ -70,7 +70,7 @@ class DeleteDeviceInteractor implements DeleteDeviceInputPort
                 $this->deviceRepository->delete($device);
             } catch (\Exception $e) {
                 return $this->output->unableToDeleteDevice(
-                    App()->makeWith(DeleteDeviceResponseModel::class, ['device' => $device]),
+                    resolve_proxy(DeleteDeviceResponseModel::class, ['device' => $device]),
                     $e
                 );
             }
@@ -78,7 +78,7 @@ class DeleteDeviceInteractor implements DeleteDeviceInputPort
             DB::rollback();
 
             return $this->output->deletionFailed(
-                App()->makeWith(DeleteDeviceResponseModel::class, ['device' => $device]),
+                resolve_proxy(DeleteDeviceResponseModel::class, ['device' => $device]),
                 $e
             );
         }
@@ -91,7 +91,7 @@ class DeleteDeviceInteractor implements DeleteDeviceInputPort
         ]);
 
         return $this->output->deviceDeleted(
-            App()->makeWith(DeleteDeviceResponseModel::class, ['device' => $device])
+            resolve_proxy(DeleteDeviceResponseModel::class, ['device' => $device])
         );
     }
 }

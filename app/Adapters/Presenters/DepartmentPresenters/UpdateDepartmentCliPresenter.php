@@ -20,7 +20,7 @@ class UpdateDepartmentCliPresenter implements UpdateDepartmentOutputPort
      */
     public function departmentUpdated(UpdateDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Department {$response->getDepartment()->getName()} successfully updated.");
@@ -38,7 +38,7 @@ class UpdateDepartmentCliPresenter implements UpdateDepartmentOutputPort
      */
     public function noSuchDepartment(UpdateDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such department!');
@@ -57,7 +57,7 @@ class UpdateDepartmentCliPresenter implements UpdateDepartmentOutputPort
      */
     public function unableToUpdateDepartment(UpdateDepartmentResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to update department: {$e->getMessage()}");

@@ -32,12 +32,12 @@ class GetBuildingInteractor implements GetBuildingInputPort
             $building = $this->buildingRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchBuilding(
-                App()->makeWith(GetBuildingResponseModel::class, ['building' => null])
+                resolve_proxy(GetBuildingResponseModel::class, ['building' => null])
             );
         }
 
         return $this->output->retrieveBuilding(
-            App()->makeWith(GetBuildingResponseModel::class, ['building' => $building])
+            resolve_proxy(GetBuildingResponseModel::class, ['building' => $building])
         );
     }
 }

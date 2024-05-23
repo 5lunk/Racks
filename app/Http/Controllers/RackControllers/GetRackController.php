@@ -42,7 +42,7 @@ class GetRackController extends Controller
     public function __invoke(GetRackRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRack(
-            App()->makeWith(GetRackRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetRackRequestModel::class, ['id' => (int) $request->route('id')])
         );
 
         if ($viewModel instanceof JsonResourceViewModel) {

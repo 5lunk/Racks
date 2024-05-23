@@ -24,9 +24,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
      */
     public function roomDeleted(DeleteRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RoomDeletedResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
@@ -41,9 +41,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
      */
     public function noSuchRoom(DeleteRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRoomResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -64,9 +64,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToDeleteRoomResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -81,9 +81,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
      */
     public function permissionException(DeleteRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

@@ -20,7 +20,7 @@ class DeleteRegionCliPresenter implements DeleteRegionOutputPort
      */
     public function regionDeleted(DeleteRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Region {$response->getRegion()->getName()} successfully deleted.");
@@ -38,7 +38,7 @@ class DeleteRegionCliPresenter implements DeleteRegionOutputPort
      */
     public function noSuchRegion(DeleteRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command): int {
                 $command->error('No such region!');
@@ -57,7 +57,7 @@ class DeleteRegionCliPresenter implements DeleteRegionOutputPort
      */
     public function unableToDeleteRegion(DeleteRegionResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to delete region: {$e->getMessage()}");

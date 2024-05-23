@@ -129,7 +129,7 @@ class Site extends Model implements SiteBusinessRules, SiteEntity
      */
     public function getAttributeSet(): SiteAttributesHelperObject
     {
-        return App()->makeWith(SiteAttributesHelperObject::class, ['site' => $this]);
+        return resolve_proxy(SiteAttributesHelperObject::class, ['site' => $this]);
     }
 
     /**

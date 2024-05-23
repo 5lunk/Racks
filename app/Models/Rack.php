@@ -900,7 +900,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
             throw new \DomainException('$busyUnits dont match any allowed type');
         }
 
-        return App()->makeWith(RackBusyUnitsValueObject::class, ['busyUnits' => $busyUnitsArray]);
+        return resolve_proxy(RackBusyUnitsValueObject::class, ['busyUnits' => $busyUnitsArray]);
     }
 
     /**
@@ -919,7 +919,7 @@ class Rack extends Model implements RackBusinessRules, RackEntity
      */
     public function getAttributeSet(): RackAttributesHelperObject
     {
-        return App()->makeWith(RackAttributesHelperObject::class, ['rack' => $this]);
+        return resolve_proxy(RackAttributesHelperObject::class, ['rack' => $this]);
     }
 
     /**

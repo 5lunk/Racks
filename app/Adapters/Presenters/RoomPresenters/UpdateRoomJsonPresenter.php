@@ -25,9 +25,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
      */
     public function roomUpdated(UpdateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RoomUpdatedResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
@@ -42,9 +42,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
      */
     public function noSuchRoom(UpdateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRoomResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -59,9 +59,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
      */
     public function roomNameException(UpdateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RoomNameExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -82,9 +82,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToUpdateRoomResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -99,9 +99,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
      */
     public function permissionException(UpdateRoomResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['room' => $response->getRoom()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

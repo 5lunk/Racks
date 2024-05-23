@@ -32,12 +32,12 @@ class GetRackInteractor implements GetRackInputPort
             $rack = $this->rackRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRack(
-                App()->makeWith(GetRackResponseModel::class, ['rack' => null])
+                resolve_proxy(GetRackResponseModel::class, ['rack' => null])
             );
         }
 
         return $this->output->retrieveRack(
-            App()->makeWith(GetRackResponseModel::class, ['rack' => $rack])
+            resolve_proxy(GetRackResponseModel::class, ['rack' => $rack])
         );
     }
 }

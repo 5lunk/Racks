@@ -22,9 +22,9 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
      */
     public function retrieveRegion(GetRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveRegionResource::class, ['region' => $response->getRegion()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
      */
     public function noSuchRegion(GetRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchRegionResource::class, ['region' => $response->getRegion()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

@@ -22,9 +22,9 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
      */
     public function retrieveDepartment(GetDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveDepartmentResource::class, ['department' => $response->getDepartment()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
      */
     public function noSuchDepartment(GetDepartmentResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchDepartmentResource::class, ['department' => $response->getDepartment()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

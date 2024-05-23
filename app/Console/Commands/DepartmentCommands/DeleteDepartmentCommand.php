@@ -41,7 +41,7 @@ class DeleteDepartmentCommand extends Command
             'id' => $this->argument('id'),
         ];
         $viewModel = $this->interactor->deleteDepartment(
-            App()->makeWith(DeleteDepartmentRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(DeleteDepartmentRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

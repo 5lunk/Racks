@@ -24,9 +24,9 @@ class UpdateSiteJsonPresenter implements UpdateSiteOutputPort
      */
     public function siteUpdated(UpdateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     SiteUpdatedResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
@@ -41,9 +41,9 @@ class UpdateSiteJsonPresenter implements UpdateSiteOutputPort
      */
     public function noSuchSite(UpdateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchSiteResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -58,9 +58,9 @@ class UpdateSiteJsonPresenter implements UpdateSiteOutputPort
      */
     public function permissionException(UpdateSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
@@ -81,9 +81,9 @@ class UpdateSiteJsonPresenter implements UpdateSiteOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToUpdateSiteResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]

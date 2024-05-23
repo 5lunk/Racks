@@ -32,12 +32,12 @@ class GetRoomInteractor implements GetRoomInputPort
             $room = $this->roomRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRoom(
-                App()->makeWith(GetRoomResponseModel::class, ['room' => null])
+                resolve_proxy(GetRoomResponseModel::class, ['room' => null])
             );
         }
 
         return $this->output->retrieveRoom(
-            App()->makeWith(GetRoomResponseModel::class, ['room' => $room])
+            resolve_proxy(GetRoomResponseModel::class, ['room' => $room])
         );
     }
 }

@@ -42,7 +42,7 @@ class UpdateRackController extends Controller
     public function __invoke(UpdateRackRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->updateRack(
-            App()->makeWith(
+            resolve_proxy(
                 UpdateRackRequestModel::class,
                 ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )

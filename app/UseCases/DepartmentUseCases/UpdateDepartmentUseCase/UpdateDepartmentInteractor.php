@@ -37,7 +37,7 @@ class UpdateDepartmentInteractor implements UpdateDepartmentInputPort
             $department = $this->departmentRepository->getById($departmentUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchDepartment(
-                App()->makeWith(UpdateDepartmentResponseModel::class, ['department' => $departmentUpdating])
+                resolve_proxy(UpdateDepartmentResponseModel::class, ['department' => $departmentUpdating])
             );
         }
 
@@ -46,13 +46,13 @@ class UpdateDepartmentInteractor implements UpdateDepartmentInputPort
             $department = $this->departmentRepository->update($departmentUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateDepartment(
-                App()->makeWith(UpdateDepartmentResponseModel::class, ['department' => $departmentUpdating]),
+                resolve_proxy(UpdateDepartmentResponseModel::class, ['department' => $departmentUpdating]),
                 $e
             );
         }
 
         return $this->output->departmentUpdated(
-            App()->makeWith(UpdateDepartmentResponseModel::class, ['department' => $department])
+            resolve_proxy(UpdateDepartmentResponseModel::class, ['department' => $department])
         );
     }
 }

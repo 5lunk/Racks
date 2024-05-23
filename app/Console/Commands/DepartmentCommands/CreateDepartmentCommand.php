@@ -42,7 +42,7 @@ class CreateDepartmentCommand extends Command
             'region_id' => $this->argument('region_id'),
         ];
         $viewModel = $this->interactor->createDepartment(
-            App()->makeWith(CreateDepartmentRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(CreateDepartmentRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

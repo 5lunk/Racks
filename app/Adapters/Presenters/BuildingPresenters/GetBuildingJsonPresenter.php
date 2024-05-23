@@ -22,9 +22,9 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
      */
     public function retrieveBuilding(GetBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveBuildingResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
      */
     public function noSuchBuilding(GetBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

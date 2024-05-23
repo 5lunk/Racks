@@ -42,7 +42,7 @@ class DeleteDeviceController extends Controller
     public function __invoke(DeleteDeviceRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->deleteDevice(
-            App()->makeWith(DeleteDeviceRequestModel::class,
+            resolve_proxy(DeleteDeviceRequestModel::class,
                 ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
         if ($viewModel instanceof JsonResourceViewModel) {

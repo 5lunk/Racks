@@ -45,7 +45,7 @@ class ResetUserPasswordCommand extends Command
             return self::FAILURE;
         }
         $viewModel = $this->interactor->resetUserPassword(
-            App()->makeWith(
+            resolve_proxy(
                 ResetUserPasswordRequestModel::class,
                 ['attributes' => ['id' => $this->argument('id'), 'password' => $password]]
             )

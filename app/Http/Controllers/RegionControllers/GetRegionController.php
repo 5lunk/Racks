@@ -42,7 +42,7 @@ class GetRegionController extends Controller
     public function __invoke(GetRegionRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getRegion(
-            App()->makeWith(GetRegionRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetRegionRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

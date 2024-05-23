@@ -43,14 +43,14 @@ class UpdateRackInteractor implements UpdateRackInputPort
             $rack = $this->rackRepository->getById($request->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchRack(
-                App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
+                resolve_proxy(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $rack->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
+                resolve_proxy(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
             );
         }
 
@@ -72,7 +72,7 @@ class UpdateRackInteractor implements UpdateRackInputPort
             $rack->getName() !== $rackUpdating->getName()
         ) {
             return $this->output->rackNameException(
-                App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
+                resolve_proxy(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
             );
         }
 
@@ -81,7 +81,7 @@ class UpdateRackInteractor implements UpdateRackInputPort
             $rackUpdating = $this->rackRepository->update($rackUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateRack(
-                App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating]),
+                resolve_proxy(UpdateRackResponseModel::class, ['rack' => $rackUpdating]),
                 $e
             );
         }
@@ -95,7 +95,7 @@ class UpdateRackInteractor implements UpdateRackInputPort
         ]);
 
         return $this->output->rackUpdated(
-            App()->makeWith(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
+            resolve_proxy(UpdateRackResponseModel::class, ['rack' => $rackUpdating])
         );
     }
 }

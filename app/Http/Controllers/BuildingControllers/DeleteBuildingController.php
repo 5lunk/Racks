@@ -42,7 +42,7 @@ class DeleteBuildingController extends Controller
     public function __invoke(DeleteBuildingRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->deleteBuilding(
-            App()->makeWith(DeleteBuildingRequestModel::class,
+            resolve_proxy(DeleteBuildingRequestModel::class,
                 ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
 

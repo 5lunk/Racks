@@ -20,7 +20,7 @@ class CreateRegionCliPresenter implements CreateRegionOutputPort
      */
     public function regionCreated(CreateRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->info("Region {$response->getRegion()->getName()} successfully created.");
@@ -38,7 +38,7 @@ class CreateRegionCliPresenter implements CreateRegionOutputPort
      */
     public function regionAlreadyExists(CreateRegionResponseModel $response): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($response): int {
                 $command->error("Region {$response->getRegion()->getName()} already exists!");
@@ -57,7 +57,7 @@ class CreateRegionCliPresenter implements CreateRegionOutputPort
      */
     public function unableToCreateRegion(CreateRegionResponseModel $response, \Throwable $e): ViewModel
     {
-        return App()->makeWith(
+        return resolve_proxy(
             CliViewModel::class,
             ['handler' => function (Command $command) use ($e): int {
                 $command->error("Unable to create region: {$e->getMessage()}");

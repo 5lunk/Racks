@@ -156,7 +156,7 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
             return $email;
         }
 
-        return App()->makeWith(EmailValueObject::class, ['email' => $email]);
+        return resolve_proxy(EmailValueObject::class, ['email' => $email]);
     }
 
     /**
@@ -180,7 +180,7 @@ class User extends Authenticatable implements JWTSubject, UserBusinessRules, Use
             return $password;
         }
 
-        return App()->makeWith(PasswordValueObject::class, ['password' => $password]);
+        return resolve_proxy(PasswordValueObject::class, ['password' => $password]);
     }
 
     /**

@@ -42,7 +42,7 @@ class CreateRackController extends Controller
     public function __invoke(CreateRackRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->createRack(
-            App()->makeWith(CreateRackRequestModel::class,
+            resolve_proxy(CreateRackRequestModel::class,
                 ['attributes' => $request->validated(), 'user' => $request->user()])
         );
         if ($viewModel instanceof JsonResourceViewModel) {

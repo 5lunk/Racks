@@ -42,7 +42,7 @@ class DeleteRackController extends Controller
     public function __invoke(DeleteRackRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->deleteRack(
-            App()->makeWith(DeleteRackRequestModel::class,
+            resolve_proxy(DeleteRackRequestModel::class,
                 ['id' => (int) $request->route('id'), 'user' => $request->user()])
         );
 

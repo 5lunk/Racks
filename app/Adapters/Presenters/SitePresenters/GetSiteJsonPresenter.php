@@ -22,9 +22,9 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
      */
     public function retrieveSite(GetSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     RetrieveSiteResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
@@ -39,9 +39,9 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
      */
     public function noSuchSite(GetSiteResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchSiteResource::class, ['site' => $response->getSite()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]

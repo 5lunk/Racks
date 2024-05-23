@@ -42,7 +42,7 @@ class CreateSiteController extends Controller
     public function __invoke(CreateSiteRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->createSite(
-            App()->makeWith(CreateSiteRequestModel::class,
+            resolve_proxy(CreateSiteRequestModel::class,
                 ['attributes' => $request->validated(), 'user' => $request->user()])
         );
 

@@ -6,6 +6,7 @@ namespace App\Models\ValueObjects;
 
 use App\Domain\Interfaces\DeviceInterfaces\DeviceUnitsInterface;
 use App\Http\Validators\Rules\DeviceUnitsRule;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -45,12 +46,13 @@ class DeviceUnitsValueObject implements DeviceUnitsInterface
      * @return bool
      *
      * @throws \DomainException $units is not valid
+     * @throws BindingResolutionException
      */
     public function validateUnits(array $units): bool
     {
         sort($units);
         $validator = Validator::make(['units' => $units], [
-            'units' => [new DeviceUnitsRule(), 'array'],
+            'units' => [resolve_proxy(DeviceUnitsRule::class, []), 'array'],
         ]);
         if ($validator->fails()) {
             return false;

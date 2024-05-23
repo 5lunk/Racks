@@ -42,7 +42,7 @@ class GetSiteController extends Controller
     public function __invoke(GetSiteRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->getSite(
-            App()->makeWith(GetSiteRequestModel::class, ['id' => (int) $request->route('id')])
+            resolve_proxy(GetSiteRequestModel::class, ['id' => (int) $request->route('id')])
         );
         if ($viewModel instanceof JsonResourceViewModel) {
             return response()->json(

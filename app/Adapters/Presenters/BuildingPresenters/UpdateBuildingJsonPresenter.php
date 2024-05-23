@@ -25,9 +25,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
      */
     public function buildingUpdated(UpdateBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     BuildingUpdatedResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
@@ -42,9 +42,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
      */
     public function noSuchBuilding(UpdateBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
@@ -59,9 +59,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
      */
     public function buildingNameException(UpdateBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     BuildingNameExceptionResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
@@ -82,9 +82,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
             throw $e;
         }
 
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     UnableToUpdateBuildingResource::class, ['e' => $e]),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
@@ -99,9 +99,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
      */
     public function permissionException(UpdateBuildingResponseModel $response): ViewModel
     {
-        return App()->makeWith(JsonResourceViewModel::class,
+        return resolve_proxy(JsonResourceViewModel::class,
             [
-                'resource' => App()->makeWith(
+                'resource' => resolve_proxy(
                     PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]

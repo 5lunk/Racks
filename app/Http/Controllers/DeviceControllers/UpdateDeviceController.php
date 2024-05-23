@@ -42,7 +42,7 @@ class UpdateDeviceController extends Controller
     public function __invoke(UpdateDeviceRequest $request): ?JsonResponse
     {
         $viewModel = $this->interactor->updateDevice(
-            App()->makeWith(UpdateDeviceRequestModel::class,
+            resolve_proxy(UpdateDeviceRequestModel::class,
                 ['attributes' => $request->validated(), 'id' => (int) $request->route('id'), 'user' => $request->user()]
             )
         );

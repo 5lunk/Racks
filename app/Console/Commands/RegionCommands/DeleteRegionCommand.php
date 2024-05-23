@@ -41,7 +41,7 @@ class DeleteRegionCommand extends Command
             'id' => $this->argument('id'),
         ];
         $viewModel = $this->interactor->deleteRegion(
-            App()->makeWith(DeleteRegionRequestModel::class, ['attributes' => $attributes])
+            resolve_proxy(DeleteRegionRequestModel::class, ['attributes' => $attributes])
         );
 
         if ($viewModel instanceof CliViewModel) {

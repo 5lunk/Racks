@@ -39,14 +39,14 @@ class UpdateSiteInteractor implements UpdateSiteInputPort
             $site = $this->siteRepository->getById($siteUpdating->getId());
         } catch (\Exception $e) {
             return $this->output->noSuchSite(
-                App()->makeWith(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
+                resolve_proxy(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
             );
         }
 
         // User department check
         if (! Gate::allows('departmentCheck', $site->getDepartmentId())) {
             return $this->output->permissionException(
-                App()->makeWith(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
+                resolve_proxy(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
             );
         }
 
@@ -57,7 +57,7 @@ class UpdateSiteInteractor implements UpdateSiteInputPort
             $siteUpdating = $this->siteRepository->update($siteUpdating);
         } catch (\Exception $e) {
             return $this->output->unableToUpdateSite(
-                App()->makeWith(UpdateSiteResponseModel::class, ['site' => $siteUpdating]),
+                resolve_proxy(UpdateSiteResponseModel::class, ['site' => $siteUpdating]),
                 $e
             );
         }
@@ -69,7 +69,7 @@ class UpdateSiteInteractor implements UpdateSiteInputPort
         ]);
 
         return $this->output->siteUpdated(
-            App()->makeWith(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
+            resolve_proxy(UpdateSiteResponseModel::class, ['site' => $siteUpdating])
         );
     }
 }
