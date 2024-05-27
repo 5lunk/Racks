@@ -83,7 +83,7 @@ class RoomDatabaseRepository implements RoomRepository
     }
 
     /**
-     * @param  int|null  $id
+     * @param  int  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
@@ -91,7 +91,7 @@ class RoomDatabaseRepository implements RoomRepository
      *     building_name: string
      * }>
      */
-    public function getLocation(?int $id): array
+    public function getLocation(int $id): array
     {
         return DB::table('rooms')
             ->where('rooms.id', $id)

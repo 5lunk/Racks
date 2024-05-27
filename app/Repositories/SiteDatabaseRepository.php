@@ -63,13 +63,13 @@ class SiteDatabaseRepository implements SiteRepository
     }
 
     /**
-     * @param  int|null  $id
+     * @param  int  $id
      * @return array<array{
      *     region_name: string,
      *     department_name: string
      * }>
      */
-    public function getLocation(?int $id): array
+    public function getLocation(int $id): array
     {
         return DB::table('sites')
             ->where('sites.id', $id)

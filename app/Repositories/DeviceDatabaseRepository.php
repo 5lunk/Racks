@@ -88,10 +88,10 @@ class DeviceDatabaseRepository implements DeviceRepository
     }
 
     /**
-     * @param  int|null  $id
+     * @param  int  $id
      * @return array<mixed>
      */
-    public function getLocation(?int $id): array
+    public function getLocation(int $id): array
     {
         return DB::table('devices')
             ->where('devices.id', $id)

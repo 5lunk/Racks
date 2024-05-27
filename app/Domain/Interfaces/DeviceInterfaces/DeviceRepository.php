@@ -43,7 +43,7 @@ interface DeviceRepository
     public function updateUnits(DeviceEntity&DeviceBusinessRules $device): bool;
 
     /**
-     * @param  int|null  $id  Rack ID
+     * @param  int  $id  Rack ID
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
@@ -53,7 +53,7 @@ interface DeviceRepository
      *     rack_name: string
      * }> Device location array
      */
-    public function getLocation(?int $id): array;
+    public function getLocation(int $id): array;
 
     /**
      * @return array{

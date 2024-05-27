@@ -48,7 +48,7 @@ interface RackRepository
      * Rack location
      * Region>Department>Site>Building>Room
      *
-     * @param  int|null  $id  Rack ID
+     * @param  int  $id  Rack ID
      * @return array<array{
      *     region_name: string,
      *     department_name: string,
@@ -57,7 +57,7 @@ interface RackRepository
      *     room_name: string,
      * }> Rack location
      */
-    public function getLocation(?int $id): array;
+    public function getLocation(int $id): array;
 
     /**
      * All rack vendors
