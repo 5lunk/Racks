@@ -21,12 +21,6 @@ interface RackRepository
     public function getById(int $id): RackEntity&RackBusinessRules;
 
     /**
-     * @param  int  $id
-     * @return void
-     */
-    public function lockById(int $id): void;
-
-    /**
      * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      */

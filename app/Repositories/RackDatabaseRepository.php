@@ -52,17 +52,6 @@ class RackDatabaseRepository implements RackRepository
     }
 
     /**
-     * @param  int  $id
-     * @return void
-     */
-    public function lockById(int $id): void
-    {
-        DB::table('racks')
-            ->where('id', $id)
-            ->sharedLock();
-    }
-
-    /**
      * @param  RackEntity&RackBusinessRules  $rack
      * @return bool
      */
