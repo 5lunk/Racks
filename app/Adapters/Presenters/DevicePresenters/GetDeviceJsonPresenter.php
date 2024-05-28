@@ -25,7 +25,9 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveDeviceResource::class, ['device' => $response->getDevice()]),
+                    RetrieveDeviceResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetDeviceJsonPresenter implements GetDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
+                    NoSuchDeviceResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

@@ -27,7 +27,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    BuildingDeletedResource::class, ['building' => $response->getBuilding()]),
+                    BuildingDeletedResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
@@ -44,7 +46,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
+                    NoSuchBuildingResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -67,7 +71,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToDeleteBuildingResource::class, ['e' => $e]),
+                    UnableToDeleteBuildingResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -84,7 +90,9 @@ class DeleteBuildingJsonPresenter implements DeleteBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
+                    PermissionExceptionResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

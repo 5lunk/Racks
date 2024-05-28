@@ -27,7 +27,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RoomDeletedResource::class, ['room' => $response->getRoom()]),
+                    RoomDeletedResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
@@ -44,7 +46,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRoomResource::class, ['room' => $response->getRoom()]),
+                    NoSuchRoomResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -67,7 +71,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToDeleteRoomResource::class, ['e' => $e]),
+                    UnableToDeleteRoomResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -84,7 +90,9 @@ class DeleteRoomJsonPresenter implements DeleteRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['room' => $response->getRoom()]),
+                    PermissionExceptionResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

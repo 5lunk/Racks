@@ -25,7 +25,9 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveBuildingResource::class, ['building' => $response->getBuilding()]),
+                    RetrieveBuildingResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetBuildingJsonPresenter implements GetBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
+                    NoSuchBuildingResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

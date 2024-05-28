@@ -28,7 +28,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    BuildingUpdatedResource::class, ['building' => $response->getBuilding()]),
+                    BuildingUpdatedResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
         );
@@ -45,7 +47,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchBuildingResource::class, ['building' => $response->getBuilding()]),
+                    NoSuchBuildingResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -62,7 +66,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    BuildingNameExceptionResource::class, ['building' => $response->getBuilding()]),
+                    BuildingNameExceptionResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -85,7 +91,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToUpdateBuildingResource::class, ['e' => $e]),
+                    UnableToUpdateBuildingResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -102,7 +110,9 @@ class UpdateBuildingJsonPresenter implements UpdateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
+                    PermissionExceptionResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

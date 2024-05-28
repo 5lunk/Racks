@@ -27,7 +27,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    SiteDeletedResource::class, ['site' => $response->getSite()]),
+                    SiteDeletedResource::class,
+                    ['site' => $response->getSite()]
+                ),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
@@ -44,7 +46,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchSiteResource::class, ['site' => $response->getSite()]),
+                    NoSuchSiteResource::class,
+                    ['site' => $response->getSite()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -61,7 +65,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['site' => $response->getSite()]),
+                    PermissionExceptionResource::class,
+                    ['site' => $response->getSite()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );
@@ -84,7 +90,9 @@ class DeleteSiteJsonPresenter implements DeleteSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToDeleteSiteResource::class, ['e' => $e]),
+                    UnableToDeleteSiteResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );

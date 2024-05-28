@@ -28,7 +28,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    DeviceDeletedResource::class, ['device' => $response->getDevice()]),
+                    DeviceDeletedResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::NO_CONTENT->value,
             ]
         );
@@ -45,7 +47,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
+                    NoSuchDeviceResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -68,7 +72,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    DeviceDeletionFailedResource::class, ['e' => $e]),
+                    DeviceDeletionFailedResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -91,7 +97,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToDeleteDeviceResource::class, ['e' => $e]),
+                    UnableToDeleteDeviceResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -108,7 +116,9 @@ class DeleteDeviceJsonPresenter implements DeleteDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['device' => $response->getDevice()]),
+                    PermissionExceptionResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

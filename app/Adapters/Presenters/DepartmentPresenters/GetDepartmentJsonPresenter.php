@@ -25,7 +25,9 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveDepartmentResource::class, ['department' => $response->getDepartment()]),
+                    RetrieveDepartmentResource::class,
+                    ['department' => $response->getDepartment()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetDepartmentJsonPresenter implements GetDepartmentOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchDepartmentResource::class, ['department' => $response->getDepartment()]),
+                    NoSuchDepartmentResource::class,
+                    ['department' => $response->getDepartment()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

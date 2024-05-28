@@ -28,7 +28,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RoomUpdatedResource::class, ['room' => $response->getRoom()]),
+                    RoomUpdatedResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
         );
@@ -45,7 +47,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRoomResource::class, ['room' => $response->getRoom()]),
+                    NoSuchRoomResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -62,7 +66,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RoomNameExceptionResource::class, ['room' => $response->getRoom()]),
+                    RoomNameExceptionResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -85,7 +91,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToUpdateRoomResource::class, ['e' => $e]),
+                    UnableToUpdateRoomResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -102,7 +110,9 @@ class UpdateRoomJsonPresenter implements UpdateRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['room' => $response->getRoom()]),
+                    PermissionExceptionResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

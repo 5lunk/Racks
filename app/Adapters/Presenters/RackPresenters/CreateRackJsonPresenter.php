@@ -28,7 +28,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RackCreatedResource::class, ['rack' => $response->getRack()]),
+                    RackCreatedResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
@@ -45,7 +47,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRoomResource::class, ['rack' => $response->getRack()]),
+                    NoSuchRoomResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -62,7 +66,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RackNameExceptionResource::class, ['rack' => $response->getRack()]),
+                    RackNameExceptionResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -85,7 +91,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToCreateRackResource::class, ['e' => $e]),
+                    UnableToCreateRackResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -102,7 +110,9 @@ class CreateRackJsonPresenter implements CreateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['rack' => $response->getRack()]),
+                    PermissionExceptionResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

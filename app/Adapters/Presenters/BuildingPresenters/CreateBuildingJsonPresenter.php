@@ -28,7 +28,9 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    BuildingCreatedResource::class, ['building' => $response->getBuilding()]),
+                    BuildingCreatedResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::CREATED->value,
             ]
         );
@@ -45,7 +47,9 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchSiteResource::class, ['building' => $response->getBuilding()]),
+                    NoSuchSiteResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -62,7 +66,9 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    BuildingNameExceptionResource::class, ['building' => $response->getBuilding()]),
+                    BuildingNameExceptionResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -85,7 +91,9 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToCreateBuildingResource::class, ['e' => $e]),
+                    UnableToCreateBuildingResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -102,7 +110,9 @@ class CreateBuildingJsonPresenter implements CreateBuildingOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['building' => $response->getBuilding()]),
+                    PermissionExceptionResource::class,
+                    ['building' => $response->getBuilding()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

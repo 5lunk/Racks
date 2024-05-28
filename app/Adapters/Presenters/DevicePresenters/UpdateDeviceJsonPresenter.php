@@ -30,7 +30,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    DeviceUpdatedResource::class, ['device' => $response->getDevice()]),
+                    DeviceUpdatedResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
         );
@@ -47,7 +49,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchUnitsResource::class, ['device' => $response->getDevice()]),
+                    NoSuchUnitsResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -64,7 +68,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnitsAreBusyResource::class, ['device' => $response->getDevice()]),
+                    UnitsAreBusyResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -87,7 +93,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    DeviceUpdateFailedResource::class, ['e' => $e]),
+                    DeviceUpdateFailedResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -104,7 +112,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchDeviceResource::class, ['device' => $response->getDevice()]),
+                    NoSuchDeviceResource::class,
+                    ['device' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -127,7 +137,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToUpdateDeviceResource::class, ['e' => $e]),
+                    UnableToUpdateDeviceResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -144,7 +156,9 @@ class UpdateDeviceJsonPresenter implements UpdateDeviceOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['building' => $response->getDevice()]),
+                    PermissionExceptionResource::class,
+                    ['building' => $response->getDevice()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

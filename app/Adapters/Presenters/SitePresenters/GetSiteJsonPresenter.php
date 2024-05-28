@@ -25,7 +25,9 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveSiteResource::class, ['site' => $response->getSite()]),
+                    RetrieveSiteResource::class,
+                    ['site' => $response->getSite()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetSiteJsonPresenter implements GetSiteOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchSiteResource::class, ['site' => $response->getSite()]),
+                    NoSuchSiteResource::class,
+                    ['site' => $response->getSite()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

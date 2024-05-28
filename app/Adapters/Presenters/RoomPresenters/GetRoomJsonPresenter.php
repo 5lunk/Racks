@@ -25,7 +25,9 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveRoomResource::class, ['room' => $response->getRoom()]),
+                    RetrieveRoomResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetRoomJsonPresenter implements GetRoomOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRoomResource::class, ['room' => $response->getRoom()]),
+                    NoSuchRoomResource::class,
+                    ['room' => $response->getRoom()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

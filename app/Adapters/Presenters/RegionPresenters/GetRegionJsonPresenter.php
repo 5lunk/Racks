@@ -25,7 +25,9 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveRegionResource::class, ['region' => $response->getRegion()]),
+                    RetrieveRegionResource::class,
+                    ['region' => $response->getRegion()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetRegionJsonPresenter implements GetRegionOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRegionResource::class, ['region' => $response->getRegion()]),
+                    NoSuchRegionResource::class,
+                    ['region' => $response->getRegion()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );

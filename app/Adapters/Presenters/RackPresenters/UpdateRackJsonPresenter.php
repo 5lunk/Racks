@@ -28,7 +28,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RackUpdatedResource::class, ['rack' => $response->getRack()]),
+                    RackUpdatedResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::ACCEPTED->value,
             ]
         );
@@ -45,7 +47,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRackResource::class, ['rack' => $response->getRack()]),
+                    NoSuchRackResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
@@ -62,7 +66,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RackNameExceptionResource::class, ['rack' => $response->getRack()]),
+                    RackNameExceptionResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::BAD_REQUEST->value,
             ]
         );
@@ -85,7 +91,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    UnableToUpdateRackResource::class, ['e' => $e]),
+                    UnableToUpdateRackResource::class,
+                    ['e' => $e]
+                ),
                 'statusCode' => StatusCodeEnum::INTERNAL_SERVER_ERROR->value,
             ]
         );
@@ -102,7 +110,9 @@ class UpdateRackJsonPresenter implements UpdateRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    PermissionExceptionResource::class, ['rack' => $response->getRack()]),
+                    PermissionExceptionResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::FORBIDDEN->value,
             ]
         );

@@ -25,7 +25,9 @@ class GetRackJsonPresenter implements GetRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    RetrieveRackResource::class, ['rack' => $response->getRack()]),
+                    RetrieveRackResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::OK->value,
             ]
         );
@@ -42,7 +44,9 @@ class GetRackJsonPresenter implements GetRackOutputPort
         return resolve_proxy(JsonResourceViewModel::class,
             [
                 'resource' => resolve_proxy(
-                    NoSuchRackResource::class, ['rack' => $response->getRack()]),
+                    NoSuchRackResource::class,
+                    ['rack' => $response->getRack()]
+                ),
                 'statusCode' => StatusCodeEnum::NOT_FOUND->value,
             ]
         );
